@@ -3,6 +3,10 @@ https://harm-smits.github.io/42docs/libs/minilibx
 
 https://qst0.github.io/ft_libgfx/man_mlx.html
 
+https://gontjarow.github.io/MiniLibX/mlx-tutorial-create-image.html
+
 BITSHIFTING
 
 APPLEKEYCODE
+
+gcc -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit
