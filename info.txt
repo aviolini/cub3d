@@ -12,31 +12,8 @@ APPLEKEYCODE
 mac:
 gcc -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit
 
-
 linux:
 gcc -Wall -Wextra -Werror -lmlx -lXext -lX11
 
-
-INTALLAZIONE PACCHETTI
+INTALLAZIONE PACCHETTI linux:
 libxext, xorg-server, zlib
-
-
-ES.CREAZ LIB
-ar: creating libmlx.a
-ranlib libmlx.a
-cp libmlx.a libmlx_x86_64.a
-ES.COMPILAZ LIB
-gcc -I/usr/include -O3 -I..   -c -o main.o main.c
-gcc -o mlx-test main.o -L.. -lmlx -L/usr/include/../lib -lXext -lX11 -lm -lbsd
-
-COMPILAZ LIB CON CARTELLA minilibx-linux scaricata da https://github.com/42Paris/minilibx-linux
-quindi SENZA PACCHETTO MLX installato da YAY:
-gcc -Wall -Wextra -Werror -I/usr/include -03 -Iminilibx-linux -c main.c
-gcc -Wall -Wextra -Werror main.o -Lminilibx-linux -lmlx -L/usr/lib -lXext -lX11 -lm -lbsd && ./a.out
-
-COMPILAZIONE CON PACCHETTO MLX INSTALLATO DA AUR CON YAY
-gcc -Wall -Wextra -Werror -I/usr/include -03 -c main.c
-gcc -Wall -Wextra -Werror main.o -L/usr/lib -lmlx -lXext -lX11 -lm -lbsd && ./a.out
-
-FUNZ ANCHE COSI
-gcc -Wall -Wextra -Werror main.c -lmlx -lXext -lX11 && ./a.out
