@@ -5,8 +5,6 @@ int		create_trgb(int t, int r, int g, int b)
 	return(t << 24 | r << 16 | g << 8 | b);
 }
 
-
-
 void            my_mlx_pixel_put(img_data *img, int x, int y, int color)
 {
     char    *dst;
@@ -23,24 +21,24 @@ void            my_mlx_pixel_put2(img_data *img, int x, int y, int color)
 	while (++i <= img->size_pixel && -2 < (z = -1))
 		while (++z <= img->size_pixel)
 		{
-    		dst = img->addr + ((i + y) * img->line_length + (x + z) * (img->bits_per_pixel / 8));
+    		dst = img->addr + ((i + y) * img->line_length +
+			(x + z) * (img->bits_per_pixel / 8));
     		*(unsigned int*)dst = color;
 		}
 }
 
-char **ft_build_map (char *buff)
+char **ft_build_map (char *buff, int x, int y)
 {
 	char **map;
 	int j = 0, i = 0, z = 0;
-	map = (char **)malloc(sizeof(char *) * (14 + 1));
-	while (j < 14)
+	map = (char **)malloc(sizeof(char *) * (y + 1));
+	while (j < y)
 	{
-		map[j] = (char *)malloc(sizeof(char) * 100);
+		map[j] = (char *)malloc(sizeof(char) * (x + 1));
 		while (buff[i] != '\n')
 		{
 			if (buff[i] == ' ')
 				map[j][z] = ' ';
-				//i++;
 			else if (buff[i] == '1')
 		 		map[j][z] = '1';
 			else if (buff[i] == '0')
@@ -49,6 +47,12 @@ char **ft_build_map (char *buff)
 				map[j][z] = '2';
 			else if (buff[i] == 'N')
 				map[j][z] = 'N';
+			else if (buff[i] == 'S')
+				map[j][z] = 'S';
+			else if (buff[i] == 'E')
+				map[j][z] = 'E';
+			else if (buff[i] == 'W')
+				map[j][z] = 'W';
 			i++;
 			z++;
 		}
@@ -57,18 +61,11 @@ char **ft_build_map (char *buff)
 		j++;
 		z = 0;
 	}
-	j = 0;
-
-	while ( j < 14)
+	map[y] = NULL;
+		j = 0;
+		while ( j < y)
 		printf("map%s\n",map[j++]);
 	return map;
-}
-
-int		ft_check_color(img_data *img)
-{
-	if ((img->addr) == 255)
-		return 1;
-	return 0;
 }
 
 void	ft_build_image(win_data *win)
@@ -77,97 +74,96 @@ void	ft_build_image(win_data *win)
 		int z = 0;
 		int x = win->img_s->size_pixel;
 		int y = win->img_s->size_pixel;
-		char *dst;
-	//}
-//	ft_refr_image()
-	while (j < 14)
+
+
+	while (win->map_s->map[j])
 	{
 
-		while ( win->map[j][z] != '\0')
+		while ( win->map_s->map[j][z] != '\0')
 		{
-			if (win->map[j][z] == '1')
+			if (win->map_s->map[j][z] == '1')
     			my_mlx_pixel_put2(win->img_s, x, y, 255);
-			if (win->map[j][z] == 'N')
+			if (win->map_s->map[j][z] == 'N')
 			{
-				win->img_s->xn = x;
-				win->img_s->yn = y;
-	    		my_mlx_pixel_put2(win->img_s, x, y, 0x00FFFFFF);
+				win->map_s->posx = x;
+				win->map_s->posy = y;
+				my_mlx_pixel_put2(win->img_s, x, y, 0x00FFFFFF);
 			}
-			if (win->map[j][z] == '2')
+			if (win->map_s->map[j][z] == '2')
 		    	my_mlx_pixel_put2(win->img_s, x, y, 0x0000FFFF);
 			x = x + win->img_s->size_pixel;
 			z++;
-			//printf("color: %u\n", color);
-		}
-
-		while(win->img_s->yn > 0)
-		{
-			//win->img_s->yn = win->img_s->yn - win->img_s->size_pixel;
-			//my_mlx_pixel_put2(win->img_s, win->img_s->xn, win->img_s->yn, 0x00FF0000);
-			dst = img->addr + ((win->img_s->yn - 1)* img->line_length) + win->img->xn * (img->bits_per_pixel / 8));
-			*(unsigned int*)dst = color;
-			win->img_s->yn--;// = win->img_s->yn - win->img_s->size_pixel;
-			my_mlx_pixel_put(win->img_s, win->img_s->xn, win->img_s->yn, 0x00FF0000);
 
 		}
+		int i = 0;
+
 		j++;
 		z = 0;
 		x = win->img_s->size_pixel;
 		y = y + win->img_s->size_pixel;
 	}
-
-
+//	mlx_put_image_to_window(win->mlx, win->win, win->img_s->img, 20, 20);
 
 }
 
 int		key_hook(int keycode, win_data *win)
 {
-
-	if (keycode == 53)
+	char dst[5000];
+	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_image(win->mlx, win->img_s->img);
 		//free array
 		exit(0);
 	}
-	if (keycode == 123)
+	if (keycode == 123 || keycode == 65361)
 		ft_keycode_left(win);
-	if(keycode == 126)
+	if(keycode == 126|| keycode == 65362)
 		ft_keycode_up(win);
-	if(keycode == 124)
+	if(keycode == 124|| keycode == 65363)
 		ft_keycode_right(win);
-	if(keycode == 125)
+	if(keycode == 125|| keycode == 65364)
 		ft_keycode_down(win);
 
-	mlx_destroy_image(win->mlx, win->img_s->img); //sosituire con clean
+	mlx_destroy_image(win->mlx, win->img_s->img); //sosituire con clean?
 	win->img_s->img = mlx_new_image(win->mlx, 600, 480);
 	win->img_s->addr = mlx_get_data_addr(win->img_s->img,
 		&win->img_s->bits_per_pixel, &win->img_s->line_length, &win->img_s->endian);
 	ft_build_image(win);
+
+	// RAGGIO
+	win->map_s->posy--;
+	win->map_s->posx = win->map_s->posx + (win->img_s->size_pixel / 2);
+	while (*(win->img_s->addr + (win->map_s->posy * win->img_s->line_length +
+		win->map_s->posx * (win->img_s->bits_per_pixel / 8))) == 0)
+		{
+			my_mlx_pixel_put(win->img_s, win->map_s->posx, win->map_s->posy, 0x00FF0000);
+			win->map_s->posy--;
+		}
+
 	mlx_put_image_to_window(win->mlx, win->win, win->img_s->img, 20, 20);
 	printf("%d\n", keycode);
 	return 0;
 }
 
-
-
 int             main(void)
 {
     win_data    	win;
     img_data		img;
+	map_data		map;
 	char			buff[5001];
-	char			**map;
 	int				fd, x = 0, y = 0, r = 0;
+	(void) x;
+	(void) y;
 	unsigned int	color;
 
 	win.img_s = &img;
+	win.map_s = &map;
     win.mlx = mlx_init();
 	win.win = mlx_new_window(win.mlx, 800, 600, "Hello world!");
-	img.img = mlx_new_image(win.mlx, 600, 480);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-                                 &img.endian);
-	while (y++ < 1000 && -1 < (x = 0))
-		while (x++ < 1920)
-			mlx_pixel_put(win.mlx, win.win, x, y, 0x00FFFFFF);
+
+	//while (y++ < 1000 && -1 < (x = 0))
+		//while (x++ < 1920)
+			//mlx_pixel_put(win.mlx, win.win, x, y, 0x00FFFFFF);
 	printf("line_lenght: %d\n", img.line_length);
 	printf("line_lenght/4: %d\n", img.line_length/4);
 	printf("bits_per_pixel: %d\n", img.bits_per_pixel);
@@ -178,10 +174,12 @@ int             main(void)
 	fd = open("map_clean.cub", O_RDONLY, 0);
 	r = read(fd, buff, 5000);
 	buff[5000] = '\0';
-	//map[14][0] = NULL;
+
 	printf("buff\n%s\n",buff);
-	map = ft_build_map(buff);
-	win.map = map;
+	map.map = ft_build_map(buff,100,14);
+	img.img = mlx_new_image(win.mlx, 600, 480);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
+								 &img.endian);
 	ft_build_image(&win);
 	mlx_put_image_to_window(win.mlx, win.win, img.img, 20, 20);
 	//mlx_key_hook(win.win, key_hook, &win); //NON FUNZIONA CON TASTO TENUTO PREMUTO

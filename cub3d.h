@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 16:57:26 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/01 12:05:32 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/01 19:41:20 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,22 @@ typedef struct  b_data
     int         line_length;
     int         endian;
 	int			size_pixel;
-	int 		xn;
-	int 		yn;
-
 }               img_data;
+
+typedef struct c_data
+{
+	char		**map;
+	int			posx;
+	int			posy;
+}				map_data;
 
 typedef struct	a_data
 {
 	void		*mlx;
 	void		*win;
+	map_data	*map_s;
 	img_data	*img_s;
-	char		**map;
 }				win_data;
-
-typedef struct c_data
-{
-
-}				map_data;
 
 void	ft_keycode_left(win_data *win);
 void	ft_keycode_right(win_data *win);
