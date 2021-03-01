@@ -64,12 +64,20 @@ char **ft_build_map (char *buff)
 	return map;
 }
 
+int		ft_check_color(img_data *img)
+{
+	if ((img->addr) == 255)
+		return 1;
+	return 0;
+}
+
 void	ft_build_image(win_data *win)
 {
 		int j = 0;
 		int z = 0;
 		int x = win->img_s->size_pixel;
 		int y = win->img_s->size_pixel;
+		char *dst;
 	//}
 //	ft_refr_image()
 	while (j < 14)
@@ -91,15 +99,26 @@ void	ft_build_image(win_data *win)
 			z++;
 			//printf("color: %u\n", color);
 		}
+
+		while(win->img_s->yn > 0)
+		{
+			//win->img_s->yn = win->img_s->yn - win->img_s->size_pixel;
+			//my_mlx_pixel_put2(win->img_s, win->img_s->xn, win->img_s->yn, 0x00FF0000);
+			dst = img->addr + ((win->img_s->yn - 1)* img->line_length) + win->img->xn * (img->bits_per_pixel / 8));
+			*(unsigned int*)dst = color;
+			win->img_s->yn--;// = win->img_s->yn - win->img_s->size_pixel;
+			my_mlx_pixel_put(win->img_s, win->img_s->xn, win->img_s->yn, 0x00FF0000);
+
+		}
 		j++;
 		z = 0;
 		x = win->img_s->size_pixel;
 		y = y + win->img_s->size_pixel;
 	}
 
+
+
 }
-
-
 
 int		key_hook(int keycode, win_data *win)
 {
@@ -119,16 +138,12 @@ int		key_hook(int keycode, win_data *win)
 	if(keycode == 125)
 		ft_keycode_down(win);
 
-		mlx_destroy_image(win->mlx, win->img_s->img);
-		win->img_s->img = mlx_new_image(win->mlx, 600, 480);
-		win->img_s->addr = mlx_get_data_addr(win->img_s->img,
-			&win->img_s->bits_per_pixel, &win->img_s->line_length, &win->img_s->endian);
-		ft_build_image(win);
-
-		//my_mlx_pixel_put2(win->img_s, win->img_s->xn, win->img_s->yn, 0x00FF0000);
-		mlx_put_image_to_window(win->mlx, win->win, win->img_s->img, 20, 20);
-
-	//mlx_loop_hook(win->mlx, key_hook, win);
+	mlx_destroy_image(win->mlx, win->img_s->img); //sosituire con clean
+	win->img_s->img = mlx_new_image(win->mlx, 600, 480);
+	win->img_s->addr = mlx_get_data_addr(win->img_s->img,
+		&win->img_s->bits_per_pixel, &win->img_s->line_length, &win->img_s->endian);
+	ft_build_image(win);
+	mlx_put_image_to_window(win->mlx, win->win, win->img_s->img, 20, 20);
 	printf("%d\n", keycode);
 	return 0;
 }
@@ -140,20 +155,11 @@ int             main(void)
     win_data    	win;
     img_data		img;
 	char			buff[5001];
-//	char			*map[14] = {NULL};
-//	char			map[14][1000];
 	char			**map;
-	//char			*addr_map;
-	//char			*addr_map2;
-	//char			**addr;
 	int				fd, x = 0, y = 0, r = 0;
 	unsigned int	color;
+
 	win.img_s = &img;
-	//addr_map = &map[0][0];
-	//addr_map2 = &map[1][0];
-
-	//map[14] = 0;
-
     win.mlx = mlx_init();
 	win.win = mlx_new_window(win.mlx, 800, 600, "Hello world!");
 	img.img = mlx_new_image(win.mlx, 600, 480);
@@ -176,15 +182,10 @@ int             main(void)
 	printf("buff\n%s\n",buff);
 	map = ft_build_map(buff);
 	win.map = map;
-
 	ft_build_image(&win);
-
-	//while (*(addr_map) != '\n')
-	//	printf(" map%s\n", addr[1]);
-
 	mlx_put_image_to_window(win.mlx, win.win, img.img, 20, 20);
 	//mlx_key_hook(win.win, key_hook, &win); //NON FUNZIONA CON TASTO TENUTO PREMUTO
 	mlx_hook(win.win, 2, 1L<<0, key_hook, &win);
-	//mlx_loop_hook(win.mlx, key_hook, &win);
+	//mlx_loop_hook(win.mlx, key_hook, &win);  //FUNZIONA SENZA PREMERE TASTI
     mlx_loop(win.mlx);
 }

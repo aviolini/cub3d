@@ -5,6 +5,8 @@ https://qst0.github.io/ft_libgfx/man_mlx.html
 
 https://gontjarow.github.io/MiniLibX/mlx-tutorial-create-image.html
 
+https://www.youtube.com/watch?v=NbSee-XM7WA
+
 BITSHIFTING
 
 APPLEKEYCODE
@@ -17,3 +19,6 @@ gcc -Wall -Wextra -Werror -lmlx -lXext -lX11
 
 INTALLAZIONE PACCHETTI linux:
 libxext, xorg-server, zlib
+
+
+ORIENTAMENTO, RAGGIO, mlx_loop_hook per far muovere il nemico?
