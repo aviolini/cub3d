@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 16:57:26 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/01 10:34:47 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/01 12:05:32 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,8 @@ typedef struct c_data
 
 }				map_data;
 
+void	ft_keycode_left(win_data *win);
+void	ft_keycode_right(win_data *win);
+void	ft_keycode_up(win_data *win);
+void	ft_keycode_down(win_data *win);
 #endif
