@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 16:57:26 by aviolini          #+#    #+#             */
-/*   Updated: 2021/02/28 17:00:12 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/01 10:34:47 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct  b_data
 	int			size_pixel;
 	int 		xn;
 	int 		yn;
+
 }               img_data;
 
 typedef struct	a_data
@@ -36,6 +37,7 @@ typedef struct	a_data
 	void		*mlx;
 	void		*win;
 	img_data	*img_s;
+	char		**map;
 }				win_data;
 
 typedef struct c_data

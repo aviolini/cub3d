@@ -10,7 +10,7 @@ BITSHIFTING
 APPLEKEYCODE
 
 mac:
-gcc -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit
+gcc -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit main.c && ./a.out
 
 linux:
 gcc -Wall -Wextra -Werror -lmlx -lXext -lX11
