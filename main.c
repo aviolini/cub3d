@@ -280,7 +280,7 @@ int             main(void)
 	//	printf(" map%s\n", addr[1]);
 
 	mlx_put_image_to_window(win.mlx, win.win, img.img, 20, 20);
-	//mlx_key_hook(win.win, key_hook, &win);
+	//mlx_key_hook(win.win, key_hook, &win); //NON FUNZIONA CON TASTO TENUTO PREMUTO
 	mlx_hook(win.win, 2, 1L<<0, key_hook, &win);
 	//mlx_loop_hook(win.mlx, key_hook, &win);
     mlx_loop(win.mlx);
