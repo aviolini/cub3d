@@ -180,6 +180,7 @@ int             main(void)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								 &img.endian);
 	ft_build_image(&win,1);
+	//
 	ft_ray0(&win);
 	mlx_put_image_to_window(win.mlx, win.win, img.img, 20, 20);
 	//mlx_key_hook(win.win, key_hook, &win); //NON FUNZIONA CON TASTO TENUTO PREMUTO
