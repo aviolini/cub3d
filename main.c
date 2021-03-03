@@ -148,8 +148,6 @@ void ft_ray0 (win_data *win)
 while(i++ < 100)
 	{
 		my_mlx_pixel_put(win->img_s, doubx, douby, 0x00FF0000);
-
-
 		if (posdirx ==  -1 && posdiry == 0)
 		{
 			//douby = douby + (posdiry);
