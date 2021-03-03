@@ -133,15 +133,83 @@ int		key_hook(int keycode, win_data *win)
 void ft_ray0 (win_data *win)
 {
 	int posx, posy;
+	double doubx, douby;
+	double posdirx = -1;
+	double posdiry = 0;
 	posx = win->map_s->posx;
 	posy = win->map_s->posy;
-	posy -= 1;
-	while (*(win->img_s->addr + (posy * win->img_s->line_length +
-		posx * (win->img_s->bits_per_pixel / 8))) == 0)
+	doubx = posx;
+	douby = posy;
+	//doubx = doubx + (posdir);
+	//douby = douby + (posdir);
+	//while (*(win->img_s->addr + (posy * win->img_s->line_length +
+	//	posx * (win->img_s->bits_per_pixel / 8))) == 0)
+	int i = 0;
+while(i++ < 100)
 	{
-		my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
-		posy--;
+		my_mlx_pixel_put(win->img_s, doubx, douby, 0x00FF0000);
+
+
+		if (posdirx ==  -1 && posdiry == 0)
+		{
+			//douby = douby + (posdiry);
+			douby++;
+			//doubx = doubx + (posdirx);
+			doubx--;
+		}
+		if (posdirx == 1 && posdiry == 0)
+		{
+			doubx++;
+			douby++;
+		}
+		if (posdirx ==  0 && posdiry == -1)
+		{
+			//douby = douby + (posdiry);
+			douby--;
+			//doubx = doubx + (posdirx);
+			doubx--;
+		}
+		if (posdirx == 0 && posdiry == 1)
+		{
+			doubx++;
+			douby++;
+		}
+
 	}
+	i = 0;
+	posx = win->map_s->posx;
+	posy = win->map_s->posy;
+	doubx = posx;
+	douby = posy;
+	while(i++ < 100)
+		{
+			my_mlx_pixel_put(win->img_s, doubx, douby, 0x00FF0000);
+			if (posdirx ==  -1 && posdiry == 0)
+			{
+				//douby = douby - (posdiry);
+				douby--;
+				//doubx = doubx + (posdirx);
+				doubx--;
+			}
+			if (posdirx == 1 && posdiry == 0)
+			{
+				douby--;
+				doubx++;
+			}
+			if (posdirx ==  0 && posdiry == -1)
+			{
+				//douby = douby + (posdiry);
+				douby--;
+				//doubx = doubx + (posdirx);
+				doubx++;
+			}
+			if (posdirx == 0 && posdiry == 1)
+			{
+				doubx--;
+				douby++;
+			}
+		}
+
 }
 
 int             main(void)
@@ -180,6 +248,10 @@ int             main(void)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								 &img.endian);
 	ft_build_image(&win,1);
+	//double c = 2 * M_PI;
+	double f;
+	f = cos(M_PI);
+	printf("pigreco = %lf\n", f);
 	//
 	ft_ray0(&win);
 	mlx_put_image_to_window(win.mlx, win.win, img.img, 20, 20);

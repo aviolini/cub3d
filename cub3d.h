@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 16:57:26 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/03 12:17:19 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/03 14:39:02 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <math.h>
 
 typedef struct  b_data
 {
@@ -32,8 +33,8 @@ typedef struct  b_data
 typedef struct c_data
 {
 	char		**map;
-	int			posx;
-	int			posy;
+	int		posx;
+	int		posy;
 }				map_data;
 
 typedef struct	a_data
