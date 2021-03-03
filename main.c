@@ -5,6 +5,14 @@ int		create_trgb(int t, int r, int g, int b)
 	return(t << 24 | r << 16 | g << 8 | b);
 }
 
+void ft_destroy_img(win_data *win)
+{
+	mlx_destroy_image(win->mlx, win->img_s->img); //sosituire con clean?
+	win->img_s->img = mlx_new_image(win->mlx, 600, 480);
+	win->img_s->addr = mlx_get_data_addr(win->img_s->img,
+		&win->img_s->bits_per_pixel, &win->img_s->line_length, &win->img_s->endian);
+}
+
 void            my_mlx_pixel_put(img_data *img, int x, int y, int color)
 {
     char    *dst;
@@ -95,7 +103,7 @@ void	ft_build_image(win_data *win)
 			z++;
 
 		}
-		int i = 0;
+
 
 		j++;
 		z = 0;
@@ -108,7 +116,7 @@ void	ft_build_image(win_data *win)
 
 int		key_hook(int keycode, win_data *win)
 {
-	char dst[5000];
+//	char dst[5000];
 	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_image(win->mlx, win->img_s->img);
@@ -124,21 +132,18 @@ int		key_hook(int keycode, win_data *win)
 	if(keycode == 125|| keycode == 65364)
 		ft_keycode_down(win);
 
-	mlx_destroy_image(win->mlx, win->img_s->img); //sosituire con clean?
-	win->img_s->img = mlx_new_image(win->mlx, 600, 480);
-	win->img_s->addr = mlx_get_data_addr(win->img_s->img,
-		&win->img_s->bits_per_pixel, &win->img_s->line_length, &win->img_s->endian);
-	ft_build_image(win);
+
+	//ft_build_image(win);
 
 	// RAGGIO
-	win->map_s->posy--;
-	win->map_s->posx = win->map_s->posx + (win->img_s->size_pixel / 2);
-	while (*(win->img_s->addr + (win->map_s->posy * win->img_s->line_length +
-		win->map_s->posx * (win->img_s->bits_per_pixel / 8))) == 0)
-		{
-			my_mlx_pixel_put(win->img_s, win->map_s->posx, win->map_s->posy, 0x00FF0000);
-			win->map_s->posy--;
-		}
+//	win->map_s->posy--;
+//	win->map_s->posx = win->map_s->posx + (win->img_s->size_pixel / 2);
+//	while (*(win->img_s->addr + (win->map_s->posy * win->img_s->line_length +
+//		win->map_s->posx * (win->img_s->bits_per_pixel / 8))) == 0)
+//		{
+//			my_mlx_pixel_put(win->img_s, win->map_s->posx, win->map_s->posy, 0x00FF0000);
+//			win->map_s->posy--;
+//		}
 
 	mlx_put_image_to_window(win->mlx, win->win, win->img_s->img, 20, 20);
 	printf("%d\n", keycode);
