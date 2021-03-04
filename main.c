@@ -30,9 +30,9 @@ int		key_hook(int keycode, win_data *win)
 		//free array
 		exit(0);
 	}
-	if(keycode == 126 || keycode == 65362)
+	if(keycode == 126 || keycode == 65362 || keycode == 119)
 		ft_keycode_up(win);
-	if(keycode == 125 || keycode == 65364)
+	if(keycode == 125 || keycode == 65364 || keycode == 115)
 		ft_keycode_down(win);
 	if(keycode == 2 || keycode == 100)
 		ft_keycode_right(win);
@@ -41,7 +41,7 @@ int		key_hook(int keycode, win_data *win)
 	if(keycode == 124 || keycode == 65363)
 		ft_arrow_right(win);
 	if(keycode == 123 || keycode == 65361)
-		ft_arrow_left(win);	
+		ft_arrow_left(win);
 
 	ft_ray0(win);
 	printf("%d\n", keycode);
