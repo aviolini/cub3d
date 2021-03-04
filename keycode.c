@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 19:09:02 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/04 15:05:26 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:25:57 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,16 @@ void	ft_arrow_right(win_data *win)
 {
 	ft_destroy_img(win);
 	ft_build_image(win,0);
-	int temp;
-	temp = win->map_s->diry;
-	win->map_s->diry = (win->map_s->diry - win->map_s->dirx) * pow(win->map_s->dirx,2) ;
-	win->map_s->dirx =  temp;
+	if (win->map_s->angle <= 0)
+		win->map_s->angle = 2*M_PI;
+	win->map_s->angle -= M_PI/2;
+	//FORMULA DI ROTAZIONE PRECEDENTE
+//	int temp;
+//	temp = win->map_s->diry;
+///	win->map_s->diry = (win->map_s->diry - win->map_s->dirx) * pow(win->map_s->dirx,2) ;
+//	win->map_s->dirx =  temp;
+	win->map_s->dirx = cos(win->map_s->angle);
+	win->map_s->diry = sin(win->map_s->angle);
 }
 
 void	ft_arrow_left(win_data *win)
@@ -130,17 +136,14 @@ void	ft_arrow_left(win_data *win)
 	if (win->map_s->angle >= 2*M_PI)
 		win->map_s->angle = 0;
 	win->map_s->angle += M_PI/2;
-	printf("angle: %lf ",win->map_s->angle);
-	printf("cos: %lf ", cos(win->map_s->angle));
-	printf("sin: %lf ", sin(win->map_s->angle));
+//	printf("angle: %lf ",win->map_s->angle);
+//	printf("cos: %lf ", cos(win->map_s->angle));
+//	printf("sin: %lf ", sin(win->map_s->angle));
+	//FORMULA DI ROTAZIONE PRECEDENTE
 	//int temp;
 	//temp = win->map_s->dirx;
 	//win->map_s->dirx = (win->map_s->dirx - win->map_s->diry) * pow(win->map_s->diry,2) ;
 	//win->map_s->diry =  temp;
-
-
-
-
-
-
+	win->map_s->dirx = cos(win->map_s->angle);
+	win->map_s->diry = sin(win->map_s->angle);
 }

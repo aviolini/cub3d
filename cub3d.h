@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 16:57:26 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/04 14:53:45 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:18:47 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct c_data
 	char	**map;
 	int		posx;
 	int		posy;
-	int		dirx;
-	int		diry;
+	double	dirx;
+	double	diry;
 	double	angle;
 }				map_data;
 

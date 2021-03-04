@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 09:00:35 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/04 14:55:12 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:12:58 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	ft_build_image(win_data *win, int a)
 			{
 				win->map_s->posx = x;
 				win->map_s->posy = y;
-				win->map_s->dirx = 0;
-				win->map_s->diry = 1;
 				win->map_s->angle = M_PI/2;
 				my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
@@ -93,8 +91,6 @@ void	ft_build_image(win_data *win, int a)
 			{
 				win->map_s->posx = x;
 				win->map_s->posy = y;
-				win->map_s->dirx = 0;
-				win->map_s->diry = -1;
 				win->map_s->angle = 3*M_PI/2;
 				my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
@@ -102,8 +98,6 @@ void	ft_build_image(win_data *win, int a)
 			{
 				win->map_s->posx = x;
 				win->map_s->posy = y;
-				win->map_s->dirx = 1;
-				win->map_s->diry = 0;
 				win->map_s->angle = M_PI;
 				my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
@@ -111,8 +105,6 @@ void	ft_build_image(win_data *win, int a)
 			{
 				win->map_s->posx = x;
 				win->map_s->posy = y;
-				win->map_s->dirx = -1;
-				win->map_s->diry = 0;
 				win->map_s->angle = 0;
 				my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
@@ -121,6 +113,8 @@ void	ft_build_image(win_data *win, int a)
 		}
 		j++;
 		z = 0;
+		win->map_s->dirx = cos(win->map_s->angle);
+		win->map_s->diry = sin(win->map_s->angle);
 		x = win->img_s->size_pixel;
 		y = y + win->img_s->size_pixel;
 	}
