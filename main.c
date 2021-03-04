@@ -51,23 +51,22 @@ int		key_hook(int keycode, win_data *win)
 
 void ft_ray0 (win_data *win)
 {
-	int posx, posy;
-	int i = 0;
+	double posx, posy;
+//	int i = 0;
 	posx = win->map_s->posx;
 	posy = win->map_s->posy;
 	posy -= pow(win->map_s->diry,2)* win->map_s->diry;
 	posx += pow(win->map_s->dirx,2)* win->map_s->dirx;
-	while (*(win->img_s->addr + (posy * win->img_s->line_length +
-		posx * (win->img_s->bits_per_pixel / 8))) == 0)
+	while (*(win->img_s->addr + ((int)posy * win->img_s->line_length +
+		(int)posx * (win->img_s->bits_per_pixel / 8))) == 0)
 	{
 		my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
 		posy -= pow(win->map_s->diry,2)* win->map_s->diry;
 		posx += pow(win->map_s->dirx,2)* win->map_s->dirx;
-		i++;
+	//	i++;
 	}
-	my_mlx_pixel_put(win->img_s, posx - i, (posy + 1), 0x00FF0000);
-	my_mlx_pixel_put(win->img_s, posx + i, (posy + 1), 0x00FF0000);
-
+//	my_mlx_pixel_put(win->img_s, posx - i, (posy + 1), 0x00FF0000);
+//	my_mlx_pixel_put(win->img_s, posx + i, (posy + 1), 0x00FF0000);
 }
 
 int             main(void)
