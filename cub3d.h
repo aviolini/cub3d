@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 16:57:26 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/03 14:39:02 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/04 09:05:03 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,5 @@ void	ft_keycode_right(win_data *win);
 void	ft_keycode_up(win_data *win);
 void	ft_keycode_down(win_data *win);
 void	ft_ray0(win_data *win);
+void	ft_ray_coordinate(win_data *win);
 #endif
