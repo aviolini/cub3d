@@ -20,15 +20,24 @@ gcc main.c keycode.c utils.c -Wall -Wextra -Werror -lmlx -lXext -lX11 -lm && ./a
 INTALLAZIONE PACCHETTI linux:
 libxext, xorg-server, zlib
 
+ mlx_loop_hook per far muovere il nemico?
 
-ORIENTAMENTO, RAGGIO, mlx_loop_hook per far muovere il nemico?
 
+==================
+VECCHIE FORMULE
+----------
 CAMBIO POSIZIONE
 win->map_s->posy-=pow(win->map_s->diry,2)* win->map_s->diry;
 win->map_s->posx+=pow(win->map_s->dirx,2)* win->map_s->dirx;
-
+---------
 CAMBIO DIREZIONE
 int temp;
 temp = win->map_s->diry;
 win->map_s->diry = (win->map_s->diry - win->map_s->dirx) * pow(win->map_s->dirx,2) ;
 win->map_s->dirx =  temp;
+
+
+===================
+NON FUNZIONANO A e D se si e' in diagonale
+IL FASCIO DI RAGGI NON VA BENE CON ANGOLO DIVERSO DA 45
+------------------------------------------

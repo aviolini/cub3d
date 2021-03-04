@@ -43,16 +43,17 @@ int		key_hook(int keycode, win_data *win)
 	if(keycode == 123 || keycode == 65361)
 		ft_arrow_left(win);
 
-	ft_ray0(win);
+	ft_bundle_ray(win);
 	printf("%d\n", keycode);
 	mlx_put_image_to_window(win->mlx, win->win, win->img_s->img, 20, 20);
 	return 0;
 }
 
-void ft_ray0 (win_data *win)
+void ft_central_ray(win_data *win)
 {
+
+	//RAGGIO CENTRALE
 	double posx, posy;
-//	int i = 0;
 	posx = win->map_s->posx;
 	posy = win->map_s->posy;
 	posy -= pow(win->map_s->diry,2)* win->map_s->diry;
@@ -63,10 +64,36 @@ void ft_ray0 (win_data *win)
 		my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
 		posy -= pow(win->map_s->diry,2)* win->map_s->diry;
 		posx += pow(win->map_s->dirx,2)* win->map_s->dirx;
-	//	i++;
 	}
-//	my_mlx_pixel_put(win->img_s, posx - i, (posy + 1), 0x00FF0000);
-//	my_mlx_pixel_put(win->img_s, posx + i, (posy + 1), 0x00FF0000);
+
+
+}
+//FASCIO DI RAGGI
+void	ft_bundle_ray(win_data *win)
+{
+	double posx, posy;
+	double t = 0;
+	double angle = win->map_s->angle - M_PI/4;
+	double dirx, diry;
+	while ( angle < win->map_s->angle + M_PI/4)
+	{
+		angle = win->map_s->angle - M_PI/4 + t;
+		printf("angle: %f\n", angle);
+		dirx = cos(angle);
+		diry = sin(angle);
+		posx = win->map_s->posx;
+		posy = win->map_s->posy;
+		posy -= pow(diry,2)* diry;
+		posx += pow(dirx,2)* dirx;
+		while (*(win->img_s->addr + ((int)posy * win->img_s->line_length +
+			(int)posx * (win->img_s->bits_per_pixel / 8))) == 0)
+		{
+			my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
+			posy -= pow(diry,2)* diry;
+			posx += pow(dirx,2)* dirx;
+		}
+		t += 0.003; //AUMENTARE SE SGRANA
+	}
 }
 
 int             main(void)
@@ -105,12 +132,7 @@ int             main(void)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								 &img.endian);
 	ft_build_image(&win,1);
-	//double c = 2 * M_PI;
-	double f;
-	f = cos(M_PI);
-	printf("pigreco = %lf\n", f);
-	//
-	ft_ray0(&win);
+	ft_bundle_ray(&win);
 	mlx_put_image_to_window(win.mlx, win.win, img.img, 20, 20);
 	//mlx_key_hook(win.win, key_hook, &win); //NON FUNZIONA CON TASTO TENUTO PREMUTO
 	mlx_hook(win.win, 2, 1L<<0, key_hook, &win);
