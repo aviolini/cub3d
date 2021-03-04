@@ -30,14 +30,19 @@ int		key_hook(int keycode, win_data *win)
 		//free array
 		exit(0);
 	}
-	if (keycode == 123 || keycode == 65361)
-		ft_keycode_left(win);
-	if(keycode == 126|| keycode == 65362)
+	if(keycode == 126 || keycode == 65362)
 		ft_keycode_up(win);
-	if(keycode == 124|| keycode == 65363)
-		ft_keycode_right(win);
-	if(keycode == 125|| keycode == 65364)
+	if(keycode == 125 || keycode == 65364)
 		ft_keycode_down(win);
+	if(keycode == 2 || keycode == 100)
+		ft_keycode_right(win);
+	if (keycode == 0 || keycode == 97)
+		ft_keycode_left(win);
+	if(keycode == 124 || keycode == 65363)
+		ft_arrow_right(win);
+	if(keycode == 123 || keycode == 65361)
+		ft_arrow_left(win);	
+
 	ft_ray0(win);
 	printf("%d\n", keycode);
 	mlx_put_image_to_window(win->mlx, win->win, win->img_s->img, 20, 20);
@@ -47,15 +52,22 @@ int		key_hook(int keycode, win_data *win)
 void ft_ray0 (win_data *win)
 {
 	int posx, posy;
+	int i = 0;
 	posx = win->map_s->posx;
 	posy = win->map_s->posy;
-	posy--;
+	posy -= pow(win->map_s->diry,2)* win->map_s->diry;
+	posx += pow(win->map_s->dirx,2)* win->map_s->dirx;
 	while (*(win->img_s->addr + (posy * win->img_s->line_length +
 		posx * (win->img_s->bits_per_pixel / 8))) == 0)
 	{
 		my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
-			posy--;
-		}
+		posy -= pow(win->map_s->diry,2)* win->map_s->diry;
+		posx += pow(win->map_s->dirx,2)* win->map_s->dirx;
+		i++;
+	}
+	my_mlx_pixel_put(win->img_s, posx - i, (posy + 1), 0x00FF0000);
+	my_mlx_pixel_put(win->img_s, posx + i, (posy + 1), 0x00FF0000);
+
 }
 
 int             main(void)

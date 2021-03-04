@@ -15,7 +15,7 @@ mac:
 gcc -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit main.c && ./a.out
 
 linux:
-gcc -Wall -Wextra -Werror -lmlx -lXext -lX11
+gcc main.c keycode.c utils.c -Wall -Wextra -Werror -lmlx -lXext -lX11 -lm && ./a.out
 
 INTALLAZIONE PACCHETTI linux:
 libxext, xorg-server, zlib

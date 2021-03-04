@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 09:00:35 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/04 09:16:06 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/04 10:01:10 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		create_trgb(int t, int r, int g, int b)
 {
 	return(t << 24 | r << 16 | g << 8 | b);
 }
-void ft_destroy_img(win_data *win)
+void	ft_destroy_img(win_data *win)
 {
 	mlx_destroy_image(win->mlx, win->img_s->img); //sosituire con clean?
 	win->img_s->img = mlx_new_image(win->mlx, 600, 480);
@@ -78,14 +78,40 @@ void	ft_build_image(win_data *win, int a)
 		{
 			if (win->map_s->map[j][z] == '1')
     			my_mlx_pixel_put2(win->img_s, x, y, 255);
+			if (win->map_s->map[j][z] == '2')
+		    	my_mlx_pixel_put2(win->img_s, x, y, 0x0000FFFF);
 			if (win->map_s->map[j][z] == 'N' && a == 1)
 			{
 				win->map_s->posx = x;
 				win->map_s->posy = y;
+				win->map_s->dirx = 0;
+				win->map_s->diry = 1;
 				my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
-			if (win->map_s->map[j][z] == '2')
-		    	my_mlx_pixel_put2(win->img_s, x, y, 0x0000FFFF);
+			if (win->map_s->map[j][z] == 'S' && a == 1)
+			{
+				win->map_s->posx = x;
+				win->map_s->posy = y;
+				win->map_s->dirx = 0;
+				win->map_s->diry = -1;
+				my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
+			}
+			if (win->map_s->map[j][z] == 'E' && a == 1)
+			{
+				win->map_s->posx = x;
+				win->map_s->posy = y;
+				win->map_s->dirx = 1;
+				win->map_s->diry = 0;
+				my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
+			}
+			if (win->map_s->map[j][z] == 'W' && a == 1)
+			{
+				win->map_s->posx = x;
+				win->map_s->posy = y;
+				win->map_s->dirx = -1;
+				win->map_s->diry = 0;
+				my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
+			}
 			x = x + win->img_s->size_pixel;
 			z++;
 		}
@@ -95,7 +121,7 @@ void	ft_build_image(win_data *win, int a)
 		y = y + win->img_s->size_pixel;
 	}
 }
-void ft_ray_coordinate(win_data *win)
+void	ft_ray_coordinate(win_data *win)
 {
 	int posx, posy;
 	double doubx, douby;
