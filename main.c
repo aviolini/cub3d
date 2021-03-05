@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 18:37:34 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 19:23:11 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,22 +137,18 @@ void	ft_bundle_ray(win_data *win)
 	//	int i = 0;
 	printf("posx: %lf\n",posx);
 	printf("posy: %lf\n",posy);
-		//if(!wallx)
-		//	wallx = posx;
-	//	wallx ++;
 		wally = posy;
-		if (wallx == 0)
-			wallx = posx;
+		wallx = posx;
 		printf("wallx: %i\n",wallx);
 		printf("wally: %i\n",wally);
 		//posx += 10;
-		if (posx >= wallx)
-		{
+		//if (posx >= wallx)
+		//{
 
-			my_mlx_pixel_put3(win->img2_s, wallx, wally + 230 - diry, 0x000000FF);
-			wallx = posx + 10;
+			my_mlx_pixel_put3(win->img2_s, wallx*10, wally + 230 - diry, 0x000000FF);
+			//wallx = posx * 10;
 			//wallx = posx + 10;
-		}
+		//}/
 		t += 0.003; //CAMBIARE SE SGRANA
 	}
 }
