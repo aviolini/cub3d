@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 11:14:54 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 11:16:29 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	ft_bundle_ray(win_data *win)
 		diry = sin(angle);
 		posx = win->map_s->posx;
 		posy = win->map_s->posy;
-		posy -= pow(diry,2)* diry;
-		posx += pow(dirx,2)* dirx;
+		posy -= diry;
+		posx += dirx;
 		//posy -= sin(diry)* diry;
 	///	posx += cos(dirx)* dirx;
 		while (*(win->img_s->addr + ((int)posy * win->img_s->line_length +
