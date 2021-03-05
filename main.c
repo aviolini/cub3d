@@ -6,13 +6,12 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 09:37:44 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 09:41:26 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void            my_mlx_pixel_put(img_data *img, int x, int y, int color)
+void	my_mlx_pixel_put(img_data *img, int x, int y, int color)
 {
     char    *dst;
 
@@ -20,7 +19,7 @@ void            my_mlx_pixel_put(img_data *img, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-void            my_mlx_pixel_put2(img_data *img, int x, int y, int color)
+void	my_mlx_pixel_put2(img_data *img, int x, int y, int color)
 {
     char    *dst;
 	int		i = -1, z = -1;
@@ -60,9 +59,8 @@ int		key_hook(int keycode, win_data *win)
 	mlx_put_image_to_window(win->mlx, win->win, win->img_s->img, 20, 20);
 	return 0;
 }
-
 	//RAGGIO CENTRALE
-void ft_central_ray(win_data *win)
+void	ft_central_ray(win_data *win)
 {
 	double posx, posy;
 	posx = win->map_s->posx;
@@ -108,7 +106,7 @@ void	ft_bundle_ray(win_data *win)
 	}
 }
 
-int             main(void)
+int		main(void)
 {
     win_data    	win;
     img_data		img;
