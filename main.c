@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 09:41:26 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 11:14:54 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,17 @@ void	ft_bundle_ray(win_data *win)
 		posy = win->map_s->posy;
 		posy -= pow(diry,2)* diry;
 		posx += pow(dirx,2)* dirx;
+		//posy -= sin(diry)* diry;
+	///	posx += cos(dirx)* dirx;
 		while (*(win->img_s->addr + ((int)posy * win->img_s->line_length +
 			(int)posx * (win->img_s->bits_per_pixel / 8))) == 0)
 		{
 			my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
-			posy -= pow(cos(diry),2)* diry;
-			posx += pow(sin(dirx),2)* dirx;
+			posy -=  diry;
+			posx +=  dirx;
+			//VECCHIA FORMULA
+			//posy -= pow(cos(diry),2)* diry;
+			//posx += pow(sin(dirx),2)* dirx;
 			//VECCHIA FORMULA
 			//posy -= pow(diry,2)* diry;
 			//posx += pow(dirx,2)* dirx;

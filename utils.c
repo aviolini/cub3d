@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 09:00:35 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 09:37:43 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 10:09:56 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,14 @@ void	ft_build_image(win_data *win)
 				win->map_s->angle = 3*M_PI/2;
 			//	my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
-			if (win->map_s->map[j][z] == 'E' && !win->map_s->posx && !win->map_s->posy)
+			if (win->map_s->map[j][z] == 'W' && !win->map_s->posx && !win->map_s->posy)
 			{
 				win->map_s->posx = x;
 				win->map_s->posy = y;
 				win->map_s->angle = M_PI;
 			//	my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
-			if (win->map_s->map[j][z] == 'W' && !win->map_s->posx && !win->map_s->posy)
+			if (win->map_s->map[j][z] == 'E' && !win->map_s->posx && !win->map_s->posy)
 			{
 				win->map_s->posx = x;
 				win->map_s->posy = y;
