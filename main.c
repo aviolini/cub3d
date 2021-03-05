@@ -72,7 +72,7 @@ void	ft_bundle_ray(win_data *win)
 	double t = 0;
 	double angle = win->map_s->angle - M_PI/6;	//ANGOLO DI VISIONE M_PI/6 = 30GRADI
 	double dirx, diry;
-	while ( angle < win->map_s->angle + M_PI/6)	//+ M_PI/6 = 60GRADI	
+	while ( angle < win->map_s->angle + M_PI/6)	//+ M_PI/6 = 60GRADI
 	{
 		angle = win->map_s->angle - M_PI/6 + t;
 		printf("angle: %f\n", angle);
@@ -109,6 +109,8 @@ int             main(void)
 
 	win.img_s = &img;
 	win.map_s = &map;
+	map.posx = 0;
+	map.posy = 0;
     win.mlx = mlx_init();
 	win.win = mlx_new_window(win.mlx, 800, 600, "Hello world!");
 	//SFONDO
@@ -131,7 +133,7 @@ int             main(void)
 	img.img = mlx_new_image(win.mlx, 600, 480);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								 &img.endian);
-	ft_build_image(&win,1);
+	ft_build_image(&win);
 	ft_bundle_ray(&win);
 	mlx_put_image_to_window(win.mlx, win.win, img.img, 20, 20);
 	//mlx_key_hook(win.win, key_hook, &win); //NON FUNZIONA CON TASTO TENUTO PREMUTO

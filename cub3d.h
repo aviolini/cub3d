@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 16:57:26 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/04 18:00:46 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 08:59:40 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	my_mlx_pixel_put(img_data *img, int x, int y, int color);
 void	my_mlx_pixel_put2(img_data *img, int x, int y, int color);
 
 char	**ft_build_map (char *buff, int x, int y);
-void	ft_build_image(win_data *win, int a);
+void	ft_build_image(win_data *win);
 int		key_hook(int keycode, win_data *win);
 
 void	ft_keycode_left(win_data *win);

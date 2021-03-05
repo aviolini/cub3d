@@ -38,6 +38,7 @@ win->map_s->dirx =  temp;
 
 
 ===================
-NON FUNZIONANO A e D se si e' in diagonale
-IL FASCIO DI RAGGI NON VA BENE CON ANGOLO DIVERSO DA 45
+A e D funzionano solo in un verso se siamo in diagonale
+IL BUILD DELLA MAP UNA SOLA VOLTA CON UN ALTRA IMMAGINE?
+L'INIT DELLE COORDINATE DEL GIOCATORE e' 0,0 FORSE DA PROBLEMI.
 ------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 09:00:35 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/04 15:12:58 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 09:05:18 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	**ft_build_map (char *buff, int x, int y)
 		printf("map%s\n",map[j++]);
 	return map;
 }
-void	ft_build_image(win_data *win, int a)
+void	ft_build_image(win_data *win)
 {
 	int j = 0;
 	int z = 0;
@@ -80,33 +80,33 @@ void	ft_build_image(win_data *win, int a)
     			my_mlx_pixel_put2(win->img_s, x, y, 255);
 			if (win->map_s->map[j][z] == '2')
 		    	my_mlx_pixel_put2(win->img_s, x, y, 0x0000FFFF);
-			if (win->map_s->map[j][z] == 'N' && a == 1)
+			if (win->map_s->map[j][z] == 'N' && !win->map_s->posx && !win->map_s->posy)
 			{
 				win->map_s->posx = x;
 				win->map_s->posy = y;
 				win->map_s->angle = M_PI/2;
-				my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
+			//	my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
-			if (win->map_s->map[j][z] == 'S' && a == 1)
+			if (win->map_s->map[j][z] == 'S' && !win->map_s->posx && !win->map_s->posy)
 			{
 				win->map_s->posx = x;
 				win->map_s->posy = y;
 				win->map_s->angle = 3*M_PI/2;
-				my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
+			//	my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
-			if (win->map_s->map[j][z] == 'E' && a == 1)
+			if (win->map_s->map[j][z] == 'E' && !win->map_s->posx && !win->map_s->posy)
 			{
 				win->map_s->posx = x;
 				win->map_s->posy = y;
 				win->map_s->angle = M_PI;
-				my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
+			//	my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
-			if (win->map_s->map[j][z] == 'W' && a == 1)
+			if (win->map_s->map[j][z] == 'W' && !win->map_s->posx && !win->map_s->posy)
 			{
 				win->map_s->posx = x;
 				win->map_s->posy = y;
 				win->map_s->angle = 0;
-				my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
+			//	my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
 			x = x + win->img_s->size_pixel;
 			z++;
