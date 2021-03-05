@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 13:54:12 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 18:37:34 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,20 @@ void	my_mlx_pixel_put2(img_data *img, int x, int y, int color)
 		}
 }
 
+
+void	my_mlx_pixel_put3(img_data *img, int x, int y, int color)
+{
+    char    *dst;
+	int		i = -1, z = -1;
+
+	while (++i <= 100 && -2 < (z = -1))
+		while (++z <= 10)
+		{
+    		dst = img->addr + ((i + y) * img->line_length +
+			(x + z) * (img->bits_per_pixel / 8));
+    		*(unsigned int*)dst = color;
+		}
+}
 int		key_hook(int keycode, win_data *win)
 {
 	if (keycode == 53 || keycode == 65307)
@@ -56,6 +70,8 @@ int		key_hook(int keycode, win_data *win)
 
 	ft_bundle_ray(win);
 	printf("%d\n", keycode);
+
+	mlx_put_image_to_window(win->mlx, win->win, win->img2_s->img, 622, 20);
 	mlx_put_image_to_window(win->mlx, win->win, win->img_s->img, 20, 20);
 
 	//my_mlx_pixel_put2(win->img2_s, 0, 0, 0x00FF0000);
@@ -83,8 +99,11 @@ void	ft_bundle_ray(win_data *win)
 {
 	double posx, posy;
 	double t = 0;
+//	int x = 0;
+//	int y = 400;
 	double angle = win->map_s->angle - M_PI/6;	//ANGOLO DI VISIONE M_PI/6 = 30GRADI
 	double dirx, diry;
+		int wallx = 0, wally = 0;
 	while ( angle < win->map_s->angle + M_PI/6)	//+ M_PI/6 = 60GRADI
 	{
 		angle = win->map_s->angle - M_PI/6 + t;
@@ -93,6 +112,7 @@ void	ft_bundle_ray(win_data *win)
 		diry = sin(angle);
 		posx = win->map_s->posx;
 		posy = win->map_s->posy;
+
 	//	posy -= diry;
 	//	posx += dirx;
 		//posy -= sin(diry)* diry;
@@ -110,6 +130,28 @@ void	ft_bundle_ray(win_data *win)
 			//VECCHIA FORMULA
 			//posy -= pow(diry,2)* diry;
 			//posx += pow(dirx,2)* dirx;
+		}
+		dirx = cos(M_PI_2);
+		diry = sin(M_PI_2);
+
+	//	int i = 0;
+	printf("posx: %lf\n",posx);
+	printf("posy: %lf\n",posy);
+		//if(!wallx)
+		//	wallx = posx;
+	//	wallx ++;
+		wally = posy;
+		if (wallx == 0)
+			wallx = posx;
+		printf("wallx: %i\n",wallx);
+		printf("wally: %i\n",wally);
+		//posx += 10;
+		if (posx >= wallx)
+		{
+
+			my_mlx_pixel_put3(win->img2_s, wallx, wally + 230 - diry, 0x000000FF);
+			wallx = posx + 10;
+			//wallx = posx + 10;
 		}
 		t += 0.003; //CAMBIARE SE SGRANA
 	}
@@ -134,8 +176,9 @@ int		main(void)
 	map.posy = 0;
 	map.speed = 10;
 	img.size_pixel = 10;
+	img2.size_pixel = 30;
     win.mlx = mlx_init();
-	win.win = mlx_new_window(win.mlx, 1920, 1080, "Hello world!");
+	win.win = mlx_new_window(win.mlx, 1240, 600, "Hello world!");
 	//SFONDO
 	while (y++ < 1000 && -1 < (x = 0))
 		while (x++ < 1920)
@@ -156,18 +199,18 @@ int		main(void)
 	img.img = mlx_new_image(win.mlx, 600, 480);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								 &img.endian);
+
 	img2.img = mlx_new_image(win.mlx, 600, 480);
 	img2.addr = mlx_get_data_addr(img2.img, &img2.bits_per_pixel, &img2.line_length,
 							 								 &img2.endian);
 
+	ft_build_image2(&win);
 	ft_build_image(&win);
 	ft_bundle_ray(&win);
 	mlx_put_image_to_window(win.mlx, win.win, img.img, 20, 20);
-	//int i = 50;
-//while (i++ < 800)
-	my_mlx_pixel_put2(img2.img, 50, 5, 0x00FF0000);
-	mlx_put_image_to_window(win.mlx, win.win, img2.img, 800, 20);
-	//mlx_key_hook(win.win, key_hook, &win); //NON FUNZIONA CON TASTO TENUTO PREMUTO
+
+	mlx_put_image_to_window(win.mlx, win.win, img2.img, 622, 20);
+	//mlx_key2.ook(win.win, key_hook, &win); //NON FUNZIONA CON TASTO TENUTO PREMUTO
 	mlx_hook(win.win, 2, 1L<<0, key_hook, &win);
 	//mlx_loop_hook(win.mlx, key_hook, &win);  //FUNZIONA SENZA PREMERE TASTI
     mlx_loop(win.mlx);

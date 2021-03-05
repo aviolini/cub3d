@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 19:09:02 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 12:26:36 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 16:46:57 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@ void	ft_keycode_up(win_data *win)
 {
 	ft_destroy_img(win);
 	ft_build_image(win);
+	ft_destroy_img2(win);
+	ft_build_image2(win);
 
 //	double posx, posy;
 //	posx = win->map_s->posx;
