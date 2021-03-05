@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 11:42:59 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 12:23:09 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,17 @@ void	ft_bundle_ray(win_data *win)
 		diry = sin(angle);
 		posx = win->map_s->posx;
 		posy = win->map_s->posy;
-		posy -= diry;
-		posx += dirx;
+	//	posy -= diry;
+	//	posx += dirx;
 		//posy -= sin(diry)* diry;
 	///	posx += cos(dirx)* dirx;
-		while (*(win->img_s->addr + ((int)posy * win->img_s->line_length +
-			(int)posx * (win->img_s->bits_per_pixel / 8))) == 0)
+		while (*(win->img_s->addr + ((int)(posy - diry) * win->img_s->line_length +
+			(int)(posx + dirx) * (win->img_s->bits_per_pixel / 8))) == 0)
 		{
-			my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
+
 			posy -=  diry;
 			posx +=  dirx;
+			my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
 			//VECCHIA FORMULA
 			//posy -= pow(cos(diry),2)* diry;
 			//posx += pow(sin(dirx),2)* dirx;
@@ -107,7 +108,7 @@ void	ft_bundle_ray(win_data *win)
 			//posy -= pow(diry,2)* diry;
 			//posx += pow(dirx,2)* dirx;
 		}
-		t += 0.003; //AUMENTARE SE SGRANA
+		t += 0.003; //CAMBIARE SE SGRANA
 	}
 }
 
