@@ -49,10 +49,9 @@ int		key_hook(int keycode, win_data *win)
 	return 0;
 }
 
+	//RAGGIO CENTRALE
 void ft_central_ray(win_data *win)
 {
-
-	//RAGGIO CENTRALE
 	double posx, posy;
 	posx = win->map_s->posx;
 	posy = win->map_s->posy;
@@ -65,19 +64,17 @@ void ft_central_ray(win_data *win)
 		posy -= pow(win->map_s->diry,2)* win->map_s->diry;
 		posx += pow(win->map_s->dirx,2)* win->map_s->dirx;
 	}
-
-
 }
 //FASCIO DI RAGGI
 void	ft_bundle_ray(win_data *win)
 {
 	double posx, posy;
 	double t = 0;
-	double angle = win->map_s->angle - M_PI/4;
+	double angle = win->map_s->angle - M_PI/6;	//ANGOLO DI VISIONE M_PI/6 = 30GRADI
 	double dirx, diry;
-	while ( angle < win->map_s->angle + M_PI/4)
+	while ( angle < win->map_s->angle + M_PI/6)	//+ M_PI/6 = 60GRADI	
 	{
-		angle = win->map_s->angle - M_PI/4 + t;
+		angle = win->map_s->angle - M_PI/6 + t;
 		printf("angle: %f\n", angle);
 		dirx = cos(angle);
 		diry = sin(angle);
@@ -89,8 +86,11 @@ void	ft_bundle_ray(win_data *win)
 			(int)posx * (win->img_s->bits_per_pixel / 8))) == 0)
 		{
 			my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
-			posy -= pow(diry,2)* diry;
-			posx += pow(dirx,2)* dirx;
+			posy -= pow(cos(diry),2)* diry;
+			posx += pow(sin(dirx),2)* dirx;
+			//VECCHIA FORMULA
+			//posy -= pow(diry,2)* diry;
+			//posx += pow(dirx,2)* dirx;
 		}
 		t += 0.003; //AUMENTARE SE SGRANA
 	}
