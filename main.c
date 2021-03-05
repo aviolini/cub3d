@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 12:33:07 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 13:54:12 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,9 @@ int		key_hook(int keycode, win_data *win)
 	ft_bundle_ray(win);
 	printf("%d\n", keycode);
 	mlx_put_image_to_window(win->mlx, win->win, win->img_s->img, 20, 20);
+
+	//my_mlx_pixel_put2(win->img2_s, 0, 0, 0x00FF0000);
+	//mlx_put_image_to_window(win->mlx, win->win, win->img2_s->img, 50, 50);
 	return 0;
 }
 	//RAGGIO CENTRALE
@@ -116,6 +119,7 @@ int		main(void)
 {
     win_data    	win;
     img_data		img;
+	img_data		img2;
 	map_data		map;
 	char			buff[5001];
 	int				fd, x = 0, y = 0;
@@ -124,17 +128,18 @@ int		main(void)
 	unsigned int	color;
 
 	win.img_s = &img;
+	win.img2_s = &img2;
 	win.map_s = &map;
 	map.posx = 0;
 	map.posy = 0;
 	map.speed = 10;
 	img.size_pixel = 10;
     win.mlx = mlx_init();
-	win.win = mlx_new_window(win.mlx, 800, 600, "Hello world!");
+	win.win = mlx_new_window(win.mlx, 1920, 1080, "Hello world!");
 	//SFONDO
-	//while (y++ < 1000 && -1 < (x = 0))
-		//while (x++ < 1920)
-			//mlx_pixel_put(win.mlx, win.win, x, y, 0x00FFFFFF);
+	while (y++ < 1000 && -1 < (x = 0))
+		while (x++ < 1920)
+			mlx_pixel_put(win.mlx, win.win, x, y, 0x00FFFFFF);
 	printf("line_lenght: %d\n", img.line_length);
 	printf("line_lenght/4: %d\n", img.line_length/4);
 	printf("bits_per_pixel: %d\n", img.bits_per_pixel);
@@ -151,9 +156,17 @@ int		main(void)
 	img.img = mlx_new_image(win.mlx, 600, 480);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								 &img.endian);
+	img2.img = mlx_new_image(win.mlx, 600, 480);
+	img2.addr = mlx_get_data_addr(img2.img, &img2.bits_per_pixel, &img2.line_length,
+							 								 &img2.endian);
+
 	ft_build_image(&win);
 	ft_bundle_ray(&win);
 	mlx_put_image_to_window(win.mlx, win.win, img.img, 20, 20);
+	//int i = 50;
+//while (i++ < 800)
+	my_mlx_pixel_put2(img2.img, 50, 5, 0x00FF0000);
+	mlx_put_image_to_window(win.mlx, win.win, img2.img, 800, 20);
 	//mlx_key_hook(win.win, key_hook, &win); //NON FUNZIONA CON TASTO TENUTO PREMUTO
 	mlx_hook(win.win, 2, 1L<<0, key_hook, &win);
 	//mlx_loop_hook(win.mlx, key_hook, &win);  //FUNZIONA SENZA PREMERE TASTI

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 16:57:26 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 11:26:45 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 13:26:20 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct c_data
 	double	dirx;
 	double	diry;
 	double	angle;
-	int		speed;	
+	int		speed;
 }				map_data;
 
 typedef struct	a_data
@@ -47,6 +47,7 @@ typedef struct	a_data
 	void		*win;
 	map_data	*map_s;
 	img_data	*img_s;
+	img_data	*img2_s;
 }				win_data;
 
 void	ft_destroy_img(win_data *win);
