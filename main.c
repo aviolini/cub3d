@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 11:16:29 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 11:42:59 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,8 @@ int		main(void)
 	win.map_s = &map;
 	map.posx = 0;
 	map.posy = 0;
+	map.speed = 10;
+	img.size_pixel = 10;
     win.mlx = mlx_init();
 	win.win = mlx_new_window(win.mlx, 800, 600, "Hello world!");
 	//SFONDO
@@ -136,7 +138,7 @@ int		main(void)
 	printf("line_lenght/4: %d\n", img.line_length/4);
 	printf("bits_per_pixel: %d\n", img.bits_per_pixel);
 
-	img.size_pixel = 10;
+
 	color = 255;
 	printf("color: %u\n", color);
 	fd = open("map_clean.cub", O_RDONLY, 0);

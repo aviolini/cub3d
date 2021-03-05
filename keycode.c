@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 19:09:02 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 09:32:14 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 12:03:36 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,22 @@ void	ft_keycode_up(win_data *win)
 	ft_destroy_img(win);
 	ft_build_image(win);
 
-	double posx, posy;
-	posx = win->map_s->posx;
-	posy = win->map_s->posy;
-	posy -= pow(win->map_s->diry,2)* win->map_s->diry;
-	posx += pow(win->map_s->dirx,2)* win->map_s->dirx;
-	if (*(win->img_s->addr + ((int)posy * win->img_s->line_length +
-	(int)posx * (win->img_s->bits_per_pixel / 8))) == 0)
+//	double posx, posy;
+//	posx = win->map_s->posx;
+//	posy = win->map_s->posy;
+
+//	posy -= win->map_s->diry;//* win->map_s->speed;
+//	posx += win->map_s->dirx;//* win->map_s->speed;
+//	posy -= win->map_s->diry;
+//	posx += win->map_s->dirx;
+	if (*(win->img_s->addr + ((int)(win->map_s->posy - win->map_s->diry) * win->img_s->line_length +
+	(int)(win->map_s->posx + win->map_s->dirx) * (win->img_s->bits_per_pixel / 8))) == 0)
 	{
-		win->map_s->posy-=pow(win->map_s->diry,2)* win->map_s->diry;
-		win->map_s->posx+=pow(win->map_s->dirx,2)* win->map_s->dirx;
+		win->map_s->posy -= win->map_s->diry;// * win->map_s->speed;
+		win->map_s->posx += win->map_s->dirx;// * win->map_s->speed;
+		//VECHHIA FORMULA
+		//win->map_s->posy-=pow(win->map_s->diry,2)* win->map_s->diry;
+		//win->map_s->posx+=pow(win->map_s->dirx,2)* win->map_s->dirx;
 	//IL PERSONAGGIO:
 	//	my_mlx_pixel_put(win->img_s,win->map_s->posy, win->map_s->posx , 0x00FFFFFF);
 	}
@@ -37,16 +43,17 @@ void	ft_keycode_down(win_data *win)
 	ft_destroy_img(win);
 	ft_build_image(win);
 
-	double posx, posy;
-	posx = win->map_s->posx;
-	posy = win->map_s->posy;
-	posy += pow(win->map_s->diry,2)* win->map_s->diry;
-	posx -= pow(win->map_s->dirx,2)* win->map_s->dirx;
-	if (*(win->img_s->addr + ((int)posy * win->img_s->line_length +
-	(int)posx * (win->img_s->bits_per_pixel / 8))) == 0)
+//	double posx, posy;
+//	posx = win->map_s->posx;
+//	posy = win->map_s->posy;
+
+//	posy += win->map_s->posy;
+//	posx -= win->map_s->dirx;
+	if (*(win->img_s->addr + ((int)(win->map_s->posy + win->map_s->diry) * win->img_s->line_length +
+	(int)(win->map_s->posx - win->map_s->dirx) * (win->img_s->bits_per_pixel / 8))) == 0)
 	{
-		win->map_s->posy+=pow(win->map_s->diry,2)* win->map_s->diry;
-		win->map_s->posx-=pow(win->map_s->dirx,2)* win->map_s->dirx;
+		win->map_s->posy += win->map_s->diry;// * win->map_s->speed;
+		win->map_s->posx -= win->map_s->dirx;// * win->map_s->speed;
 	//IL PERSONAGGIO:
 	//	my_mlx_pixel_put(win->img_s,win->map_s->posy, win->map_s->posx , 0x00FFFFFF);
 	}
@@ -68,7 +75,6 @@ void	ft_keycode_right(win_data *win)
 	//dirx = (win->map_s->dirx - win->map_s->diry) * pow(win->map_s->diry,2) ;
 	//VECCHIA FORMULA
 	dirx = win->map_s->diry;
-
 	//NUOVA FORMULA
 	//posy -= pow(cos(diry),2)* sin(diry);
 	//posx += pow(sin(dirx),2)* cos(dirx);
@@ -129,7 +135,7 @@ void	ft_arrow_right(win_data *win)
 	ft_build_image(win);
 	if (win->map_s->angle <= 0)
 		win->map_s->angle = 2*M_PI;
-	win->map_s->angle -= M_PI/4;
+	win->map_s->angle -= M_PI_4;
 	//FORMULA DI ROTAZIONE PRECEDENTE
 //	int temp;
 //	temp = win->map_s->diry;
@@ -145,7 +151,7 @@ void	ft_arrow_left(win_data *win)
 	ft_build_image(win);
 	if (win->map_s->angle >= 2*M_PI)
 		win->map_s->angle = 0;
-	win->map_s->angle += M_PI/4;
+	win->map_s->angle += M_PI_4;
 	//FORMULA DI ROTAZIONE PRECEDENTE
 	//int temp;
 	//temp = win->map_s->dirx;

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 16:57:26 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 08:59:40 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/05 11:26:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ typedef struct  b_data
 typedef struct c_data
 {
 	char	**map;
-	double		posx;
-	double		posy;
+	double	posx;
+	double	posy;
 	double	dirx;
 	double	diry;
 	double	angle;
+	int		speed;	
 }				map_data;
 
 typedef struct	a_data
