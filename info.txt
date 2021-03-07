@@ -7,6 +7,10 @@ https://gontjarow.github.io/MiniLibX/mlx-tutorial-create-image.html
 
 https://www.youtube.com/watch?v=NbSee-XM7WA
 
+COSTANTI DI MATH.H
+https://docs.microsoft.com/it-it/cpp/c-runtime-library/math-constants?view=msvc-160
+
+
 BITSHIFTING
 
 APPLEKEYCODE

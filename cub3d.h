@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 16:57:26 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 17:23:08 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/07 08:53:24 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-
+#define MAX_DIST 200
+# define MIN_H_WALL 40
 typedef struct  b_data
 {
     void        *img;

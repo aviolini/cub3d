@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/06 08:57:17 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/07 18:24:17 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	my_mlx_pixel_put2(img_data *img, int x, int y, int color)
     		*(unsigned int*)dst = color;
 		}
 }
-
 
 void	my_mlx_pixel_put3(img_data *img, int x, int y, int color)
 {
@@ -99,57 +98,46 @@ void	ft_bundle_ray(win_data *win)
 {
 	double posx, posy;
 	double t = 0;
-//	int x = 0;
-//	int y = 400;
-	double angle = win->map_s->angle - M_PI/6;	//ANGOLO DI VISIONE M_PI/6 = 30GRADI
+	double angle = win->map_s->angle + M_PI/6;	//ANGOLO DI VISIONE M_PI/6 = 30GRADI
 	double dirx, diry;
-		int wallx = 0, wally = 0;
-	while ( angle < win->map_s->angle + M_PI/6)	//+ M_PI/6 = 60GRADI
+	int wallx = 0, wally = 0;
+	//while ( angle > win->map_s->angle - M_PI/6)	//+ M_PI/6 = 60GRADI
+	int x = 0;
+	while (x++<40)
 	{
-		angle = win->map_s->angle - M_PI/6 + t;
+		angle = win->map_s->angle + M_PI/6 - t;
 		printf("angle: %f\n", angle);
 		dirx = cos(angle);
 		diry = sin(angle);
 		posx = win->map_s->posx;
 		posy = win->map_s->posy;
-
-	//	posy -= diry;
-	//	posx += dirx;
-		//posy -= sin(diry)* diry;
-	///	posx += cos(dirx)* dirx;
 		while (*(win->img_s->addr + ((int)(posy - diry) * win->img_s->line_length +
 			(int)(posx + dirx) * (win->img_s->bits_per_pixel / 8))) == 0)
 		{
-
 			posy -=  diry;
 			posx +=  dirx;
 			my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
-			//VECCHIA FORMULA
-			//posy -= pow(cos(diry),2)* diry;
-			//posx += pow(sin(dirx),2)* dirx;
-			//VECCHIA FORMULA
-			//posy -= pow(diry,2)* diry;
-			//posx += pow(dirx,2)* dirx;
 		}
 		dirx = cos(M_PI_2);
 		diry = sin(M_PI_2);
+		if (!wallx)
+			wallx = posx;
+		if (!wally)
+			wally = posy;
 
-	//	int i = 0;
-	printf("posx: %lf\n",posx);
-	printf("posy: %lf\n",posy);
-		wally = posy;
-		wallx = posx;
+
+
+		printf("posx: %lf\n",win->map_s->posx);
+		printf("posy: %lf\n",win->map_s->posy);
+		printf("posx: %lf\n",posx);
+		printf("posy: %lf\n",posy);
 		printf("wallx: %i\n",wallx);
 		printf("wally: %i\n",wally);
-		//posx += 10;
-		//if (posx >= wallx)
-		//{
 
-			my_mlx_pixel_put3(win->img2_s, wallx*10, wally + 230 - diry, 0x000000FF);
-			//wallx = posx * 10;
-			//wallx = posx + 10;
-		//}/
-		t += 0.003; //CAMBIARE SE SGRANA
+		int i = 0;
+			while (i++ < 100)
+				my_mlx_pixel_put(win->img2_s, posx, wally + 240 - i, 0x000000FF);
+		t += 0.01; //CAMBIARE SE SGRANA
 	}
 }
 
@@ -176,9 +164,9 @@ int		main(void)
     win.mlx = mlx_init();
 	win.win = mlx_new_window(win.mlx, 1240, 600, "Hello world!");
 	//SFONDO
-	while (y++ < 1000 && -1 < (x = 0))
-		while (x++ < 1920)
-			mlx_pixel_put(win.mlx, win.win, x, y, 0x00FFFFFF);
+//	while (y++ < 1000 && -1 < (x = 0))
+//		while (x++ < 1920)
+//			mlx_pixel_put(win.mlx, win.win, x, y, 0x00FFFFFF);
 	printf("line_lenght: %d\n", img.line_length);
 	printf("line_lenght/4: %d\n", img.line_length/4);
 	printf("bits_per_pixel: %d\n", img.bits_per_pixel);
