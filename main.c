@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/08 15:36:49 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/08 16:56:27 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	my_mlx_pixel_put3(img_data *img, int x, int y,int h, int color)
     char    *dst;
 	int		i = -1, z = -1;
 	(void)i;
-
+//	if (h < 0)
+	//	h *=-1;
 	while (++i < h && -2 < (z = -1))
 		while (++z < 1)
 		{
@@ -99,15 +100,15 @@ void	ft_bundle_ray(win_data *win)
 {
 	double posx, posy;
 	double t = 0;
-	int h = (H_IMG);
+	double h = (H_IMG);
 	double angle = win->map_s->angle + M_PI/6;	//ANGOLO DI VISIONE M_PI/6 = 30GRADI
 	double dirx, diry;
 	double wallx = 0, wally = 0;
 	double posxprec = 0, posyprec = 0;
-	int coeff = 1;
-//	while ( angle > win->map_s->angle - M_PI/6)	//+ M_PI/6 = 60GRADI
-	int x = 0;
-	while (x++<200)
+	double coeff = 0.5;
+	while ( angle > win->map_s->angle - M_PI/6)	//+ M_PI/6 = 60GRADI
+//	int x = 0;
+//	while (x++<200)
 	{
 		angle = win->map_s->angle + M_PI/6 - t;
 		printf("angle: %f\n", angle);
@@ -123,40 +124,50 @@ void	ft_bundle_ray(win_data *win)
 			my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
 		}
 
-		if((int)posxprec == (int)posx)// && (int)posyprec != (int)posy)
+		if((int)posyprec != (int)posy)//(int)posxprec == (int)posx)//
 		{
+		//	double d = posy - win->map_s->posy;
 			wally+=coeff;
 			h-=coeff*2;
+		//	h=(h)/(d);
 			wallx++;
 		}
-	 if (posyprec == posy)
+		//else if((int)posxprec != (int)posx)// && (int)posyprec != (int)posy)
+		else
 		{
+			//wally+=coeff;
+			//h-=coeff*2;
+	//		printf("si\n\n");
 			wallx++;
-
 		}
+//	 if ((int)posyprec == (int)posy)
+//		{
+//			wallx++;
+
+//		}
 
 	//	wallx++;
 		//h = (H_IMG - win->map_s->posy - posy)/2;
 
 		printf("-----------------\n");
-		printf("posx: %lf\n",win->map_s->posx);
-		printf("posy: %lf\n",win->map_s->posy);
-		printf("posx: %lf\n",posx);
-		printf("posy: %lf\n",posy);
+		printf("win->posx: %lf\n",win->map_s->posx);
+		printf("win->posy: %lf\n",win->map_s->posy);
+		printf("ray->posx: %lf\n",posx);
+		printf("ray->posy: %lf\n",posy);
 		printf("posxprec: %lf\n",posxprec);
 		printf("posyprec: %lf\n",posyprec);
 		printf("wallx: %lf\n",wallx);
 		printf("wally: %lf\n",wally);
 		printf("-----------------\n");
-		printf("posx: %i\n",(int)win->map_s->posx);
-		printf("posy: %i\n",(int)win->map_s->posy);
-		printf("posx: %i\n",(int)posx);
-		printf("posy: %i\n",(int)posy);
+		printf("win->posx: %i\n",(int)win->map_s->posx);
+		printf("win->posy: %i\n",(int)win->map_s->posy);
+		printf("ray->posx: %i\n",(int)posx);
+		printf("ray->posy: %i\n",(int)posy);
 		printf("posxprec: %i\n",(int)posxprec);
 		printf("posyprec: %i\n",(int)posyprec);
 		printf("wallx: %i\n",(int)wallx);
 		printf("wally: %i\n",(int)wally);
-		printf("h: %i\n",h);
+		printf("h: %lf\n",h);
 		printf("-----------------\n");
 		posxprec = posx;
 		posyprec = posy;
