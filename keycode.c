@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 19:09:02 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/06 08:56:34 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/08 15:21:01 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	ft_arrow_right(win_data *win)
 	ft_build_image(win);
 	if (win->map_s->angle <= 0)
 		win->map_s->angle = 2*M_PI;
-	win->map_s->angle -= M_PI_4;
+	win->map_s->angle -= M_PI/4;
 	//FORMULA DI ROTAZIONE PRECEDENTE
 //	int temp;
 //	temp = win->map_s->diry;

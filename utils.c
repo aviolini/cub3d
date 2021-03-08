@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 09:00:35 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/05 16:56:52 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/08 13:49:46 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,23 @@ int		create_trgb(int t, int r, int g, int b)
 {
 	return(t << 24 | r << 16 | g << 8 | b);
 }
+
 void	ft_destroy_img(win_data *win)
 {
 	mlx_destroy_image(win->mlx, win->img_s->img); //sosituire con clean?
-	win->img_s->img = mlx_new_image(win->mlx, 600, 480);
+	win->img_s->img = mlx_new_image(win->mlx, W_IMG, H_IMG);
 	win->img_s->addr = mlx_get_data_addr(win->img_s->img,
 		&win->img_s->bits_per_pixel, &win->img_s->line_length, &win->img_s->endian);
 }
+
 void	ft_destroy_img2(win_data *win)
 {
 	mlx_destroy_image(win->mlx, win->img2_s->img); //sosituire con clean?
-	win->img2_s->img = mlx_new_image(win->mlx, 600, 480);
+	win->img2_s->img = mlx_new_image(win->mlx, W_IMG, H_IMG);
 	win->img2_s->addr = mlx_get_data_addr(win->img2_s->img,
 		&win->img2_s->bits_per_pixel, &win->img2_s->line_length, &win->img2_s->endian);
 }
+
 char	**ft_build_map (char *buff, int x, int y)
 {
 	char **map;
@@ -71,6 +74,7 @@ char	**ft_build_map (char *buff, int x, int y)
 		printf("map%s\n",map[j++]);
 	return map;
 }
+
 void	ft_build_image(win_data *win)
 {
 	int j = 0;
@@ -126,6 +130,7 @@ void	ft_build_image(win_data *win)
 		y = y + win->img_s->size_pixel;
 	}
 }
+
 void	ft_ray_coordinate(win_data *win)
 {
 	int posx, posy;
@@ -193,14 +198,16 @@ while(i++ < 100)
 			}
 		}
 }
+
 void	ft_build_image2(win_data *win)
 {
 	int colorf = 0x0000FF00, colorc = 0x00FF0000;
-	int x = -1, y = 0;
-	while (++y < 240 && -2<(x = -1))
-		while (++x < 600)
+	int x = -1, y = -1;
+	while (++y < H_IMG/2 && -2<(x = -1))
+		while (++x < W_IMG-1)
 			my_mlx_pixel_put(win->img2_s, x, y, colorc);
-	while (++y < 480 && -2<(x = -1))
-		while (++x < 600)
+	y--;
+	while (++y < H_IMG - 1 && -2<(x = -1))
+		while (++x < W_IMG-1)
 			my_mlx_pixel_put(win->img2_s, x, y, colorf);
 }
