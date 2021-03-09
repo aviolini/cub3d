@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/08 16:56:27 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/09 16:06:35 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,10 @@ void	ft_bundle_ray(win_data *win)
 	double wallx = 0, wally = 0;
 	double posxprec = 0, posyprec = 0;
 	double coeff = 0.5;
-	while ( angle > win->map_s->angle - M_PI/6)	//+ M_PI/6 = 60GRADI
-//	int x = 0;
-//	while (x++<200)
+	int cont =0;
+//	while ( angle > win->map_s->angle - M_PI/6)	//+ M_PI/6 = 60GRADI
+	int x = 0;
+	while (x++<1)
 	{
 		angle = win->map_s->angle + M_PI/6 - t;
 		printf("angle: %f\n", angle);
@@ -119,64 +120,69 @@ void	ft_bundle_ray(win_data *win)
 		while (*(win->img_s->addr + ((int)(posy - diry) * win->img_s->line_length +
 			(int)(posx + dirx) * (win->img_s->bits_per_pixel / 8))) == 0)
 		{
+
 			posy -=  diry;
 			posx +=  dirx;
 			my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
 		}
+		double f = 1;
 
-		if((int)posyprec != (int)posy)//(int)posxprec == (int)posx)//
+		int m = (int)(posxprec*f) - (int)(posx*f);
+		int n = (int)(posyprec*f) - (int)(posy*f);
+
+		if(m == 0 && n != 0)//(int)posyprec != (int)posy)//(posyprec-posy)*100 != 0)
 		{
-		//	double d = posy - win->map_s->posy;
-			wally+=coeff;
+			//double d = posy - win->map_s->posy;
+
+				wally+=coeff;
 			h-=coeff*2;
 		//	h=(h)/(d);
-			wallx++;
+		//	wallx+=1;
+		//	wallx+=1;
+cont++;
 		}
-		//else if((int)posxprec != (int)posx)// && (int)posyprec != (int)posy)
-		else
+		else if (m != 0 && n == 0)
 		{
-			//wally+=coeff;
-			//h-=coeff*2;
-	//		printf("si\n\n");
 			wallx++;
 		}
-//	 if ((int)posyprec == (int)posy)
-//		{
-//			wallx++;
-
-//		}
-
-	//	wallx++;
-		//h = (H_IMG - win->map_s->posy - posy)/2;
-
-		printf("-----------------\n");
-		printf("win->posx: %lf\n",win->map_s->posx);
-		printf("win->posy: %lf\n",win->map_s->posy);
-		printf("ray->posx: %lf\n",posx);
-		printf("ray->posy: %lf\n",posy);
-		printf("posxprec: %lf\n",posxprec);
-		printf("posyprec: %lf\n",posyprec);
-		printf("wallx: %lf\n",wallx);
-		printf("wally: %lf\n",wally);
-		printf("-----------------\n");
-		printf("win->posx: %i\n",(int)win->map_s->posx);
-		printf("win->posy: %i\n",(int)win->map_s->posy);
-		printf("ray->posx: %i\n",(int)posx);
-		printf("ray->posy: %i\n",(int)posy);
-		printf("posxprec: %i\n",(int)posxprec);
-		printf("posyprec: %i\n",(int)posyprec);
-		printf("wallx: %i\n",(int)wallx);
-		printf("wally: %i\n",(int)wally);
-		printf("h: %lf\n",h);
-		printf("-----------------\n");
-		posxprec = posx;
-		posyprec = posy;
-
 		my_mlx_pixel_put3(win->img2_s, wallx,wally, h, 0x000000FF);
 
-		//t += 0.01; //CAMBIARE SE SGRANA
+		printf("=================\n");
+		printf("-----------------\n");
+		printf("win->posx: %lf\n",win->map_s->posx);
+		printf("ray->posx: %lf\n",posx);
+		printf("posxprec: %lf\n",posxprec);
+		printf("wallx: %lf\n",wallx);
+		printf("-----------------\n");
+		printf("win->posy: %lf\n",win->map_s->posy);
+		printf("ray->posy: %lf\n",posy);
+		printf("posyprec: %lf\n",posyprec);
+		printf("wally: %lf\n",wally);
+		printf("-----------------\n");
+		printf("-----------------\n");
+		printf("win->posx: %i\n",(int)win->map_s->posx);
+		printf("ray->posx: %i\n",(int)posx);
+		printf("posxprec: %i\n",(int)posxprec);
+		printf("wallx: %i\n",(int)wallx);
+		printf("-----------------\n");
+		printf("win->posy: %i\n",(int)win->map_s->posy);
+		printf("ray->posy: %i\n",(int)posy);
+		printf("posyprec: %i\n",(int)posyprec);
+		printf("wally: %i\n",(int)wally);
+		printf("-----------------\n");
+		printf("h: %lf\n",h);
+		printf("diff_y: %lf\n",posyprec-posy);
+		printf("diff_x: %lf\n",posx-posxprec);
+		printf("diff_y: %i\n",(int)posyprec*m-(int)posy*m);
+		printf("diff_x: %i\n",(int)posx*m-(int)posxprec*m);
+		printf("-----------------\n");
+
+		posxprec = posx;
+		posyprec = posy;
+	//	t += 0.008; //CAMBIARE SE SGRANA
 		t+=M_PI_2/W_IMG;
 	}
+	printf("ccccc: %i\n",(cont));
 }
 
 int		main(void)
