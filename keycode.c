@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 19:09:02 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/09 10:42:25 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/10 12:18:20 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	ft_keycode_up(win_data *win)
 //	posx += win->map_s->dirx;//* win->map_s->speed;
 //	posy -= win->map_s->diry;
 //	posx += win->map_s->dirx;
-	if (*(win->img_s->addr + ((int)(win->map_s->posy - win->map_s->diry) * win->img_s->line_length +
-	(int)(win->map_s->posx + win->map_s->dirx) * (win->img_s->bits_per_pixel / 8))) == 0)
+	if ((/*(unsigned int)*/*(unsigned int*)(win->img_s->addr + ((int)(win->map_s->posy - win->map_s->diry) * win->img_s->line_length +
+	(int)(win->map_s->posx + win->map_s->dirx) * (win->img_s->bits_per_pixel / 8)))) == 0)
 	{
 		win->map_s->posy -= win->map_s->diry;// * win->map_s->speed;
 		win->map_s->posx += win->map_s->dirx;// * win->map_s->speed;
@@ -35,8 +35,12 @@ void	ft_keycode_up(win_data *win)
 		//win->map_s->posy-=pow(win->map_s->diry,2)* win->map_s->diry;
 		//win->map_s->posx+=pow(win->map_s->dirx,2)* win->map_s->dirx;
 	//IL PERSONAGGIO:
-		//my_mlx_pixel_put(win->img_s,win->map_s->posy, win->map_s->posx , 0x00FFFFFF);
+		my_mlx_pixel_put(win->img_s,win->map_s->posx, win->map_s->posy , 0x00FFFFFF);
 	}
+	printf("pixel_pos_int: %i\n",(*(win->img_s->addr + ((int)(win->map_s->posy - win->map_s->diry) * win->img_s->line_length +
+	(int)(win->map_s->posx/* + win->map_s->dirx*/) * (win->img_s->bits_per_pixel / 8)))));
+	printf("pixel_pos_uns: %u\n",(*(unsigned int*)(win->img_s->addr + ((int)(win->map_s->posy - win->map_s->diry) * win->img_s->line_length +
+	(int)(win->map_s->posx + win->map_s->dirx) * (win->img_s->bits_per_pixel / 8)))));
 
 }
 
@@ -57,7 +61,7 @@ void	ft_keycode_down(win_data *win)
 		win->map_s->posy += win->map_s->diry;// * win->map_s->speed;
 		win->map_s->posx -= win->map_s->dirx;// * win->map_s->speed;
 	//IL PERSONAGGIO:
-	//	my_mlx_pixel_put(win->img_s,win->map_s->posy, win->map_s->posx , 0x00FFFFFF);
+		my_mlx_pixel_put(win->img_s,win->map_s->posx, win->map_s->posy , 0x00FFFFFF);
 	}
 	//else
 	//	my_mlx_pixel_put(win->img_s, win->map_s->posx, win->map_s->posy  , 0x00FFFFFF);

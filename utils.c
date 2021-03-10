@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 09:00:35 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/08 13:49:46 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/10 12:16:44 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ void	ft_build_image(win_data *win)
 		while ( win->map_s->map[j][z] != '\0')
 		{
 			if (win->map_s->map[j][z] == '1')
-    			my_mlx_pixel_put2(win->img_s, x, y, 255);
+    			my_mlx_pixel_put2(win->img_s, x, y, 0x00FFFF00);
+			printf("color_int:%i\n",0x00FFFF00);
+			printf("color_uns:%u\n",0x00FFFF00);
 			if (win->map_s->map[j][z] == '2')
 		    	my_mlx_pixel_put2(win->img_s, x, y, 0x0000FFFF);
 			if (win->map_s->map[j][z] == 'N' && !win->map_s->posx && !win->map_s->posy)

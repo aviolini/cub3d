@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/09 16:06:35 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/10 12:19:27 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int		key_hook(int keycode, win_data *win)
 	if(keycode == 123 || keycode == 65361)
 		ft_arrow_left(win);
 
-	ft_bundle_ray(win);
+//	ft_bundle_ray(win);
+	//ft_central_ray(win);
 	printf("%d\n", keycode);
 
 	mlx_put_image_to_window(win->mlx, win->win, win->img2_s->img, 622, 20);
@@ -85,15 +86,18 @@ void	ft_central_ray(win_data *win)
 	double posx, posy;
 	posx = win->map_s->posx;
 	posy = win->map_s->posy;
-	posy -= pow(win->map_s->diry,2)* win->map_s->diry;
-	posx += pow(win->map_s->dirx,2)* win->map_s->dirx;
-	while (*(win->img_s->addr + ((int)posy * win->img_s->line_length +
-		(int)posx * (win->img_s->bits_per_pixel / 8))) == 0)
+	posy -= -win->map_s->diry;
+	posx += -win->map_s->dirx;
+	while ((*(unsigned int*)(win->img_s->addr + ((int)posy * win->img_s->line_length +
+		(int)posx * (win->img_s->bits_per_pixel / 8)))) == 0)
 	{
-		my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
+	my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
 		posy -= win->map_s->diry;
 		posx += win->map_s->dirx;
+
+
 	}
+
 }
 //FASCIO DI RAGGI
 void	ft_bundle_ray(win_data *win)
@@ -107,9 +111,9 @@ void	ft_bundle_ray(win_data *win)
 	double posxprec = 0, posyprec = 0;
 	double coeff = 0.5;
 	int cont =0;
-//	while ( angle > win->map_s->angle - M_PI/6)	//+ M_PI/6 = 60GRADI
-	int x = 0;
-	while (x++<1)
+	while ( angle > win->map_s->angle - M_PI/6)	//+ M_PI/6 = 60GRADI
+//	int x = 0;
+//	while (x++<1)
 	{
 		angle = win->map_s->angle + M_PI/6 - t;
 		printf("angle: %f\n", angle);
@@ -117,7 +121,7 @@ void	ft_bundle_ray(win_data *win)
 		diry = sin(angle);
 		posx = win->map_s->posx;
 		posy = win->map_s->posy;
-		while (*(win->img_s->addr + ((int)(posy - diry) * win->img_s->line_length +
+		while (*(unsigned int*)(win->img_s->addr + ((int)(posy - diry) * win->img_s->line_length +
 			(int)(posx + dirx) * (win->img_s->bits_per_pixel / 8))) == 0)
 		{
 
@@ -208,9 +212,9 @@ int		main(void)
     win.mlx = mlx_init();
 	win.win = mlx_new_window(win.mlx, W_WIN, H_WIN, "Hello world!");
 	//SFONDO
-	while (y++ < 1000 && -1 < (x = 0))
-		while (x++ < 1920)
-			mlx_pixel_put(win.mlx, win.win, x, y, 0x00FFFFFF);
+//	while (y++ < 1000 && -1 < (x = 0))
+//		while (x++ < 1920)
+//			mlx_pixel_put(win.mlx, win.win, x, y, 0x00FFFFFF);
 	printf("line_lenght: %d\n", img.line_length);
 	printf("line_lenght/4: %d\n", img.line_length/4);
 	printf("bits_per_pixel: %d\n", img.bits_per_pixel);
@@ -234,7 +238,8 @@ int		main(void)
 
 	ft_build_image2(&win);
 	ft_build_image(&win);
-	ft_bundle_ray(&win);
+	//ft_bundle_ray(&win);
+	ft_central_ray(&win);
 	mlx_put_image_to_window(win.mlx, win.win, img.img, 20, 20);
 
 	mlx_put_image_to_window(win.mlx, win.win, img2.img, W_IMG+22, 20);
