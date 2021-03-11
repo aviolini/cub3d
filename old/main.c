@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/10 12:19:27 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/11 11:29:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,8 +238,8 @@ int		main(void)
 
 	ft_build_image2(&win);
 	ft_build_image(&win);
-	//ft_bundle_ray(&win);
-	ft_central_ray(&win);
+	ft_bundle_ray(&win);
+	//ft_central_ray(&win);
 	mlx_put_image_to_window(win.mlx, win.win, img.img, 20, 20);
 
 	mlx_put_image_to_window(win.mlx, win.win, img2.img, W_IMG+22, 20);

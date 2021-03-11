@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 09:00:35 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/10 12:16:44 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/11 11:29:56 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ void	ft_build_image(win_data *win)
 {
 	int j = 0;
 	int z = 0;
-	int x = win->img_s->size_pixel;
-	int y = win->img_s->size_pixel;
+	int x = 0;
+	int y = 0;
+	//int x = win->img_s->size_pixel;
+	//int y = win->img_s->size_pixel;
 
 	while (win->map_s->map[j])
 	{
@@ -88,7 +90,7 @@ void	ft_build_image(win_data *win)
 		while ( win->map_s->map[j][z] != '\0')
 		{
 			if (win->map_s->map[j][z] == '1')
-    			my_mlx_pixel_put2(win->img_s, x, y, 0x00FFFF00);
+    			my_mlx_pixel_put(win->img_s, x *win->img_s->size_pixel , y*win->img_s->size_pixel, 0x00FFFF00);
 			printf("color_int:%i\n",0x00FFFF00);
 			printf("color_uns:%u\n",0x00FFFF00);
 			if (win->map_s->map[j][z] == '2')
@@ -121,15 +123,17 @@ void	ft_build_image(win_data *win)
 				win->map_s->angle = 0;
 			//	my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
-			x = x + win->img_s->size_pixel;
+			//x = x + win->img_s->size_pixel;
+			x++;
 			z++;
 		}
 		j++;
 		z = 0;
 		win->map_s->dirx = cos(win->map_s->angle);
 		win->map_s->diry = sin(win->map_s->angle);
-		x = win->img_s->size_pixel;
-		y = y + win->img_s->size_pixel;
+		//x = win->img_s->size_pixel;
+		//y = y + win->img_s->size_pixel;
+		y++;
 	}
 }
 

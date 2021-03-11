@@ -14,6 +14,9 @@ https://github.com/id-Software/wolf3d
 COSTANTI DI MATH.H
 https://docs.microsoft.com/it-it/cpp/c-runtime-library/math-constants?view=msvc-160
 
+FLOOR
+https://www.tutorialspoint.com/c_standard_library/c_function_floor.htm
+
 
 BITSHIFTING
 
