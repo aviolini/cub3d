@@ -1,0 +1,6 @@
+-se la funz check args torna 2 bisogna salvare un immagine bmp
+-testare gli input degli argomenti passati al main con tutte le condizioni
+-error -1 di gnl
+-prendere la risoluzione dello schermo in uso, todo in set_resolution
+-il set color non e' unsigned int e non c'e' la trasparenza
+- da settare linea vuota in line in parsing map
