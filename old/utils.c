@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 09:00:35 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/11 11:29:56 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/12 12:11:07 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ void	ft_build_image(win_data *win)
 {
 	int j = 0;
 	int z = 0;
-	int x = 0;
-	int y = 0;
-	//int x = win->img_s->size_pixel;
-	//int y = win->img_s->size_pixel;
+//	int x = 0;
+	//int y = 0;
+	int x = win->img_s->size_pixel;
+	int y = win->img_s->size_pixel;
 
 	while (win->map_s->map[j])
 	{
@@ -90,9 +90,7 @@ void	ft_build_image(win_data *win)
 		while ( win->map_s->map[j][z] != '\0')
 		{
 			if (win->map_s->map[j][z] == '1')
-    			my_mlx_pixel_put(win->img_s, x *win->img_s->size_pixel , y*win->img_s->size_pixel, 0x00FFFF00);
-			printf("color_int:%i\n",0x00FFFF00);
-			printf("color_uns:%u\n",0x00FFFF00);
+    			my_mlx_pixel_put2(win->img_s, x , y, 0x00FFFFFF);
 			if (win->map_s->map[j][z] == '2')
 		    	my_mlx_pixel_put2(win->img_s, x, y, 0x0000FFFF);
 			if (win->map_s->map[j][z] == 'N' && !win->map_s->posx && !win->map_s->posy)
@@ -123,17 +121,17 @@ void	ft_build_image(win_data *win)
 				win->map_s->angle = 0;
 			//	my_mlx_pixel_put(win->img_s, x, y, 0x00FFFFFF);
 			}
-			//x = x + win->img_s->size_pixel;
-			x++;
+			x = x + win->img_s->size_pixel;
+			//x++;
 			z++;
 		}
 		j++;
 		z = 0;
 		win->map_s->dirx = cos(win->map_s->angle);
 		win->map_s->diry = sin(win->map_s->angle);
-		//x = win->img_s->size_pixel;
-		//y = y + win->img_s->size_pixel;
-		y++;
+		x = win->img_s->size_pixel;
+		y = y + win->img_s->size_pixel;
+		//y++;
 	}
 }
 
@@ -210,10 +208,10 @@ void	ft_build_image2(win_data *win)
 	int colorf = 0x0000FF00, colorc = 0x00FF0000;
 	int x = -1, y = -1;
 	while (++y < H_IMG/2 && -2<(x = -1))
-		while (++x < W_IMG-1)
+		while (++x < W_IMG)
 			my_mlx_pixel_put(win->img2_s, x, y, colorc);
 	y--;
 	while (++y < H_IMG - 1 && -2<(x = -1))
-		while (++x < W_IMG-1)
+		while (++x < W_IMG)
 			my_mlx_pixel_put(win->img2_s, x, y, colorf);
 }

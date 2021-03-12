@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 16:57:26 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/08 12:48:06 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/12 12:15:31 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_destroy_img(win_data *win);
 void	ft_destroy_img2(win_data *win);
 void	my_mlx_pixel_put(img_data *img, int x, int y, int color);
 void	my_mlx_pixel_put2(img_data *img, int x, int y, int color);
-void	my_mlx_pixel_put3(img_data *img, int x, int y,int h, int color);
+void	my_mlx_pixel_put3(img_data *img, double x, double y,double h, int color);
 
 char	**ft_build_map (char *buff, int x, int y);
 void	ft_build_image(win_data *win);
