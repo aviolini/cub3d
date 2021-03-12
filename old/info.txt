@@ -17,6 +17,9 @@ https://docs.microsoft.com/it-it/cpp/c-runtime-library/math-constants?view=msvc-
 FLOOR
 https://www.tutorialspoint.com/c_standard_library/c_function_floor.htm
 
+UTILS:
+
+https://permadi.com/1996/05/ray-casting-tutorial-7/
 
 BITSHIFTING
 

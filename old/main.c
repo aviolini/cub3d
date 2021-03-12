@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/12 12:14:59 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/12 14:32:43 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ void	ft_central_ray(win_data *win)
 	my_mlx_pixel_put(win->img_s, posx, posy, 0x00FF0000);
 		posy -= win->map_s->diry;
 		posx += win->map_s->dirx;
-
-
 	}
 
 }
@@ -138,7 +136,6 @@ void	ft_bundle_ray(win_data *win)
 	//	int n = (int)(posyprec*f) - (int)(posy*f);
 //
 		h = (H_IMG/lungh);
-
 		wally=H_IMG/2;
 		h *=1;
 		//h-=coeff;
@@ -165,8 +162,8 @@ void	ft_bundle_ray(win_data *win)
 
 	//	t += 0.008; //CAMBIARE SE SGRANA
 		cont++;
-		t += 0.00175;
-		//t+=M_PI/3/W_IMG;
+		//t += 0.00175;
+		t+=M_PI/3/W_IMG;
 		printf("lunghezza: %i\n",(lungh));
 		}
 	printf("raggi: %i\n",(cont));
