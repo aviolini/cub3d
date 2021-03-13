@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/13 13:16:30 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/13 13:29:46 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ typedef struct	window_data
 
 /*CUB3D.C*/
 void	init_settings(sett_data *settings);
-//MAP_TOOLS
+void		print_strutt(sett_data *settings);
+/*MAP_TOOLS*/
 int		build_map(char *line, sett_data *settings);
 /*PARSING_TOOLS*/
 int		set_resolution(char *line, sett_data *settings, int i);
