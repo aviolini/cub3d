@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/11 19:48:23 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/13 13:16:30 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct	window_data
 {
 	void		*mlx;
 	void		*win;
-	img_data	preview;
+	img_data	world;
 	img_data	img;
 	pl_data		player;
 	sett_data	settings;
@@ -73,11 +73,13 @@ typedef struct	window_data
 
 /*CUB3D.C*/
 void	init_settings(sett_data *settings);
+//MAP_TOOLS
+int		build_map(char *line, sett_data *settings);
 /*PARSING_TOOLS*/
 int		set_resolution(char *line, sett_data *settings, int i);
-int		path_textures(char *line, char *texture, int i);
+int		path_texture(char *line, char *texture, int i);
 int		parsing_map(char *av, sett_data *settings);
-int		set_color(char *line, int *color);
+int		set_color(char *line, int *color, int i);
 int		check_params(char *line, sett_data *settings);
 /*CHECK ARGS TOOLS*/
 int		check_argv2(char *av);
@@ -85,7 +87,10 @@ int		check_argv1(char *av);
 int		check_args(int ac, char **av);
 /*TOOLS*/
 int 	is_digit(char c);
+int		if_empty_line_and_slide_spaces(char *line);
 int		find_color(char *line, int i);
+int		slide_char(char *line, int i);
+int		all_params(sett_data *settings);
 /* GNL FUNCTIONS */
 int		get_next_line(int fd, char **line);
 void	ft_index(char *index, char *ptr, int x);

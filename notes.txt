@@ -1,6 +1,17 @@
--se la funz check args torna 2 bisogna salvare un immagine bmp
--testare gli input degli argomenti passati al main con tutte le condizioni
--error -1 di gnl
--prendere la risoluzione dello schermo in uso, todo in set_resolution
--il set color non e' unsigned int e non c'e' la trasparenza
-- da settare linea vuota in line in parsing map
+//TEST ARGS MAIN
+-	se la funz check args torna 2 bisogna salvare un immagine bmp
+-	testare gli input degli argomenti passati al main con tutte le condizioni
+//GNL
+-	error -1 di gnl
+//SET RESOLUTION
+-	while(!is_digit(line[i])) AGGIUNGERE LA PROTEZIONE  "&& line[i]"
+-	int mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey); PER OTTENERE LA RISO
+//PATH TEXTURE
+-	non c'e il controllo se alla fine del path ce la fine della stringa oppure uno spazio
+	non ci puo essere nient'altro
+-	ESCAPE '\' che prende eventuale spazio presente nel percorso
+//VARIE
+-	prendere la risoluzione dello schermo in uso, todo in set_resolution
+-	il set color non e' unsigned int e non c'e' la trasparenza
+-	da settare linea vuota in line in parsing map
+-	gli spazi possono essere anche tab?
