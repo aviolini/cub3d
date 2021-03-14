@@ -1,43 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_tools.c                                    :+:      :+:    :+:   */
+/*   parsing_params.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/13 13:09:24 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/14 19:11:14 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-int		parsing_map(char *av, sett_data *settings)
-{
-	int fd;
-	int r;
-	char *line;
 
-	line = NULL;
-	fd = open(av, O_RDONLY);
-	while (r = get_next_line(fd,&line) > 0)
-	{
-		if (!all_params(settings))
-		{
-			if (!check_params(line,settings))
-				return (0);
-		}
-		else
-		{
- 			if (!build_map(line,settings))
-					return (0);
-		}
-	}
-	if ( r == -1)
-		return (0);
-	return (1);
-}
-
-int		check_params(char *line, sett_data *settings)
+int		parsing_params(char *line, sett_data *settings)
 {
 	int i;
 	int r;
@@ -48,25 +23,25 @@ int		check_params(char *line, sett_data *settings)
 	if (line[i] == 'R')
 		r = set_resolution(line, settings, i + 1);
 	else if (line[i] == 'N' && line[i + 1] == 'O')
-		r = path_texture(line, settings->north_texture, i + 2);
+		r = path_texture(line, &settings->north_texture, i + 2);
 	else if (line[i] == 'S' && line[i + 1] == 'O')
-		r = path_texture(line, settings->south_texture, i + 2);
+		r = path_texture(line, &settings->south_texture, i + 2);
 	else if (line[i] == 'E' && line[i + 1] == 'A')
-		r = path_texture(line, settings->east_texture, i + 2);
+		r = path_texture(line, &settings->east_texture, i + 2);
 	else if (line[i] == 'W' && line[i + 1] == 'E')
-		r = path_texture(line, settings->west_texture, i + 2);
+		r = path_texture(line, &settings->west_texture, i + 2);
 	else if (line[i] == 'S')
-		r = path_texture(line, settings->sprite_texture, i + 1);
+		r = path_texture(line, &settings->sprite_texture, i + 1);
 	else if (line[i] == 'F')
-		r = set_color(line, settings->floor_color, i + 1);
+		r = set_color(line, &settings->floor_color, i + 1);
 	else if (line[i] == 'C')
-		r = set_color(line, settings->ceiling_color, i + 1);
+		r = set_color(line, &settings->ceiling_color, i + 1);
 	return (r);
 }
 
 int		set_resolution(char *line, sett_data *settings, int i)
 {
-	if (settings->width_win || settings->height_win)
+	if (settings->width_win || settings->heigth_win)
 		return (0);
 	while(!is_digit(line[i]))
 		if (line[i++] != ' ' || !line[i])
@@ -77,28 +52,28 @@ int		set_resolution(char *line, sett_data *settings, int i)
 		if (line[i++] != ' ' || !line[i])
 			return (0);
 	while(is_digit(line[i]))
-		settings->height_win = settings->height_win * 10 + (line[i++] - 48);
+		settings->heigth_win = settings->heigth_win * 10 + (line[i++] - 48);
 	while (line[i])
 		if (line[i++] != ' ')
 			return (0);
 	return (1);
 }
 
-int		path_texture(char *line, char *texture, int i)
+int		path_texture(char *line, char **texture, int i)
 {
 	int z;
 	int c;
 
 	z = 0;
 	c = 0;
-	if (texture)
+	if (*texture)
 		return (0);
 	while (line [i] && line[i] == ' ')
 		i++;
 	z = i;
 	while (line[i])
 	{
-		if (line[i] == ' ' && line[i - 1] != '\')
+		if (line[i] == ' ' && line[i - 1] != '\\')
 			break;
 		i++;
 	}
@@ -107,12 +82,12 @@ int		path_texture(char *line, char *texture, int i)
 		if (line[c++] != ' ')	/* NEL RESTO DELLA STRINGA */
 			return (0);
 	c = i - z;
-	if (!(texture = (char *)malloc(sizeof(char) * (c + 1))))
+	if (!(*texture = (char *)malloc(sizeof(char) * (c + 1))))
 		return (0);
 	i = 0;
 	while (i < c)
-			texture[i++] = line[z++];
-	texture[i] = '\0';
+			texture[0][i++] = line[z++];
+	texture[0][i] = '\0';
 	return (1);
 }
 
@@ -122,7 +97,7 @@ int		set_color(char *line, int *color, int i)
 	int g;
 	int b;
 
-	if (color)
+	if (*color)
 		return (0);
 	while(!is_digit(line[i]))
 		if (line[i++] != ' ' || !line[i])
@@ -134,11 +109,11 @@ int		set_color(char *line, int *color, int i)
 	if ((i = slide_char(line,i)) == -1)
 		return (0);
 	b = find_color(line, i);
-	while (is_digit(line[i])
+	while (is_digit(line[i]))
 		i++;
 	while(line[i])
 		if (line[i++] != ' ')
 			return (0);
-	color = (r << 16 | g << 8 | b);
+	*color = (r << 16 | g << 8 | b);
 	return (1);
 }

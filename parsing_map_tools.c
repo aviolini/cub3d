@@ -1,28 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_tools.c                                        :+:      :+:    :+:   */
+/*   parsing_map_tools.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 13:07:07 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/13 13:19:05 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/14 22:51:50 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		build_map(char *line, sett_data *settings)
+int		check_first_number(char *line)
 {
-	void(line);
+	int i;
 
-	if (if_empty_line_and_slide_spaces(line) == -1)
-	{
-		if (!(*settings->map))
-			return (1);
-		else
+	i = 0;
+	while(line[i] && line[i] != '1')
+		if (line[i++] != ' ')
 			return (0);
-	}
-	printf("\nCOSTRUZIONE MAPPA\n");
 	return (1);
+}
+
+int		ft_strlen(char *s)
+{
+	int i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
+}
+
+int		ft_matrlen(char **m)
+{
+	int i;
+
+	i = 0;
+	if (!m)
+		return (0);
+	while (m[i])
+		i++;
+	return (i);
 }

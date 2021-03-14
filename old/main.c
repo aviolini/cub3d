@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 09:37:37 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/12 14:32:43 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/14 09:23:33 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	ft_bundle_ray(win_data *win)
 //
 		h = (H_IMG/lungh);
 		wally=H_IMG/2;
-		h *=1;
+		h *=6;
 		//h-=coeff;
 	//	wallx++;
 

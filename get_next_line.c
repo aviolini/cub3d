@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 10:27:58 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/11 15:28:22 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/14 22:47:59 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,4 @@ int		ft_strchr(char *str)
 			return (i);
 	}
 	return (-1);
-}
-
-int		ft_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
 }

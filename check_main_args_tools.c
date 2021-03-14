@@ -6,9 +6,11 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:32:44 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/13 08:06:17 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/14 08:55:51 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "cub3d.h"
 
 int		check_argv2(char *av)
 {

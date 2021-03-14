@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/13 13:29:46 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/14 22:48:08 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef	struct	settings_data
 	char		*sprite_texture;
 	int			floor_color;
 	int			ceiling_color;
+	int			eof;
 }				sett_data;
 
 typedef struct	window_data
@@ -72,21 +73,28 @@ typedef struct	window_data
 }				win_data;
 
 /*CUB3D.C*/
+int		parsing_file(char *av, sett_data *settings);
 void	init_settings(sett_data *settings);
-void		print_strutt(sett_data *settings);
-/*MAP_TOOLS*/
-int		build_map(char *line, sett_data *settings);
-/*PARSING_TOOLS*/
+void	print_strutt(sett_data *settings);
+/*PARSING MAP */
+int		parsing_map(char *line, char ***map, int *eof);
+int		build_map(char *line, char ***map);
+char	**ft_map(char *line, char **map);
+char	*copy_line(char *line);
+/*PARSING MAP_TOOLS*/
+int		check_first_number(char *line);
+int		ft_strlen(char *s);
+int		ft_matrlen(char **m);
+/*PARSING_PARAMS*/
+int		parsing_params(char *line, sett_data *settings);
 int		set_resolution(char *line, sett_data *settings, int i);
-int		path_texture(char *line, char *texture, int i);
-int		parsing_map(char *av, sett_data *settings);
+int		path_texture(char *line, char **texture, int i);
 int		set_color(char *line, int *color, int i);
-int		check_params(char *line, sett_data *settings);
-/*CHECK ARGS TOOLS*/
+/*CHECK MAIN ARGS TOOLS*/
 int		check_argv2(char *av);
 int		check_argv1(char *av);
 int		check_args(int ac, char **av);
-/*TOOLS*/
+/*PARSING PARAMS TOOLS*/
 int 	is_digit(char c);
 int		if_empty_line_and_slide_spaces(char *line);
 int		find_color(char *line, int i);
@@ -97,7 +105,6 @@ int		get_next_line(int fd, char **line);
 void	ft_index(char *index, char *ptr, int x);
 int		ft_read(int fd, char **line, char *index);
 int		ft_strchr(char *str);
-int		ft_strlen(char *str);
 char	*ft_newline(char **line, char *ptr, int r);
 int		ft_refresh_index(char **line, char *index);
 void	ft_clean(char *ptr);
