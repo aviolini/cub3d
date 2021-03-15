@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 11:33:27 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 15:08:03 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	*copy_and_free_line(char *line)
 
 int		check_map(char **map)
 {
+	(void)map;
 	//CONTROLLO DEI VALORI DELLA VERA MAPPA 0 e 1
 	return (1);
 }
