@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 19:29:16 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 19:34:53 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ int		key_hook(int keycode, win_data *win)
 		printf("win->player.posy : %lf\n",win->player.posy/SCALE);
 		printf("floor(win->player.posy) : %lf\n",floor(win->player.posy/SCALE));
 		printf("(int)floor(win->player.posy) : %i\n",(int)floor(win->player.posy/SCALE));
-		if (win->settings.map[(int)floor(win->player.posy/SCALE + win->player.diry)]
-			[(int)floor(win->player.posx/SCALE + win->player.dirx)] == '0')
+		win->player.posy += win->player.diry;// * SPEED / 100);
+		win->player.posx += win->player.dirx;
+		if (win->settings.map[(int)floor(win->player.posy/SCALE)]
+			[(int)floor(win->player.posx/SCALE)] == '1')
 		{
-			win->player.posy += win->player.diry;// * SPEED / 100);
-			win->player.posx += win->player.dirx;// * SPEED / 100);
+			win->player.posy -= win->player.diry;// * SPEED / 100);
+			win->player.posx -= win->player.dirx;// * SPEED / 100);
 		}
 	}
 	if(keycode == 125 || keycode == 65364 || keycode == 115)//S
