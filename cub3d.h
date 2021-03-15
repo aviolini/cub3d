@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 10:24:58 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 12:37:13 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <mlx.h>
 
 #define BUFFER_SIZE 1024
+#define SCALE 16
 #define W_IMG 600
 #define H_IMG 480
 #define	FOV_ANGLE M_PI/3
@@ -75,14 +76,17 @@ typedef struct	window_data
 /*CUB3D.C*/
 int		parsing_file(char *av, sett_data *settings);
 void	init_settings(sett_data *settings);
-void	print_settings(sett_data *settings);
+void	print_settings(sett_data settings);
 /*MANAGE WINDOW*/
 int		main_window(win_data *win);
 void	init_player(pl_data *player);
-void	print_player(pl_data *player);
+void	print_player(pl_data player);
 /*MANAGE WINDOW TOOLS*/
-void		set_right_resolution(win_data *win);
-
+void	set_right_resolution(win_data *win);
+void	my_mlx_pixel_put(img_data *img, int x, int y, int color);
+void	my_mlx_pixel_put2(img_data *img, int x, int y, int color);
+int		build_world(img_data *world, char **map, pl_data *player);
+void	build_player(char **map,int x, int y, pl_data *player);
 /*PARSING MAP */
 int		parsing_map(char *line, char ***map, int *eof);
 char	**build_map(char *line, char **map);

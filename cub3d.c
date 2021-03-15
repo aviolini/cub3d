@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 09:53:46 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 11:44:25 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int ac, char **av)
 	init_settings(&win.settings);
 	if (!parsing_file(av[1], &win.settings))
 		printf("Error\nError in parsing map\nProbably wrong params\n");
-	print_settings(&win.settings);
+	print_settings(win.settings);
 	if(!main_window(&win))
 		printf("Error\nError in graphic server\n");
 	return (0);
@@ -60,27 +60,27 @@ int		parsing_file(char *av, sett_data *settings)
 }
 
 
-void		print_settings(sett_data *settings)
+void		print_settings(sett_data settings)
 {
 	printf("------settings------------------------\n");
 	//int i = 0;
 	//printf("*map: %i\n",*(settings->map));
-	printf("w_win: %i\n",settings->win_resx);
-	printf("h_win: %i\n",settings->win_resy);
-	printf("no_te: %s\n",settings->north_texture);
-	printf("we_te: %s\n",settings->west_texture);
-	printf("ea_te: %s\n",settings->east_texture);
-	printf("so_te: %s\n",settings->south_texture);
-	printf("sp_te: %s\n",settings->sprite_texture);
-	printf("flo_col: %i\n",settings->floor_color);
-	printf("cei_col: %i\n",settings->ceiling_color);
-	printf("eof: %i\n",settings->eof);
+	printf("w_win: %i\n",settings.win_resx);
+	printf("h_win: %i\n",settings.win_resy);
+	printf("no_te: %s\n",settings.north_texture);
+	printf("we_te: %s\n",settings.west_texture);
+	printf("ea_te: %s\n",settings.east_texture);
+	printf("so_te: %s\n",settings.south_texture);
+	printf("sp_te: %s\n",settings.sprite_texture);
+	printf("flo_col: %i\n",settings.floor_color);
+	printf("cei_col: %i\n",settings.ceiling_color);
+	printf("eof: %i\n",settings.eof);
 	//while ((settings->map)[i])
 	//	printf("mapp: %s\n",(settings->map)[i++]);
-	while (*(settings->map))
+	while (*(settings.map))
 	{
-		printf("map: %s\n",*(settings->map));
-		(settings->map)++;
+		printf("map: %s\n",*(settings.map));
+		(settings.map)++;
 	}
 	printf("-----------------------------------\n");
 }
