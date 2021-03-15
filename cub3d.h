@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 18:11:26 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 19:25:33 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <mlx.h>
 
 #define BUFFER_SIZE 1024
-#define SCALE 16
+#define SCALE 18
 #define W_IMG 600
 #define H_IMG 480
 #define	FOV_ANGLE M_PI/3

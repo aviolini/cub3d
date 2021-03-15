@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 18:00:37 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 19:08:07 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int		build_world(img_data *world, char **map, pl_data *player)
 void	build_player(char **map,int x, int y, pl_data *player)
 {
 	player->speed = 1;
-	player->posx = x * SCALE + SCALE / 2;
-	player->posy = y * SCALE + SCALE / 2;
+	player->posx = x * SCALE;// + SCALE / 2;
+	player->posy = y * SCALE;// + SCALE / 2;
 	if (map[y][x] == 'N')
 		player->angle = M_PI_2;
 	else if (map[y][x] == 'S')
