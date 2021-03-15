@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/14 22:48:08 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 01:01:27 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void	init_settings(sett_data *settings);
 void	print_strutt(sett_data *settings);
 /*PARSING MAP */
 int		parsing_map(char *line, char ***map, int *eof);
-int		build_map(char *line, char ***map);
-char	**ft_map(char *line, char **map);
-char	*copy_line(char *line);
+char	**build_map(char *line, char **map);
+char	*copy_and_free_line(char *line);
+int		check_map(char **map);
 /*PARSING MAP_TOOLS*/
 int		check_first_number(char *line);
 int		ft_strlen(char *s);

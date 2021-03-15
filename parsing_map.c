@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/14 23:17:03 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 01:01:05 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,18 @@ int		parsing_map(char *line, char ***map, int *eof)
 			return (1);
 		else
 		{
-			if(!*eof)
-			{
 				*eof = 1;
 				return (1);
-			}
-			else
-				return (0);
 		}
 	}
-	if (!check_first_number(line))
+	if (*eof || !check_first_number(line))
 		return (0);
-	if (!build_map(line,map))
-		return (0);
-	return (1);
-}
-int		build_map(char *line, char ***map)
-{
-	if (!(*map = ft_map(line,*map)))
+	if (!(*map = build_map(line,*map)))
 		return (0);
 	return (1);
 }
 
-char	**ft_map(char *line, char **map)
+char	**build_map(char *line, char **map)
 {
 	int i;
 	int y;
@@ -52,10 +41,14 @@ char	**ft_map(char *line, char **map)
 	if (!(m = (char **)malloc(sizeof(char *) * (y + 2))))
 		return (NULL);
 	y = 0;
-	if (map && -2 < (y = -1))
+	if (map)
+	{
+		y = -1;
 		while (map[++y])
-			if(!(m[y] = copy_line(map[y])))
+			if(!(m[y] = copy_and_free_line(map[y])))
 				return (NULL);
+		//free(map[y]);     /FREE DELL'ULTIMO ELEMENTO CHE e' == NULL?
+	}
 	i = ft_strlen(line);
 	if (!(m[y] = (char *)malloc(sizeof(char) * (i + 1))))
 		return (NULL);
@@ -67,7 +60,7 @@ char	**ft_map(char *line, char **map)
 	return (m);
 }
 
-char	*copy_line(char *line)
+char	*copy_and_free_line(char *line)
 {
 	int i;
 	char *s;
@@ -81,4 +74,10 @@ char	*copy_line(char *line)
 	s[i] = '\0';
 	free(line);
 	return (s);
+}
+
+int		check_map(char **map)
+{
+	printf("map : %s\n",map[0]);
+	return (1);
 }

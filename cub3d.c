@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/14 23:14:44 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 00:27:19 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int		parsing_file(char *av, sett_data *settings)
 	}
 	if ( r == -1)
 		return (0);
+	if (!check_map(settings->map))
+		return(0);
 	return (1);
 }
 
@@ -63,7 +65,7 @@ int		parsing_file(char *av, sett_data *settings)
 void		print_strutt(sett_data *settings)
 {
 	printf("------struct------------------------\n");
-	int i = 0;
+	//int i = 0;
 	//printf("*map: %i\n",*(settings->map));
 	printf("w_win: %i\n",settings->width_win);
 	printf("h_win: %i\n",settings->heigth_win);
@@ -80,7 +82,7 @@ void		print_strutt(sett_data *settings)
 	while (*(settings->map))
 	{
 		printf("map: %s\n",*(settings->map));
-		*(settings->map)++;
+		(settings->map)++;
 	}
 	printf("-----------------------------------\n");
 
