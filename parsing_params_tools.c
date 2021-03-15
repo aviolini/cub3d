@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   parsing_params_tools.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:35:54 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/14 17:33:28 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 09:54:43 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int		find_color(char *line, int i)
 
 int		all_params(sett_data *settings)
 {
-	if (!settings->width_win)
+	if (!settings->win_resx)
 		return (0);
-	if (!settings->heigth_win)
+	if (!settings->win_resy)
 		return (0);
 	if (!settings->north_texture)
 		return (0);

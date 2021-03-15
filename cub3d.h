@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 01:01:27 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 10:24:58 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <mlx.h>
 
 #define BUFFER_SIZE 1024
-#define W_WIN 1240 //GIA DEFINITA IN witdth_win
-#define H_WIN 600  //GIA DEFINITA IN height_win
 #define W_IMG 600
 #define H_IMG 480
 #define	FOV_ANGLE M_PI/3
@@ -32,7 +30,7 @@ typedef struct	image_data
 	void		*img;
 	char		*addr;
 	int			bits_per_pixel;
-	int			line_lenght;
+	int			line_length;
 	int			endian;
 	int			size_pixel;
 }				img_data;
@@ -50,8 +48,8 @@ typedef struct	player_data
 typedef	struct	settings_data
 {
 	char		**map;
-	int			width_win;
-	int			heigth_win;
+	int			win_resx;
+	int			win_resy;
 	char		*north_texture;
 	char		*west_texture;
 	char		*east_texture;
@@ -60,6 +58,8 @@ typedef	struct	settings_data
 	int			floor_color;
 	int			ceiling_color;
 	int			eof;
+	int			win_my_resx;
+	int			win_my_resy;
 }				sett_data;
 
 typedef struct	window_data
@@ -75,7 +75,14 @@ typedef struct	window_data
 /*CUB3D.C*/
 int		parsing_file(char *av, sett_data *settings);
 void	init_settings(sett_data *settings);
-void	print_strutt(sett_data *settings);
+void	print_settings(sett_data *settings);
+/*MANAGE WINDOW*/
+int		main_window(win_data *win);
+void	init_player(pl_data *player);
+void	print_player(pl_data *player);
+/*MANAGE WINDOW TOOLS*/
+void		set_right_resolution(win_data *win);
+
 /*PARSING MAP */
 int		parsing_map(char *line, char ***map, int *eof);
 char	**build_map(char *line, char **map);

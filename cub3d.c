@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 00:27:19 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 09:53:46 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ int main(int ac, char **av)
 	else if (i == 2)
 		printf("ok args\nsalvare l'immagine bmp non stampare\n"); //CONTINUA IL PROGRAMMA
 	init_settings(&win.settings);
-//	print_strutt(&win.settings);
-	if (!parsing_file(av[1], &win.settings)) //SE TORNA 0 = ERRORE
+	if (!parsing_file(av[1], &win.settings))
 		printf("Error\nError in parsing map\nProbably wrong params\n");
-//	else
-//		printf("\nuscita_ok\n");
-	print_strutt(&win.settings);
-
+	print_settings(&win.settings);
+	if(!main_window(&win))
+		printf("Error\nError in graphic server\n");
 	return (0);
 }
 
@@ -62,13 +60,13 @@ int		parsing_file(char *av, sett_data *settings)
 }
 
 
-void		print_strutt(sett_data *settings)
+void		print_settings(sett_data *settings)
 {
-	printf("------struct------------------------\n");
+	printf("------settings------------------------\n");
 	//int i = 0;
 	//printf("*map: %i\n",*(settings->map));
-	printf("w_win: %i\n",settings->width_win);
-	printf("h_win: %i\n",settings->heigth_win);
+	printf("w_win: %i\n",settings->win_resx);
+	printf("h_win: %i\n",settings->win_resy);
 	printf("no_te: %s\n",settings->north_texture);
 	printf("we_te: %s\n",settings->west_texture);
 	printf("ea_te: %s\n",settings->east_texture);
@@ -85,13 +83,13 @@ void		print_strutt(sett_data *settings)
 		(settings->map)++;
 	}
 	printf("-----------------------------------\n");
-
 }
+
 void		init_settings(sett_data *settings)
 {
 	settings->map = NULL;
-	settings->width_win = 0;
-	settings->heigth_win = 0;
+	settings->win_resx = 0;
+	settings->win_resy = 0;
 	settings->north_texture = NULL;
 	settings->west_texture = NULL;
 	settings->east_texture = NULL;
