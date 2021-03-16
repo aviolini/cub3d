@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 11:19:24 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 12:56:15 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,33 @@ void	set_right_resolution(win_data *win)
 		win->settings.win_resx = myresx;
 	if(win->settings.win_resy > myresy)
 		win->settings.win_resy = myresy;
+}
+
+void	view_background(img_data *view)
+{
+	int x;
+	int y;
+	int z;
+	unsigned int color;
+
+	color = 0x00ffff00;
+	y = -1;
+	z = 3;
+
+	while(--z > 0)
+	{
+		while(++y < (H_IMG/z) && -2 < (x = -1))
+			while(++x < W_IMG)
+				my_mlx_pixel_put(view,x,y,color);
+		color = color >> 16;
+		y--;
+	}
+}
+
+int		build_view(win_data *win)
+{
+	view_background(&win->view);
+	return (1);
 }
 
 void	move(char **map, pl_data *player, char var)

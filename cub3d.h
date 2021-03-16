@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 10:41:54 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 12:45:17 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct	window_data
 	void		*mlx;
 	void		*win;
 	img_data	world;
-	img_data	img;
+	img_data	view;
 	pl_data		player;
 	sett_data	settings;
 }				win_data;
@@ -93,6 +93,7 @@ void	slide(char **map, pl_data *player, char var);
 void	rotate(pl_data *player, char var);
 void	ray(win_data *win);
 void	bundle_ray(win_data *win);
+int		build_view(win_data *win);
 /*IMAGE_TOOLS*/
 void	new_image(win_data *win, img_data *img);
 void	my_mlx_pixel_put(img_data *img, int x, int y, int color);

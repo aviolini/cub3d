@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 11:38:31 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 12:58:22 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,18 @@ int		main_window(win_data *win)
 	set_right_resolution(win);
 	win->win = mlx_new_window(win->mlx,win->settings.win_resx,
 		win->settings.win_resy, "Welcome");
+	//SFONDO
+	int x = -1, y = -1;
+	while (++y < win->settings.win_resy && -2 < (x = -1))
+		while (++x < win->settings.win_resx)
+			mlx_pixel_put(win->mlx, win->win, x, y, 0x00FFFFFF);
+	//
 	new_image(win, &win->world);
+	new_image(win, &win->view);
 	if(!build_world(&win->world, win->settings.map, &win->player))
 		return (0);
+	build_view(win);
+	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 20);
 	bundle_ray(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 	print_player(win->player);
@@ -33,6 +42,8 @@ int		key_hook(int keycode, win_data *win)
 {
 	mlx_destroy_image(win->mlx, win->world.img);
 	new_image(win, &win->world);
+	mlx_destroy_image(win->mlx, win->view.img);
+	new_image(win, &win->view);
 //	if(!build_world(&win->world, win->settings.map, &win->player))
 //		return (0);
 	if (keycode == 53 || keycode == 65307)
