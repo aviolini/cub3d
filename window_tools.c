@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_window_tools.c                              :+:      :+:    :+:   */
+/*   window_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 19:08:07 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 01:29:30 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,3 +77,49 @@ void	set_right_resolution(win_data *win)
 	if(win->settings.win_resy > myresy)
 		win->settings.win_resy = myresy;
 */}
+
+void	moving(char **map, pl_data *player, char var)
+{
+	int		value;
+	if (var == 'w')
+		value = 1;
+	if (var == 's')
+		value = -1;
+	player->posy += (value)*player->diry * SPEED;
+	player->posx += (value)*player->dirx * SPEED;
+	while(map[(int)floor(player->posy / SCALE)]
+		[(int)floor(player->posx / SCALE)] == '1')
+	{
+		player->posy -= (value)*player->diry;
+		player->posx -= (value)*player->dirx;
+	}
+}
+
+void	sliding(char **map, pl_data *player, char var)
+{
+	int		value;
+	if (var == 'a')
+		value = -1;
+	if (var == 'd')
+		value = 1;
+	player->posy += (value) * player->dirx * SPEED;
+	player->posx -= (value) * player->diry * SPEED;
+	while(map[(int)floor(player->posy / SCALE)]
+		[(int)floor(player->posx / SCALE)] == '1')
+	{
+		player->posy -= (value) * player->dirx;
+		player->posx += (value) * player->diry;
+	}
+}
+
+void	rotation(pl_data *player, char var)
+{
+	int		value;
+	if (var == 'r')
+		value = -1;
+	if (var == 'l')
+		value = 1;
+	player->angle += (value) * ROTATION;
+	player->dirx = cos(player->angle);
+	player->diry = -sin(player->angle);
+}

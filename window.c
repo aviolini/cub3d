@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_window.c                                    :+:      :+:    :+:   */
+/*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 19:34:53 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 01:26:52 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ int		main_window(win_data *win)
 
 int		key_hook(int keycode, win_data *win)
 {
+	mlx_destroy_image(win->mlx, win->world.img);
+	new_image(win, &win->world);
+	if(!build_world(&win->world, win->settings.map, &win->player))
+		return (0);
 	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_image(win->mlx, win->world.img);
@@ -37,73 +41,17 @@ int		key_hook(int keycode, win_data *win)
 		exit(0);
 	}
 	if(keycode == 126 || keycode == 65362 || keycode == 119)//W
-	{
-		mlx_destroy_image(win->mlx, win->world.img);
-		new_image(win, &win->world);
-		if(!build_world(&win->world, win->settings.map, &win->player))
-			return (0);
-		//win->player.posy += win->player.diry;
-		//win->player.posx += win->player.dirx;
-
-		printf("win->player.posy : %lf\n",win->player.posy/SCALE);
-		printf("floor(win->player.posy) : %lf\n",floor(win->player.posy/SCALE));
-		printf("(int)floor(win->player.posy) : %i\n",(int)floor(win->player.posy/SCALE));
-		win->player.posy += win->player.diry;// * SPEED / 100);
-		win->player.posx += win->player.dirx;
-		if (win->settings.map[(int)floor(win->player.posy/SCALE)]
-			[(int)floor(win->player.posx/SCALE)] == '1')
-		{
-			win->player.posy -= win->player.diry;// * SPEED / 100);
-			win->player.posx -= win->player.dirx;// * SPEED / 100);
-		}
-	}
+		moving(win->settings.map, &win->player,'w');
 	if(keycode == 125 || keycode == 65364 || keycode == 115)//S
-	{
-		mlx_destroy_image(win->mlx, win->world.img);
-		new_image(win, &win->world);
-		if(!build_world(&win->world, win->settings.map, &win->player))
-			return (0);
-		win->player.posy -= win->player.diry;
-		win->player.posx -= win->player.dirx;
-	}
+		moving(win->settings.map, &win->player,'s');
 	if(keycode == 2 || keycode == 100)//D
-	{
-		mlx_destroy_image(win->mlx, win->world.img);
-		new_image(win, &win->world);
-		if(!build_world(&win->world, win->settings.map, &win->player))
-			return (0);
-		win->player.posy -= win->player.dirx;
-		win->player.posx -= win->player.diry;
-	}
+		sliding(win->settings.map, &win->player,'d');
 	if (keycode == 0 || keycode == 97)//A
-	{
-		mlx_destroy_image(win->mlx, win->world.img);
-		new_image(win, &win->world);
-		if(!build_world(&win->world, win->settings.map, &win->player))
-			return (0);
-		win->player.posy -= win->player.dirx;
-		win->player.posx += win->player.diry;
-	}
+		sliding(win->settings.map, &win->player,'a');
 	if(keycode == 124 || keycode == 65363) //RIGHT
-	{
-		mlx_destroy_image(win->mlx, win->world.img);
-		new_image(win, &win->world);
-		if(!build_world(&win->world, win->settings.map, &win->player))
-			return (0);
-		win->player.angle -= M_PI/12;
-		win->player.dirx = cos(win->player.angle);
-		win->player.diry = -sin(win->player.angle);
-	}
+		rotation(&win->player,'r');
 	if(keycode == 123 || keycode == 65361) //LEFT
-	{
-		mlx_destroy_image(win->mlx, win->world.img);
-		new_image(win, &win->world);
-		if(!build_world(&win->world, win->settings.map, &win->player))
-			return (0);
-		win->player.angle += M_PI/12;
-		win->player.dirx = cos(win->player.angle);
-		win->player.diry = -sin(win->player.angle);
-	}
+		rotation(&win->player,'l');
 	int i = 0;
 	double rayx,rayy;
 	rayx = win->player.posx;

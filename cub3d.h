@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 19:25:33 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 01:28:56 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@
 # include <mlx.h>
 
 #define BUFFER_SIZE 1024
-#define SCALE 18
+#define SCALE 16
+#define SPEED 10
+#define ROTATION M_PI/12
 #define W_IMG 600
 #define H_IMG 480
-#define	FOV_ANGLE M_PI/3
+
 
 typedef struct	image_data
 {
@@ -78,14 +80,17 @@ typedef struct	window_data
 int		parsing_file(char *av, sett_data *settings);
 void	init_settings(sett_data *settings);
 void	print_settings(sett_data settings);
-/*MANAGE WINDOW*/
+/*WINDOW*/
 int		main_window(win_data *win);
 void	print_player(pl_data player);
 int		key_hook(int keycode, win_data *win);
-/*MANAGE WINDOW TOOLS*/
+/*WINDOW TOOLS*/
 void	set_right_resolution(win_data *win);
 int		build_world(img_data *world, char **map, pl_data *player);
 void	build_player(char **map,int x, int y, pl_data *player);
+void	moving(char **map, pl_data *player, char var);
+void	sliding(char **map, pl_data *player, char var);
+void	rotation(pl_data *player, char var);
 /*IMAGE_TOOLS*/
 void	new_image(win_data *win, img_data *img);
 void	my_mlx_pixel_put(img_data *img, int x, int y, int color);

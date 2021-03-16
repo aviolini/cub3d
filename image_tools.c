@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 17:41:02 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/15 23:19:52 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	my_mlx_pixel_put(img_data *img, int x, int y, int color)
 void	my_mlx_pixel_wall(img_data *img, int x, int y, int color)
 {
     char    *dst;
-	int		i = -1, z = -1;
+	int		i;
+	int		z;
 
+	i = -1;
 	while (++i < SCALE && -2 < (z = -1))
 	{
 		while (++z < SCALE)
