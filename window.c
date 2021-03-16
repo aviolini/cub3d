@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 16:48:16 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/17 00:18:40 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		main_window(win_data *win)
 {
 	win->mlx = mlx_init();
-	set_right_resolution(win);
+//	set_right_resolution(win);
 	win->win = mlx_new_window(win->mlx,win->settings.win_resx,
 		win->settings.win_resy, "Welcome");
 	//SFONDO
@@ -66,6 +66,8 @@ int		key_hook(int keycode, win_data *win)
 		rotate(&win->player,'l');
 
 	build_view(win);
+
+
 	my_mlx_pixel_put(&win->world, win->player.posx, win->player.posy,0x00ffffff);
 	int i = 0;
 	double rayy = win->player.posy, rayx = win->player.posx;
@@ -74,13 +76,9 @@ int		key_hook(int keycode, win_data *win)
 		rayx += win->player.dirx;
 		my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
 	}
-	my_mlx_pixel_put(&win->world, ((int)win->player.posx/SCALE)*SCALE, win->player.posy, 0x00ffffff);
-	my_mlx_pixel_put(&win->world, win->player.posx, ((int)win->player.posy/SCALE)*SCALE, 0x00ffffff);
-	print_player(win->player);
-	printf("posx : %lf | posy : %lf\n",win->player.posx/SCALE,win->player.posy/SCALE);
-	printf("(int)posx : %d | (int)posy : %d\n",((int)win->player.posx/SCALE)*SCALE,
-	((int)win->player.posy/SCALE)*SCALE);
 
+	my_mlx_pixel_put(&win->world, win->player.posx+(win->player.posy-(((int)win->player.posy/SCALE)*SCALE))/
+	tan(win->player.angle), floor(win->player.posy/SCALE)*SCALE-1+(SCALE), 0x00ffffff);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 15:48:23 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 22:39:26 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,16 @@ void	build_player(char **map,int x, int y, pl_data *player)
 
 void	set_right_resolution(win_data *win)
 {
+	(void)win;
+	/*
 	int myresx;
 	int myresy;
-	mlx_get_screen_size(win->mlx, &myresx, &myresy);
+//	mlx_get_screen_size(win->mlx, &myresx, &myresy);
 	if(win->settings.win_resx > myresx)
 		win->settings.win_resx = myresx;
 	if(win->settings.win_resy > myresy)
 		win->settings.win_resy = myresy;
-}
+*/}
 
 void	view_background(img_data *view)
 {
