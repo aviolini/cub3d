@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 12:45:17 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 15:21:47 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #define ROTATION M_PI/12
 #define W_IMG 600
 #define H_IMG 480
+#define FOV M_PI/3
 
 
 typedef struct	image_data

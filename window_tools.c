@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 12:56:15 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 15:48:23 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	view_background(img_data *view)
 int		build_view(win_data *win)
 {
 	view_background(&win->view);
+
 	return (1);
 }
 
@@ -166,8 +167,32 @@ void	ray(win_data *win)
 	}
 }
 
+void	my_mlx_pixel_put3(img_data *img, double x, double y,double h, int color)
+{
+    char    *dst;
+	double		i = -1;
+	(void)i;
+//	if (h < 0)
+	//	h *=-1;
+	while (++i < h)
+	{
+    		dst = img->addr + ((int)(y -(h/2) + i) * img->line_length +
+			(int)(x) * (img->bits_per_pixel / 8));
+    		*(unsigned int*)dst = color;
+	}
+}
 void	bundle_ray(win_data *win)
 {
+	/*
+	c++;
+	h = (H_IMG/dist);
+	wally=H_IMG/2;
+	h *=6;
+	wallx++;
+	my_mlx_pixel_put3(&win->view, wallx, wally, h, 0x00FF0000);
+	*/
+	double wally = 0, wallx = 0, h , dist = 1;
+
 	double	angle;
 	double	rayx,rayy,dirx,diry;
 	double	rad;
@@ -176,10 +201,11 @@ void	bundle_ray(win_data *win)
 
 	c = 0;
 	i = 0;
-	rad = M_PI/3/W_IMG;
-	angle = win->player.angle + M_PI/6;
+	rad = FOV/W_IMG;
+	angle = win->player.angle + FOV/2;
 	while(i++ < W_IMG)
 	{
+		dist = 1;
 		angle -= rad;
 		dirx = cos(angle);
 		diry = -sin(angle);
@@ -191,8 +217,16 @@ void	bundle_ray(win_data *win)
 			my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
 			rayx += dirx;
 			rayy += diry;
+			dist++;
 		}
+
 		c++;
+		h = (H_IMG/dist)*3;//*((W_IMG/2)/(tan(M_PI/6)));
+		wally=H_IMG/2;
+
+		//h *= W_IMG/(tan(M_PI/6));
+		my_mlx_pixel_put3(&win->view, wallx, wally, h, 0x00FF0000);
+		wallx++;
+
 	}
-	printf("count: %i\n",c);
 }

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 12:58:22 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 16:48:16 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int		main_window(win_data *win)
 	new_image(win, &win->view);
 	if(!build_world(&win->world, win->settings.map, &win->player))
 		return (0);
-	build_view(win);
+//	build_view(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 20);
-	bundle_ray(win);
+//	bundle_ray(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 	print_player(win->player);
 	mlx_hook(win->win, 2, 1L<<0, key_hook, win);
@@ -44,8 +44,8 @@ int		key_hook(int keycode, win_data *win)
 	new_image(win, &win->world);
 	mlx_destroy_image(win->mlx, win->view.img);
 	new_image(win, &win->view);
-//	if(!build_world(&win->world, win->settings.map, &win->player))
-//		return (0);
+	if(!build_world(&win->world, win->settings.map, &win->player))
+		return (0);
 	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_image(win->mlx, win->world.img);
@@ -64,8 +64,32 @@ int		key_hook(int keycode, win_data *win)
 		rotate(&win->player,'r');
 	if(keycode == 123 || keycode == 65361) //LEFT
 		rotate(&win->player,'l');
-	bundle_ray(win);
+
+	build_view(win);
+	my_mlx_pixel_put(&win->world, win->player.posx, win->player.posy,0x00ffffff);
+	int i = 0;
+	double rayy = win->player.posy, rayx = win->player.posx;
+	while (i++< 5){
+		rayy += win->player.diry;
+		rayx += win->player.dirx;
+		my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
+	}
+	my_mlx_pixel_put(&win->world, ((int)win->player.posx/SCALE)*SCALE, win->player.posy, 0x00ffffff);
+	my_mlx_pixel_put(&win->world, win->player.posx, ((int)win->player.posy/SCALE)*SCALE, 0x00ffffff);
+	print_player(win->player);
+	printf("posx : %lf | posy : %lf\n",win->player.posx/SCALE,win->player.posy/SCALE);
+	printf("(int)posx : %d | (int)posy : %d\n",((int)win->player.posx/SCALE)*SCALE,
+	((int)win->player.posy/SCALE)*SCALE);
+
+
+
+
+
+
+
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
+//	bundle_ray(win);
+	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 20);
 	return 0;
 }
 
