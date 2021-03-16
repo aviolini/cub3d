@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 10:21:20 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:41:54 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	move(char **map, pl_data *player, char var);
 void	slide(char **map, pl_data *player, char var);
 void	rotate(pl_data *player, char var);
 void	ray(win_data *win);
+void	bundle_ray(win_data *win);
 /*IMAGE_TOOLS*/
 void	new_image(win_data *win, img_data *img);
 void	my_mlx_pixel_put(img_data *img, int x, int y, int color);

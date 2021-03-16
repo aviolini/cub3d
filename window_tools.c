@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 10:35:27 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 11:19:24 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,9 @@ void	rotate(pl_data *player, char var)
 
 void	ray(win_data *win)
 {
-	//double angle;
+
 	double rayx,rayy;
 
-	//angle = win->player.angle
 	rayx = win->player.posx;
 	rayy = win->player.posy;
 	while (win->settings.map[(int)floor(rayy / SCALE)]
@@ -138,4 +137,35 @@ void	ray(win_data *win)
 		rayx += win->player.dirx;
 		rayy += win->player.diry;
 	}
+}
+
+void	bundle_ray(win_data *win)
+{
+	double	angle;
+	double	rayx,rayy,dirx,diry;
+	double	rad;
+	int		i;
+	int		c;
+
+	c = 0;
+	i = 0;
+	rad = M_PI/3/W_IMG;
+	angle = win->player.angle + M_PI/6;
+	while(i++ < W_IMG)
+	{
+		angle -= rad;
+		dirx = cos(angle);
+		diry = -sin(angle);
+		rayx = win->player.posx;
+		rayy = win->player.posy;
+		while (win->settings.map[(int)floor(rayy / SCALE)]
+			[(int)floor(rayx / SCALE)] != '1')
+		{
+			my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
+			rayx += dirx;
+			rayy += diry;
+		}
+		c++;
+	}
+	printf("count: %i\n",c);
 }

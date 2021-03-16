@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 10:22:16 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 11:38:31 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int		main_window(win_data *win)
 	new_image(win, &win->world);
 	if(!build_world(&win->world, win->settings.map, &win->player))
 		return (0);
+	bundle_ray(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 	print_player(win->player);
 	mlx_hook(win->win, 2, 1L<<0, key_hook, win);
@@ -32,8 +33,8 @@ int		key_hook(int keycode, win_data *win)
 {
 	mlx_destroy_image(win->mlx, win->world.img);
 	new_image(win, &win->world);
-	if(!build_world(&win->world, win->settings.map, &win->player))
-		return (0);
+//	if(!build_world(&win->world, win->settings.map, &win->player))
+//		return (0);
 	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_image(win->mlx, win->world.img);
@@ -52,10 +53,7 @@ int		key_hook(int keycode, win_data *win)
 		rotate(&win->player,'r');
 	if(keycode == 123 || keycode == 65361) //LEFT
 		rotate(&win->player,'l');
-
-	ray(win);
-
-	
+	bundle_ray(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 	return 0;
 }
