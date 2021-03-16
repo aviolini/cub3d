@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 01:26:52 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:22:16 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 int		main_window(win_data *win)
 {
 	win->mlx = mlx_init();
-	//set_right_resolution(win);
+	set_right_resolution(win);
 	win->win = mlx_new_window(win->mlx,win->settings.win_resx,
 		win->settings.win_resy, "Welcome");
 	new_image(win, &win->world);
 	if(!build_world(&win->world, win->settings.map, &win->player))
 		return (0);
-	//mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
+	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 	print_player(win->player);
 	mlx_hook(win->win, 2, 1L<<0, key_hook, win);
 	mlx_loop(win->mlx);
@@ -41,26 +41,21 @@ int		key_hook(int keycode, win_data *win)
 		exit(0);
 	}
 	if(keycode == 126 || keycode == 65362 || keycode == 119)//W
-		moving(win->settings.map, &win->player,'w');
+		move(win->settings.map, &win->player,'w');
 	if(keycode == 125 || keycode == 65364 || keycode == 115)//S
-		moving(win->settings.map, &win->player,'s');
+		move(win->settings.map, &win->player,'s');
 	if(keycode == 2 || keycode == 100)//D
-		sliding(win->settings.map, &win->player,'d');
+		slide(win->settings.map, &win->player,'d');
 	if (keycode == 0 || keycode == 97)//A
-		sliding(win->settings.map, &win->player,'a');
+		slide(win->settings.map, &win->player,'a');
 	if(keycode == 124 || keycode == 65363) //RIGHT
-		rotation(&win->player,'r');
+		rotate(&win->player,'r');
 	if(keycode == 123 || keycode == 65361) //LEFT
-		rotation(&win->player,'l');
-	int i = 0;
-	double rayx,rayy;
-	rayx = win->player.posx;
-	rayy = win->player.posy;
-	while (i++ < 10){
-		rayx += win->player.dirx;
-		rayy += win->player.diry;
-		my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
-	}
+		rotate(&win->player,'l');
+
+	ray(win);
+
+	
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 	return 0;
 }

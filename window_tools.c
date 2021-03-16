@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 01:29:30 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:35:27 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,16 @@ void	build_player(char **map,int x, int y, pl_data *player)
 
 void	set_right_resolution(win_data *win)
 {
-	(void)win;
-/*	int myresx;
+	int myresx;
 	int myresy;
 	mlx_get_screen_size(win->mlx, &myresx, &myresy);
 	if(win->settings.win_resx > myresx)
 		win->settings.win_resx = myresx;
 	if(win->settings.win_resy > myresy)
 		win->settings.win_resy = myresy;
-*/}
+}
 
-void	moving(char **map, pl_data *player, char var)
+void	move(char **map, pl_data *player, char var)
 {
 	int		value;
 	if (var == 'w')
@@ -95,7 +94,7 @@ void	moving(char **map, pl_data *player, char var)
 	}
 }
 
-void	sliding(char **map, pl_data *player, char var)
+void	slide(char **map, pl_data *player, char var)
 {
 	int		value;
 	if (var == 'a')
@@ -112,7 +111,7 @@ void	sliding(char **map, pl_data *player, char var)
 	}
 }
 
-void	rotation(pl_data *player, char var)
+void	rotate(pl_data *player, char var)
 {
 	int		value;
 	if (var == 'r')
@@ -122,4 +121,21 @@ void	rotation(pl_data *player, char var)
 	player->angle += (value) * ROTATION;
 	player->dirx = cos(player->angle);
 	player->diry = -sin(player->angle);
+}
+
+void	ray(win_data *win)
+{
+	//double angle;
+	double rayx,rayy;
+
+	//angle = win->player.angle
+	rayx = win->player.posx;
+	rayy = win->player.posy;
+	while (win->settings.map[(int)floor(rayy / SCALE)]
+		[(int)floor(rayx / SCALE)] != '1')
+	{
+		my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
+		rayx += win->player.dirx;
+		rayy += win->player.diry;
+	}
 }
