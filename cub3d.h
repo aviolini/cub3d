@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/17 12:20:28 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:43:40 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	print_settings(sett_data settings);
 int		main_window(win_data *win);
 void	print_player(pl_data player);
 int		key_hook(int keycode, win_data *win);
+void	print_ray(ray_data ray);
 /*WINDOW TOOLS*/
 void	set_right_resolution(win_data *win);
 int		build_world(img_data *world, char **map, pl_data *player);
@@ -105,8 +106,7 @@ void	rotate(pl_data *player, char var);
 void	ray(win_data *win);
 void	bundle_ray(win_data *win);
 int		build_view(win_data *win);
-void	set_ray_dir(pl_data player, ray_data *ray);
-void	set_ray_x_y(pl_data player, ray_data *ray);
+void	check_hor_intersection(win_data *win, pl_data player, ray_data *ray, char **map);
 /*IMAGE_TOOLS*/
 void	new_image(win_data *win, img_data *img);
 void	my_mlx_pixel_put(img_data *img, int x, int y, int color);

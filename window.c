@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/17 12:27:49 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:42:34 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,8 @@ int		key_hook(int keycode, win_data *win)
 		rayx += win->player.dirx;
 		my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
 	}
-	set_ray_dir(win->player, &win->ray);
-	set_ray_x_y(win->player, &win->ray);
-	my_mlx_pixel_put(&win->world, win->ray.rayx, win->ray.rayy, 0x00ffffff);
-	//`printf("angle : %lf", win->player.angle);
-	//my_mlx_pixel_put(&win->world, win->player.posx+(win->player.posy-(((int)win->player.posy/SCALE)*SCALE))/
-	//tan(win->player.angle) + win->ray.roundx, floor(win->player.posy/SCALE)*SCALE-1+win->ray.roundy, 0x00ffffff);
 
-
+	check_hor_intersection(win, win->player, &win->ray, win->settings.map);
 
 
 
@@ -92,6 +86,22 @@ int		key_hook(int keycode, win_data *win)
 //	bundle_ray(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 20);
 	return 0;
+}
+
+
+void	print_ray(ray_data ray)
+{
+	printf("-----ray------------------------\n");
+	printf("rayx: %lf\n",ray.rayx);
+	printf("rayy: %lf\n",ray.rayy);
+	printf("rayx_map: %lf\n",ray.rayx/SCALE);
+	printf("rayy_map: %lf\n",ray.rayy/SCALE);
+	//printf("posx_map: %lf\n",player.posx/SCALE);
+	//printf("posy_map: %lf\n",player.posy/SCALE);
+//	printf("dirx: %lf\n",player.dirx);
+//	printf("diry: %lf\n",player.diry);
+//	printf("speed: %d\n",player.speed);
+	printf("-----------------------------------\n");
 }
 
 void	print_player(pl_data player)
