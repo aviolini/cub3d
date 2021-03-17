@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/17 15:43:14 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:51:01 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,7 @@ void	bundle_ray(win_data *win)
 void	check_hor_intersection(win_data *win, pl_data player, ray_data *ray, char **map)
 {
 	//TOGLIERE WIN DATA WIN , TOGLIERE MY_MLX_PIXEL_PUT
+	//VA IN SEG FAULT
 	if (player.angle > 0 && player.angle < M_PI)
 	{
 		ray->roundy = 0;
@@ -254,7 +255,13 @@ void	check_hor_intersection(win_data *win, pl_data player, ray_data *ray, char *
 		ray->rayx = player.posx + (fabs(fabs(player.posy) - fabs(ray->rayy))
 					/ tan(2 * M_PI - player.angle));
 	}
-	while (map[(int)floor(ray->rayy/SCALE)][(int)floor(ray->rayx/SCALE)] != '1')
+	if(player.angle == 0 || player.angle == M_PI * 2)
+		return ;
+	int i = 0;
+	(void)map;
+	while (i++ < 3)
+	//OK MA VA IN SEG FAULT CON LA FORMULA SEGUENTE:
+	//while (map[(int)floor(ray->rayy/SCALE)][(int)floor(ray->rayx/SCALE)] != '1')
 	{
 		my_mlx_pixel_put(&win->world, ray->rayx, ray->rayy, 0x00ffffff);
 		ray->rayy -= SCALE;
