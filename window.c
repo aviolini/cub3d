@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/17 00:18:40 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/17 12:27:49 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,12 @@ int		key_hook(int keycode, win_data *win)
 		rayx += win->player.dirx;
 		my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
 	}
-
-	my_mlx_pixel_put(&win->world, win->player.posx+(win->player.posy-(((int)win->player.posy/SCALE)*SCALE))/
-	tan(win->player.angle), floor(win->player.posy/SCALE)*SCALE-1+(SCALE), 0x00ffffff);
+	set_ray_dir(win->player, &win->ray);
+	set_ray_x_y(win->player, &win->ray);
+	my_mlx_pixel_put(&win->world, win->ray.rayx, win->ray.rayy, 0x00ffffff);
+	//`printf("angle : %lf", win->player.angle);
+	//my_mlx_pixel_put(&win->world, win->player.posx+(win->player.posy-(((int)win->player.posy/SCALE)*SCALE))/
+	//tan(win->player.angle) + win->ray.roundx, floor(win->player.posy/SCALE)*SCALE-1+win->ray.roundy, 0x00ffffff);
 
 
 

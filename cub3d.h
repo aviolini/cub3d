@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 15:21:47 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/17 12:20:28 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 #define BUFFER_SIZE 1024
 #define SCALE 16
-#define SPEED 10
+#define SPEED 5
 #define ROTATION M_PI/12
 #define W_IMG 600
 #define H_IMG 480
@@ -47,7 +47,7 @@ typedef struct	player_data
 	double		diry;
 	int			speed;
 	int			def;
-	double			angle;
+	double		angle;
 }				pl_data;
 
 typedef	struct	settings_data
@@ -67,6 +67,15 @@ typedef	struct	settings_data
 	int			win_my_resy;
 }				sett_data;
 
+typedef struct rays_data
+{
+	double		roundx;
+	double		roundy;
+	double		rayx;
+	double		rayy;
+
+}				ray_data;
+
 typedef struct	window_data
 {
 	void		*mlx;
@@ -75,6 +84,7 @@ typedef struct	window_data
 	img_data	view;
 	pl_data		player;
 	sett_data	settings;
+	ray_data	ray;
 }				win_data;
 
 /*CUB3D.C*/
@@ -95,6 +105,8 @@ void	rotate(pl_data *player, char var);
 void	ray(win_data *win);
 void	bundle_ray(win_data *win);
 int		build_view(win_data *win);
+void	set_ray_dir(pl_data player, ray_data *ray);
+void	set_ray_x_y(pl_data player, ray_data *ray);
 /*IMAGE_TOOLS*/
 void	new_image(win_data *win, img_data *img);
 void	my_mlx_pixel_put(img_data *img, int x, int y, int color);

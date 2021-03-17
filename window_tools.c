@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/16 22:39:26 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/17 12:26:26 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ void	rotate(pl_data *player, char var)
 	if (var == 'l')
 		value = 1;
 	player->angle += (value) * ROTATION;
+	if (player->angle > M_PI * 2)  //METTERE ANCHE = ??
+		player->angle = 0;
 	player->dirx = cos(player->angle);
 	player->diry = -sin(player->angle);
 }
@@ -231,4 +233,33 @@ void	bundle_ray(win_data *win)
 		wallx++;
 
 	}
+}
+
+void	set_ray_dir(pl_data player, ray_data *ray)
+{
+	if (player.angle > 0 && player.angle < M_PI)
+	{
+		ray->roundy = 0;
+	//	if 	(player->angle < M_PI_2)
+			ray->roundx = 0;
+	//	else if (player->angle > M_PI_2)
+	//		ray->roundx = SCALE;
+	}
+	if (player.angle > M_PI && player.angle < M_PI * 2)
+	{
+		ray->roundy = SCALE;
+	//	if 	(player.angle < 3 * M_PI_2)
+	//	{
+	//		ray->roundy = 0;
+			ray->roundx = 0;
+	//	}
+	//	else if (player.angle > 3 * M_PI_2)
+	//		ray->roundx = SCALE;
+	}
+}
+
+void	set_ray_x_y(pl_data player,ray_data *ray)
+{
+	ray->rayy = floor(player.posy / SCALE) * SCALE - 1 + ray->roundy;
+	ray->rayx = player.posx + (fabs(fabs(player.posy) - fabs(ray->rayy)) / tan(player.angle)) + ray->roundx;
 }
