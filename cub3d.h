@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/17 15:43:40 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:29:18 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ typedef	struct	settings_data
 
 typedef struct rays_data
 {
-	double		roundx;
-	double		roundy;
-	double		rayx;
-	double		rayy;
+	double		horx;
+	double		hory;
+	double		verx;
+	double		very;
 
 }				ray_data;
 
@@ -107,6 +107,7 @@ void	ray(win_data *win);
 void	bundle_ray(win_data *win);
 int		build_view(win_data *win);
 void	check_hor_intersection(win_data *win, pl_data player, ray_data *ray, char **map);
+void	check_ver_intersection(win_data *win, pl_data player, ray_data *ray, char **map);
 /*IMAGE_TOOLS*/
 void	new_image(win_data *win, img_data *img);
 void	my_mlx_pixel_put(img_data *img, int x, int y, int color);

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/17 15:42:34 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:31:04 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		key_hook(int keycode, win_data *win)
 	}
 
 	check_hor_intersection(win, win->player, &win->ray, win->settings.map);
-
+	check_ver_intersection(win, win->player, &win->ray, win->settings.map);
 
 
 
@@ -92,10 +92,10 @@ int		key_hook(int keycode, win_data *win)
 void	print_ray(ray_data ray)
 {
 	printf("-----ray------------------------\n");
-	printf("rayx: %lf\n",ray.rayx);
-	printf("rayy: %lf\n",ray.rayy);
-	printf("rayx_map: %lf\n",ray.rayx/SCALE);
-	printf("rayy_map: %lf\n",ray.rayy/SCALE);
+	printf("rayx: %lf\n",ray.horx);
+	printf("rayy: %lf\n",ray.hory);
+	printf("rayx_map: %lf\n",ray.horx/SCALE);
+	printf("rayy_map: %lf\n",ray.hory/SCALE);
 	//printf("posx_map: %lf\n",player.posx/SCALE);
 	//printf("posy_map: %lf\n",player.posy/SCALE);
 //	printf("dirx: %lf\n",player.dirx);
