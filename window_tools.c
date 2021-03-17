@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/17 18:34:15 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/17 18:39:53 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,7 +325,7 @@ void	check_ver_intersection(win_data *win, pl_data player, ray_data *ray, char *
 //	}
 	roundx = SCALE;
 	ray->verx = floor(player.posx / SCALE) * SCALE + roundx;
-	ray->very = player.posy + var * (fabs(fabs(player.posx) - fabs(ray->verx))
+	ray->very = player.posy + var * (fabs((player.posx) - (ray->verx))
 	* tan(M_PI + (var * M_PI) - (var)*(player.angle)));
 
 
