@@ -6,32 +6,32 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/18 11:28:05 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:58:38 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		parsing_map(char *line, char ***map, int *eof)
+int		parsing_map(char *line, sett_data *settings)
 {
 	if (if_empty_line_and_slide_spaces(line) == -1)
 	{
-		if (!*map)
+		if (!settings->map)
 			return (1);
 		else
 		{
-				*eof = 1;
+				settings->eof = 1;
 				return (1);
 		}
 	}
-	if (*eof || !check_first_number(line))
+	if (settings->eof || !check_first_number(line))
 		return (0);
-	if (!(*map = build_map(line,*map)))
+	if (!(settings->map = build_map(line,settings->map,&settings->mapx, &settings->mapy)))
 		return (0);
 	return (1);
 }
 
-char	**build_map(char *line, char **map)
+char	**build_map(char *line, char **map, int *mapx, int *mapy)
 {
 	int i;
 	int y;
@@ -41,38 +41,44 @@ char	**build_map(char *line, char **map)
 	if (!(m = (char **)malloc(sizeof(char *) * (y + 2))))
 		return (NULL);
 	y = 0;
+	i = ft_strlen(line);
+	if ( i > *mapx)
+		*mapx = i;
 	if (map)
 	{
 		y = -1;
 		while (map[++y])
-			if(!(m[y] = copy_and_free_line(map[y])))
+			if(!(m[y] = copy_and_free_line(map[y], *mapx)))
 				return (NULL);
 		//free(map[y]);     /FREE DELL'ULTIMO ELEMENTO CHE e' == NULL?
 	}
-	i = 35;//ft_strlen(line);
-	if (!(m[y] = (char *)malloc(sizeof(char) * (i + 1))))
+	i = ft_strlen(line);
+	if (!(m[y] = (char *)malloc(sizeof(char) * (*mapx + 1))))
 		return (NULL);
 	i = -1;
 	while (line[++i])
 		m[y][i] = line[i];
-	while (i < 34)
+	while (i < *mapx)
 		m[y][i++] = ' ';
 	m[y][i] = '\0';
 	m[++y] = NULL;
+	*mapy = y;
 	return (m);
 }
 
-char	*copy_and_free_line(char *line)
+char	*copy_and_free_line(char *line, int mapx)
 {
 	int i;
 	char *s;
 
 	i = ft_strlen(line);
-	if (!(s = (char *)malloc(sizeof(char) * (i + 1))))
+	if (!(s = (char *)malloc(sizeof(char) * (mapx + 1))))
 		return (NULL);
 	i = -1;
 	while (line[++i])
 		s[i] = line[i];
+	while (i < mapx)
+		s[i++] = ' ';
 	s[i] = '\0';
 	free(line);
 	return (s);

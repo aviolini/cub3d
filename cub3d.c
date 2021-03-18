@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/18 11:27:14 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:54:33 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int		parsing_file(char *av, sett_data *settings)
 				return (0);
 		}
 		else
- 			if (!parsing_map(line,&settings->map, &settings->eof))
+ 			if (!parsing_map(line,settings))
 					return (0);
 	//	free(line);
 	}
@@ -74,6 +74,8 @@ void		print_settings(sett_data settings)
 	printf("sp_te: %s\n",settings.sprite_texture);
 	printf("flo_col: %i\n",settings.floor_color);
 	printf("cei_col: %i\n",settings.ceiling_color);
+	printf("mapx: %i\n",settings.mapx);
+	printf("mapy: %i\n",settings.mapy);
 	printf("eof: %i\n",settings.eof);
 	//while ((settings->map)[i])
 	//	printf("mapp: %s\n",(settings->map)[i++]);
@@ -98,4 +100,6 @@ void		init_settings(sett_data *settings)
 	settings->floor_color = 0;
 	settings->ceiling_color = 0;
 	settings->eof = 0;
+	settings->mapx = 0;
+	settings->mapy = 0;
 }

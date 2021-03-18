@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/17 16:29:18 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:58:26 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ typedef	struct	settings_data
 	int			eof;
 	int			win_my_resx;
 	int			win_my_resy;
+	int			mapx;
+	int			mapy;
 }				sett_data;
 
 typedef struct rays_data
@@ -114,9 +116,9 @@ void	my_mlx_pixel_put(img_data *img, int x, int y, int color);
 void	my_mlx_pixel_wall(img_data *img, int x, int y, int color);
 void	my_mlx_pixel_grid(img_data *img, int x, int y, int color);
 /*PARSING MAP */
-int		parsing_map(char *line, char ***map, int *eof);
-char	**build_map(char *line, char **map);
-char	*copy_and_free_line(char *line);
+int		parsing_map(char *line, sett_data *settings);
+char	**build_map(char *line, char **map, int *x, int *y);
+char	*copy_and_free_line(char *line, int mapx);
 int		check_map(char **map);
 /*PARSING MAP_TOOLS*/
 int		check_first_number(char *line);
