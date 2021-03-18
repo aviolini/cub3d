@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 11:44:25 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:27:14 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void		print_settings(sett_data settings)
 	//	printf("mapp: %s\n",(settings->map)[i++]);
 	while (*(settings.map))
 	{
-		printf("map: %s\n",*(settings.map));
+		printf("map: %s-\n",*(settings.map));
 		(settings.map)++;
 	}
 	printf("-----------------------------------\n");

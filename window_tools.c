@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/17 18:39:53 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:44:57 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,90 +249,92 @@ void	check_hor_intersection(win_data *win, pl_data player, ray_data *ray, char *
 {
 	//TOGLIERE WIN DATA WIN , TOGLIERE MY_MLX_PIXEL_PUT
 	//VA IN SEG FAULT
-	int roundy;
+	int		roundy;
+	double	horx;
+	double	hory;
+
+	if((player.angle < 0 + ROTATION && player.angle >= 0)
+	|| (player.angle > M_PI - ROTATION && player.angle < M_PI + ROTATION)
+		|| (player.angle > 2 * M_PI - ROTATION))// && player.angle <= 2 * M_PI))
+		return ;
 
 	if (player.angle > 0 && player.angle < M_PI)
 	{
 		roundy = 0;
-		ray->hory = floor(player.posy / SCALE) * SCALE + roundy;
-		ray->horx = player.posx + (fabs(fabs(player.posy) - fabs(ray->hory))
+		hory = floor(player.posy / SCALE) * SCALE + roundy;
+		horx = player.posx + (fabs((player.posy) - (hory))
 					/ tan(player.angle));
+
+		while(map[(int)floor(hory/SCALE)][(int)floor(horx/SCALE)] && 
+		map[(int)floor(hory/SCALE)][(int)floor(horx/SCALE)]== '0')
+		{
+			my_mlx_pixel_put(&win->world, horx, hory, 0x00ffffff);
+			hory -= SCALE;
+			horx += SCALE/tan(player.angle);
+		}
 	}
 	if (player.angle > M_PI && player.angle < M_PI * 2)
 	{
 		roundy = SCALE;
-		ray->hory = floor(player.posy / SCALE) * SCALE + roundy;
-		ray->horx = player.posx + (fabs(fabs(player.posy) - fabs(ray->hory))
+		hory = floor(player.posy / SCALE) * SCALE + roundy;
+		horx = player.posx + (fabs((player.posy) -(hory))
 					/ tan(2 * M_PI - player.angle));
+
+		while(map[(int)floor(hory/SCALE)][(int)floor(horx/SCALE)] &&
+		map[(int)floor(hory/SCALE)][(int)floor(horx/SCALE)] == '0')
+		{
+			my_mlx_pixel_put(&win->world, horx, hory, 0x00ffffff);
+			hory += SCALE;
+			horx += SCALE/tan(2 * M_PI - player.angle);
+		}
 	}
-	if(player.angle == 0 || player.angle == M_PI * 2)
-		return ;
-	int i = 0;
-	(void)map;
-	while (i++ < 3)
-	//OK MA VA IN SEG FAULT CON LA FORMULA SEGUENTE:
-	//while (map[(int)floor(ray->hory/SCALE)][(int)floor(ray->horx/SCALE)] != '1')
-	{
-		my_mlx_pixel_put(&win->world, ray->horx, ray->hory, 0x00ffffff);
-		ray->hory -= SCALE;
-	   	ray->horx += SCALE/tan(player.angle);
-	}
+	ray->horx = horx;
+	ray->hory = hory;
 }
 
 void	check_ver_intersection(win_data *win, pl_data player, ray_data *ray, char **map)
 {
-	int roundx;
+	int		roundx;
+	double	verx;
+	double	very;
 	(void)map;
-	int var;
-	var = 1;
-/*	if (player.angle >= 0 && player.angle < M_PI_2)
+	(void)win;
+
+
+
+	if ((player.angle >= 0 && player.angle < M_PI_2) || (player.angle > 3 * M_PI_2
+		&& player.angle <= 2 * M_PI))
 	{
-		var = -1;
-//		roundx = SCALE;
-//		ray->verx = floor(player.posx / SCALE) * SCALE + roundx;
-//		ray->very = player.posy - (fabs(fabs(player.posx) - fabs(ray->verx))
-//					* tan(player.angle));
+		roundx = SCALE;
+		verx = floor(player.posx / SCALE) * SCALE + roundx;
+		very = player.posy + (fabs((player.posx) - (verx))
+		* tan(M_PI * 2 - (player.angle)));
+
+		while(map[(int)floor(very/SCALE)][(int)floor(verx/SCALE)] &&
+		map[(int)floor(very/SCALE)][(int)floor(verx/SCALE)] == '0')
+		{
+			my_mlx_pixel_put(&win->world, verx, very, 0x00ffffff);
+			verx += SCALE;
+			very += SCALE*tan(M_PI * 2 - player.angle);
+		 }
+
 	}
-	 if (player.angle > 3 * M_PI_2 && player.angle <= 2 * M_PI)
+
+	if(player.angle > M_PI_2 && player.angle < 3 * M_PI_2)
 	{
-		var = 1;
-//		roundx = SCALE;
-//		ray->verx = floor(player.posx / SCALE) * SCALE + roundx;
-//		ray->very = player.posy + (fabs(fabs(player.posx) - fabs(ray->verx))
-//					* tan(2 * M_PI - player.angle));
+		roundx = 0;
+		verx = floor(player.posx / SCALE) * SCALE + roundx;
+		very = player.posy + (fabs((player.posx) - (verx))
+		* tan((player.angle)));
+
+		while(map[(int)floor(very/SCALE)][(int)floor(verx/SCALE)] &&
+		map[(int)floor(very/SCALE)][(int)floor(verx/SCALE)] == '0')
+		{
+			my_mlx_pixel_put(&win->world, verx, very, 0x00ffffff);
+			verx -= SCALE;
+			very += SCALE*tan(player.angle);
+		}
 	}
-	roundx = SCALE;
-	ray->verx = floor(player.posx / SCALE) * SCALE + roundx;
-	ray->very = player.posy + var * (fabs(fabs(player.posx) - fabs(ray->verx))
-				* tan(M_PI + (var * M_PI) - (var)*(player.angle)));
-
-*/
-//	if (player.angle > M_PI_2 && player.angle < M_PI)
-//	{
-//		var = -1;
-//					roundx = SCALE;
-//					ray->verx = floor(player.posx / SCALE) * SCALE + roundx;
-//					ray->very = player.posy - (fabs(fabs(player.posx) - fabs(ray->verx))
-//								* tan(player.angle));
-//	}
-//	if (player.angle > M_PI_2 && player.angle < 3 * M_PI_2)
-//	{
-//		var = 1;
-//					roundx = SCALE;
-//					ray->verx = floor(player.posx / SCALE) * SCALE + roundx;
-//					ray->very = player.posy + (fabs(fabs(player.posx) - fabs(ray->verx))
-//								* tan(2 * M_PI - player.angle));
-//	}
-	roundx = SCALE;
-	ray->verx = floor(player.posx / SCALE) * SCALE + roundx;
-	ray->very = player.posy + var * (fabs((player.posx) - (ray->verx))
-	* tan(M_PI + (var * M_PI) - (var)*(player.angle)));
-
-
-
-
-
-
-
-	my_mlx_pixel_put(&win->world, ray->verx, ray->very, 0x00ffff00);
+	ray->verx = verx;
+	ray->very = very;
 }

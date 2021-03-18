@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/17 16:31:04 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:40:52 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		key_hook(int keycode, win_data *win)
 	check_hor_intersection(win, win->player, &win->ray, win->settings.map);
 	check_ver_intersection(win, win->player, &win->ray, win->settings.map);
 
-
+	print_ray(win->ray);
 
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 //	bundle_ray(win);
@@ -92,14 +92,14 @@ int		key_hook(int keycode, win_data *win)
 void	print_ray(ray_data ray)
 {
 	printf("-----ray------------------------\n");
-	printf("rayx: %lf\n",ray.horx);
-	printf("rayy: %lf\n",ray.hory);
-	printf("rayx_map: %lf\n",ray.horx/SCALE);
-	printf("rayy_map: %lf\n",ray.hory/SCALE);
-	//printf("posx_map: %lf\n",player.posx/SCALE);
-	//printf("posy_map: %lf\n",player.posy/SCALE);
-//	printf("dirx: %lf\n",player.dirx);
-//	printf("diry: %lf\n",player.diry);
+	//printf("rayx: %lf\n",ray.horx);
+	//printf("rayy: %lf\n",ray.hory);
+	//printf("rayx_map: %lf\n",ray.horx/SCALE);
+	//printf("rayy_map: %lf\n",ray.hory/SCALE);
+	printf("horx: %lf\n",ray.horx);
+	printf("hory: %lf\n",ray.hory);
+	printf("verx: %lf\n",ray.verx);
+	printf("very: %lf\n",ray.very);
 //	printf("speed: %d\n",player.speed);
 	printf("-----------------------------------\n");
 }

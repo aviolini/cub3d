@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/15 15:08:03 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:28:05 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ char	**build_map(char *line, char **map)
 				return (NULL);
 		//free(map[y]);     /FREE DELL'ULTIMO ELEMENTO CHE e' == NULL?
 	}
-	i = ft_strlen(line);
+	i = 35;//ft_strlen(line);
 	if (!(m[y] = (char *)malloc(sizeof(char) * (i + 1))))
 		return (NULL);
 	i = -1;
 	while (line[++i])
 		m[y][i] = line[i];
+	while (i < 34)
+		m[y][i++] = ' ';
 	m[y][i] = '\0';
 	m[++y] = NULL;
 	return (m);
