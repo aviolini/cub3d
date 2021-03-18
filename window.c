@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/18 11:40:52 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/18 16:21:00 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ int		key_hook(int keycode, win_data *win)
 		my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
 	}
 
-	check_hor_intersection(win, win->player, &win->ray, win->settings.map);
-	check_ver_intersection(win, win->player, &win->ray, win->settings.map);
+	//init_ray(&win->ray);
+	check_hor_intersection(win,&win->settings, win->player, &win->ray);
+	check_ver_intersection(win,&win->settings, win->player, &win->ray);
+	set_ray(win->player,&win->ray);
 
 	print_ray(win->ray);
 
@@ -91,16 +93,22 @@ int		key_hook(int keycode, win_data *win)
 
 void	print_ray(ray_data ray)
 {
+	printf("-----------------------------------\n");
 	printf("-----ray------------------------\n");
 	//printf("rayx: %lf\n",ray.horx);
 	//printf("rayy: %lf\n",ray.hory);
 	//printf("rayx_map: %lf\n",ray.horx/SCALE);
 	//printf("rayy_map: %lf\n",ray.hory/SCALE);
-	printf("horx: %lf\n",ray.horx);
-	printf("hory: %lf\n",ray.hory);
-	printf("verx: %lf\n",ray.verx);
-	printf("very: %lf\n",ray.very);
-//	printf("speed: %d\n",player.speed);
+	printf("horx: %lf\n",floor(ray.horx));
+	printf("hory: %lf\n",floor(ray.hory));
+	printf("-----------------------------------\n");
+	printf("verx: %lf\n",floor(ray.verx));
+	printf("very: %lf\n",floor(ray.very));
+	printf("-----------------------------------\n");
+	printf("rayx: %lf\n",floor(ray.rayx));
+	printf("rayy: %lf\n",floor(ray.rayy));
+	//	printf("speed: %d\n",player.speed);
+	printf("-----------------------------------\n");
 	printf("-----------------------------------\n");
 }
 

@@ -27,7 +27,7 @@ https://github.com/Dustin42Codam/cub3d_destroyer
 mac:
 gcc -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit main.c && ./a.out
 
-gcc -Wall -Wextra -Werror -Iminilibx_mms_20200219 -Lminilibx_mms_20200219 -lmlx -framework OpenGL -framework AppKit *.c && ./a.out map.cub
+gcc -Wall -Wextra -Werror -Iminilibx_mms_20200219 -Lminilibx_mms_20200219 -lmlx -framework OpenGL -framework AppKit *.c -fsanitize=address -g3 && ./a.out map.cub
 
 linux:
 gcc main.c keycode.c utils.c -Wall -Wextra -Werror -lmlx -lXext -lX11 -lm && ./a.out

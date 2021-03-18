@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/18 12:58:26 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/18 16:02:53 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,12 @@
 #define W_IMG 600
 #define H_IMG 480
 #define FOV M_PI/3
-
+#define RED 0x00FF0000
+#define GREEN 0x00FF0000
+#define BLUE 0x000000FF
+#define YELLOW 0x00FFFF
+#define BLACK 0x00000000
+#define WHITE 0x00FFFFFF
 
 typedef struct	image_data
 {
@@ -75,6 +80,8 @@ typedef struct rays_data
 	double		hory;
 	double		verx;
 	double		very;
+	double		rayx;
+	double		rayy;
 
 }				ray_data;
 
@@ -108,8 +115,10 @@ void	rotate(pl_data *player, char var);
 void	ray(win_data *win);
 void	bundle_ray(win_data *win);
 int		build_view(win_data *win);
-void	check_hor_intersection(win_data *win, pl_data player, ray_data *ray, char **map);
-void	check_ver_intersection(win_data *win, pl_data player, ray_data *ray, char **map);
+void	check_hor_intersection(win_data *win, sett_data *settings, pl_data player, ray_data *ray);
+void	check_ver_intersection(win_data *win, sett_data *settings, pl_data player, ray_data *ray);
+void	set_ray(pl_data player, ray_data *ray);
+void	init_ray(ray_data *ray);
 /*IMAGE_TOOLS*/
 void	new_image(win_data *win, img_data *img);
 void	my_mlx_pixel_put(img_data *img, int x, int y, int color);
