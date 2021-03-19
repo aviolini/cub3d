@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 08:57:31 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 11:04:15 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,34 +79,6 @@ void	set_right_resolution(win_data *win)
 		win->settings.win_resy = myresy;
 */}
 
-void	view_background(img_data *view)
-{
-	int x;
-	int y;
-	int z;
-	unsigned int color;
-
-	color = 0x00ffff00;
-	y = -1;
-	z = 3;
-
-	while(--z > 0)
-	{
-		while(++y < (H_IMG/z) && -2 < (x = -1))
-			while(++x < W_IMG)
-				my_mlx_pixel_put(view,x,y,color);
-		color = color >> 16;
-		y--;
-	}
-}
-
-int		build_view(win_data *win)
-{
-	view_background(&win->view);
-
-	return (1);
-}
-
 void	move(char **map, pl_data *player, char var)
 {
 	int		value;
@@ -174,20 +146,6 @@ void	ray(win_data *win)
 	}
 }
 
-void	my_mlx_pixel_put3(img_data *img, double x, double y,double h, int color)
-{
-    char    *dst;
-	double		i = -1;
-	(void)i;
-//	if (h < 0)
-	//	h *=-1;
-	while (++i < h)
-	{
-    		dst = img->addr + ((int)(y -(h/2) + i) * img->line_length +
-			(int)(x) * (img->bits_per_pixel / 8));
-    		*(unsigned int*)dst = color;
-	}
-}
 void	bundle_ray(win_data *win)
 {
 	/*
@@ -353,7 +311,6 @@ void	check_ver_intersection(win_data *win,sett_data *settings, pl_data player, r
 	ray->verx = -1;
 	ray->very = -1;
 }
-
 
 void	set_ray(pl_data player, ray_data *ray)
 {

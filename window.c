@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/18 16:21:00 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 10:59:24 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,14 @@ int		main_window(win_data *win)
 //	set_right_resolution(win);
 	win->win = mlx_new_window(win->mlx,win->settings.win_resx,
 		win->settings.win_resy, "Welcome");
-	//SFONDO
-	int x = -1, y = -1;
-	while (++y < win->settings.win_resy && -2 < (x = -1))
-		while (++x < win->settings.win_resx)
-			mlx_pixel_put(win->mlx, win->win, x, y, 0x00FFFFFF);
-	//
-	new_image(win, &win->world);
-	new_image(win, &win->view);
-	if(!build_world(&win->world, win->settings.map, &win->player))
-		return (0);
-//	build_view(win);
+	image(win);
+	build_view(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 20);
 //	bundle_ray(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 	print_player(win->player);
 	mlx_hook(win->win, 2, 1L<<0, key_hook, win);
+//	mlx_hook(win->win, 2, 17, ft_exit, win);
 	mlx_loop(win->mlx);
 	return (1);
 }
@@ -49,8 +41,7 @@ int		key_hook(int keycode, win_data *win)
 	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_image(win->mlx, win->world.img);
-		//DESTROY WINDOW
-		exit(0);
+		ft_exit(win);
 	}
 	if(keycode == 126 || keycode == 65362 || keycode == 119)//W
 		move(win->settings.map, &win->player,'w');
@@ -90,6 +81,24 @@ int		key_hook(int keycode, win_data *win)
 	return 0;
 }
 
+int		ft_exit(win_data *win)
+{
+	int	y;
+
+	y = 0;
+	while (y < win->settings.mapy)
+		free(win->settings.map[y++]);
+//	free(win->settings.map);
+	free(win->settings.north_texture);
+	free(win->settings.west_texture);
+	free(win->settings.east_texture);
+	free(win->settings.south_texture);
+	free(win->settings.sprite_texture);
+	//if (win == 1)
+	mlx_destroy_window(win->mlx, win->win);
+	//free(s->mlx.ptr);
+	exit(0);
+}
 
 void	print_ray(ray_data ray)
 {
