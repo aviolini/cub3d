@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 11:04:40 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 20:25:23 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,49 +41,6 @@ void	my_mlx_pixel_put3(img_data *img, double x, double y,double h, int color)
 	}
 }
 
-void	my_mlx_pixel_wall(img_data *img, int x, int y, int color)
-{
-    char    *dst;
-	int		i;
-	int		z;
-
-	i = -1;
-	while (++i < SCALE && -2 < (z = -1))
-	{
-		while (++z < SCALE)
-		{
-    		dst = img->addr + ((i + y) * img->line_length +
-			(x + z) * (img->bits_per_pixel / 8));
-    		*(unsigned int*)dst = color;
-		}
-	}
-}
-
-void	my_mlx_pixel_grid(img_data *img, int x, int y, int color)
-{
-    char    *dst;
-	int		i = -1, z = -1;
-
-	while (++i <= SCALE && -2 < ( z = -1))
-		if(i == 0 || i == SCALE)
-		{
-			while (++z < SCALE)
-			{
-    			dst = img->addr + ((i + y) * img->line_length +
-				(x + z) * (img->bits_per_pixel / 8));
-    			*(unsigned int*)dst = color;
-			}
-		}
-		else
-			while (++z <= SCALE)
-				if(z == 0 || z == SCALE)
-				{
-    				dst = img->addr + ((i + y) * img->line_length +
-					(x + z) * (img->bits_per_pixel / 8));
-    				*(unsigned int*)dst = color;
-				}
-}
-
 void	view_background(img_data *view)
 {
 	int x;
@@ -102,5 +59,51 @@ void	view_background(img_data *view)
 				my_mlx_pixel_put(view,x,y,color);
 		color = color >> 16;
 		y--;
+	}
+}
+
+void	set_right_resolution(win_data *win)
+{
+	(void)win;
+	/*
+	int myresx;
+	int myresy;
+//	mlx_get_screen_size(win->mlx, &myresx, &myresy);
+	if(win->settings.win_resx > myresx)
+		win->settings.win_resx = myresx;
+	if(win->settings.win_resy > myresy)
+		win->settings.win_resy = myresy;
+*/}
+
+void	set_ray(pl_data player, ray_data *ray)
+{
+	double verh;
+	double horh;
+
+	if (ray->verx >= 0 && ray->very >= 0)
+		verh = hypot(fabs(player.posx - ray->verx), fabs(player.posy - ray->very));
+	else
+	{
+		ray->rayx = ray->horx;
+		ray->rayy = ray->hory;
+		return ;
+	}
+	if (ray->horx >= 0 && ray->hory >= 0)
+		horh = hypot(fabs(player.posx - ray->horx), fabs(player.posy - ray->hory));
+	else
+		{
+			ray->rayx = ray->verx;
+			ray->rayy = ray->very;
+			return ;
+		}
+	if (horh <= verh)
+		{
+			ray->rayx = ray->horx;
+			ray->rayy = ray->hory;
+		}
+	else
+	{
+		ray->rayx = ray->verx;
+		ray->rayy = ray->very;
 	}
 }

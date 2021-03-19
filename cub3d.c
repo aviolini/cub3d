@@ -6,13 +6,13 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 19:48:35 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 20:02:01 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	win_data win;
 	int i;
@@ -73,35 +73,7 @@ int		main_window(win_data *win)
 	return (1);
 }
 
-
-void		print_settings(sett_data settings)
-{
-	printf("------settings------------------------\n");
-	//int i = 0;
-	//printf("*map: %i\n",*(settings->map));
-	printf("w_win: %i\n",settings.win_resx);
-	printf("h_win: %i\n",settings.win_resy);
-	printf("no_te: %s\n",settings.north_texture);
-	printf("we_te: %s\n",settings.west_texture);
-	printf("ea_te: %s\n",settings.east_texture);
-	printf("so_te: %s\n",settings.south_texture);
-	printf("sp_te: %s\n",settings.sprite_texture);
-	printf("flo_col: %i\n",settings.floor_color);
-	printf("cei_col: %i\n",settings.ceiling_color);
-	printf("mapx: %i\n",settings.mapx);
-	printf("mapy: %i\n",settings.mapy);
-	printf("eof: %i\n",settings.eof);
-	//while ((settings->map)[i])
-	//	printf("mapp: %s\n",(settings->map)[i++]);
-	while (*(settings.map))
-	{
-		printf("map: %s-\n",*(settings.map));
-		(settings.map)++;
-	}
-	printf("-----------------------------------\n");
-}
-
-void		init_settings(sett_data *settings)
+void	init_settings(sett_data *settings)
 {
 	settings->map = NULL;
 	settings->win_resx = 0;

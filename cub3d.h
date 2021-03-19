@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 19:47:50 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 20:27:17 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,42 +96,41 @@ typedef struct	window_data
 	ray_data	ray;
 }				win_data;
 
+/*TO_TRASH*/
+int		build_world(img_data *world, char **map, pl_data *player);
+void	ray(win_data *win);
+void	bundle_ray(win_data *win);
+void	print_settings(sett_data settings);
+void	print_player(pl_data player);
+void	print_ray(ray_data ray);
+void	miniray(win_data *win);
+void	my_mlx_pixel_wall(img_data *img, int x, int y, int color);
+void	my_mlx_pixel_grid(img_data *img, int x, int y, int color);
 /*CUB3D.C*/
 int		main_parsing(char *av, sett_data *settings, pl_data *player);
 int		main_window(win_data *win);
 void	init_settings(sett_data *settings);
-void	print_settings(sett_data settings);
-/*IMAGE.C*/
-int		image(win_data *win);
-int		build_view(win_data *win);
-void	miniray(win_data *win);
-/*WINDOW*/
-int		main_window(win_data *win);
-void	print_player(pl_data player);
+/*KEY*/
 int		key_hook(int keycode, win_data *win);
-void	print_ray(ray_data ray);
-int		ft_exit(win_data *win);
-/*WINDOW TOOLS*/
-void	set_right_resolution(win_data *win);
-int		build_world(img_data *world, char **map, pl_data *player);
-
 void	move(char **map, pl_data *player, char var);
 void	slide(char **map, pl_data *player, char var);
 void	rotate(pl_data *player, char var);
-void	ray(win_data *win);
-void	bundle_ray(win_data *win);
-
+int		ft_exit(win_data *win);
+/*IMAGE.C*/
+int		build_view(win_data *win);
+int		image(win_data *win);
 void	check_hor_intersection(win_data *win, sett_data *settings, pl_data player, ray_data *ray);
 void	check_ver_intersection(win_data *win, sett_data *settings, pl_data player, ray_data *ray);
-void	set_ray(pl_data player, ray_data *ray);
-void	init_ray(ray_data *ray);
 /*IMAGE_TOOLS*/
 void	new_image(win_data *win, img_data *img);
 void	my_mlx_pixel_put(img_data *img, int x, int y, int color);
-void	my_mlx_pixel_wall(img_data *img, int x, int y, int color);
-void	my_mlx_pixel_grid(img_data *img, int x, int y, int color);
 void	view_background(img_data *view);
 void	my_mlx_pixel_put3(img_data *img, double x, double y,double h, int color);
+void	set_right_resolution(win_data *win);
+void	set_ray(pl_data player, ray_data *ray);
+
+
+
 /*PARSING MAP */
 int		parsing_map(char *line, sett_data *settings);
 char	**build_map(char *line, char **map, int *x, int *y);

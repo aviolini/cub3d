@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.c                                           :+:      :+:    :+:   */
+/*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 19:48:36 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 20:29:46 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
 int		key_hook(int keycode, win_data *win)
 {
 	if (keycode == 53 || keycode == 65307)
-	{
-		mlx_destroy_image(win->mlx, win->world.img);
 		ft_exit(win);
-	}
 	if(keycode == 126 || keycode == 65362 || keycode == 119)//W
 		move(win->settings.map, &win->player,'w');
 	if(keycode == 125 || keycode == 65364 || keycode == 115)//S
@@ -34,6 +30,57 @@ int		key_hook(int keycode, win_data *win)
 		rotate(&win->player,'l');
 	build_view(win);
 	return 0;
+}
+
+void	move(char **map, pl_data *player, char var)
+{
+	int		value;
+	if (var == 'w')
+		value = 1;
+	if (var == 's')
+		value = -1;
+	player->posy += (value)*player->diry * SPEED;
+	player->posx += (value)*player->dirx * SPEED;
+	while(map[(int)floor(player->posy / SCALE)]
+		[(int)floor(player->posx / SCALE)] == '1')
+	{
+		player->posy -= (value)*player->diry;
+		player->posx -= (value)*player->dirx;
+	}
+}
+
+void	slide(char **map, pl_data *player, char var)
+{
+	int		value;
+	if (var == 'a')
+		value = -1;
+	if (var == 'd')
+		value = 1;
+	player->posy += (value) * player->dirx * SPEED;
+	player->posx -= (value) * player->diry * SPEED;
+	while(map[(int)floor(player->posy / SCALE)]
+		[(int)floor(player->posx / SCALE)] == '1')
+	{
+		player->posy -= (value) * player->dirx;
+		player->posx += (value) * player->diry;
+	}
+}
+
+void	rotate(pl_data *player, char var)
+{
+	int		value;
+	if (var == 'r')
+		value = -1;
+	if (var == 'l')
+		value = 1;
+	if (player->angle + (value) * ROTATION > 2 * M_PI)
+		player->angle = (value) * ROTATION;
+	else if (player->angle + (value) * ROTATION < 0)
+		player->angle = 2 * M_PI + (value) * ROTATION;
+	else
+		player->angle += (value) * ROTATION;
+	player->dirx = cos(player->angle);
+	player->diry = -sin(player->angle);
 }
 
 int		ft_exit(win_data *win)
@@ -53,38 +100,4 @@ int		ft_exit(win_data *win)
 	mlx_destroy_window(win->mlx, win->win);
 	//free(s->mlx.ptr);
 	exit(0);
-}
-
-void	print_ray(ray_data ray)
-{
-	printf("-----------------------------------\n");
-	printf("-----ray------------------------\n");
-	//printf("rayx: %lf\n",ray.horx);
-	//printf("rayy: %lf\n",ray.hory);
-	//printf("rayx_map: %lf\n",ray.horx/SCALE);
-	//printf("rayy_map: %lf\n",ray.hory/SCALE);
-	printf("horx: %lf\n",floor(ray.horx));
-	printf("hory: %lf\n",floor(ray.hory));
-	printf("-----------------------------------\n");
-	printf("verx: %lf\n",floor(ray.verx));
-	printf("very: %lf\n",floor(ray.very));
-	printf("-----------------------------------\n");
-	printf("rayx: %lf\n",floor(ray.rayx));
-	printf("rayy: %lf\n",floor(ray.rayy));
-	//	printf("speed: %d\n",player.speed);
-	printf("-----------------------------------\n");
-	printf("-----------------------------------\n");
-}
-
-void	print_player(pl_data player)
-{
-	printf("-----player------------------------\n");
-	printf("posx: %lf\n",player.posx);
-	printf("posy: %lf\n",player.posy);
-	printf("posx_map: %lf\n",player.posx/SCALE);
-	printf("posy_map: %lf\n",player.posy/SCALE);
-	printf("dirx: %lf\n",player.dirx);
-	printf("diry: %lf\n",player.diry);
-	printf("speed: %d\n",player.speed);
-	printf("-----------------------------------\n");
 }
