@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/18 12:54:33 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 19:48:35 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int main(int ac, char **av)
 	else if (i == 2)
 		printf("ok args\nsalvare l'immagine bmp non stampare\n"); //CONTINUA IL PROGRAMMA
 	init_settings(&win.settings);
-	if (!parsing_file(av[1], &win.settings))
+	if (!main_parsing(av[1], &win.settings, &win.player))
 		printf("Error\nError in parsing map\nProbably wrong params\n");
 	print_settings(win.settings);
 	if(!main_window(&win))
@@ -30,7 +30,7 @@ int main(int ac, char **av)
 	return (0);
 }
 
-int		parsing_file(char *av, sett_data *settings)
+int		main_parsing(char *av, sett_data *settings, pl_data *player)
 {
 	int fd;
 	int r;
@@ -50,12 +50,26 @@ int		parsing_file(char *av, sett_data *settings)
 		else
  			if (!parsing_map(line,settings))
 					return (0);
-	//	free(line);
+		free(line);
 	}
 	if ( r == -1)
 		return (0);
-	if (!check_map(settings->map))
+	if (!check_map(settings->map, settings->mapy, settings->mapx,player))
 		return(0);
+	return (1);
+}
+
+int		main_window(win_data *win)
+{
+	win->mlx = mlx_init();
+//	set_right_resolution(win);
+	win->win = mlx_new_window(win->mlx,win->settings.win_resx,
+		win->settings.win_resy, "Welcome");
+	build_view(win);
+	print_player(win->player);
+	mlx_hook(win->win, 2, 1L<<0, key_hook, win);
+//	mlx_hook(win->win, 2, 17, ft_exit, win);
+	mlx_loop(win->mlx);
 	return (1);
 }
 

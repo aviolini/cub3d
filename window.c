@@ -6,25 +6,12 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 11:28:07 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 19:48:36 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		main_window(win_data *win)
-{
-	win->mlx = mlx_init();
-//	set_right_resolution(win);
-	win->win = mlx_new_window(win->mlx,win->settings.win_resx,
-		win->settings.win_resy, "Welcome");
-	build_view(win);
-	print_player(win->player);
-	mlx_hook(win->win, 2, 1L<<0, key_hook, win);
-//	mlx_hook(win->win, 2, 17, ft_exit, win);
-	mlx_loop(win->mlx);
-	return (1);
-}
 
 int		key_hook(int keycode, win_data *win)
 {

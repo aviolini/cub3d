@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 11:04:15 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 18:05:20 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,38 +34,21 @@ int		build_world(img_data *world, char **map, pl_data *player)
 				my_mlx_pixel_put(world, x * SCALE, y * SCALE,0x00ff0000);
 			else if(map[y][x] == '0')
 				my_mlx_pixel_grid(world, x * SCALE, y * SCALE,0x00ff0000);
-			else if(map[y][x] != ' ' && map[y][x] != '0')
-			{
-				if (player->def != 1)
-				{
+		//	else if(map[y][x] != ' ' && map[y][x] != '0')
+		//	{
+			//	if (player->def != 1)
+			//	{
 				//	return (0);
-				build_player(map, x, y, player);
-				my_mlx_pixel_put(world, player->posx, player->posy,0x00ffffff);
-				player->def = 1;
-			}
-			}
+			//	build_player(map, x, y, player);
+
+			//	player->def = 1;
+			//}
+		//	}
 		}
 	}
+	my_mlx_pixel_put(world, player->posx, player->posy,0x00ffffff);
 	return (1);
 }
-
-void	build_player(char **map,int x, int y, pl_data *player)
-{
-	player->speed = 1;
-	player->posx = x * SCALE;// + SCALE / 2;
-	player->posy = y * SCALE;// + SCALE / 2;
-	if (map[y][x] == 'N')
-		player->angle = M_PI_2;
-	else if (map[y][x] == 'S')
-		player->angle = 3*M_PI_2;
-	else if (map[y][x] == 'E')
-		player->angle = 0;
-	else if (map[y][x] == 'W')
-		player->angle = M_PI;
-	player->dirx = cos(player->angle);
-	player->diry = -sin(player->angle);
-}
-
 void	set_right_resolution(win_data *win)
 {
 	(void)win;

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/18 12:58:38 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 19:39:32 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		parsing_map(char *line, sett_data *settings)
 				return (1);
 		}
 	}
-	if (settings->eof || !check_first_number(line))
+	if (settings->eof)
 		return (0);
 	if (!(settings->map = build_map(line,settings->map,&settings->mapx, &settings->mapy)))
 		return (0);
@@ -37,56 +37,70 @@ char	**build_map(char *line, char **map, int *mapx, int *mapy)
 	int y;
 	char **m;
 
-	y = ft_matrlen(map);
-	if (!(m = (char **)malloc(sizeof(char *) * (y + 2))))
+	if (!(m = (char **)malloc(sizeof(char *) * (*mapy + 2))))
 		return (NULL);
-	y = 0;
 	i = ft_strlen(line);
 	if ( i > *mapx)
 		*mapx = i;
+	y = 0;
 	if (map)
 	{
-		y = -1;
-		while (map[++y])
-			if(!(m[y] = copy_and_free_line(map[y], *mapx)))
+		while (map[y])
+		{
+			if(!(m[y] = copy_line(map[y], *mapx)))
 				return (NULL);
-		//free(map[y]);     /FREE DELL'ULTIMO ELEMENTO CHE e' == NULL?
+			free(map[y++]);
+		}
+		//free(map[y]);     //FREE DELL'ULTIMO ELEMENTO CHE e' == NULL?
 	}
-	i = ft_strlen(line);
-	if (!(m[y] = (char *)malloc(sizeof(char) * (*mapx + 1))))
+	if(!(m[y] = copy_line(line, *mapx)))
 		return (NULL);
-	i = -1;
-	while (line[++i])
-		m[y][i] = line[i];
-	while (i < *mapx)
-		m[y][i++] = ' ';
-	m[y][i] = '\0';
 	m[++y] = NULL;
 	*mapy = y;
 	return (m);
 }
 
-char	*copy_and_free_line(char *line, int mapx)
+int		check_map(char **map, int mapy, int mapx, pl_data *player)
 {
-	int i;
-	char *s;
+	int y;
+	int x;
 
-	i = ft_strlen(line);
-	if (!(s = (char *)malloc(sizeof(char) * (mapx + 1))))
-		return (NULL);
-	i = -1;
-	while (line[++i])
-		s[i] = line[i];
-	while (i < mapx)
-		s[i++] = ' ';
-	s[i] = '\0';
-	free(line);
-	return (s);
+	y = -1;
+	while (++y < mapy && -2 < (x = -1))
+		while (++x < mapx)
+			if ((map[y][x]) != '1' && map[y][x] != ' ')
+			{
+				if (!is_valid_char(map[y][x])
+				|| (y == 0 || y == mapy - 1)
+				|| (x == 0 || x == mapx - 1)
+				|| (map[y - 1][x] == ' ' || map[y + 1][x] == ' ')
+				|| (map[y][x - 1] == ' ' || map[y][x + 1] == ' '))
+					return (0);
+				if (is_player(map[y][x]))
+				{
+					if (player->def == 1)
+						return (0);
+					else
+						init_player(map[y][x], x, y, player);
+				}
+			}
+	return (1);
 }
 
-int		check_map(char **map)
+void	init_player(char c,int x, int y, pl_data *player)
 {
-	(void)map;
-	//CONTROLLO DEI VALORI DELLA VERA MAPPA 0 e 1
-	return (1);
+	player->def = 1;
+	player->speed = 1;
+	player->posx = x * SCALE;// + SCALE / 2;
+	player->posy = y * SCALE;// + SCALE / 2;
+	if (c == 'N')
+		player->angle = M_PI_2;
+	else if (c == 'S')
+		player->angle = 3*M_PI_2;
+	else if (c == 'E')
+		player->angle = 0;
+	else if (c == 'W')
+		player->angle = M_PI;
+	player->dirx = cos(player->angle);
+	player->diry = -sin(player->angle);
 }

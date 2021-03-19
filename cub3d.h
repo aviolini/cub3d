@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 11:25:39 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 19:47:50 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ typedef struct	window_data
 }				win_data;
 
 /*CUB3D.C*/
-int		parsing_file(char *av, sett_data *settings);
+int		main_parsing(char *av, sett_data *settings, pl_data *player);
+int		main_window(win_data *win);
 void	init_settings(sett_data *settings);
 void	print_settings(sett_data settings);
 /*IMAGE.C*/
@@ -113,7 +114,7 @@ int		ft_exit(win_data *win);
 /*WINDOW TOOLS*/
 void	set_right_resolution(win_data *win);
 int		build_world(img_data *world, char **map, pl_data *player);
-void	build_player(char **map,int x, int y, pl_data *player);
+
 void	move(char **map, pl_data *player, char var);
 void	slide(char **map, pl_data *player, char var);
 void	rotate(pl_data *player, char var);
@@ -134,12 +135,13 @@ void	my_mlx_pixel_put3(img_data *img, double x, double y,double h, int color);
 /*PARSING MAP */
 int		parsing_map(char *line, sett_data *settings);
 char	**build_map(char *line, char **map, int *x, int *y);
-char	*copy_and_free_line(char *line, int mapx);
-int		check_map(char **map);
+int		check_map(char **map, int mapy, int mapx, pl_data *player);
+void	init_player(char c,int x, int y, pl_data *player);
 /*PARSING MAP_TOOLS*/
-int		check_first_number(char *line);
 int		ft_strlen(char *s);
-int		ft_matrlen(char **m);
+char	*copy_line(char *line, int mapx);
+int		is_player(char c);
+int		is_valid_char(char c);
 /*PARSING_PARAMS*/
 int		parsing_params(char *line, sett_data *settings);
 int		set_resolution(char *line, sett_data *settings, int i);
@@ -152,8 +154,8 @@ int		check_args(int ac, char **av);
 /*PARSING PARAMS TOOLS*/
 int 	is_digit(char c);
 int		if_empty_line_and_slide_spaces(char *line);
-int		find_color(char *line, int i);
 int		slide_char(char *line, int i);
+int		find_color(char *line, int i);
 int		all_params(sett_data *settings);
 /* GNL FUNCTIONS */
 int		get_next_line(int fd, char **line);
