@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 10:59:24 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 11:28:07 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,7 @@ int		main_window(win_data *win)
 //	set_right_resolution(win);
 	win->win = mlx_new_window(win->mlx,win->settings.win_resx,
 		win->settings.win_resy, "Welcome");
-	image(win);
 	build_view(win);
-	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 20);
-//	bundle_ray(win);
-	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 	print_player(win->player);
 	mlx_hook(win->win, 2, 1L<<0, key_hook, win);
 //	mlx_hook(win->win, 2, 17, ft_exit, win);
@@ -32,12 +28,6 @@ int		main_window(win_data *win)
 
 int		key_hook(int keycode, win_data *win)
 {
-	mlx_destroy_image(win->mlx, win->world.img);
-	new_image(win, &win->world);
-	mlx_destroy_image(win->mlx, win->view.img);
-	new_image(win, &win->view);
-	if(!build_world(&win->world, win->settings.map, &win->player))
-		return (0);
 	if (keycode == 53 || keycode == 65307)
 	{
 		mlx_destroy_image(win->mlx, win->world.img);
@@ -55,29 +45,7 @@ int		key_hook(int keycode, win_data *win)
 		rotate(&win->player,'r');
 	if(keycode == 123 || keycode == 65361) //LEFT
 		rotate(&win->player,'l');
-
 	build_view(win);
-
-
-	my_mlx_pixel_put(&win->world, win->player.posx, win->player.posy,0x00ffffff);
-	int i = 0;
-	double rayy = win->player.posy, rayx = win->player.posx;
-	while (i++< 5){
-		rayy += win->player.diry;
-		rayx += win->player.dirx;
-		my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
-	}
-
-	//init_ray(&win->ray);
-	check_hor_intersection(win,&win->settings, win->player, &win->ray);
-	check_ver_intersection(win,&win->settings, win->player, &win->ray);
-	set_ray(win->player,&win->ray);
-
-	print_ray(win->ray);
-
-	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
-//	bundle_ray(win);
-	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 20);
 	return 0;
 }
 

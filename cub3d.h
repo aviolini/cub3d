@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 11:03:34 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 11:25:39 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 #define H_IMG 480
 #define FOV M_PI/3
 #define RED 0x00FF0000
-#define GREEN 0x00FF0000
+#define GREEN 0x0000FF00
 #define BLUE 0x000000FF
 #define YELLOW 0x00FFFF
 #define BLACK 0x00000000
@@ -103,6 +103,7 @@ void	print_settings(sett_data settings);
 /*IMAGE.C*/
 int		image(win_data *win);
 int		build_view(win_data *win);
+void	miniray(win_data *win);
 /*WINDOW*/
 int		main_window(win_data *win);
 void	print_player(pl_data player);
