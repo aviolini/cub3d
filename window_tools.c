@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 09:13:56 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/18 16:20:32 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/19 08:57:31 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,19 +148,12 @@ void	rotate(pl_data *player, char var)
 		value = -1;
 	if (var == 'l')
 		value = 1;
-
-
 	if (player->angle + (value) * ROTATION > 2 * M_PI)
 		player->angle = (value) * ROTATION;
-
 	else if (player->angle + (value) * ROTATION < 0)
 		player->angle = 2 * M_PI + (value) * ROTATION;
 	else
 		player->angle += (value) * ROTATION;
-//	if (player->angle >= M_PI * 2 || (player->angle <= 0))  //METTERE ANCHE = ??
-//		player->angle = 0;
-//	 if (player->angle <= 0)  //METTERE ANCHE = ??
-//		player->angle = M_PI * 2;
 	player->dirx = cos(player->angle);
 	player->diry = -sin(player->angle);
 }
@@ -259,10 +252,17 @@ void	check_hor_intersection(win_data *win, sett_data *settings, pl_data player, 
 		horx = player.posx + (fabs((player.posy) - (hory))
 					/ tan(player.angle));
 
-		while ((floor(hory/SCALE) > 0 && floor(hory/SCALE) < settings->mapy) &&
-				(floor(horx/SCALE) > 0 && floor(horx/SCALE) < settings->mapx) &&
-				settings->map[(int)floor(hory/SCALE)][(int)floor(horx/SCALE)] != '1')
+		while ((floor(hory/SCALE) >= 0 && floor(hory/SCALE) < settings->mapy) &&
+				(floor(horx/SCALE) >= 0 && floor(horx/SCALE) < settings->mapx))
 		{
+			if (settings->map[(int)floor(hory/SCALE)][(int)floor(horx/SCALE)] == '1')
+			{
+				my_mlx_pixel_put(&win->world, horx, hory, BLACK);
+				ray->horx = horx;
+				ray->hory = hory;
+				return ;
+
+			}
 			my_mlx_pixel_put(&win->world, horx, hory, BLACK);
 			hory -= SCALE;
 			horx += SCALE/tan(player.angle);
@@ -270,22 +270,28 @@ void	check_hor_intersection(win_data *win, sett_data *settings, pl_data player, 
 	}
 	if (player.angle > M_PI && player.angle < M_PI * 2)
 	{
-		roundy = SCALE - 1;
+		roundy = SCALE;
 		hory = floor(player.posy / SCALE) * SCALE + roundy;
 		horx = player.posx + (fabs((player.posy) -(hory))
 					/ tan(2 * M_PI - player.angle));
 
 		while ((floor(hory/SCALE) > 0 && floor(hory/SCALE) < settings->mapy) &&
-				(floor(horx/SCALE) > 0 && floor(horx/SCALE) < settings->mapx) &&
-				settings->map[(int)floor(hory/SCALE)][(int)floor(horx/SCALE)] != '1')
+				(floor(horx/SCALE) > 0 && floor(horx/SCALE) < settings->mapx))
 		{
+			if (settings->map[(int)floor(hory/SCALE)][(int)floor(horx/SCALE)] == '1')
+			{
+				my_mlx_pixel_put(&win->world, horx, hory, BLACK);
+				ray->horx = horx;
+				ray->hory = hory;
+				return ;
+			}
 			my_mlx_pixel_put(&win->world, horx, hory, BLACK);
 			hory += SCALE;
 			horx += SCALE/tan(2 * M_PI - player.angle);
 		}
 	}
-	ray->horx = horx;
-	ray->hory = hory;
+	ray->horx = -1;
+	ray->hory = -1;
 }
 
 void	check_ver_intersection(win_data *win,sett_data *settings, pl_data player, ray_data *ray)
@@ -299,15 +305,22 @@ void	check_ver_intersection(win_data *win,sett_data *settings, pl_data player, r
 	if ((player.angle >= 0 && player.angle < M_PI_2) || (player.angle > 3 * M_PI_2
 		&& player.angle <= 2 * M_PI))
 	{
-		roundx = SCALE - 1;
+		roundx = SCALE;
 		verx = floor(player.posx / SCALE) * SCALE + roundx;
 		very = player.posy + (fabs((player.posx) - (verx))
 		* tan(M_PI * 2 - (player.angle)));
 
 		while((floor(very/SCALE) > 0 && floor(very/SCALE) < settings->mapy) &&
-				(floor(verx/SCALE) > 0 && floor(verx/SCALE) < settings->mapx) &&
-				settings->map[(int)floor(very/SCALE)][(int)floor(verx/SCALE)] != '1')
+				(floor(verx/SCALE) > 0 && floor(verx/SCALE) < settings->mapx))
 		{
+			if (settings->map[(int)floor(very/SCALE)][(int)floor(verx/SCALE)] == '1')
+			{
+				my_mlx_pixel_put(&win->world, verx, very, YELLOW);
+				ray->verx = verx;
+				ray->very = very;
+				return ;
+
+			}
 			my_mlx_pixel_put(&win->world, verx, very, YELLOW);
 			verx += SCALE;
 			very += SCALE*tan(M_PI * 2 - player.angle);
@@ -323,16 +336,22 @@ void	check_ver_intersection(win_data *win,sett_data *settings, pl_data player, r
 		* tan((player.angle)));
 
 		while((floor(very/SCALE) > 0 && floor(very/SCALE) < settings->mapy) &&
-				(floor(verx/SCALE) > 0 && floor(verx/SCALE) < settings->mapx) &&
-				settings->map[(int)floor(very/SCALE)][(int)floor(verx/SCALE)] != '1')
+				(floor(verx/SCALE) > 0 && floor(verx/SCALE) < settings->mapx))
 		{
+			if (settings->map[(int)floor(very/SCALE)][(int)floor(verx/SCALE)] == '1')
+			{
+				my_mlx_pixel_put(&win->world, verx, very,YELLOW);
+				ray->verx = verx;
+				ray->very = very;
+				return ;
+			}
 			my_mlx_pixel_put(&win->world, verx, very,YELLOW);
 			verx -= SCALE;
 			very += SCALE*tan(player.angle);
 		}
 	}
-	ray->verx = verx;
-	ray->very = very;
+	ray->verx = -1;
+	ray->very = -1;
 }
 
 
