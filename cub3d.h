@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 20:27:17 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/21 16:13:14 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct rays_data
 	double		very;
 	double		rayx;
 	double		rayy;
+	double		distance;
 
 }				ray_data;
 

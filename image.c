@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   view.c                                             :+:      :+:    :+:   */
+/*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 20:22:54 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/21 16:06:57 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	check_hor_intersection(win_data *win, sett_data *settings, pl_data player, 
 
 	if (player.angle > 0 && player.angle < M_PI)
 	{
-		roundy = 0;
+		roundy = -1;
 		hory = floor(player.posy / SCALE) * SCALE + roundy;
 		horx = player.posx + (fabs((player.posy) - (hory))
 					/ tan(player.angle));
@@ -60,13 +60,13 @@ void	check_hor_intersection(win_data *win, sett_data *settings, pl_data player, 
 		{
 			if (settings->map[(int)floor(hory/SCALE)][(int)floor(horx/SCALE)] == '1')
 			{
-				my_mlx_pixel_put(&win->world, horx, hory, BLACK);
+				my_mlx_pixel_put(&win->world, horx, hory, WHITE);
 				ray->horx = horx;
 				ray->hory = hory;
 				return ;
 
 			}
-			my_mlx_pixel_put(&win->world, horx, hory, BLACK);
+			my_mlx_pixel_put(&win->world, horx, hory, WHITE);
 			hory -= SCALE;
 			horx += SCALE/tan(player.angle);
 		}
@@ -83,12 +83,12 @@ void	check_hor_intersection(win_data *win, sett_data *settings, pl_data player, 
 		{
 			if (settings->map[(int)floor(hory/SCALE)][(int)floor(horx/SCALE)] == '1')
 			{
-				my_mlx_pixel_put(&win->world, horx, hory, BLACK);
+				my_mlx_pixel_put(&win->world, horx, hory, WHITE);
 				ray->horx = horx;
 				ray->hory = hory;
 				return ;
 			}
-			my_mlx_pixel_put(&win->world, horx, hory, BLACK);
+			my_mlx_pixel_put(&win->world, horx, hory, WHITE);
 			hory += SCALE;
 			horx += SCALE/tan(2 * M_PI - player.angle);
 		}
@@ -133,7 +133,7 @@ void	check_ver_intersection(win_data *win,sett_data *settings, pl_data player, r
 
 	if(player.angle > M_PI_2 && player.angle < 3 * M_PI_2)
 	{
-		roundx = 0;
+		roundx = -1;
 		verx = floor(player.posx / SCALE) * SCALE + roundx;
 		very = player.posy + (fabs((player.posx) - (verx))
 		* tan((player.angle)));
