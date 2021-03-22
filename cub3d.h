@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 16:07:58 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 18:05:16 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 #define RED 0x00FF0000
 #define GREEN 0x0000FF00
 #define BLUE 0x000000FF
+#define	CYAN 0x0000FFFF
+#define PINK 0x00FF00FF
 #define YELLOW 0x00FFFF
 #define BLACK 0x00000000
 #define WHITE 0x00FFFFFF
@@ -51,7 +53,6 @@ typedef struct	player_data
 	double		posy;
 	double		dirx;
 	double		diry;
-	int			speed;
 	int			def;
 	double		angle;
 }				pl_data;

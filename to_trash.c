@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 20:11:07 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 18:05:34 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ void	print_player(pl_data player)
 	printf("posy_map: %lf\n",player.posy/SCALE);
 	printf("dirx: %lf\n",player.dirx);
 	printf("diry: %lf\n",player.diry);
-	printf("speed: %d\n",player.speed);
+
 	printf("-----------------------------------\n");
 }
 

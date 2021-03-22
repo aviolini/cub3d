@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 16:23:14 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 17:09:01 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		image(win_data *win)
 	perpdist = win->ray.distance * (cos(win->ray.angle -win->player.angle));
 	printf("perpdistance : %lf\n",perpdist);
 	distprojplane = (W_IMG / 2)/tan(FOV/2);
-	h = SCALE / perpdist * distprojplane;
+	h = SCALE / (perpdist) * distprojplane;
 	h = (int)h;
 	//h = (H_IMG/perpdistance);//*((W_IMG/2)/(tan(M_PI/6)));
 	walltopy=H_IMG/2-h/2;
@@ -69,7 +69,14 @@ int		image(win_data *win)
 	{
 		dst = win->view.addr + ((int)(i) * win->view.line_length +
 		(int)(x) * (win->view.bits_per_pixel / 8));
-		*(unsigned int*)dst = 0x00ff0000;
+		if (win->ray.dirx > 0 && win->ray.diry > 0)
+			*(unsigned int*)dst = RED;
+		if (win->ray.dirx > 0 && win->ray.diry < 0)
+			*(unsigned int*)dst = GREEN;
+		if (win->ray.dirx < 0 && win->ray.diry > 0)
+			*(unsigned int*)dst = PINK;
+		if (win->ray.dirx < 0 && win->ray.diry < 0)
+			*(unsigned int*)dst = CYAN;
 		i++;
 	}
 	//h *= W_IMG/(tan(M_PI/6));

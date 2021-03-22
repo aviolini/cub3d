@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 19:39:32 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 18:05:17 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		parsing_map(char *line, sett_data *settings)
 	}
 	if (settings->eof)
 		return (0);
-	if (!(settings->map = build_map(line,settings->map,&settings->mapx, &settings->mapy)))
+	if (!(settings->map = build_map(line, settings->map, &settings->mapx, &settings->mapy)))
 		return (0);
 	return (1);
 }
@@ -44,18 +44,16 @@ char	**build_map(char *line, char **map, int *mapx, int *mapy)
 		*mapx = i;
 	y = 0;
 	if (map)
-	{
 		while (map[y])
 		{
 			if(!(m[y] = copy_line(map[y], *mapx)))
 				return (NULL);
 			free(map[y++]);
 		}
-		//free(map[y]);     //FREE DELL'ULTIMO ELEMENTO CHE e' == NULL?
-	}
 	if(!(m[y] = copy_line(line, *mapx)))
 		return (NULL);
 	m[++y] = NULL;
+	free(map);
 	*mapy = y;
 	return (m);
 }
@@ -90,7 +88,6 @@ int		check_map(char **map, int mapy, int mapx, pl_data *player)
 void	init_player(char c,int x, int y, pl_data *player)
 {
 	player->def = 1;
-	player->speed = 1;
 	player->posx = x * SCALE;// + SCALE / 2;
 	player->posy = y * SCALE;// + SCALE / 2;
 	if (c == 'N')

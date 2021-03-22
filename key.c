@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 10:12:20 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 17:38:41 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,11 @@ void	rotate(pl_data *player, char var)
 int		ft_exit(win_data *win)
 {
 	int	y;
-
+print_settings(win->settings);
 	y = 0;
 	while (y < win->settings.mapy)
 		free(win->settings.map[y++]);
-//	free(win->settings.map);
+	//free(win->settings.map);
 	free(win->settings.north_texture);
 	free(win->settings.west_texture);
 	free(win->settings.east_texture);
@@ -99,5 +99,6 @@ int		ft_exit(win_data *win)
 	//if (win == 1)
 	mlx_destroy_window(win->mlx, win->win);
 	//free(s->mlx.ptr);
+	//print_settings(win->settings);
 	exit(0);
 }
