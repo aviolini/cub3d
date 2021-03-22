@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 18:05:16 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 18:44:19 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
+# include <errno.h>
+#include <string.h>
+
 
 #define BUFFER_SIZE 1024
 #define SCALE 16
@@ -60,6 +63,7 @@ typedef struct	player_data
 typedef	struct	settings_data
 {
 	char		**map;
+	int			win_def;
 	int			win_resx;
 	int			win_resy;
 	char		*north_texture;
