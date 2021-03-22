@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 12:33:48 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 12:50:40 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int		image(win_data *win)
 	win->ray.angle = win->player.angle + FOV/2;
 	int i = 0;
 	double h;
+	double perpdistance;
+	double distprojplane;
 	double wallx = 0; double wally = 0;
 	while (i++ < W_IMG)
 	{
@@ -48,7 +50,10 @@ int		image(win_data *win)
 	set_ray(win->player,&win->ray);
 
 	printf("win->ray.distance : %lf\n",win->ray.distance);
-	h = (H_IMG/win->ray.distance)*3;//*((W_IMG/2)/(tan(M_PI/6)));
+	perpdistance = win->ray.distance * (cos(win->player.angle - win->ray.angle));
+	distprojplane = (W_IMG / 2)/tan(FOV/2);
+	h = SCALE / perpdistance * distprojplane;
+	//h = (H_IMG/perpdistance);//*((W_IMG/2)/(tan(M_PI/6)));
 	wally=H_IMG/2;
 
 	//h *= W_IMG/(tan(M_PI/6));
