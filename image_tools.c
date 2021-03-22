@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 12:22:03 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 14:55:33 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	my_mlx_pixel_put(img_data *img, int x, int y, int color)
 void	my_mlx_pixel_put3(img_data *img, double x, double y,double h, int color)
 {
     char    *dst;
-	double		i = -1;
+	double		i = 1;
 	(void)i;
 //	if (h < 0)
 	//	h *=-1;
-	while (++i < h)
+	while (--i < H_IMG/2 -h/2)
 	{
-    		dst = img->addr + ((int)(y -(h/2) + i) * img->line_length +
+    		dst = img->addr + ((int)(y + i) * img->line_length +
 			(int)(x) * (img->bits_per_pixel / 8));
     		*(unsigned int*)dst = color;
 	}

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 12:50:40 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 16:23:14 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ int		image(win_data *win)
 	win->ray.angle = win->player.angle + FOV/2;
 	int i = 0;
 	double h;
-	double perpdistance;
+		int x = 0;
+	double perpdist;
 	double distprojplane;
-	double wallx = 0; double wally = 0;
+	double walltopy = 0, wallbottomy = 0;
 	while (i++ < W_IMG)
 	{
+
 
 	win->ray.dirx = cos(win->ray.angle);
 	win->ray.diry = -sin(win->ray.angle);
@@ -50,17 +52,31 @@ int		image(win_data *win)
 	set_ray(win->player,&win->ray);
 
 	printf("win->ray.distance : %lf\n",win->ray.distance);
-	perpdistance = win->ray.distance * (cos(win->player.angle - win->ray.angle));
+	perpdist = win->ray.distance * (cos(win->ray.angle -win->player.angle));
+	printf("perpdistance : %lf\n",perpdist);
 	distprojplane = (W_IMG / 2)/tan(FOV/2);
-	h = SCALE / perpdistance * distprojplane;
+	h = SCALE / perpdist * distprojplane;
+	h = (int)h;
 	//h = (H_IMG/perpdistance);//*((W_IMG/2)/(tan(M_PI/6)));
-	wally=H_IMG/2;
+	walltopy=H_IMG/2-h/2;
+	walltopy = walltopy < 0 ? 0 : walltopy;
+	wallbottomy = H_IMG / 2 + h  /2;
+	wallbottomy = wallbottomy > H_IMG ? H_IMG : wallbottomy;
+	char *dst;
+	int i = walltopy;
 
+	while ((i) < wallbottomy)
+	{
+		dst = win->view.addr + ((int)(i) * win->view.line_length +
+		(int)(x) * (win->view.bits_per_pixel / 8));
+		*(unsigned int*)dst = 0x00ff0000;
+		i++;
+	}
 	//h *= W_IMG/(tan(M_PI/6));
-	my_mlx_pixel_put3(&win->view, wallx, wally, h, 0x00FF0000);
-	wallx++;
+	//my_mlx_pixel_put3(&win->view, wallx, wally, h, 0x00FF0000);
+	x++;
 	//print_ray(win->ray);
-			win->ray.angle -= FOV/W_IMG;
+win->ray.angle -= FOV/W_IMG;
 	}
 	return (1);
 }
@@ -82,7 +98,7 @@ void	check_hor_intersection(win_data *win, sett_data *settings, pl_data player, 
 		while ((floor(hory/SCALE) >= 0 && floor(hory/SCALE) < settings->mapy) &&
 				(floor(horx/SCALE) >= 0 && floor(horx/SCALE) < settings->mapx))
 		{
-			if (settings->map[(int)floor((hory-1)/SCALE)][(int)floor(horx/SCALE)] == '1')
+			if (settings->map[(int)floor((hory)/SCALE-1)][(int)floor(horx/SCALE)] == '1')
 			{
 				my_mlx_pixel_put(&win->world, horx, hory, WHITE);
 				ray->horx = horx;
@@ -169,7 +185,7 @@ void	check_ver_intersection(win_data *win,sett_data *settings, pl_data player, r
 		while((floor(very/SCALE) > 0 && floor(very/SCALE) < settings->mapy) &&
 				(floor(verx/SCALE) > 0 && floor(verx/SCALE) < settings->mapx))
 		{
-			if (settings->map[(int)floor(very/SCALE)][(int)floor((verx-1)/SCALE)] == '1')
+			if (settings->map[(int)floor(very/SCALE)][(int)floor((verx)/SCALE-1)] == '1')
 			{
 				my_mlx_pixel_put(&win->world, verx, very,YELLOW);
 				ray->verx = verx;
