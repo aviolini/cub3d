@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/21 16:13:14 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 12:19:15 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 #define YELLOW 0x00FFFF
 #define BLACK 0x00000000
 #define WHITE 0x00FFFFFF
+#define MY_MAX_LIMIT 1000000000
 
 typedef struct	image_data
 {
@@ -76,6 +77,9 @@ typedef	struct	settings_data
 
 typedef struct rays_data
 {
+	double 		angle;
+	double		dirx;
+	double		diry;
 	double		horx;
 	double		hory;
 	double		verx;

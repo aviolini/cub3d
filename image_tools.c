@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 20:25:23 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 12:22:03 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,30 +80,11 @@ void	set_ray(pl_data player, ray_data *ray)
 	double verh;
 	double horh;
 
-	if (ray->verx >= 0 && ray->very >= 0)
 		verh = hypot(fabs(player.posx - ray->verx), fabs(player.posy - ray->very));
-	else
-	{
-		ray->rayx = ray->horx;
-		ray->rayy = ray->hory;
-		return ;
-	}
-	if (ray->horx >= 0 && ray->hory >= 0)
 		horh = hypot(fabs(player.posx - ray->horx), fabs(player.posy - ray->hory));
-	else
-		{
-			ray->rayx = ray->verx;
-			ray->rayy = ray->very;
-			return ;
-		}
+
 	if (horh <= verh)
-		{
-			ray->rayx = ray->horx;
-			ray->rayy = ray->hory;
-		}
+		ray->distance = horh;
 	else
-	{
-		ray->rayx = ray->verx;
-		ray->rayy = ray->very;
-	}
+		ray->distance = verh;
 }
