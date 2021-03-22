@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 14:55:33 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 18:54:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	my_mlx_pixel_put3(img_data *img, double x, double y,double h, int color)
 	}
 }
 
-void	view_background(img_data *view)
+void	view_background(img_data *view, sett_data *settings)
 {
 	int x;
 	int y;
 	int z;
 	unsigned int color;
 
-	color = 0x00ffff00;
+	color = settings->ceiling_color;
 	y = -1;
 	z = 3;
 
@@ -57,7 +57,7 @@ void	view_background(img_data *view)
 		while(++y < (H_IMG/z) && -2 < (x = -1))
 			while(++x < W_IMG)
 				my_mlx_pixel_put(view,x,y,color);
-		color = color >> 16;
+		color = settings->floor_color;
 		y--;
 	}
 }

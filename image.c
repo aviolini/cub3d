@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 17:09:01 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/22 18:59:31 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		build_view(win_data *win)
 	new_image(win, &win->view);
 	if(!build_world(&win->world, win->settings.map, &win->player))
 		return (0);
-	view_background(&win->view);
+	view_background(&win->view, &win->settings);
 
 	image(win);
 	miniray(win);
@@ -51,9 +51,9 @@ int		image(win_data *win)
 	check_ver_intersection(win,&win->settings, win->player, &win->ray);
 	set_ray(win->player,&win->ray);
 
-	printf("win->ray.distance : %lf\n",win->ray.distance);
+	//printf("win->ray.distance : %lf\n",win->ray.distance);
 	perpdist = win->ray.distance * (cos(win->ray.angle -win->player.angle));
-	printf("perpdistance : %lf\n",perpdist);
+	//printf("perpdistance : %lf\n",perpdist);
 	distprojplane = (W_IMG / 2)/tan(FOV/2);
 	h = SCALE / (perpdist) * distprojplane;
 	h = (int)h;

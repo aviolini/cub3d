@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 17:53:54 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 00:23:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int		set_color(char *line, int *color, int i)
 	while(line[i])
 		if (line[i++] != ' ')
 			return (0);
-	*color = (r << 16 | g << 8 | b);
+	*color = r + g + b == 0 ? 1 :
+	(r << 16 | g << 8 | b);
 	return (1);
 }

@@ -7,9 +7,10 @@ WE ./path_to_the_west_texture
 EA ./path_to_the_east_texture
 S ./path_to_the_sprite_texture
 
-F 220,100,15
+F 255,255,0
 
-C 220,100,17
+C 0,0,255
+
 
 
 1111111111111111111111111111111111111111
