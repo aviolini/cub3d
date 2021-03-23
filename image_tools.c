@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 11:39:21 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 12:34:11 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color)
 	perpdist = win->ray.distance * (cos(win->ray.angle -win->player.angle));
 	h = 1 / (perpdist) * distprojplane;
 	h = (int)h;
-
 	walltopy=H_IMG/2-h/2;
 	walltopy = walltopy < 0 ? 0 : walltopy;
 	wallbottomy = H_IMG / 2 + h  /2;
@@ -98,7 +97,32 @@ void	set_ray(pl_data player, ray_data *ray)
 		horh = hypot(fabs(player.posx - ray->horx), fabs(player.posy - ray->hory));
 
 	if (horh <= verh)
+	{
+		ray->hashity = 1;
 		ray->distance = horh;
+	}
 	else
+	{
+		ray->hashity = 0;
 		ray->distance = verh;
+	}
+}
+
+int		set_orientation_wall(ray_data ray)
+{
+	if (ray.hashity == 1)
+		{
+			if (ray.diry < 0)
+				return(RED);
+			else
+				return(GREEN);
+		}
+	else
+		{
+			if(ray.dirx < 0)
+				return (PINK);
+			else
+				return (CYAN);
+		}
+	return BLACK;
 }
