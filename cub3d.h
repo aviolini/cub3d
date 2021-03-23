@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 12:33:54 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 12:47:38 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct	window_data
 }				win_data;
 
 /*TO_TRASH*/
+int 	set_wall_color(int o);
 int		build_world(img_data *world, char **map, pl_data *player);
 void	ray(win_data *win);
 void	bundle_ray(win_data *win);
@@ -140,8 +141,8 @@ void	my_mlx_pixel_put(img_data *img, int x, int y, int color);
 void	view_background(img_data *view, sett_data *settings);
 void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color);
 void	set_right_resolution(win_data *win);
-void	set_ray(pl_data player, ray_data *ray);
-int		set_orientation_wall(ray_data ray);
+//oid	set_ray(pl_data player, ray_data *ray);
+int	set_distance_and_wall_orientation(pl_data player, ray_data *ray);
 
 
 /*PARSING MAP */

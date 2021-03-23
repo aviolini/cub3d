@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 12:34:11 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 12:48:26 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,41 +88,28 @@ void	set_right_resolution(win_data *win)
 		win->settings.win_resy = myresy;
 */}
 
-void	set_ray(pl_data player, ray_data *ray)
+int	set_distance_and_wall_orientation(pl_data player, ray_data *ray)
 {
-	double verh;
-	double horh;
+	double	verh;
+	double	horh;
 
-		verh = hypot(fabs(player.posx - ray->verx), fabs(player.posy - ray->very));
-		horh = hypot(fabs(player.posx - ray->horx), fabs(player.posy - ray->hory));
-
+	verh = hypot(fabs(player.posx - ray->verx), fabs(player.posy - ray->very));
+	horh = hypot(fabs(player.posx - ray->horx), fabs(player.posy - ray->hory));
 	if (horh <= verh)
 	{
-		ray->hashity = 1;
 		ray->distance = horh;
+		if (ray->diry < 0)
+			return (1);
+		else
+			return (3);
 	}
 	else
 	{
-		ray->hashity = 0;
 		ray->distance = verh;
+		if(ray->dirx < 0)
+			return (2) ;
+		else
+			return (0);
 	}
-}
-
-int		set_orientation_wall(ray_data ray)
-{
-	if (ray.hashity == 1)
-		{
-			if (ray.diry < 0)
-				return(RED);
-			else
-				return(GREEN);
-		}
-	else
-		{
-			if(ray.dirx < 0)
-				return (PINK);
-			else
-				return (CYAN);
-		}
-	return BLACK;
+	return (-1);
 }

@@ -6,11 +6,24 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 11:37:17 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 12:47:13 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int 	set_wall_color(int o)
+{
+	if ( o == 0)
+		return RED;
+	if ( o == 1)
+		return GREEN;
+	if (o == 2)
+		return PINK;
+	if (o == 3)
+		return CYAN;
+	return BLACK;
+}
 
 int		build_world(img_data *world, char **map, pl_data *player)
 {

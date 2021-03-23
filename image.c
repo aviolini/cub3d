@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 12:33:56 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 12:49:14 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,15 @@ int		image(win_data *win)
 	int i = 0;
 	int x = 0;
 	int color;
+	int orientation;
 	while (i++ < W_IMG)
 	{
 		win->ray.dirx = cos(win->ray.angle);
 		win->ray.diry = -sin(win->ray.angle);
 		check_hor_intersection(win,&win->settings, win->player, &win->ray);
 		check_ver_intersection(win,&win->settings, win->player, &win->ray);
-		set_ray(win->player,&win->ray);
-		color = set_orientation_wall(win->ray);
+		orientation = set_distance_and_wall_orientation(win->player,&win->ray);
+		color = set_wall_color(orientation);
 		my_mlx_put_wall(win, &win->view, x, color);
 		win->ray.angle -= FOV/W_IMG;
 		x++;
