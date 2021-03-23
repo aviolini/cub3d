@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 18:05:17 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 09:08:04 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ int		check_map(char **map, int mapy, int mapx, pl_data *player)
 void	init_player(char c,int x, int y, pl_data *player)
 {
 	player->def = 1;
-	player->posx = x * SCALE;// + SCALE / 2;
-	player->posy = y * SCALE;// + SCALE / 2;
+	player->posx = x;// * SCALE;// + SCALE / 2;
+	player->posy = y;// * SCALE;// + SCALE / 2;
 	if (c == 'N')
 		player->angle = M_PI_2;
 	else if (c == 'S')

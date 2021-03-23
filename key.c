@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 18:48:12 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 09:22:32 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	move(char **map, pl_data *player, char var)
 		value = 1;
 	if (var == 's')
 		value = -1;
-	player->posy += (value)*player->diry * SPEED;
-	player->posx += (value)*player->dirx * SPEED;
-	while(map[(int)floor(player->posy / SCALE)]
-		[(int)floor(player->posx / SCALE)] == '1')
+	player->posy += (value)*player->diry * SPEED/SCALE;
+	player->posx += (value)*player->dirx * SPEED/SCALE;
+	while(map[(int)floor(player->posy)]
+		[(int)floor(player->posx)] == '1')
 	{
-		player->posy -= (value)*player->diry;
-		player->posx -= (value)*player->dirx;
+		player->posy -= (value)*player->diry/SCALE;
+		player->posx -= (value)*player->dirx/SCALE;
 	}
 }
 
@@ -56,13 +56,13 @@ void	slide(char **map, pl_data *player, char var)
 		value = -1;
 	if (var == 'd')
 		value = 1;
-	player->posy += (value) * player->dirx * SPEED;
-	player->posx -= (value) * player->diry * SPEED;
-	while(map[(int)floor(player->posy / SCALE)]
-		[(int)floor(player->posx / SCALE)] == '1')
+	player->posy += (value) * player->dirx * SPEED/SCALE;
+	player->posx -= (value) * player->diry * SPEED/SCALE;
+	while(map[(int)floor(player->posy)]
+		[(int)floor(player->posx)] == '1')
 	{
-		player->posy -= (value) * player->dirx;
-		player->posx += (value) * player->diry;
+		player->posy -= (value) * player->dirx/SCALE;
+		player->posx += (value) * player->diry/SCALE;
 	}
 }
 

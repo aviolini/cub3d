@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 18:05:34 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 10:54:05 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		build_world(img_data *world, char **map, pl_data *player)
 		//	}
 		}
 	}
-	my_mlx_pixel_put(world, player->posx, player->posy,0x00ffffff);
+	my_mlx_pixel_put(world, player->posx*SCALE, player->posy*SCALE,0x00ffffff);
 	return (1);
 }
 
@@ -106,7 +106,7 @@ void	bundle_ray(win_data *win)
 		wally=H_IMG/2;
 
 		//h *= W_IMG/(tan(M_PI/6));
-		my_mlx_pixel_put3(&win->view, wallx, wally, h, 0x00FF0000);
+		my_mlx_put_wall(&win->view, wallx, wally, h, 0x00FF0000);
 		wallx++;
 
 	}
@@ -175,9 +175,9 @@ void	print_player(pl_data player)
 
 void	miniray(win_data *win)
 {
-	my_mlx_pixel_put(&win->world, win->player.posx, win->player.posy,0x00ffffff);
+	my_mlx_pixel_put(&win->world, win->player.posx*SCALE, win->player.posy*SCALE,0x00ffffff);
 	int i = 0;
-	double rayy = win->player.posy, rayx = win->player.posx;
+	double rayy = win->player.posy*SCALE, rayx = win->player.posx*SCALE;
 	while (i++< 5){
 		rayy += win->player.diry;
 		rayx += win->player.dirx;
