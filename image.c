@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 14:18:51 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:01:38 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		build_view(win_data *win)
 {
+	img_data img;
 	new_image(win, &win->world);
 	new_image(win, &win->view);
 	if(!build_world(&win->world, win->settings.map, &win->player))
@@ -22,8 +23,12 @@ int		build_view(win_data *win)
 
 	image(win);
 	miniray(win);
+	int w = 0;
+	int h = 0;
+	img.img = mlx_xpm_file_to_image(win->mlx,"text.xpm",&w,&h);
 
-	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
+	mlx_put_image_to_window(win->mlx, win->win, img.img, 20, 20);
+	//mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 20);
 
 	mlx_destroy_image(win->mlx, win->world.img);
