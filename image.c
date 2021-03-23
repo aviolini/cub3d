@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 10:52:00 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 11:43:29 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,53 +36,17 @@ int		image(win_data *win)
 {
 	win->ray.angle = win->player.angle + FOV/2;
 	int i = 0;
-	double h;
 	int x = 0;
-	double perpdist;
-	double distprojplane;
-	double walltopy = 0, wallbottomy = 0;
-	distprojplane = (W_IMG / 2)/tan(FOV/2);
 	while (i++ < W_IMG)
 	{
-		//win->ray.angle -= FOV/W_IMG;
-	win->ray.dirx = cos(win->ray.angle);
-	win->ray.diry = -sin(win->ray.angle);
-	check_hor_intersection(win,&win->settings, win->player, &win->ray);
-	check_ver_intersection(win,&win->settings, win->player, &win->ray);
-	set_ray(win->player,&win->ray);
-
-	//printf("win->ray.distance : %lf\n",win->ray.distance);
-	perpdist = win->ray.distance * (cos(win->ray.angle -win->player.angle));
-	//printf("perpdistance : %lf\n",perpdist);
-
-	h = 1 / (perpdist) * distprojplane;
-	h = (int)h;
-	//h = (H_IMG/perpdistance);//*((W_IMG/2)/(tan(M_PI/6)));
-	walltopy=H_IMG/2-h/2;
-	walltopy = walltopy < 0 ? 0 : walltopy;
-	wallbottomy = H_IMG / 2 + h  /2;
-	wallbottomy = wallbottomy > H_IMG ? H_IMG : wallbottomy;
-	char *dst;
-	int i = walltopy;
-
-	while ((i) < wallbottomy)
-	{
-		dst = win->view.addr + ((int)(i) * win->view.line_length +
-		(int)(x) * (win->view.bits_per_pixel / 8));
-		if (win->ray.dirx > 0 && win->ray.diry > 0)
-			*(unsigned int*)dst = RED;
-		if (win->ray.dirx > 0 && win->ray.diry < 0)
-			*(unsigned int*)dst = GREEN;
-		if (win->ray.dirx < 0 && win->ray.diry > 0)
-			*(unsigned int*)dst = PINK;
-		if (win->ray.dirx < 0 && win->ray.diry < 0)
-			*(unsigned int*)dst = CYAN;
-		i++;
-	}
-	win->ray.angle -= FOV/W_IMG;
-	//h *= W_IMG/(tan(M_PI/6));
-	//my_mlx_pixel_put3(&win->view, wallx, wally, h, 0x00FF0000);
-	x++;
+		win->ray.dirx = cos(win->ray.angle);
+		win->ray.diry = -sin(win->ray.angle);
+		check_hor_intersection(win,&win->settings, win->player, &win->ray);
+		check_ver_intersection(win,&win->settings, win->player, &win->ray);
+		set_ray(win->player,&win->ray);
+		my_mlx_put_wall(win, &win->view, x, RED);
+		win->ray.angle -= FOV/W_IMG;
+		x++;
 	}
 	return (1);
 }

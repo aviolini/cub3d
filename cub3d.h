@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 10:53:01 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 11:32:29 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ void	check_ver_intersection(win_data *win, sett_data *settings, pl_data player, 
 void	new_image(win_data *win, img_data *img);
 void	my_mlx_pixel_put(img_data *img, int x, int y, int color);
 void	view_background(img_data *view, sett_data *settings);
-void	my_mlx_put_wall(img_data *img, double x, double y,double h, int color);
+void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color);
 void	set_right_resolution(win_data *win);
 void	set_ray(pl_data player, ray_data *ray);
 

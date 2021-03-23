@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 10:54:05 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 11:37:17 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	bundle_ray(win_data *win)
 		wally=H_IMG/2;
 
 		//h *= W_IMG/(tan(M_PI/6));
-		my_mlx_put_wall(&win->view, wallx, wally, h, 0x00FF0000);
+	//	my_mlx_put_wall(&win->view, wallx, wally, h, 0x00FF0000);
 		wallx++;
 
 	}

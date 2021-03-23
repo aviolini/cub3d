@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 10:53:25 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/23 11:39:21 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,30 @@ void	my_mlx_pixel_put(img_data *img, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-void	my_mlx_put_wall(img_data *img, double x, double y,double h, int color)
+void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color)
 {
     char    *dst;
-	double	i = 0;
-	while (--i < H_IMG/2 -h/2)
+//	double	i = 0;
+	double distprojplane;
+	double perpdist;
+	double h;
+	double walltopy = 0, wallbottomy = 0;
+
+	distprojplane = (W_IMG / 2)/tan(FOV/2);
+	perpdist = win->ray.distance * (cos(win->ray.angle -win->player.angle));
+	h = 1 / (perpdist) * distprojplane;
+	h = (int)h;
+
+	walltopy=H_IMG/2-h/2;
+	walltopy = walltopy < 0 ? 0 : walltopy;
+	wallbottomy = H_IMG / 2 + h  /2;
+	wallbottomy = wallbottomy > H_IMG ? H_IMG : wallbottomy;
+	//char *dst;
+	int i = walltopy;
+
+	while ((i) < wallbottomy)
 	{
-    		dst = img->addr + ((int)(y + i) * img->line_length +
+    		dst = img->addr + ((int)(i++) * img->line_length +
 			(int)(x) * (img->bits_per_pixel / 8));
     		*(unsigned int*)dst = color;
 	}
