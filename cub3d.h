@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 14:47:14 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/24 09:07:18 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@
 #define BLACK 0x00000000
 #define WHITE 0x00FFFFFF
 #define MY_MAX_LIMIT 1000000000
+
+typedef struct texture_data
+{
+	void		*tex;
+	int			w_tex;
+	int			h_tex;
+}				tex_data;
 
 typedef struct	image_data
 {
@@ -107,6 +114,7 @@ typedef struct	window_data
 	pl_data		player;
 	sett_data	settings;
 	ray_data	ray;
+	tex_data	texture;
 }				win_data;
 
 /*TO_TRASH*/

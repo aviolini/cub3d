@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 15:16:31 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/24 09:26:56 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color)
     		*(unsigned int*)dst = color;
 	}
 }
+
+
 
 void	view_background(img_data *view, sett_data *settings)
 {

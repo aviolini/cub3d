@@ -37,6 +37,12 @@ libxext, xorg-server, zlib
 
  mlx_loop_hook per far muovere il nemico?
 
+ORIENTAMENTO texture
+0 = EST
+1 = NORD
+2 = OVEST
+3 = SUD
+
 
 ==================
 VECCHIE FORMULE
