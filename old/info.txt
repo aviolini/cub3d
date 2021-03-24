@@ -42,6 +42,7 @@ ORIENTAMENTO texture
 1 = NORD
 2 = OVEST
 3 = SUD
+4 = SPRITE
 
 
 ==================

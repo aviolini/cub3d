@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/24 09:07:18 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/24 11:50:54 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 #define SCALE 16
 #define SPEED 10
 #define ROTATION M_PI/12
-#define W_IMG 600
-#define H_IMG 480
+#define W_IMG 1200
+#define H_IMG 600
 #define FOV M_PI/3
 #define RED 0x00FF0000
 #define GREEN 0x0000FF00
@@ -43,8 +43,14 @@
 typedef struct texture_data
 {
 	void		*tex;
+
 	int			w_tex;
 	int			h_tex;
+
+	int			*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
 }				tex_data;
 
 typedef struct	image_data
@@ -54,7 +60,6 @@ typedef struct	image_data
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	int			size_pixel;
 }				img_data;
 
 typedef struct	player_data
@@ -114,7 +119,7 @@ typedef struct	window_data
 	pl_data		player;
 	sett_data	settings;
 	ray_data	ray;
-	tex_data	texture;
+	tex_data	texture[5];
 }				win_data;
 
 /*TO_TRASH*/
@@ -149,6 +154,7 @@ void	my_mlx_pixel_put(img_data *img, int x, int y, int color);
 void	view_background(img_data *view, sett_data *settings);
 void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color);
 void	set_right_resolution(win_data *win);
+int		init_textures(win_data *win);
 //oid	set_ray(pl_data player, ray_data *ray);
 int	set_distance_and_wall_orientation(pl_data player, ray_data *ray);
 

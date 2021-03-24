@@ -1,11 +1,11 @@
 
 
-R 1240 600
-NO ./path_to_the_north_texture
-SO text.xpm
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-S ./path_to_the_sprite_texture
+R 2500 600
+NO textures/grass.xpm
+SO textures/grass-fa.xpm
+WE textures/grass-su.xpm
+EA textures/grass-wi.xpm
+S textures/tree1.xpm
 
 F 255,255,0
 

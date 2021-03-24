@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/24 09:26:56 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/24 12:27:38 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	my_mlx_pixel_put(img_data *img, int x, int y, int color)
 void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color)
 {
     char    *dst;
+	(void) color;
 //	double	i = 0;
 	double distprojplane;
 	double perpdist;
@@ -48,13 +49,37 @@ void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color)
 
 	while ((i) < wallbottomy)
 	{
+
     		dst = img->addr + ((int)(i++) * img->line_length +
 			(int)(x) * (img->bits_per_pixel / 8));
     		*(unsigned int*)dst = color;
 	}
 }
 
+int		init_textures(win_data *win)
+{
 
+	if ((!(win->texture[0].tex = mlx_xpm_file_to_image(win->mlx,win->settings.east_texture,&win->texture[0].w_tex,&win->texture[0].h_tex)))
+	|| (!(win->texture[1].tex = mlx_xpm_file_to_image(win->mlx,win->settings.north_texture,&win->texture[1].w_tex,&win->texture[1].h_tex)))
+	|| (!(win->texture[2].tex = mlx_xpm_file_to_image(win->mlx,win->settings.west_texture,&win->texture[2].w_tex,&win->texture[2].h_tex)))
+	|| (!(win->texture[3].tex = mlx_xpm_file_to_image(win->mlx,win->settings.south_texture,&win->texture[3].w_tex,&win->texture[3].h_tex)))
+	|| (!(win->texture[4].tex = mlx_xpm_file_to_image(win->mlx,win->settings.sprite_texture,&win->texture[4].w_tex,&win->texture[4].h_tex))))
+			return (0);
+
+	int i;
+	int x;
+	i = -1;
+	x = 0;
+	while (++i < 5)
+		{
+			if(!(win->texture[i].addr =(int *)mlx_get_data_addr(win->texture[i].tex, &win->texture[i].bits_per_pixel,
+				&win->texture[i].line_length, &win->texture[i].endian)))
+					return (0);
+			mlx_put_image_to_window(win->mlx, win->win, win->texture[i].tex, 20 + x, 20);
+			x += 65;
+		}
+	return (1);
+}
 
 void	view_background(img_data *view, sett_data *settings)
 {

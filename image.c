@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/24 09:18:13 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/24 11:51:04 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ int		build_view(win_data *win)
 
 	image(win);
 	miniray(win);
-	win->texture.tex = mlx_xpm_file_to_image(win->mlx,win->settings.south_texture,&win->texture.w_tex,&win->texture.h_tex);
-
-	mlx_put_image_to_window(win->mlx, win->win, win->texture.tex, 20, 20);
+	if (!init_textures(win))
+		return (0);
 	//mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 20);
 
