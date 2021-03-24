@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/24 13:18:12 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:25:27 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,15 @@ void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color)
 	wallbottomy = wallbottomy > H_IMG ? H_IMG : wallbottomy;
 	//char *dst;
 	int i = walltopy;
+	//int z = 0;
 
+//	unsigned int pixel;
+	//double val = wallbottomy / 64;
 	while ((i) < wallbottomy)
 	{
+
+		//	pixel = (unsigned int)win->texture[z].addr + ((int)(i) *  win->texture[z].line_length +
+		//	(int)(x) * ( win->texture[z].bits_per_pixel / 8));
 
     		dst = img->addr + ((int)(i++) * img->line_length +
 			(int)(x) * (img->bits_per_pixel / 8));
