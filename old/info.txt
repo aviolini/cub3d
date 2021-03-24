@@ -44,6 +44,12 @@ ORIENTAMENTO texture
 3 = SUD
 4 = SPRITE
 
+DA FARE
+open dei path delle textures
+cambiare alla risoluzione ufficiale
+settare il size W_IMG e H_IMG come quello della finestra
+cambaire i nomi delle strutture
+
 
 ==================
 VECCHIE FORMULE
