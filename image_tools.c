@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/25 15:51:37 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/25 16:16:48 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	column(win_data *win, img_data *img,int x,int orientation)
 	double h;
 	char *dst;
 	unsigned int color;
+	static int g;
 	double walltopy = 0, wallbottomy = 0;
 
 	distprojplane = (W_IMG / 2)/tan(FOV/2);
@@ -47,15 +48,18 @@ void	column(win_data *win, img_data *img,int x,int orientation)
 	//char *dst;
 	int i = walltopy;
 	//int z = 0;
-
+	if (g < 30)
+		printf("i: %i\n",((int)floor(i/64)));
+	g++;
 //	unsigned int pixel;
 	//double val = wallbottomy / 64;
 	while ((i) < wallbottomy)
 	{
 
+
 			color = *(unsigned int*)(win->texture[orientation].addr +
-				((int)(i/64) *  win->texture[orientation].line_length +
-				(int)(x/64) * ( win->texture[orientation].bits_per_pixel / 8)));
+				((int)((int)floor(i/64)) *  win->texture[orientation].line_length +
+				(int)((int)floor(x/64)) * ( win->texture[orientation].bits_per_pixel / 8)));
 
     		dst = img->addr + ((int)(i++) * img->line_length +
 			(int)(x) * (img->bits_per_pixel / 8));
