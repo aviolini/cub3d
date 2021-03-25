@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/24 17:25:27 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:51:37 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,43 @@ void	my_mlx_pixel_put(img_data *img, int x, int y, int color)
     char    *dst;
     dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
     *(unsigned int*)dst = color;
+}
+
+
+void	column(win_data *win, img_data *img,int x,int orientation)
+{
+	double distprojplane;
+	double perpdist;
+	double h;
+	char *dst;
+	unsigned int color;
+	double walltopy = 0, wallbottomy = 0;
+
+	distprojplane = (W_IMG / 2)/tan(FOV/2);
+	perpdist = win->ray.distance * (cos(win->ray.angle -win->player.angle));
+	h = 1 / (perpdist) * distprojplane;
+	h = (int)h;
+	walltopy=H_IMG/2-h/2;
+	walltopy = walltopy < 0 ? 0 : walltopy;
+	wallbottomy = H_IMG / 2 + h  /2;
+	wallbottomy = wallbottomy > H_IMG ? H_IMG : wallbottomy;
+	//char *dst;
+	int i = walltopy;
+	//int z = 0;
+
+//	unsigned int pixel;
+	//double val = wallbottomy / 64;
+	while ((i) < wallbottomy)
+	{
+
+			color = *(unsigned int*)(win->texture[orientation].addr +
+				((int)(i/64) *  win->texture[orientation].line_length +
+				(int)(x/64) * ( win->texture[orientation].bits_per_pixel / 8)));
+
+    		dst = img->addr + ((int)(i++) * img->line_length +
+			(int)(x) * (img->bits_per_pixel / 8));
+    		*(unsigned int*)dst = color;
+	}
 }
 
 void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color)

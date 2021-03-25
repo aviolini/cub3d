@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/24 16:48:04 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:51:34 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int		build_view(win_data *win)
 
 	image(win);
 	miniray(win);
-	if (!init_textures(win))
-		return (0);
+
 	//mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 20);
 
@@ -38,7 +37,6 @@ int		image(win_data *win)
 	win->ray.angle = win->player.angle + FOV/2;
 	int i = 0;
 	int x = 0;
-	int color;
 	int orientation;
 	while (i++ < W_IMG)
 	{
@@ -47,8 +45,9 @@ int		image(win_data *win)
 		check_hor_intersection(win,&win->settings, win->player, &win->ray);
 		check_ver_intersection(win,&win->settings, win->player, &win->ray);
 		orientation = set_distance_and_wall_orientation(win->player,&win->ray);
-		color = set_wall_color(orientation);
-		my_mlx_put_wall(win, &win->view, x, color);
+	//	color = set_wall_color(orientation);
+	//	my_mlx_put_wall(win, &win->view, x, color);
+		column(win, &win->view,x,orientation);
 		win->ray.angle -= FOV/W_IMG;
 		x++;
 	}
