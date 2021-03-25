@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/25 16:16:48 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/25 16:27:31 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	column(win_data *win, img_data *img,int x,int orientation)
 	int i = walltopy;
 	//int z = 0;
 	if (g < 30)
-		printf("i: %i\n",((int)floor(i/64)));
+		printf("i: %i\n",(((int)floor(64/h))*i));
 	g++;
 //	unsigned int pixel;
 	//double val = wallbottomy / 64;
@@ -58,8 +58,8 @@ void	column(win_data *win, img_data *img,int x,int orientation)
 
 
 			color = *(unsigned int*)(win->texture[orientation].addr +
-				((int)((int)floor(i/64)) *  win->texture[orientation].line_length +
-				(int)((int)floor(x/64)) * ( win->texture[orientation].bits_per_pixel / 8)));
+				((int)(((int)floor(64/h))*i) *  win->texture[orientation].line_length +
+				(int)(((int)floor(x/64)) * ( win->texture[orientation].bits_per_pixel / 8))));
 
     		dst = img->addr + ((int)(i++) * img->line_length +
 			(int)(x) * (img->bits_per_pixel / 8));
