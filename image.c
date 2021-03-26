@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/26 12:41:27 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/26 19:21:42 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int		image(win_data *win)
 		check_hor_intersection(win,&win->settings, win->player, &win->ray);
 		check_ver_intersection(win,&win->settings, win->player, &win->ray);
 		orientation = set_distance_and_wall_orientation(win->player,&win->ray);
-		color = set_wall_color(orientation);
-		my_mlx_put_wall(win, &win->view, x, color);
-	//	column(win, &win->view,x,orientation);
+	//	color = set_wall_color(orientation);
+	//	my_mlx_put_wall(win, &win->view, x, color);
+		column(win, &win->view,x,orientation);
 		win->ray.angle -= FOV/W_IMG;
 		x++;
 	}

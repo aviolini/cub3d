@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/25 15:51:50 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/26 19:40:10 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct texture_data
 	int			w_tex;
 	int			h_tex;
 
-	int			*addr;
+	unsigned int			*addr;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
