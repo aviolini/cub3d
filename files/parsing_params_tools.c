@@ -6,11 +6,11 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:35:54 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 09:09:06 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 09:28:05 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 int 	is_digit(char c)
 {

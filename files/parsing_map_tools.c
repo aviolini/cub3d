@@ -6,11 +6,11 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 13:07:07 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/19 19:37:11 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 09:27:57 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 int		ft_strlen(char *s)
 {

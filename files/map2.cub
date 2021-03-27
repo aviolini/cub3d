@@ -1,0 +1,21 @@
+
+
+R 2500 600
+NO textures/grass.xpm
+SO textures/grass-fa.xpm
+WE textures/grass-su.xpm
+EA textures/grass-wi.xpm
+S textures/tree1.xpm
+
+F 255,255,0
+
+C 0,0,255
+
+
+
+111111111111
+1000000000001
+100000011111
+10000000001
+10000N00001
+11111111111
