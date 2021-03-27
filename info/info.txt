@@ -32,6 +32,9 @@ gcc -Wall -Wextra -Werror -Iminilibx_mms_20200219 -Lminilibx_mms_20200219 -lmlx 
 linux:
 gcc main.c keycode.c utils.c -Wall -Wextra -Werror -lmlx -lXext -lX11 -lm && ./a.out
 
+
+gcc -Wall -Wextra -Werror files/*.c -L../minilib-mlx-linux-gcamerli ../minilib-mlx-linux-gcamerli/libmlx.a -lXext -lX11 -lm && ./a.out files/map.cub 
+
 INTALLAZIONE PACCHETTI linux:
 libxext, xorg-server, zlib
 
@@ -74,3 +77,4 @@ cambiare qualcosa nelle funz keycode_right e keycode_left
 standardizzare tutto con cos e sin
 il raggio entra nei muri di 1 pixel
 ------------------------------------------
+

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 09:28:34 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 10:38:11 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int		image(t_window *win)
 	int orientation;
 	while (i++ < W_IMG)
 	{
-		win->ray.dirx = cos(win->ray.angle);
-		win->ray.diry = -sin(win->ray.angle);
+		win->ray.dirX = cos(win->ray.angle);
+		win->ray.dirY = -sin(win->ray.angle);
 		check_hor_intersection(win,&win->settings, win->player, &win->ray);
 		check_ver_intersection(win,&win->settings, win->player, &win->ray);
 		orientation = set_distance_and_wall_orientation(win->player,&win->ray);
@@ -62,22 +62,22 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 	double	horx;
 	double	hory;
 
-	if(ray->diry < 0)
+	if(ray->dirY < 0)
 	{
 		roundy = 0;
 		ray->value_y = 1;
 	}
 	else
-	//if (ray->diry > 0)
+	//if (ray->dirY > 0)
 	{
 		roundy = 1;
 		ray->value_y = -1;
 	}
 
-	hory = floor(player.posy) + roundy;
-	horx = player.posx + (fabs((player.posy) -(hory))
+	hory = floor(player.posY) + roundy;
+	horx = player.posX + (fabs((player.posY) -(hory))
 				/ (ray->value_y * tan(ray->angle)));
-	while (floor(horx) >= 0 && floor(horx) < settings->mapx)
+	while (floor(horx) >= 0 && floor(horx) < settings->mapW)
 	{
 		if (settings->map[(int)floor((hory) + (roundy - 1))][(int)floor(horx)] == '1')
 		{
@@ -100,21 +100,21 @@ void	check_ver_intersection(t_window *win,t_settings *settings, t_player player,
 	double	verx;
 	double	very;
 
-	if(ray->dirx < 0)
+	if(ray->dirX < 0)
 	{
 		roundx = 0;
 		ray->value_x = 1;
 	}
-	//if (ray->dirx > 0)
+	//if (ray->dirX > 0)
 	else
 	{
 		roundx = 1;
 		ray->value_x = -1;
 	}
-		verx = floor(player.posx / 1) * 1 + roundx;
-		very = player.posy + (fabs(player.posx - verx))
+		verx = floor(player.posX / 1) * 1 + roundx;
+		very = player.posY + (fabs(player.posX - verx))
 		* (ray->value_x * tan(ray->angle));
-		while((floor(very) > 0 && floor(very) < settings->mapy))
+		while((floor(very) > 0 && floor(very) < settings->mapH))
 		{
 			if (settings->map[(int)floor(very)][(int)floor(verx + (roundx - 1) )] == '1')
 			{

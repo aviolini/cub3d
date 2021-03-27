@@ -6,14 +6,16 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 09:27:28 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 10:47:40 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-//int		is_there_a_wall(double x, double y)
+//int		there_is_a_wall(t_settings settings, double x, double y)
+//{
 
+//}
 
 
 
@@ -107,11 +109,11 @@ void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
 int		init_textures(t_window *win)
 {
 
-	if ((!(win->texture[0].tex = mlx_xpm_file_to_image(win->mlx,win->settings.east_texture,&win->texture[0].w_tex,&win->texture[0].h_tex)))
-	|| (!(win->texture[1].tex = mlx_xpm_file_to_image(win->mlx,win->settings.north_texture,&win->texture[1].w_tex,&win->texture[1].h_tex)))
-	|| (!(win->texture[2].tex = mlx_xpm_file_to_image(win->mlx,win->settings.west_texture,&win->texture[2].w_tex,&win->texture[2].h_tex)))
-	|| (!(win->texture[3].tex = mlx_xpm_file_to_image(win->mlx,win->settings.south_texture,&win->texture[3].w_tex,&win->texture[3].h_tex)))
-	|| (!(win->texture[4].tex = mlx_xpm_file_to_image(win->mlx,win->settings.sprite_texture,&win->texture[4].w_tex,&win->texture[4].h_tex))))
+	if ((!(win->texture[0].tex = mlx_xpm_file_to_image(win->mlx,win->settings.east_texture,&win->texture[0].texW,&win->texture[0].texH)))
+	|| (!(win->texture[1].tex = mlx_xpm_file_to_image(win->mlx,win->settings.north_texture,&win->texture[1].texW,&win->texture[1].texH)))
+	|| (!(win->texture[2].tex = mlx_xpm_file_to_image(win->mlx,win->settings.west_texture,&win->texture[2].texW,&win->texture[2].texH)))
+	|| (!(win->texture[3].tex = mlx_xpm_file_to_image(win->mlx,win->settings.south_texture,&win->texture[3].texW,&win->texture[3].texH)))
+	|| (!(win->texture[4].tex = mlx_xpm_file_to_image(win->mlx,win->settings.sprite_texture,&win->texture[4].texW,&win->texture[4].texH))))
 			return (0);
 
 	int i;
@@ -168,12 +170,12 @@ int	set_distance_and_wall_orientation(t_player player, t_ray *ray)
 	double	verh;
 	double	horh;
 
-	verh = hypot(fabs(player.posx - ray->verx), fabs(player.posy - ray->very));
-	horh = hypot(fabs(player.posx - ray->horx), fabs(player.posy - ray->hory));
+	verh = hypot(fabs(player.posX - ray->verx), fabs(player.posY - ray->very));
+	horh = hypot(fabs(player.posX - ray->horx), fabs(player.posY - ray->hory));
 	if (horh <= verh)
 	{
 		ray->distance = horh;
-		if (ray->diry < 0)
+		if (ray->dirY < 0)
 			return (1);
 		else
 			return (3);
@@ -181,7 +183,7 @@ int	set_distance_and_wall_orientation(t_player player, t_ray *ray)
 	else
 	{
 		ray->distance = verh;
-		if(ray->dirx < 0)
+		if(ray->dirX < 0)
 			return (2) ;
 		else
 			return (0);

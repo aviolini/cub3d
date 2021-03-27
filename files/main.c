@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 09:27:50 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 10:49:03 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		main_parsing(char *av, t_settings *settings, t_player *player)
 		free(line);
 	}
 	close(fd);
-	if (r == -1 || !check_map(settings->map, settings->mapy, settings->mapx, player))
+	if (r == -1 || !check_map(settings->map, settings->mapH, settings->mapW, player))
 		return(0);
 	return (1);
 }
@@ -74,8 +74,8 @@ int		main_window(t_window *win)
 	win->mlx = mlx_init();
 	win->settings.win_def = 1;
 //	set_right_resolution(win);
-	win->win = mlx_new_window(win->mlx,win->settings.win_resx,
-		win->settings.win_resy, "Welcome");
+	win->win = mlx_new_window(win->mlx,win->settings.winW,
+		win->settings.winH, "Welcome");
 	if (!init_textures(win))
 		return (0);
 	if (!build_view(win))
@@ -92,8 +92,8 @@ void	init_settings(t_settings *settings)
 {
 	settings->win_def = 0;
 	settings->map = NULL;
-	settings->win_resx = 0;
-	settings->win_resy = 0;
+	settings->winW = 0;
+	settings->winH = 0;
 	settings->north_texture = NULL;
 	settings->west_texture = NULL;
 	settings->east_texture = NULL;
@@ -102,6 +102,6 @@ void	init_settings(t_settings *settings)
 	settings->floor_color = 0;
 	settings->ceiling_color = 0;
 	settings->eof = 0;
-	settings->mapx = 0;
-	settings->mapy = 0;
+	settings->mapW = 0;
+	settings->mapH = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:35:54 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 09:28:05 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 10:42:19 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int		find_color(char *line, int i)
 
 int		all_params(t_settings *settings)
 {
-	if (!settings->win_resx)
+	if (!settings->winW)
 		return (0);
-	if (!settings->win_resy)
+	if (!settings->winH)
 		return (0);
 	if (!settings->north_texture)
 		return (0);

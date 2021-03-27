@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 09:28:01 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 10:41:56 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		parsing_map(char *line, t_settings *settings)
 	}
 	if (settings->eof)
 		return (0);
-	if (!(settings->map = build_map(line, settings->map, &settings->mapx, &settings->mapy)))
+	if (!(settings->map = build_map(line, settings->map, &settings->mapW, &settings->mapH)))
 		return (0);
 	return (1);
 }
@@ -88,8 +88,8 @@ int		check_map(char **map, int mapy, int mapx, t_player *player)
 void	init_player(char c,int x, int y, t_player *player)
 {
 	player->def = 1;
-	player->posx = x;// * SCALE;// + SCALE / 2;
-	player->posy = y;// * SCALE;// + SCALE / 2;
+	player->posX = x;// * SCALE;// + SCALE / 2;
+	player->posY = y;// * SCALE;// + SCALE / 2;
 	if (c == 'N')
 		player->angle = M_PI_2;
 	else if (c == 'S')
@@ -98,6 +98,6 @@ void	init_player(char c,int x, int y, t_player *player)
 		player->angle = 0;
 	else if (c == 'W')
 		player->angle = M_PI;
-	player->dirx = cos(player->angle);
-	player->diry = -sin(player->angle);
+	player->dirX = cos(player->angle);
+	player->dirY = -sin(player->angle);
 }

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 09:02:43 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 10:39:27 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct s_texture_data
 {
 	void		*tex;
 
-	int			w_tex;
-	int			h_tex;
+	int			texW;
+	int			texH;
 
 	unsigned int			*addr;
 	int			bits_per_pixel;
@@ -64,10 +64,10 @@ typedef struct	s_image_data
 
 typedef struct	s_player_data
 {
-	double		posx;
-	double		posy;
-	double		dirx;
-	double		diry;
+	double		posX;
+	double		posY;
+	double		dirX;
+	double		dirY;
 	int			def;
 	double		angle;
 }				t_player;
@@ -76,8 +76,8 @@ typedef	struct	s_settings_data
 {
 	char		**map;
 	int			win_def;
-	int			win_resx;
-	int			win_resy;
+	int			winW;
+	int			winH;
 	char		*north_texture;
 	char		*west_texture;
 	char		*east_texture;
@@ -86,17 +86,22 @@ typedef	struct	s_settings_data
 	int			floor_color;
 	int			ceiling_color;
 	int			eof;
-	int			win_my_resx;
-	int			win_my_resy;
-	int			mapx;
-	int			mapy;
+	int			winMyW;
+	int			winMyH;
+	int			mapW;
+	int			mapH;
 }				t_settings;
 
 typedef struct s_rays_data
 {
 	double 		angle;
-	double		dirx;
-	double		diry;
+	double		dirX;
+	double		dirY;
+	double		hitX;
+	double		hitY;
+	double		distance;
+	int			verticalHit;
+
 	double		value_x;
 	double		value_y;
 	double		horx;
@@ -106,7 +111,6 @@ typedef struct s_rays_data
 	double		rayx;
 	double		rayy;
 	int			hashity;
-	double		distance;
 
 }				t_ray;
 

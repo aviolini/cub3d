@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 09:28:12 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 10:45:16 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		build_world(t_image *world, char **map, t_player *player)
 		//	}
 		}
 	}
-	my_mlx_pixel_put(world, player->posx*SCALE, player->posy*SCALE,0x00ffffff);
+	my_mlx_pixel_put(world, player->posX*SCALE, player->posY*SCALE,0x00ffffff);
 	return (1);
 }
 
@@ -64,14 +64,14 @@ void	ray(t_window *win)
 
 	double rayx,rayy;
 
-	rayx = win->player.posx;
-	rayy = win->player.posy;
+	rayx = win->player.posX;
+	rayy = win->player.posY;
 	while (win->settings.map[(int)floor(rayy / SCALE)]
 		[(int)floor(rayx / SCALE)] != '1')
 	{
 		my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
-		rayx += win->player.dirx;
-		rayy += win->player.diry;
+		rayx += win->player.dirX;
+		rayy += win->player.dirY;
 	}
 }
 
@@ -88,7 +88,7 @@ void	bundle_ray(t_window *win)
 	double wally = 0, wallx = 0, h , dist = 1;
 
 	double	angle;
-	double	rayx,rayy,dirx,diry;
+	double	rayx,rayy,dirX,dirY;
 	double	rad;
 	int		i;
 	int		c;
@@ -101,16 +101,16 @@ void	bundle_ray(t_window *win)
 	{
 		dist = 1;
 		angle -= rad;
-		dirx = cos(angle);
-		diry = -sin(angle);
-		rayx = win->player.posx;
-		rayy = win->player.posy;
+		dirX = cos(angle);
+		dirY = -sin(angle);
+		rayx = win->player.posX;
+		rayy = win->player.posY;
 		while (win->settings.map[(int)floor(rayy / SCALE)]
 			[(int)floor(rayx / SCALE)] != '1')
 		{
 			my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
-			rayx += dirx;
-			rayy += diry;
+			rayx += dirX;
+			rayy += dirY;
 			dist++;
 		}
 
@@ -130,8 +130,8 @@ void	print_settings(t_settings settings)
 	printf("------settings------------------------\n");
 	//int i = 0;
 	//printf("*map: %i\n",*(settings->map));
-	printf("w_win: %i\n",settings.win_resx);
-	printf("h_win: %i\n",settings.win_resy);
+	printf("w_win: %i\n",settings.winW);
+	printf("h_win: %i\n",settings.winH);
 	printf("no_te: %s\n",settings.north_texture);
 	printf("we_te: %s\n",settings.west_texture);
 	printf("ea_te: %s\n",settings.east_texture);
@@ -139,8 +139,8 @@ void	print_settings(t_settings settings)
 	printf("sp_te: %s\n",settings.sprite_texture);
 	printf("flo_col: %i\n",settings.floor_color);
 	printf("cei_col: %i\n",settings.ceiling_color);
-	printf("mapx: %i\n",settings.mapx);
-	printf("mapy: %i\n",settings.mapy);
+	printf("mapW: %i\n",settings.mapW);
+	printf("mapH: %i\n",settings.mapH);
 	printf("eof: %i\n",settings.eof);
 	//while ((settings->map)[i])
 	//	printf("mapp: %s\n",(settings->map)[i++]);
@@ -176,24 +176,24 @@ void	print_ray(t_ray ray)
 void	print_player(t_player player)
 {
 	printf("-----player------------------------\n");
-	printf("posx: %lf\n",player.posx);
-	printf("posy: %lf\n",player.posy);
-	printf("posx_map: %lf\n",player.posx/SCALE);
-	printf("posy_map: %lf\n",player.posy/SCALE);
-	printf("dirx: %lf\n",player.dirx);
-	printf("diry: %lf\n",player.diry);
+	printf("posX: %lf\n",player.posX);
+	printf("posY: %lf\n",player.posY);
+	printf("posX_map: %lf\n",player.posX/SCALE);
+	printf("posY_map: %lf\n",player.posY/SCALE);
+	printf("dirX: %lf\n",player.dirX);
+	printf("dirY: %lf\n",player.dirY);
 
 	printf("-----------------------------------\n");
 }
 
 void	miniray(t_window *win)
 {
-	my_mlx_pixel_put(&win->world, win->player.posx*SCALE, win->player.posy*SCALE,0x00ffffff);
+	my_mlx_pixel_put(&win->world, win->player.posX*SCALE, win->player.posY*SCALE,0x00ffffff);
 	int i = 0;
-	double rayy = win->player.posy*SCALE, rayx = win->player.posx*SCALE;
+	double rayy = win->player.posY*SCALE, rayx = win->player.posX*SCALE;
 	while (i++< 5){
-		rayy += win->player.diry;
-		rayx += win->player.dirx;
+		rayy += win->player.dirY;
+		rayx += win->player.dirX;
 		my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
 	}
 }

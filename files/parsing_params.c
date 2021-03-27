@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 09:28:08 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 10:43:06 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,18 @@ int		parsing_params(char *line, t_settings *settings)
 
 int		set_resolution(char *line, t_settings *settings, int i)
 {
-	if (settings->win_resx || settings->win_resy)
+	if (settings->winW || settings->winH)
 		return (0);
 	while(!is_digit(line[i]))
 		if (line[i++] != ' ' || !line[i])
 			return (0);
 	while(is_digit(line[i]))
-		settings->win_resx = settings->win_resx * 10 + (line[i++] - 48);
+		settings->winW = settings->winW * 10 + (line[i++] - 48);
 	while(!is_digit(line[i]))
 		if (line[i++] != ' ' || !line[i])
 			return (0);
 	while(is_digit(line[i]))
-		settings->win_resy = settings->win_resy * 10 + (line[i++] - 48);
+		settings->winH = settings->winH * 10 + (line[i++] - 48);
 	while (line[i])
 		if (line[i++] != ' ')
 			return (0);
