@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 08:43:44 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 09:02:43 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 #define WHITE 0x00FFFFFF
 #define MY_MAX_LIMIT 1000000000
 
-typedef struct texture_data
+typedef struct s_texture_data
 {
 	void		*tex;
 
@@ -51,18 +51,18 @@ typedef struct texture_data
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-}				tex_data;
+}				t_texture;
 
-typedef struct	image_data
+typedef struct	s_image_data
 {
 	void		*img;
 	char		*addr;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-}				img_data;
+}				t_image;
 
-typedef struct	player_data
+typedef struct	s_player_data
 {
 	double		posx;
 	double		posy;
@@ -70,9 +70,9 @@ typedef struct	player_data
 	double		diry;
 	int			def;
 	double		angle;
-}				pl_data;
+}				t_player;
 
-typedef	struct	settings_data
+typedef	struct	s_settings_data
 {
 	char		**map;
 	int			win_def;
@@ -90,9 +90,9 @@ typedef	struct	settings_data
 	int			win_my_resy;
 	int			mapx;
 	int			mapy;
-}				sett_data;
+}				t_settings;
 
-typedef struct rays_data
+typedef struct s_rays_data
 {
 	double 		angle;
 	double		dirx;
@@ -108,71 +108,71 @@ typedef struct rays_data
 	int			hashity;
 	double		distance;
 
-}				ray_data;
+}				t_ray;
 
-typedef struct	window_data
+typedef struct	s_window_data
 {
 	void		*mlx;
 	void		*win;
-	img_data	world;
-	img_data	view;
-	pl_data		player;
-	sett_data	settings;
-	ray_data	ray;
-	tex_data	texture[5];
-}				win_data;
+	t_image	world;
+	t_image	view;
+	t_player		player;
+	t_settings	settings;
+	t_ray	ray;
+	t_texture	texture[5];
+}				t_window;
 
 /*TO_TRASH*/
 int 	set_wall_color(int o);
-int		build_world(img_data *world, char **map, pl_data *player);
-void	ray(win_data *win);
-void	bundle_ray(win_data *win);
-void	print_settings(sett_data settings);
-void	print_player(pl_data player);
-void	print_ray(ray_data ray);
-void	miniray(win_data *win);
-void	my_mlx_pixel_wall(img_data *img, int x, int y, int color);
-void	my_mlx_pixel_grid(img_data *img, int x, int y, int color);
+int		build_world(t_image *world, char **map, t_player *player);
+void	ray(t_window *win);
+void	bundle_ray(t_window *win);
+void	print_settings(t_settings settings);
+void	print_player(t_player player);
+void	print_ray(t_ray ray);
+void	miniray(t_window *win);
+void	my_mlx_pixel_wall(t_image *img, int x, int y, int color);
+void	my_mlx_pixel_grid(t_image *img, int x, int y, int color);
 /*CUB3D.C*/
-int		main_parsing(char *av, sett_data *settings, pl_data *player);
-int		main_window(win_data *win);
-void	init_settings(sett_data *settings);
+int		main_parsing(char *av, t_settings *settings, t_player *player);
+int		main_window(t_window *win);
+void	init_settings(t_settings *settings);
 /*KEY*/
-int		key_hook(int keycode, win_data *win);
-void	move(char **map, pl_data *player, char var);
-void	slide(char **map, pl_data *player, char var);
-void	rotate(pl_data *player, char var);
-int		ft_exit(win_data *win);
+int		key_hook(int keycode, t_window *win);
+void	move(char **map, t_player *player, char var);
+void	slide(char **map, t_player *player, char var);
+void	rotate(t_player *player, char var);
+int		ft_exit(t_window *win);
 /*IMAGE.C*/
-int		build_view(win_data *win);
-int		image(win_data *win);
-void	check_hor_intersection(win_data *win, sett_data *settings, pl_data player, ray_data *ray);
-void	check_ver_intersection(win_data *win, sett_data *settings, pl_data player, ray_data *ray);
+int		build_view(t_window *win);
+int		image(t_window *win);
+void	check_hor_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray);
+void	check_ver_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray);
 /*IMAGE_TOOLS*/
-void	new_image(win_data *win, img_data *img);
-void	my_mlx_pixel_put(img_data *img, int x, int y, int color);
-void	view_background(img_data *view, sett_data *settings);
-void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color);
-void	set_right_resolution(win_data *win);
-int		init_textures(win_data *win);
-void	column(win_data *win, img_data *img,int x,int orientation);
-//oid	set_ray(pl_data player, ray_data *ray);
-int	set_distance_and_wall_orientation(pl_data player, ray_data *ray);
+void	new_image(t_window *win, t_image *img);
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void	view_background(t_image *view, t_settings *settings);
+void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color);
+void	set_right_resolution(t_window *win);
+int		init_textures(t_window *win);
+void	column(t_window *win, t_image *img,int x,int orientation);
+//oid	set_ray(t_player player, t_ray *ray);
+int	set_distance_and_wall_orientation(t_player player, t_ray *ray);
 
 
 /*PARSING MAP */
-int		parsing_map(char *line, sett_data *settings);
+int		parsing_map(char *line, t_settings *settings);
 char	**build_map(char *line, char **map, int *x, int *y);
-int		check_map(char **map, int mapy, int mapx, pl_data *player);
-void	init_player(char c,int x, int y, pl_data *player);
+int		check_map(char **map, int mapy, int mapx, t_player *player);
+void	init_player(char c,int x, int y, t_player *player);
 /*PARSING MAP_TOOLS*/
 int		ft_strlen(char *s);
 char	*copy_line(char *line, int mapx);
 int		is_player(char c);
 int		is_valid_char(char c);
 /*PARSING_PARAMS*/
-int		parsing_params(char *line, sett_data *settings);
-int		set_resolution(char *line, sett_data *settings, int i);
+int		parsing_params(char *line, t_settings *settings);
+int		set_resolution(char *line, t_settings *settings, int i);
 int		path_texture(char *line, char **texture, int i);
 int		set_color(char *line, int *color, int i);
 /*CHECK MAIN ARGS TOOLS*/
@@ -184,7 +184,7 @@ int 	is_digit(char c);
 int		if_empty_line_and_slide_spaces(char *line);
 int		slide_char(char *line, int i);
 int		find_color(char *line, int i);
-int		all_params(sett_data *settings);
+int		all_params(t_settings *settings);
 /* GNL FUNCTIONS */
 int		get_next_line(int fd, char **line);
 void	ft_index(char *index, char *ptr, int x);

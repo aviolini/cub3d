@@ -6,13 +6,13 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 09:08:04 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 09:08:11 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		parsing_map(char *line, sett_data *settings)
+int		parsing_map(char *line, t_settings *settings)
 {
 	if (if_empty_line_and_slide_spaces(line) == -1)
 	{
@@ -58,7 +58,7 @@ char	**build_map(char *line, char **map, int *mapx, int *mapy)
 	return (m);
 }
 
-int		check_map(char **map, int mapy, int mapx, pl_data *player)
+int		check_map(char **map, int mapy, int mapx, t_player *player)
 {
 	int y;
 	int x;
@@ -85,7 +85,7 @@ int		check_map(char **map, int mapy, int mapx, pl_data *player)
 	return (1);
 }
 
-void	init_player(char c,int x, int y, pl_data *player)
+void	init_player(char c,int x, int y, t_player *player)
 {
 	player->def = 1;
 	player->posx = x;// * SCALE;// + SCALE / 2;

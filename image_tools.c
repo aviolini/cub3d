@@ -6,20 +6,25 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/26 19:43:20 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 09:11:10 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	new_image(win_data *win, img_data *image)
+//int		is_there_a_wall(double x, double y)
+
+
+
+
+void	new_image(t_window *win, t_image *image)
 {
 	image->img = mlx_new_image(win->mlx, W_IMG, H_IMG);
 	image->addr = mlx_get_data_addr(image->img, &image->bits_per_pixel,
 		&image->line_length, &image->endian);
 }
 
-void	my_mlx_pixel_put(img_data *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
     char    *dst;
     dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
@@ -27,7 +32,7 @@ void	my_mlx_pixel_put(img_data *img, int x, int y, int color)
 }
 
 
-void	column(win_data *win, img_data *img,int x,int orientation)
+void	column(t_window *win, t_image *img,int x,int orientation)
 {
 	double distprojplane;
 	double perpdist;
@@ -63,7 +68,7 @@ void	column(win_data *win, img_data *img,int x,int orientation)
 	}
 }
 
-void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color)
+void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
 {
     char    *dst;
 	(void) color;
@@ -99,7 +104,7 @@ void	my_mlx_put_wall(win_data *win, img_data *img, int x, int color)
 	}
 }
 
-int		init_textures(win_data *win)
+int		init_textures(t_window *win)
 {
 
 	if ((!(win->texture[0].tex = mlx_xpm_file_to_image(win->mlx,win->settings.east_texture,&win->texture[0].w_tex,&win->texture[0].h_tex)))
@@ -124,7 +129,7 @@ int		init_textures(win_data *win)
 	return (1);
 }
 
-void	view_background(img_data *view, sett_data *settings)
+void	view_background(t_image *view, t_settings *settings)
 {
 	int x;
 	int y;
@@ -145,7 +150,7 @@ void	view_background(img_data *view, sett_data *settings)
 	}
 }
 
-void	set_right_resolution(win_data *win)
+void	set_right_resolution(t_window *win)
 {
 	(void)win;
 	/*
@@ -158,7 +163,7 @@ void	set_right_resolution(win_data *win)
 		win->settings.win_resy = myresy;
 */}
 
-int	set_distance_and_wall_orientation(pl_data player, ray_data *ray)
+int	set_distance_and_wall_orientation(t_player player, t_ray *ray)
 {
 	double	verh;
 	double	horh;

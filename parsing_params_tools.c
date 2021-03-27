@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:35:54 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/22 23:50:53 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 09:09:06 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		find_color(char *line, int i)
 	return (color);
 }
 
-int		all_params(sett_data *settings)
+int		all_params(t_settings *settings)
 {
 	if (!settings->win_resx)
 		return (0);

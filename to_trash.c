@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 12:47:13 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 09:10:36 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int 	set_wall_color(int o)
 	return BLACK;
 }
 
-int		build_world(img_data *world, char **map, pl_data *player)
+int		build_world(t_image *world, char **map, t_player *player)
 {
 	int y;
 	int x;
@@ -59,7 +59,7 @@ int		build_world(img_data *world, char **map, pl_data *player)
 	return (1);
 }
 
-void	ray(win_data *win)
+void	ray(t_window *win)
 {
 
 	double rayx,rayy;
@@ -75,7 +75,7 @@ void	ray(win_data *win)
 	}
 }
 
-void	bundle_ray(win_data *win)
+void	bundle_ray(t_window *win)
 {
 	/*
 	c++;
@@ -125,7 +125,7 @@ void	bundle_ray(win_data *win)
 	}
 }
 
-void	print_settings(sett_data settings)
+void	print_settings(t_settings settings)
 {
 	printf("------settings------------------------\n");
 	//int i = 0;
@@ -152,7 +152,7 @@ void	print_settings(sett_data settings)
 	printf("-----------------------------------\n");
 }
 
-void	print_ray(ray_data ray)
+void	print_ray(t_ray ray)
 {
 	printf("-----------------------------------\n");
 	printf("-----ray------------------------\n");
@@ -173,7 +173,7 @@ void	print_ray(ray_data ray)
 	printf("-----------------------------------\n");
 }
 
-void	print_player(pl_data player)
+void	print_player(t_player player)
 {
 	printf("-----player------------------------\n");
 	printf("posx: %lf\n",player.posx);
@@ -186,7 +186,7 @@ void	print_player(pl_data player)
 	printf("-----------------------------------\n");
 }
 
-void	miniray(win_data *win)
+void	miniray(t_window *win)
 {
 	my_mlx_pixel_put(&win->world, win->player.posx*SCALE, win->player.posy*SCALE,0x00ffffff);
 	int i = 0;
@@ -198,7 +198,7 @@ void	miniray(win_data *win)
 	}
 }
 
-void	my_mlx_pixel_wall(img_data *img, int x, int y, int color)
+void	my_mlx_pixel_wall(t_image *img, int x, int y, int color)
 {
     char    *dst;
 	int		i;
@@ -216,7 +216,7 @@ void	my_mlx_pixel_wall(img_data *img, int x, int y, int color)
 	}
 }
 
-void	my_mlx_pixel_grid(img_data *img, int x, int y, int color)
+void	my_mlx_pixel_grid(t_image *img, int x, int y, int color)
 {
     char    *dst;
 	int		i = -1, z = -1;

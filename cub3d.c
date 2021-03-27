@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/25 15:40:41 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 09:04:30 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		main(int ac, char **av)
 {
-	win_data win;
+	t_window win;
 	int i;
 	i = 0;
 	if (!(i = check_args(ac,av)))
@@ -35,7 +35,7 @@ int		main(int ac, char **av)
 	return (0);
 }
 
-int		main_parsing(char *av, sett_data *settings, pl_data *player)
+int		main_parsing(char *av, t_settings *settings, t_player *player)
 {
 	int fd;
 	int r;
@@ -69,7 +69,7 @@ int		main_parsing(char *av, sett_data *settings, pl_data *player)
 	return (1);
 }
 
-int		main_window(win_data *win)
+int		main_window(t_window *win)
 {
 	win->mlx = mlx_init();
 	win->settings.win_def = 1;
@@ -88,7 +88,7 @@ int		main_window(win_data *win)
 	return (1);
 }
 
-void	init_settings(sett_data *settings)
+void	init_settings(t_settings *settings)
 {
 	settings->win_def = 0;
 	settings->map = NULL;

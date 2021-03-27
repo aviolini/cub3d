@@ -6,13 +6,13 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 00:23:45 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 09:09:58 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		parsing_params(char *line, sett_data *settings)
+int		parsing_params(char *line, t_settings *settings)
 {
 	int i;
 	int r;
@@ -39,7 +39,7 @@ int		parsing_params(char *line, sett_data *settings)
 	return (r);
 }
 
-int		set_resolution(char *line, sett_data *settings, int i)
+int		set_resolution(char *line, t_settings *settings, int i)
 {
 	if (settings->win_resx || settings->win_resy)
 		return (0);

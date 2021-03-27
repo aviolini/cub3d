@@ -6,13 +6,13 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/26 19:21:42 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 09:06:49 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		build_view(win_data *win)
+int		build_view(t_window *win)
 {
 	new_image(win, &win->world);
 	new_image(win, &win->view);
@@ -32,7 +32,7 @@ int		build_view(win_data *win)
 	return (1);
 }
 
-int		image(win_data *win)
+int		image(t_window *win)
 {
 	win->ray.angle = win->player.angle + FOV/2;
 	int i = 0;
@@ -55,7 +55,7 @@ int		image(win_data *win)
 	return (1);
 }
 
-void	check_hor_intersection(win_data *win, sett_data *settings, pl_data player, ray_data *ray)
+void	check_hor_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray)
 {
 	//TOGLIERE WIN DATA WIN , TOGLIERE MY_MLX_PIXEL_PUT
 	int		roundy;
@@ -94,7 +94,7 @@ void	check_hor_intersection(win_data *win, sett_data *settings, pl_data player, 
 	ray->hory = MY_MAX_LIMIT;
 }
 
-void	check_ver_intersection(win_data *win,sett_data *settings, pl_data player, ray_data *ray)
+void	check_ver_intersection(t_window *win,t_settings *settings, t_player player, t_ray *ray)
 {
 	int		roundx;
 	double	verx;

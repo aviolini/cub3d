@@ -6,13 +6,13 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/23 15:31:17 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/27 09:07:29 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		key_hook(int keycode, win_data *win)
+int		key_hook(int keycode,t_window *win)
 {
 	if (keycode == 53 || keycode == 65307)
 		ft_exit(win);
@@ -32,7 +32,7 @@ int		key_hook(int keycode, win_data *win)
 	return 0;
 }
 
-void	move(char **map, pl_data *player, char var)
+void	move(char **map, t_player *player, char var)
 {
 	int		value;
 	if (var == 'w')
@@ -49,7 +49,7 @@ void	move(char **map, pl_data *player, char var)
 	}
 }
 
-void	slide(char **map, pl_data *player, char var)
+void	slide(char **map, t_player *player, char var)
 {
 	int		value;
 	if (var == 'a')
@@ -66,7 +66,7 @@ void	slide(char **map, pl_data *player, char var)
 	}
 }
 
-void	rotate(pl_data *player, char var)
+void	rotate(t_player *player, char var)
 {
 	int		value;
 	if (var == 'r')
@@ -83,7 +83,7 @@ void	rotate(pl_data *player, char var)
 	player->diry = -sin(player->angle);
 }
 
-int		ft_exit(win_data *win)
+int		ft_exit(t_window *win)
 {
 	int	y;
 	y = 0;
