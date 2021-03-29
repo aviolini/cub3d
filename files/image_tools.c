@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/29 18:01:27 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/29 18:24:23 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	distprojplane = (W_IMG / 2)/tan(FOV/2);
 
 	perpdist =  win->ray.distance * (cos(win->ray.angle -win->player.angle));
-	h = 1 / perpdist * distprojplane;
+	h = 1/ perpdist * distprojplane;
+	//h = (int)(H_IMG / perpdist);// * distprojplane;
 
 	printf("perp_distance : %lf\t%lf\n",perpdist, 1/perpdist);
 	printf("distprojplane : %lf\n",distprojplane);
