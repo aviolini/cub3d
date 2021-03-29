@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 10:48:15 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/29 10:38:01 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		ft_exit(t_window *win)
 {
 	int	y;
 	y = 0;
-	while (y < win->settings.mapW)
+	while (y < win->settings.mapH)
 		free(win->settings.map[y++]);
 	free(win->settings.map);
 	free(win->settings.north_texture);

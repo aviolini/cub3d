@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 10:47:40 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/29 10:37:21 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	while ((i) < wallbottomy)
 	{
 
-			color = win->texture[orientation].addr[(unsigned int)((floor((double)64/h))*i + x%64)];
-			//color = *(win->texture[orientation].addr +
-			//	((int)(((int)floor(64/h))*i) *  win->texture[orientation].line_length +
-			//	(int)(((int)floor(x/64)) * ( win->texture[orientation].bits_per_pixel / 8))));
+			//color = win->texture[orientation].addr[(int)((floor((double)64/h))*i + x%64)];
+			color = *(int *)(win->texture[orientation].addr +
+				((int)((floor(64/wallbottomy))*i)*64 +
+				(int)(((x%64)))));
 
     		dst = img->addr + ((int)(i++) * img->line_length +
 			(int)(x) * (img->bits_per_pixel / 8));
-    		*(unsigned int*)dst = color;
+    		*(unsigned int *)dst = color;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 10:38:11 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/29 10:35:20 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		image(t_window *win)
 	win->ray.angle = win->player.angle + FOV/2;
 	int i = 0;
 	int x = 0;
-	int color;
+	//int color;
 	int orientation;
 	while (i++ < W_IMG)
 	{
