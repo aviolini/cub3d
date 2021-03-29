@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/29 18:24:23 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/29 23:34:21 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,9 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	distprojplane = (W_IMG / 2)/tan(FOV/2);
 
 	perpdist =  win->ray.distance * (cos(win->ray.angle -win->player.angle));
-	h = 1/ perpdist * distprojplane;
-	//h = (int)(H_IMG / perpdist);// * distprojplane;
+	//h = 1/ perpdist * distprojplane;
+	h = H_IMG/perpdist;
 
-	printf("perp_distance : %lf\t%lf\n",perpdist, 1/perpdist);
-	printf("distprojplane : %lf\n",distprojplane);
-
-	//h = perpdist;
-	//h = (int)h;
 
 	walltopy=H_IMG/2-h/2;
 	walltopy = walltopy < 0 ? 0 : walltopy;
@@ -62,21 +57,10 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	//char *dst;
 	int i = walltopy;
 	int k = 0;
-//	static int z = 64;
-	//int z = 0;
-	//	unsigned int pixel;
-	//double val = wallbottomy / 64;
-//	printf("z : %d\n",z);
-//	if (z == 0)
-//		z = 64;
 
-	printf("h : %lf\n\n\n" ,h);
+
 		while ((i) < wallbottomy)
 	{
-
-	//	color = *(win->texture[orientation].addr + ((int)(64/h*k++)*64 +
-	//	(int)(((64/h*(x%64))))));// * (win->texture[orientation].bits_per_pixel / 8)));
-
 	color = *(win->texture[orientation].addr + ((int)(64/h*k++)*64 +
 	(int)((win->ray.indexTex-(int)win->ray.indexTex)*64)));
 
@@ -84,7 +68,6 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 			(int)(x) * (img->bits_per_pixel / 8));
     		*(unsigned int*)dst = color;
 	}
-//	z--;
 }
 
 void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)

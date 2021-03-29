@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/29 17:07:17 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/29 23:35:49 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int		build_view(t_window *win)
 	image(win);
 	miniray(win);
 
-	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
-	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 0);
+	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 05, 20);
+	mlx_put_image_to_window(win->mlx, win->win, win->view.img, 700, 0);
 
 mlx_destroy_image(win->mlx, win->world.img);
 	mlx_destroy_image(win->mlx, win->view.img);
@@ -41,6 +41,7 @@ int		image(t_window *win)
 	int orientation;
 	while (i++ < W_IMG)
 	{
+		win->ray.angle -= FOV/W_IMG;
 		win->ray.dirX = cos(win->ray.angle);
 		win->ray.dirY = -sin(win->ray.angle);
 		check_hor_intersection(win,&win->settings, win->player, &win->ray);
@@ -49,7 +50,7 @@ int		image(t_window *win)
 	//	color = set_wall_color(orientation);
 	//	my_mlx_put_wall(win, &win->view, x, color);
 		column(win, &win->view,x,orientation);
-		win->ray.angle -= FOV/W_IMG;
+
 		x++;
 	}
 	return (1);
