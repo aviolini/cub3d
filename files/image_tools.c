@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/29 17:20:00 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/29 18:01:27 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,16 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	double walltopy = 0, wallbottomy = 0;
 
 	distprojplane = (W_IMG / 2)/tan(FOV/2);
-	perpdist = win->ray.distance * (cos(win->ray.angle -win->player.angle));
-	h = 1 / (perpdist) * distprojplane;
+
+	perpdist =  win->ray.distance * (cos(win->ray.angle -win->player.angle));
+	h = 1 / perpdist * distprojplane;
+
+	printf("perp_distance : %lf\t%lf\n",perpdist, 1/perpdist);
+	printf("distprojplane : %lf\n",distprojplane);
+
 	//h = perpdist;
 	//h = (int)h;
-	//	h = h > H_IMG ? H_IMG : h;
+
 	walltopy=H_IMG/2-h/2;
 	walltopy = walltopy < 0 ? 0 : walltopy;
 	wallbottomy = H_IMG / 2 + h  /2;
@@ -92,10 +97,10 @@ void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
 	double walltopy = 0, wallbottomy = 0;
 
 	distprojplane = (W_IMG / 2)/tan(FOV/2);
-	perpdist = win->ray.distance * (cos(win->ray.angle -win->player.angle));
+	perpdist = SCALE / win->ray.distance * (cos(win->ray.angle -win->player.angle));
 	h = 1 / (perpdist) * distprojplane;
 	h = (int)h;
-
+/////////////////////////////////////////////////////////////
 	walltopy=H_IMG/2-h/2;
 	walltopy = walltopy < 0 ? 0 : walltopy;
 	wallbottomy = H_IMG / 2 + h  /2;
@@ -187,8 +192,8 @@ int	set_distance_and_wall_orientation(t_player player, t_ray *ray)
 
 	verh = hypot(fabs(player.posX - ray->verx), fabs(player.posY - ray->very));
 	horh = hypot(fabs(player.posX - ray->horx), fabs(player.posY - ray->hory));
-	printf("verh : %lf\n",verh);
-	printf("horh : %lf\n",horh);
+	//printf("verh : %lf\n",verh);
+///	printf("horh : %lf\n",horh);
 	if (horh <= verh)
 	{
 		ray->distance = horh;
