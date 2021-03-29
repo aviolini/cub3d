@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/29 10:37:21 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:20:00 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,28 +46,39 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	distprojplane = (W_IMG / 2)/tan(FOV/2);
 	perpdist = win->ray.distance * (cos(win->ray.angle -win->player.angle));
 	h = 1 / (perpdist) * distprojplane;
-	h = (int)h;
+	//h = perpdist;
+	//h = (int)h;
+	//	h = h > H_IMG ? H_IMG : h;
 	walltopy=H_IMG/2-h/2;
 	walltopy = walltopy < 0 ? 0 : walltopy;
 	wallbottomy = H_IMG / 2 + h  /2;
 	wallbottomy = wallbottomy > H_IMG ? H_IMG : wallbottomy;
 	//char *dst;
 	int i = walltopy;
+	int k = 0;
+//	static int z = 64;
 	//int z = 0;
 	//	unsigned int pixel;
 	//double val = wallbottomy / 64;
-	while ((i) < wallbottomy)
+//	printf("z : %d\n",z);
+//	if (z == 0)
+//		z = 64;
+
+	printf("h : %lf\n\n\n" ,h);
+		while ((i) < wallbottomy)
 	{
 
-			//color = win->texture[orientation].addr[(int)((floor((double)64/h))*i + x%64)];
-			color = *(int *)(win->texture[orientation].addr +
-				((int)((floor(64/wallbottomy))*i)*64 +
-				(int)(((x%64)))));
+	//	color = *(win->texture[orientation].addr + ((int)(64/h*k++)*64 +
+	//	(int)(((64/h*(x%64))))));// * (win->texture[orientation].bits_per_pixel / 8)));
+
+	color = *(win->texture[orientation].addr + ((int)(64/h*k++)*64 +
+	(int)((win->ray.indexTex-(int)win->ray.indexTex)*64)));
 
     		dst = img->addr + ((int)(i++) * img->line_length +
 			(int)(x) * (img->bits_per_pixel / 8));
-    		*(unsigned int *)dst = color;
+    		*(unsigned int*)dst = color;
 	}
+//	z--;
 }
 
 void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
@@ -84,6 +95,7 @@ void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
 	perpdist = win->ray.distance * (cos(win->ray.angle -win->player.angle));
 	h = 1 / (perpdist) * distprojplane;
 	h = (int)h;
+
 	walltopy=H_IMG/2-h/2;
 	walltopy = walltopy < 0 ? 0 : walltopy;
 	wallbottomy = H_IMG / 2 + h  /2;
@@ -94,6 +106,7 @@ void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
 
 //	unsigned int pixel;
 	//double val = wallbottomy / 64;
+
 	while ((i) < wallbottomy)
 	{
 
@@ -122,11 +135,13 @@ int		init_textures(t_window *win)
 	x = 0;
 	while (++i < 5)
 		{
+			//win->texture[i].addr = malloc
 			if(!(win->texture[i].addr =(int *)mlx_get_data_addr(win->texture[i].tex, &win->texture[i].bits_per_pixel,
 				&win->texture[i].line_length, &win->texture[i].endian)))
 					return (0);
 			mlx_put_image_to_window(win->mlx, win->win, win->texture[i].tex, 20 + x, 20);
 			x += 65;
+			print_tex(win->texture[i]);
 		}
 	return (1);
 }
@@ -172,9 +187,12 @@ int	set_distance_and_wall_orientation(t_player player, t_ray *ray)
 
 	verh = hypot(fabs(player.posX - ray->verx), fabs(player.posY - ray->very));
 	horh = hypot(fabs(player.posX - ray->horx), fabs(player.posY - ray->hory));
+	printf("verh : %lf\n",verh);
+	printf("horh : %lf\n",horh);
 	if (horh <= verh)
 	{
 		ray->distance = horh;
+		ray->indexTex = ray->horx;
 		if (ray->dirY < 0)
 			return (1);
 		else
@@ -182,6 +200,7 @@ int	set_distance_and_wall_orientation(t_player player, t_ray *ray)
 	}
 	else
 	{
+		ray->indexTex = ray->very;
 		ray->distance = verh;
 		if(ray->dirX < 0)
 			return (2) ;

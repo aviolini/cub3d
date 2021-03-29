@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/29 10:30:46 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:05:43 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_texture_data
 	int			texW;
 	int			texH;
 
-	int			*addr;
+	int		*addr;
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
@@ -102,14 +102,17 @@ typedef struct s_rays_data
 	double		distance;
 	int			verticalHit;
 
+	double		indexTex;
+
+
 	double		value_x;
 	double		value_y;
 	double		horx;
 	double		hory;
 	double		verx;
 	double		very;
-	double		rayx;
-	double		rayy;
+//	double		rayx;
+//	double		rayy;
 	int			hashity;
 
 }				t_ray;
@@ -127,6 +130,7 @@ typedef struct	s_window_data
 }				t_window;
 
 /*TO_TRASH*/
+void	print_tex(t_texture texture);
 int 	set_wall_color(int o);
 int		build_world(t_image *world, char **map, t_player *player);
 void	ray(t_window *win);

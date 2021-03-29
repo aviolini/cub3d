@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/29 10:35:20 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:07:17 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int		build_view(t_window *win)
 	miniray(win);
 
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
-	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 20);
+	mlx_put_image_to_window(win->mlx, win->win, win->view.img, W_IMG + 25, 0);
 
-	mlx_destroy_image(win->mlx, win->world.img);
+mlx_destroy_image(win->mlx, win->world.img);
 	mlx_destroy_image(win->mlx, win->view.img);
 
 	return (1);
@@ -86,7 +86,7 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 			ray->hory = hory;
 			return ;
 		}
-		my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
+	//	my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
 		hory -= ray->value_y;
 		horx += ray->value_y/tan(ray->angle);
 	}
@@ -123,7 +123,7 @@ void	check_ver_intersection(t_window *win,t_settings *settings, t_player player,
 				ray->very = very;
 				return ;
 			}
-			my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, YELLOW);
+			//my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, YELLOW);
 			verx -= ray->value_x ;
 			very += ray->value_x *tan(ray->angle);
 		 }

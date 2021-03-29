@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 10:45:16 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:36:11 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,10 +166,25 @@ void	print_ray(t_ray ray)
 	printf("verx: %lf\n",floor(ray.verx));
 	printf("very: %lf\n",floor(ray.very));
 	printf("-----------------------------------\n");
-	printf("rayx: %lf\n",floor(ray.rayx));
-	printf("rayy: %lf\n",floor(ray.rayy));
+	//printf("rayx: %lf\n",floor(ray.rayx));
+	//printf("rayy: %lf\n",floor(ray.rayy));
 	//	printf("speed: %d\n",player.speed);
 	printf("-----------------------------------\n");
+	printf("-----------------------------------\n");
+}
+
+void	print_tex(t_texture texture)
+{
+	printf("-----texture------------------------\n");
+	printf("bpp: %i\n",texture.bits_per_pixel);
+	printf("ll: %i\n",texture.line_length);
+	printf("end: %i\n",texture.endian);
+	printf("texW: %i\n",texture.texW);
+	printf("texH: %i\n",texture.texH);
+	//printf("posY_map: %i\n",texture.posY/SCALE);
+	//printf("dirX: %lf\n",texture.dirX);
+	//printf("dirY: %lf\n",texture.dirY);
+
 	printf("-----------------------------------\n");
 }
 
