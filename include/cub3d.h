@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/30 11:35:16 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/30 14:46:55 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ typedef struct s_texture_data
 typedef struct s_sprite_data
 {
 	void		*sprite;
-	int			sprX;
-	int			sprY;
-	t_texture	tex;
+	double		sprX;
+	double		sprY;
+	double		distance;
+	int			i;
+
 }				t_sprite;
 
 typedef struct	s_image_data
@@ -157,11 +159,13 @@ void	slide(char **map, t_player *player, char var);
 void	rotate(t_player *player, char var);
 int		ft_exit(t_window *win);
 /*IMAGE.C*/
+int		sprite(t_window *win);
 int		build_view(t_window *win);
 int		image(t_window *win);
-void	check_hor_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray);
-void	check_ver_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray);
+void	check_hor_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray,int i);
+void	check_ver_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray,int i);
 /*IMAGE_TOOLS*/
+int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,int i);
 void	new_image(t_window *win, t_image *img);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void	view_background(t_image *view, t_settings *settings);

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/30 11:37:40 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:52:03 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,28 @@
 
 //}
 
+int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,int i)
+{
+	int z;
+
+	z = 0;
+	while(z < win->settings.num_of_sprite &&
+		(sprite[z]->sprX != 0 && sprite[z]->sprY != 0))
+		{
+			if ((int)sprite[z]->sprX == (int)x && (int)sprite[z]->sprY == (int)y)
+					//	&& sprite[z]->distance > 0)
+				return (0);
+			z++;
+		}
+	sprite[z]->i = i;
+	sprite[z]->sprX = x;
+	sprite[z]->sprY = y;
+	sprite[z]->distance = hypot(fabs(win->player.posX-sprite[z]->sprX),
+							fabs(win->player.posY-sprite[z]->sprY));
+
+
+	return (1);
+}
 
 
 void	new_image(t_window *win, t_image *image)
@@ -47,7 +69,7 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 
 	perpdist =  win->ray.distance * (cos(win->ray.angle -win->player.angle));
 	h = 1/ perpdist * distprojplane;
-	//h = H_IMG/perpdist;
+//	h = H_IMG/perpdist;
 
 
 	walltopy=H_IMG/2-h/2;
