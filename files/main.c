@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 10:49:03 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/30 10:03:12 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		main(int ac, char **av)
 	else if (i == 2)
 		printf("ok args\nsalvare l'immagine bmp non stampare\n"); //CONTINUA IL PROGRAMMA
 	init_settings(&win.settings);
-	if (!main_parsing(av[1], &win.settings, &win.player))
+	if (!main_parsing(av[1], &win))
 	{
 		printf("Error: \n%s\n(argument of map)\n", strerror(EINVAL));
 		ft_exit(&win);
@@ -35,7 +35,7 @@ int		main(int ac, char **av)
 	return (0);
 }
 
-int		main_parsing(char *av, t_settings *settings, t_player *player)
+int		main_parsing(char *av, t_window *win)
 {
 	int fd;
 	int r;
@@ -46,9 +46,9 @@ int		main_parsing(char *av, t_settings *settings, t_player *player)
 	while (r > 0)
 	{
 		r = get_next_line(fd,&line);
-		if (!all_params(settings))
+		if (!all_params(&win->settings))
 		{
-			if (!parsing_params(line,settings))
+			if (!parsing_params(line,&win->settings))
 			{
 							free(line);
 				return (0);
@@ -56,7 +56,7 @@ int		main_parsing(char *av, t_settings *settings, t_player *player)
 			}
 		}
 		else
- 			if (!parsing_map(line,settings))
+ 			if (!parsing_map(line,&win->settings))
 			{
 				free(line);
 					return (0);
@@ -64,7 +64,7 @@ int		main_parsing(char *av, t_settings *settings, t_player *player)
 		free(line);
 	}
 	close(fd);
-	if (r == -1 || !check_map(settings->map, settings->mapH, settings->mapW, player))
+	if (r == -1 || !check_map(win, win->settings.map, win->settings.mapH, win->settings.mapW))
 		return(0);
 	return (1);
 }
@@ -73,6 +73,7 @@ int		main_window(t_window *win)
 {
 	win->mlx = mlx_init();
 	win->settings.win_def = 1;
+
 //	set_right_resolution(win);
 	win->win = mlx_new_window(win->mlx,win->settings.winW,
 		win->settings.winH, "Welcome");
@@ -104,4 +105,5 @@ void	init_settings(t_settings *settings)
 	settings->eof = 0;
 	settings->mapW = 0;
 	settings->mapH = 0;
+	settings->num_of_sprite = 0;
 }

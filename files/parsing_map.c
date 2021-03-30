@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 10:41:56 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/30 10:19:18 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**build_map(char *line, char **map, int *mapx, int *mapy)
 	return (m);
 }
 
-int		check_map(char **map, int mapy, int mapx, t_player *player)
+int		check_map(t_window *win, char **map, int mapy, int mapx)
 {
 	int y;
 	int x;
@@ -76,16 +76,33 @@ int		check_map(char **map, int mapy, int mapx, t_player *player)
 					return (0);
 				if (is_player(map[y][x]))
 				{
-					if (player->def == 1)
+					if (win->player.def == 1)
 						return (0);
-					else
-						init_player(map[y][x], x, y, player);
+					init_player(&win->player, map[y][x], x, y);
 				}
+				if (map[y][x] == '2')
+					win->settings.num_of_sprite++;
 			}
+	if (!init_sprite(win))
+		return (0);
 	return (1);
 }
 
-void	init_player(char c,int x, int y, t_player *player)
+int 	init_sprite(t_window *win)
+{
+	int			i;
+
+	if(!(win->sprite = (t_sprite **)malloc(sizeof(t_sprite *) * (win->settings.num_of_sprite + 1))))
+		return (0);
+	i = 0;
+	while(i < win->settings.num_of_sprite)
+		if (!(win->sprite[i++] = (t_sprite *)malloc(sizeof(t_sprite))))
+			return (0);
+	win->sprite[i] = NULL;
+	return (1);
+}
+
+void	init_player(t_player *player, char c,int x, int y)
 {
 	player->def = 1;
 	player->posX = x;// * SCALE;// + SCALE / 2;

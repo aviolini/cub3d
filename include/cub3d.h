@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/29 23:23:36 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/30 11:35:16 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,18 @@
 typedef struct s_texture_data
 {
 	void		*tex;
-
 	int			texW;
 	int			texH;
-
-	int		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
+	int			*addr;
 }				t_texture;
+
+typedef struct s_sprite_data
+{
+	void		*sprite;
+	int			sprX;
+	int			sprY;
+	t_texture	tex;
+}				t_sprite;
 
 typedef struct	s_image_data
 {
@@ -90,6 +93,7 @@ typedef	struct	s_settings_data
 	int			winMyH;
 	int			mapW;
 	int			mapH;
+	int			num_of_sprite;
 }				t_settings;
 
 typedef struct s_rays_data
@@ -121,12 +125,13 @@ typedef struct	s_window_data
 {
 	void		*mlx;
 	void		*win;
-	t_image	world;
-	t_image	view;
-	t_player		player;
+	t_image		world;
+	t_image		view;
+	t_player	player;
 	t_settings	settings;
-	t_ray	ray;
+	t_ray		ray;
 	t_texture	texture[5];
+	t_sprite	**sprite;
 }				t_window;
 
 /*TO_TRASH*/
@@ -142,7 +147,7 @@ void	miniray(t_window *win);
 void	my_mlx_pixel_wall(t_image *img, int x, int y, int color);
 void	my_mlx_pixel_grid(t_image *img, int x, int y, int color);
 /*CUB3D.C*/
-int		main_parsing(char *av, t_settings *settings, t_player *player);
+int		main_parsing(char *av, t_window *win);
 int		main_window(t_window *win);
 void	init_settings(t_settings *settings);
 /*KEY*/
@@ -171,8 +176,9 @@ int	set_distance_and_wall_orientation(t_player player, t_ray *ray);
 /*PARSING MAP */
 int		parsing_map(char *line, t_settings *settings);
 char	**build_map(char *line, char **map, int *x, int *y);
-int		check_map(char **map, int mapy, int mapx, t_player *player);
-void	init_player(char c,int x, int y, t_player *player);
+int		check_map(t_window *win, char **map, int mapy, int mapx);
+int 	init_sprite(t_window *win);
+void	init_player(t_player *player, char c,int x, int y);
 /*PARSING MAP_TOOLS*/
 int		ft_strlen(char *s);
 char	*copy_line(char *line, int mapx);

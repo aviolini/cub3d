@@ -29,11 +29,13 @@ gcc -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit main.c && ./
 
 gcc -Wall -Wextra -Werror -Iminilibx_mms_20200219 -Lminilibx_mms_20200219 -lmlx -framework OpenGL -framework AppKit *.c -fsanitize=address -g3 && ./a.out map.cub
 
+gcc -Wall -Wextra -Werror -I../minilibx_mms_20200219 -L../minilibx_mms_20200219 -lmlx -framework OpenGL -framework AppKit files/*.c -fsanitize=address -g3 && ./a.out files/map.cub
+
 linux:
 gcc main.c keycode.c utils.c -Wall -Wextra -Werror -lmlx -lXext -lX11 -lm && ./a.out
 
 
-gcc -Wall -Wextra -Werror files/*.c -L../minilib-mlx-linux-gcamerli ../minilib-mlx-linux-gcamerli/libmlx.a -lXext -lX11 -lm && ./a.out files/map.cub 
+gcc -Wall -Wextra -Werror files/*.c -L../minilib-mlx-linux-gcamerli ../minilib-mlx-linux-gcamerli/libmlx.a -lXext -lX11 -lm && ./a.out files/map.cub
 
 INTALLAZIONE PACCHETTI linux:
 libxext, xorg-server, zlib
@@ -78,3 +80,5 @@ standardizzare tutto con cos e sin
 il raggio entra nei muri di 1 pixel
 ------------------------------------------
 
+DA FARE:
+MALLOC DELLE TEXTURES E METTERE AL POSTO DEI "64" LA SIZE DELLA TEXTURE 

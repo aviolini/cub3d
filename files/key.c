@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/29 18:21:31 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/30 10:22:06 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,10 @@ int		ft_exit(t_window *win)
 	free(win->settings.east_texture);
 	free(win->settings.south_texture);
 	free(win->settings.sprite_texture);
+	y = 0;
+	while (y < win->settings.num_of_sprite)
+		free(win->sprite[y++]);
+	free(win->sprite);
 	if (win->settings.win_def == 1)
 		mlx_destroy_window(win->mlx, win->win);
 	exit(0);

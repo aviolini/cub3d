@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/29 16:36:11 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/30 11:38:58 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void	print_settings(t_settings settings)
 	printf("mapW: %i\n",settings.mapW);
 	printf("mapH: %i\n",settings.mapH);
 	printf("eof: %i\n",settings.eof);
+	printf("num_of_sprite: %i \n",settings.num_of_sprite);
 	//while ((settings->map)[i])
 	//	printf("mapp: %s\n",(settings->map)[i++]);
 	while (*(settings.map))
@@ -176,9 +177,7 @@ void	print_ray(t_ray ray)
 void	print_tex(t_texture texture)
 {
 	printf("-----texture------------------------\n");
-	printf("bpp: %i\n",texture.bits_per_pixel);
-	printf("ll: %i\n",texture.line_length);
-	printf("end: %i\n",texture.endian);
+
 	printf("texW: %i\n",texture.texW);
 	printf("texH: %i\n",texture.texH);
 	//printf("posY_map: %i\n",texture.posY/SCALE);

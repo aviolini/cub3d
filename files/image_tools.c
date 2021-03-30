@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/29 23:34:21 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/30 11:37:40 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	distprojplane = (W_IMG / 2)/tan(FOV/2);
 
 	perpdist =  win->ray.distance * (cos(win->ray.angle -win->player.angle));
-	//h = 1/ perpdist * distprojplane;
-	h = H_IMG/perpdist;
+	h = 1/ perpdist * distprojplane;
+	//h = H_IMG/perpdist;
 
 
 	walltopy=H_IMG/2-h/2;
@@ -110,6 +110,8 @@ void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
 
 int		init_textures(t_window *win)
 {
+	int useless_but_necessary_box[3];
+
 
 	if ((!(win->texture[0].tex = mlx_xpm_file_to_image(win->mlx,win->settings.east_texture,&win->texture[0].texW,&win->texture[0].texH)))
 	|| (!(win->texture[1].tex = mlx_xpm_file_to_image(win->mlx,win->settings.north_texture,&win->texture[1].texW,&win->texture[1].texH)))
@@ -125,8 +127,11 @@ int		init_textures(t_window *win)
 	while (++i < 5)
 		{
 			//win->texture[i].addr = malloc
-			if(!(win->texture[i].addr =(int *)mlx_get_data_addr(win->texture[i].tex, &win->texture[i].bits_per_pixel,
+		/*	if(!(win->texture[i].addr =(int *)mlx_get_data_addr(win->texture[i].tex, &win->texture[i].bits_per_pixel,
 				&win->texture[i].line_length, &win->texture[i].endian)))
+					return (0);
+		*/	if(!(win->texture[i].addr =(int *)mlx_get_data_addr(win->texture[i].tex, &useless_but_necessary_box[0],
+				&useless_but_necessary_box[1], &useless_but_necessary_box[2])))
 					return (0);
 			mlx_put_image_to_window(win->mlx, win->win, win->texture[i].tex, 20 + x, 20);
 			x += 65;
