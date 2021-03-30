@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/30 15:52:03 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/30 18:26:10 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,17 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	int k = 0;
 
 
-		while ((i) < wallbottomy)
+		while ((i) < wallbottomy-1)
 	{
 	color = *(win->texture[orientation].addr + ((int)(64/h*k++)*64 +
 	(int)((win->ray.indexTex-(int)win->ray.indexTex)*64)));
 
     		dst = img->addr + ((int)(i++) * img->line_length +
 			(int)(x) * (img->bits_per_pixel / 8));
-    		*(unsigned int*)dst = color;
+			if (color == 4278190080)
+				dst = 255;
+		else
+				*(unsigned int*)dst = color;
 	}
 }
 
@@ -118,7 +121,7 @@ void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
 //	unsigned int pixel;
 	//double val = wallbottomy / 64;
 
-	while ((i) < wallbottomy)
+	while ((i) < wallbottomy-1)
 	{
 
 		//	pixel = (unsigned int)win->texture[z].addr + ((int)(i) *  win->texture[z].line_length +

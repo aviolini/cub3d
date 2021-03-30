@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/30 16:42:42 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/30 18:13:07 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		build_view(t_window *win)
 {
+	mlx_clear_window(win->mlx,win->win);
 	new_image(win, &win->world);
 	new_image(win, &win->view);
 	if(!build_world(&win->world, win->settings.map, &win->player))
@@ -34,15 +35,6 @@ mlx_destroy_image(win->mlx, win->world.img);
 
 int		sprite(t_window *win)
 {
-//	double distprojplane;
-//	double perpdist;
-
-//	double walltopy = 0, wallbottomy = 0;
-
-//	distprojplane = (W_IMG / 2)/tan(FOV/2);
-
-//	perpdist =  win->ray.distance * (cos(win->ray.angle -win->player.angle));
-
 	double max;
 	int c;
 	t_sprite *temp;
@@ -76,34 +68,41 @@ int		sprite(t_window *win)
 	while(c<win->settings.num_of_sprite && win->sprite[c]->distance > 0)
 	{
 
-		h = 1/ win->sprite[c]->distance * distprojplane;
-		walltopy=H_IMG/2-h/2;
+		h = 1 / win->sprite[c]->distance * distprojplane;
+		//h = 64 / ;
+			walltopy=H_IMG/2-h/2;
 		walltopy = walltopy < 0 ? 0 : walltopy;
 		wallbottomy = H_IMG / 2 + h  /2;
 		wallbottomy = wallbottomy > H_IMG ? H_IMG : wallbottomy;
 		//char *dst;
-		int u = 0;
-		while(u++ < h )
+		int u = -1;
+//		while(++u < 64 )
+		while (64/h*u++ < 64-1)
 	{
 		int y = walltopy;
 		int k = 0;
 
 
-			while ((y) < wallbottomy)
+			while ((y) < wallbottomy-1)
 		{
 
 		color = *(win->texture[4].addr + ((int)(64/h*(k++)))*64 +
-		(int)((u)%64));
-	//	(int)((win->sprite[c]->sprX-(int)win->sprite[c]->sprX)*64)));
+		(int)((64/h*u)));
+	//	printf("colorF: %u\n",0xFFFFFFFF);
+	//	printf("color(u): %u\n",color);
+	//	printf("color: %x\n",color);
 
 				dst = win->view.addr + (int)(y++) * win->view.line_length +
 				(int)(win->sprite[c]->i + u) * (win->view.bits_per_pixel / 8);
-				*(unsigned int*)dst = color;
+
+				if (color == 4278190080)
+					dst = 255;
+			else
+					*(unsigned int*)dst = color;
+		//				printf("dst(u): %u\n",*(unsigned int*)dst);
+
+
 		}
-
-	//	win->sprite[c]->i++;
-
-//mlx_put_image_to_window(win->mlx, win->win, win->texture[4].tex, win->sprite[c]->i, wallbottomy);
 }
 		//win->sprite[c]->distance = 0;
 		win->sprite[c]->sprX = 0;
@@ -112,43 +111,17 @@ int		sprite(t_window *win)
 		c++;
 
 	}
-
-	/*
-	h = 1/ win->sprite[] * distprojplane;
-	//h = H_IMG/perpdist;
-
-
-	walltopy=H_IMG/2-h/2;
-	walltopy = walltopy < 0 ? 0 : walltopy;
-	wallbottomy = H_IMG / 2 + h  /2;
-	wallbottomy = wallbottomy > H_IMG ? H_IMG : wallbottomy;
-	//char *dst;
-	int i = walltopy;
-	int k = 0;
-
-
-		while ((i) < wallbottomy)
-	{
-	color = *(win->texture[orientation].addr + ((int)(64/h*k++)*64 +
-	(int)((win->ray.indexTex-(int)win->ray.indexTex)*64)));
-
-    		dst = img->addr + ((int)(i++) * img->line_length +
-			(int)(x) * (img->bits_per_pixel / 8));
-    		*(unsigned int*)dst = color;
-	}
-
-*/
 	return (1);
 }
 
 int		image(t_window *win)
 {
 	win->ray.angle = win->player.angle + FOV/2;
-	int i = 0;
+	int i = -1;
 
 	//int color;
 	int orientation;
-	while (i++ < W_IMG)
+	while (++i < W_IMG)
 	{
 		win->ray.angle -= FOV/W_IMG;
 		win->ray.dirX = cos(win->ray.angle);
@@ -167,7 +140,7 @@ int		image(t_window *win)
 	//	sprite
 
 	}
-	int z = 0;
+/*	int z = 0;
 	while (win->sprite[z])
 		{
 			printf("X : %f\t Y: %f\n",win->sprite[z]->sprX, win->sprite[z]->sprY);
@@ -175,7 +148,6 @@ int		image(t_window *win)
 			z++;
 		}
 
-		sprite(win);
 		printf("\n\n");
 
 		 z = 0;
@@ -185,7 +157,7 @@ int		image(t_window *win)
 				printf("distance : %f\n",win->sprite[z]->distance);
 				z++;
 			}
-	return (1);
+*/	return (1);
 }
 
 void	check_hor_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray,int i)
@@ -212,8 +184,7 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 				/ (ray->value_y * tan(ray->angle)));
 	while (floor(horx) >= 0 && floor(horx) < settings->mapW)
 	{
-		if (settings->map[(int)floor(hory)][(int)floor(horx)] == '2')
-			sprite_intersections(win, win->sprite, horx, hory,i);
+
 		if (settings->map[(int)floor((hory) + (roundy - 1))][(int)floor(horx)] == '1')
 		{
 			my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
@@ -221,7 +192,8 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 			ray->hory = hory;
 			return ;
 		}
-
+		if (settings->map[(int)floor(hory)][(int)floor(horx)] == '2')
+			sprite_intersections(win, win->sprite, horx, hory,i);
 
 	//	my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
 		hory -= ray->value_y;
@@ -253,8 +225,7 @@ void	check_ver_intersection(t_window *win,t_settings *settings, t_player player,
 		* (ray->value_x * tan(ray->angle));
 		while((floor(very) > 0 && floor(very) < settings->mapH))
 		{
-			if (settings->map[(int)floor(very)][(int)floor(verx)] == '2')
-				sprite_intersections(win, win->sprite, verx, very,i);
+
 			if (settings->map[(int)floor(very)][(int)floor(verx + (roundx - 1) )] == '1')
 			{
 				my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, YELLOW);
@@ -262,6 +233,8 @@ void	check_ver_intersection(t_window *win,t_settings *settings, t_player player,
 				ray->very = very;
 				return ;
 			}
+			if (settings->map[(int)floor(very)][(int)floor(verx)] == '2')
+				sprite_intersections(win, win->sprite, verx, very,i);
 			//my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, YELLOW);
 			verx -= ray->value_x ;
 			very += ray->value_x *tan(ray->angle);
