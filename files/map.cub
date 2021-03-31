@@ -1,11 +1,11 @@
 
 
 R 2500 600
-NO textures/bricks.xpm
-SO textures/bricks.xpm
-WE textures/bricks.xpm
-EA textures/bricks.xpm
-S textures/PineTree.xpm
+NO textures/brick.xpm
+SO textures/grey.xpm
+WE textures/blue.xpm
+EA textures/wood.xpm
+S textures/barrel.xpm
 
 F 255,255,0
 
