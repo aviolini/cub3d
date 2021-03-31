@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/30 19:35:30 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:11:50 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,38 +65,66 @@ int		sprite(t_window *win)
 
 	while(c<win->settings.num_of_sprite && win->sprite[c]->distance > 0)
 	{
-
 		h = 1 / win->sprite[c]->distance * distprojplane;
 		//h = 64 / ;
-			walltopy=H_IMG/2-h/2;
+		walltopy=H_IMG/2-h/2;
 		walltopy = walltopy < 0 ? 0 : walltopy;
 		wallbottomy = H_IMG / 2 + h  /2;
 		wallbottomy = wallbottomy > H_IMG ? H_IMG : wallbottomy;
 		//char *dst;
-		int u = -1;
-//		while(++u < 64 )
-		while (64/h*u++ < 64-1)
-	{
-		int y = walltopy;
-		int k = 0;
+		//////////////////////////SOSTITUZIONE
+		int u = -1;					//ORIGINALE
+		while (64/h*u++ < 64-1)		//ORIGINALE
+		//int u = (int)((win->sprite[c]->sprX - (int)win->sprite[c]->sprX )*64);
+	/*	int u16 = (int)((win->sprite[c]->sprX - (int)win->sprite[c]->sprX )*16);
+				printf("-----------------------\n");
+		printf("win->sprite[c]->sprX : %lf \n",win->sprite[c]->sprX);
+		printf("(int)win->sprite[c]->sprX : %d \n\n",(int)win->sprite[c]->sprX);
 
-			while ((y) < wallbottomy-1)
+		printf("((win->sprite[c]->sprX - (int)win->sprite[c]->sprX )) : %lf\n",
+					((win->sprite[c]->sprX - (int)win->sprite[c]->sprX )));
+		printf("((int)(win->sprite[c]->sprX - (int)win->sprite[c]->sprX )) : %i\n\n",
+					(int)((win->sprite[c]->sprX - (int)win->sprite[c]->sprX )));
+
+		printf("u64 : %d\n",u);
+		printf("u16 : %d\n",u16);
+		printf("h : %lf\n\n",h);
+
+		printf("((int)(u*(64/h)) : %i\n",((int)(u*(64/h))));
+		printf("((u*(64/h)) : %lf\n",((u*(64/h))));
+		printf("((int)(u+1*(64/h)) : %i\n",((int)((u+1)*(64/h))));
+		printf("((u+1*(64/h)) : %lf\n",(((u+1)*(64/h))));
+printf("-----------------------\n");
+*/	//	while (((int)(u*(64/h)+u)) < 64-1)
+	//	while ((win->sprite[c]->sprX- (int)win->sprite[c]->sprX )*64*++u < 64-1)
+		////////////////////////////////////
 		{
-		color = *(win->texture[4].addr + ((int)(64/h*(k++)))*64 +
-		(int)((64/h*u)));
-	//	printf("colorF: %u\n",0xFFFFFFFF);
-	//	printf("color(u): %u\n",color);
-	//	printf("color: %x\n",color);
-
-				dst = win->view.addr + (int)(y++) * win->view.line_length +
-				(int)(win->sprite[c]->i + u) * (win->view.bits_per_pixel / 8);
-
-				if (color > 4278190080 || color == 0)
-					dst = 255;
-			else
-					*(unsigned int*)dst = color;
+			int y = walltopy;
+			int k = 0;
+			while ((y) < wallbottomy-1)
+			{
+				if (win->sprite[c]->i + u < W_IMG) //FIX DEL LIMITE DELLA SPR_TEXT VERSO DX ->
+				{
+					color = *(win->texture[4].addr + ((int)(64/h*(k++))*64 +
+		///////////////////SOSTITUZIONE
+			//	(int)((win->sprite[c]->sprX- (int)win->sprite[c]->sprX )*64)));
+			//(int)(((64/h)*u)+u)));
+					(int)((64/h*u))));  ///ORIGINALE
+		////////////////////////////
+				//	printf("colorF: %u\n",0xFFFFFFFF);
+				//	printf("color(u): %u\n",color);
+				//	printf("color: %x\n",color);
+					dst = win->view.addr + (int)(y) * win->view.line_length +
+					(int)(win->sprite[c]->i + u) * (win->view.bits_per_pixel / 8);
+					if (color > 4278190080 || color == 0)
+						dst = 255;
+					else
+						*(unsigned int*)dst = color;
+				}
+				y++;
+			}
+		//	u++;
 		}
-}
 		//win->sprite[c]->distance = 0;
 		win->sprite[c]->sprX = 0;
 		win->sprite[c]->sprY = 0;
@@ -190,7 +218,7 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 
 			sprite_intersections(win, win->sprite, horx, hory,i,1);
 		}
-	//	my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
+		my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
 		hory -= ray->value_y;
 		horx += ray->value_y/tan(ray->angle);
 	}
