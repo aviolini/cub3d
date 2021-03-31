@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/30 18:13:07 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/30 19:35:30 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		build_view(t_window *win)
 {
-	mlx_clear_window(win->mlx,win->win);
+	//mlx_clear_window(win->mlx,win->win);
 	new_image(win, &win->world);
 	new_image(win, &win->view);
 	if(!build_world(&win->world, win->settings.map, &win->player))
@@ -56,8 +56,6 @@ int		sprite(t_window *win)
 		c++;
 	}
 	c = 0;
-
-
 	double h;
 	char *dst;
 	unsigned int color;
@@ -82,10 +80,8 @@ int		sprite(t_window *win)
 		int y = walltopy;
 		int k = 0;
 
-
 			while ((y) < wallbottomy-1)
 		{
-
 		color = *(win->texture[4].addr + ((int)(64/h*(k++)))*64 +
 		(int)((64/h*u)));
 	//	printf("colorF: %u\n",0xFFFFFFFF);
@@ -95,13 +91,10 @@ int		sprite(t_window *win)
 				dst = win->view.addr + (int)(y++) * win->view.line_length +
 				(int)(win->sprite[c]->i + u) * (win->view.bits_per_pixel / 8);
 
-				if (color == 4278190080)
+				if (color > 4278190080 || color == 0)
 					dst = 255;
 			else
 					*(unsigned int*)dst = color;
-		//				printf("dst(u): %u\n",*(unsigned int*)dst);
-
-
 		}
 }
 		//win->sprite[c]->distance = 0;
@@ -193,8 +186,10 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 			return ;
 		}
 		if (settings->map[(int)floor(hory)][(int)floor(horx)] == '2')
-			sprite_intersections(win, win->sprite, horx, hory,i);
+		{
 
+			sprite_intersections(win, win->sprite, horx, hory,i,1);
+		}
 	//	my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
 		hory -= ray->value_y;
 		horx += ray->value_y/tan(ray->angle);
@@ -234,7 +229,7 @@ void	check_ver_intersection(t_window *win,t_settings *settings, t_player player,
 				return ;
 			}
 			if (settings->map[(int)floor(very)][(int)floor(verx)] == '2')
-				sprite_intersections(win, win->sprite, verx, very,i);
+				sprite_intersections(win, win->sprite, verx, very,i,0);
 			//my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, YELLOW);
 			verx -= ray->value_x ;
 			very += ray->value_x *tan(ray->angle);

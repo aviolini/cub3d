@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/30 11:38:58 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/30 19:14:05 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,13 @@ int		build_world(t_image *world, char **map, t_player *player)
 		{
 			if (map[y][x] == '1')
 				my_mlx_pixel_wall(world, x * SCALE, y * SCALE,0x000000ff);
-			else if(map[y][x] == '2')
-				my_mlx_pixel_put(world, x * SCALE, y * SCALE,0x00ff0000);
+			else if(map[y][x] == '2'){
+				my_mlx_pixel_put(world, x * SCALE + SCALE/2-1, y * SCALE+SCALE/2-1,0x00FFFF00);
+				my_mlx_pixel_put(world, x * SCALE + SCALE/2, y * SCALE+SCALE/2,0x00FFFF00);
+				my_mlx_pixel_put(world, x * SCALE + SCALE/2, y * SCALE+SCALE/2-1,0x00FFFF00);
+				my_mlx_pixel_put(world, x * SCALE + SCALE/2-1, y * SCALE+SCALE/2,0x00FFFF00);
+
+			}
 			else if(map[y][x] == '0')
 				my_mlx_pixel_grid(world, x * SCALE, y * SCALE,0x00ff0000);
 		//	else if(map[y][x] != ' ' && map[y][x] != '0')

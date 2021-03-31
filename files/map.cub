@@ -1,11 +1,11 @@
 
 
 R 2500 600
-NO textures/tree1.xpm
-SO textures/Tree1_fall_1.xpm
-WE textures/Tree1_winter_1.xpm
-EA textures/PineTree.xpm
-S textures/pierres.xpm
+NO textures/bricks.xpm
+SO textures/bricks.xpm
+WE textures/bricks.xpm
+EA textures/bricks.xpm
+S textures/PineTree.xpm
 
 F 255,255,0
 
