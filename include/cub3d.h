@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/30 19:34:55 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/31 17:05:08 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ int		image(t_window *win);
 void	check_hor_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray,int i);
 void	check_ver_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray,int i);
 /*IMAGE_TOOLS*/
-int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,int i,int flag);
+int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,int i);
 void	new_image(t_window *win, t_image *img);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void	view_background(t_image *view, t_settings *settings);

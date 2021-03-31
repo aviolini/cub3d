@@ -6,14 +6,14 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/31 12:44:52 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/03/31 17:04:44 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../include/cub3d.h"
 
-int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,int i,int flag)
+int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,int i)
 {
 	int z;
 
@@ -26,10 +26,6 @@ int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,i
 				return (0);
 			z++;
 		}
-	if (flag == 1)
-		sprite[z]->is_horiz = 1;
-	else
-		sprite[z]->is_horiz = 0;
 	sprite[z]->i = i;
 	sprite[z]->sprX = x;
 	sprite[z]->sprY = y;
