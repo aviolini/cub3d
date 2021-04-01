@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/01 08:28:33 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/01 08:51:57 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,20 @@
 
 int		build_view(t_window *win)
 {
+
 	mlx_clear_window(win->mlx,win->win);
 	new_image(win, &win->world);
 	new_image(win, &win->view);
 	if(!build_world(&win->world, win->settings.map, &win->player))
 		return (0);
 	view_background(&win->view, &win->settings);
+
+	//int c = 0;
+	//win->ray = (t_ray *)malloc(sizeof(t_ray)*win->settings.winW)
+	//while (c < win->settings.winX)
+	//	{
+	//		win->ray[c]=(t_ray *)malloc(sizeof(t_ray))
+	//	}
 
 	image(win);
 	miniray(win);
