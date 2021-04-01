@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/01 11:02:36 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/01 23:40:30 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 
 		while ((i) < wallbottomy-1)
 	{
-	color = *(win->texture[orientation].addr + ((int)(64/h*k++)*64 +
+
+	//int offsetY = (int)(64/h*k++);
+	int offsetY = (int)abs((i + (h / 2) - (win->settings.winH / 2))*64/h);
+	color = *(win->texture[orientation].addr + ((int)(offsetY)*64 +
 	(int)((win->ray.indexTex-(int)win->ray.indexTex)*64)));
 
     		dst = img->addr + ((int)(i++) * img->line_length +

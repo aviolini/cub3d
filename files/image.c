@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/01 11:05:37 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/01 23:16:58 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		build_view(t_window *win)
 {
 
-	mlx_clear_window(win->mlx,win->win);
+	//mlx_clear_window(win->mlx,win->win);
 	new_image(win, &win->world);
 	new_image(win, &win->view);
 	if(!build_world(&win->world, win->settings.map, &win->player))
@@ -31,7 +31,7 @@ int		build_view(t_window *win)
 
 	image(win);
 	miniray(win);
-	sprite(win);
+//	sprite(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 05, 20);
 	mlx_put_image_to_window(win->mlx, win->win, win->view.img, 700, 0);
 
@@ -85,48 +85,31 @@ int		sprite(t_window *win)
 		//while (64/h*u++ < 64-1)		//ORIGINALE
 	int u = 0;
 	int p = 0;
-		int z = (int)(((win->sprite[c]->sprX - (int)win->sprite[c]->sprX ))*64);///h);
-	//	int u16 = (int)((win->sprite[c]->sprX - (int)win->sprite[c]->sprX )*16);
-				printf("-----------------------\n");
-		printf("win->sprite[c]->sprX : %lf \n",win->sprite[c]->sprX);
-		printf("(int)win->sprite[c]->sprX : %d \n\n",(int)win->sprite[c]->sprX);
+	double left = win->sprite[c]->i - h/2;
+	double right = left + h;
 
-		printf("((win->sprite[c]->sprX - (int)win->sprite[c]->sprX )) : %lf\n",
-					((win->sprite[c]->sprX - (int)win->sprite[c]->sprX )));
-		printf("((int)(win->sprite[c]->sprX - (int)win->sprite[c]->sprX )) : %i\n\n",
-					(int)((win->sprite[c]->sprX - (int)win->sprite[c]->sprX )));
-
-		printf("z64 : %f\n",((win->sprite[c]->sprX - (int)win->sprite[c]->sprX ))*64);
-		printf("z64i : %i\n",z);
-	//	printf("u16 : %d\n",u16);
-		printf("h : %lf\n\n",h);
-
-		printf("((int)(u*(64/h)) : %i\n",((int)(z*(64/h))));
-		printf("((u*(64/h)) : %lf\n",((z*(64/h))));
-		printf("((int)(u+1*(64/h)) : %i\n",((int)((z+1)*(64/h))));
-		printf("((u+1*(64/h)) : %lf\n",(((z+1)*(64/h))));
-		printf("-----------------------\n");
-		//int z = 0;
-		u = (64); //*(64/h);
-
-		while (z++/**(64/h)*/ < h)//u)
+		int a = left;
+		while (a++ < (int)right)
+		///**(64/h)*/ < h)//u)
 	//	while ((win->sprite[c]->sprX- (int)win->sprite[c]->sprX )*64*++u < 64-1)
 		////////////////////////////////////
+
 		{
+		//	int offsetX = (x - left)*(64/h);
 			int y = walltopy;
 			int k = 0;
 			p++;
 			//z++;
-			printf("z64i : %i\n",z);
+
 			while ((y) < wallbottomy-1)
 			{
-				if (win->sprite[c]->i + p < win->settings.winW) //FIX DEL LIMITE DELLA SPR_TEXT VERSO DX ->
-				{
+			//	if (win->sprite[c]->i + p < win->settings.winW) //FIX DEL LIMITE DELLA SPR_TEXT VERSO DX ->
+				//{
 					color = *(win->texture[4].addr + ((int)(64/h*(k++))*64 +
 		///////////////////SOSTITUZIONE
 			//	(int)((win->sprite[c]->sprX- (int)win->sprite[c]->sprX )*64)));
 			//(int)(((64/h)*u)+u)));
-					(int)((z / h*64/**(64/h)+p*/))));  ///ORIGINALE
+					(int)(((a - left)*(64/h)/**(64/h)+p*/))));  ///ORIGINALE
 		////////////////////////////
 				//	printf("colorF: %u\n",0xFFFFFFFF);
 					//printf("color(u): %u\n",color);
@@ -139,7 +122,7 @@ int		sprite(t_window *win)
 							dst = 255;
 						else
 							*(unsigned int*)dst = color;
-				}
+			//	}
 				y++;
 			}
 		//	u++;
