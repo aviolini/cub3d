@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/01 10:59:44 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:05:37 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,10 +133,12 @@ int		sprite(t_window *win)
 				//	printf("color: %x\n",color);
 					dst = win->view.addr + (int)(y) * win->view.line_length +
 					(int)(win->sprite[c]->i+p) * (win->view.bits_per_pixel / 8);
-					if (color >= 4278190080 || color == 0)
-						dst = 255;
-					else
-						*(unsigned int*)dst = color;
+
+					if (win->sprite[c]->distance < win->ray.distance[win->sprite[c]->i+p])
+						if (color >= 4278190080 || color == 0)
+							dst = 255;
+						else
+							*(unsigned int*)dst = color;
 				}
 				y++;
 			}
