@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/31 17:04:44 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/01 08:18:07 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 
     		dst = img->addr + ((int)(i++) * img->line_length +
 			(int)(x) * (img->bits_per_pixel / 8));
-			if (color == 4278190080)
-				dst = 255;
-		else
+			//if (color >= 4278190080)
+			//	dst = 255;
+		//else
 				*(unsigned int*)dst = color;
 	}
 }

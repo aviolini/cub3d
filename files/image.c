@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/31 17:04:50 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/01 08:19:05 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		build_view(t_window *win)
 {
-	//mlx_clear_window(win->mlx,win->win);
+	mlx_clear_window(win->mlx,win->win);
 	new_image(win, &win->world);
 	new_image(win, &win->view);
 	if(!build_world(&win->world, win->settings.map, &win->player))
@@ -120,11 +120,11 @@ int		sprite(t_window *win)
 					(int)((z*(64/h)))));  ///ORIGINALE
 		////////////////////////////
 				//	printf("colorF: %u\n",0xFFFFFFFF);
-				//	printf("color(u): %u\n",color);
+					//printf("color(u): %u\n",color);
 				//	printf("color: %x\n",color);
 					dst = win->view.addr + (int)(y) * win->view.line_length +
 					(int)(win->sprite[c]->i+p) * (win->view.bits_per_pixel / 8);
-					if (color > 4278190080 || color == 0)
+					if (color >= 4278190080 || color == 0)
 						dst = 255;
 					else
 						*(unsigned int*)dst = color;
