@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/01 23:16:58 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 01:31:58 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		build_view(t_window *win)
 
 	image(win);
 	miniray(win);
-//	sprite(win);
+	//sprite(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 05, 20);
 	mlx_put_image_to_window(win->mlx, win->win, win->view.img, 700, 0);
 
@@ -109,7 +109,7 @@ int		sprite(t_window *win)
 		///////////////////SOSTITUZIONE
 			//	(int)((win->sprite[c]->sprX- (int)win->sprite[c]->sprX )*64)));
 			//(int)(((64/h)*u)+u)));
-					(int)(((a - left)*(64/h)/**(64/h)+p*/))));  ///ORIGINALE
+					(int)(((64/h)))));  ///ORIGINALE
 		////////////////////////////
 				//	printf("colorF: %u\n",0xFFFFFFFF);
 					//printf("color(u): %u\n",color);
@@ -149,7 +149,7 @@ int		image(t_window *win)
 	win->ray.distance = (double *)malloc(sizeof(double) * win->settings.winW);
 	while (++i < win->settings.winW)
 	{
-		win->ray.angle -= FOV/win->settings.winW;
+
 		win->ray.dirX = cos(win->ray.angle);
 		win->ray.dirY = -sin(win->ray.angle);
 		check_hor_intersection(win,&win->settings, win->player, &win->ray,i);
@@ -164,7 +164,7 @@ int		image(t_window *win)
 		column(win, &win->view,i,orientation);
 
 	//	sprite
-
+win->ray.angle -= FOV/win->settings.winW;
 	}
 /*	int z = 0;
 	while (win->sprite[z])
@@ -220,10 +220,10 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 		}
 		if (settings->map[(int)floor(hory)][(int)floor(horx)] == '2')
 		{
-
+			my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, GREEN);
 			sprite_intersections(win, win->sprite, horx, hory,i);
 		}
-		my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
+		//my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
 		hory -= ray->value_y;
 		horx += ray->value_y/tan(ray->angle);
 	}
@@ -262,8 +262,10 @@ void	check_ver_intersection(t_window *win,t_settings *settings, t_player player,
 				return ;
 			}
 			if (settings->map[(int)floor(very)][(int)floor(verx)] == '2')
+			{
 				sprite_intersections(win, win->sprite, verx, very,i);
-			//my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, YELLOW);
+				my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, BLUE);
+			}
 			verx -= ray->value_x ;
 			very += ray->value_x *tan(ray->angle);
 		 }
