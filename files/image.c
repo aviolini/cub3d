@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/01 08:19:05 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/01 08:28:33 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,16 @@ int		sprite(t_window *win)
 	unsigned int color;
 	double distprojplane;
 	double walltopy = 0, wallbottomy = 0;
-	distprojplane = (W_IMG / 2)/tan(FOV/2);
+	distprojplane = (win->settings.winW / 2)/tan(FOV/2);
 
 	while(c<win->settings.num_of_sprite && win->sprite[c]->distance > 0)
 	{
 		h = 1 / win->sprite[c]->distance * distprojplane;
 		//h = 64 / ;
-		walltopy=H_IMG/2-h/2;
+		walltopy=win->settings.winH/2-h/2;
 		walltopy = walltopy < 0 ? 0 : walltopy;
-		wallbottomy = H_IMG / 2 + h  /2;
-		wallbottomy = wallbottomy > H_IMG ? H_IMG : wallbottomy;
+		wallbottomy = win->settings.winH / 2 + h  /2;
+		wallbottomy = wallbottomy > win->settings.winH ? win->settings.winH : wallbottomy;
 		//char *dst;
 		//////////////////////////SOSTITUZIONE
 		//int u = 0;					//ORIGINALE
@@ -111,7 +111,7 @@ int		sprite(t_window *win)
 			//z++;
 			while ((y) < wallbottomy-1)
 			{
-				if (win->sprite[c]->i + u < W_IMG) //FIX DEL LIMITE DELLA SPR_TEXT VERSO DX ->
+				if (win->sprite[c]->i + u < win->settings.winW) //FIX DEL LIMITE DELLA SPR_TEXT VERSO DX ->
 				{
 					color = *(win->texture[4].addr + ((int)(64/h*(k++))*64 +
 		///////////////////SOSTITUZIONE
@@ -150,9 +150,9 @@ int		image(t_window *win)
 
 	//int color;
 	int orientation;
-	while (++i < W_IMG)
+	while (++i < win->settings.winW)
 	{
-		win->ray.angle -= FOV/W_IMG;
+		win->ray.angle -= FOV/win->settings.winW;
 		win->ray.dirX = cos(win->ray.angle);
 		win->ray.dirY = -sin(win->ray.angle);
 		check_hor_intersection(win,&win->settings, win->player, &win->ray,i);

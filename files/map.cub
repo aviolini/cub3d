@@ -1,6 +1,6 @@
 
 
-R 2500 600
+R 1200 600
 NO textures/brick.xpm
 SO textures/grey.xpm
 WE textures/blue.xpm

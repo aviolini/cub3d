@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/30 10:03:12 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/01 08:25:55 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		main_window(t_window *win)
 	win->settings.win_def = 1;
 
 //	set_right_resolution(win);
-	win->win = mlx_new_window(win->mlx,win->settings.winW,
+	win->win = mlx_new_window(win->mlx,win->settings.winW*2-400,////////////////////////////
 		win->settings.winH, "Welcome");
 	if (!init_textures(win))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/01 08:18:07 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/01 08:31:30 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,i
 
 void	new_image(t_window *win, t_image *image)
 {
-	image->img = mlx_new_image(win->mlx, W_IMG, H_IMG);
+	image->img = mlx_new_image(win->mlx, win->settings.winW, win->settings.winH);
 	image->addr = mlx_get_data_addr(image->img, &image->bits_per_pixel,
 		&image->line_length, &image->endian);
 }
@@ -61,17 +61,17 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	unsigned int color;
 	double walltopy = 0, wallbottomy = 0;
 
-	distprojplane = (W_IMG / 2)/tan(FOV/2);
+	distprojplane = (win->settings.winW / 2)/tan(FOV/2);
 
 	perpdist =  win->ray.distance * (cos(win->ray.angle -win->player.angle));
 	h = 1/ perpdist * distprojplane;
-//	h = H_IMG/perpdist;
+//	h = win->settings.winH/perpdist;
 
 
-	walltopy=H_IMG/2-h/2;
+	walltopy=win->settings.winH/2-h/2;
 	walltopy = walltopy < 0 ? 0 : walltopy;
-	wallbottomy = H_IMG / 2 + h  /2;
-	wallbottomy = wallbottomy > H_IMG ? H_IMG : wallbottomy;
+	wallbottomy = win->settings.winH / 2 + h  /2;
+	wallbottomy = wallbottomy > win->settings.winH ? win->settings.winH : wallbottomy;
 	//char *dst;
 	int i = walltopy;
 	int k = 0;
@@ -101,15 +101,15 @@ void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
 	double h;
 	double walltopy = 0, wallbottomy = 0;
 
-	distprojplane = (W_IMG / 2)/tan(FOV/2);
+	distprojplane = (win->settings.winW / 2)/tan(FOV/2);
 	perpdist = SCALE / win->ray.distance * (cos(win->ray.angle -win->player.angle));
 	h = 1 / (perpdist) * distprojplane;
 	h = (int)h;
 /////////////////////////////////////////////////////////////
-	walltopy=H_IMG/2-h/2;
+	walltopy=win->settings.winH/2-h/2;
 	walltopy = walltopy < 0 ? 0 : walltopy;
-	wallbottomy = H_IMG / 2 + h  /2;
-	wallbottomy = wallbottomy > H_IMG ? H_IMG : wallbottomy;
+	wallbottomy = win->settings.winH / 2 + h  /2;
+	wallbottomy = wallbottomy > win->settings.winH ? win->settings.winH : wallbottomy;
 	//char *dst;
 	int i = walltopy;
 	//int z = 0;
@@ -174,8 +174,8 @@ void	view_background(t_image *view, t_settings *settings)
 
 	while(--z > 0)
 	{
-		while(++y < (H_IMG/z) && -2 < (x = -1))
-			while(++x < W_IMG)
+		while(++y < (settings->winH/z) && -2 < (x = -1))
+			while(++x < settings->winW)
 				my_mlx_pixel_put(view,x,y,color);
 		color = settings->floor_color;
 		y--;
