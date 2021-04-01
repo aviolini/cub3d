@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/30 16:48:26 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 00:12:47 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	move(char **map, t_player *player, char var)
 		value = 1;
 	if (var == 's')
 		value = -1;
-	player->posY += (value)*player->dirY * SPEED/SCALE;
-	player->posX += (value)*player->dirX * SPEED/SCALE;
+	player->posY += (value)*player->dirY /2;//* SPEED/SCALE;
+	player->posX += (value)*player->dirX /2;//* SPEED/SCALE;
 	while((map[(int)floor(player->posY)][(int)floor(player->posX)] == '1') ||
 		(map[(int)floor(player->posY)][(int)floor(player->posX)] == '2') ||
 		(map[(int)floor(player->posY)][(int)floor(player->posX)] == ' '))
 	{
-		player->posY -= (value)*player->dirY/SCALE;
-		player->posX -= (value)*player->dirX/SCALE;
+		player->posY -= (value)*player->dirY/2;
+		player->posX -= (value)*player->dirX/2;
 	}
 }
 
