@@ -1,3 +1,4 @@
 # cub3d
-first_lunch 
+first_lunch \n
+
 sprite dietro i muri
