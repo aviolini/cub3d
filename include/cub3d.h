@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/01 08:52:21 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:00:18 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_rays_data
 	double		dirY;
 	double		hitX;
 	double		hitY;
-	double		distance;
+	double		*distance;
 	int			verticalHit;
 
 	double		indexTex;
@@ -175,7 +175,7 @@ void	set_right_resolution(t_window *win);
 int		init_textures(t_window *win);
 void	column(t_window *win, t_image *img,int x,int orientation);
 //oid	set_ray(t_player player, t_ray *ray);
-int	set_distance_and_wall_orientation(t_player player, t_ray *ray);
+int	set_distance_and_wall_orientation(t_player player, t_ray *ray,int i);
 
 
 /*PARSING MAP */

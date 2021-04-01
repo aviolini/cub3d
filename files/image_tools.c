@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/01 08:31:30 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:02:36 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 
 	distprojplane = (win->settings.winW / 2)/tan(FOV/2);
 
-	perpdist =  win->ray.distance * (cos(win->ray.angle -win->player.angle));
+	perpdist =  win->ray.distance[x] * (cos(win->ray.angle -win->player.angle));
 	h = 1/ perpdist * distprojplane;
 //	h = win->settings.winH/perpdist;
 
@@ -102,7 +102,7 @@ void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
 	double walltopy = 0, wallbottomy = 0;
 
 	distprojplane = (win->settings.winW / 2)/tan(FOV/2);
-	perpdist = SCALE / win->ray.distance * (cos(win->ray.angle -win->player.angle));
+	perpdist = SCALE / win->ray.distance[x] * (cos(win->ray.angle -win->player.angle));
 	h = 1 / (perpdist) * distprojplane;
 	h = (int)h;
 /////////////////////////////////////////////////////////////
@@ -195,7 +195,7 @@ void	set_right_resolution(t_window *win)
 		win->settings.win_resy = myresy;
 */}
 
-int	set_distance_and_wall_orientation(t_player player, t_ray *ray)
+int	set_distance_and_wall_orientation(t_player player, t_ray *ray,int i)
 {
 	double	verh;
 	double	horh;
@@ -206,7 +206,7 @@ int	set_distance_and_wall_orientation(t_player player, t_ray *ray)
 ///	printf("horh : %lf\n",horh);
 	if (horh <= verh)
 	{
-		ray->distance = horh;
+		ray->distance[i] = horh;
 		ray->indexTex = ray->horx;
 		if (ray->dirY < 0)
 			return (1);
@@ -216,7 +216,7 @@ int	set_distance_and_wall_orientation(t_player player, t_ray *ray)
 	else
 	{
 		ray->indexTex = ray->very;
-		ray->distance = verh;
+		ray->distance[i] = verh;
 		if(ray->dirX < 0)
 			return (2) ;
 		else
