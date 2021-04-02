@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 01:31:58 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 03:02:54 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		build_view(t_window *win)
 
 	image(win);
 	miniray(win);
-	//sprite(win);
+	sprite(win);
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 05, 20);
 	mlx_put_image_to_window(win->mlx, win->win, win->view.img, 700, 0);
 
@@ -71,8 +71,8 @@ int		sprite(t_window *win)
 	double walltopy = 0, wallbottomy = 0;
 	distprojplane = (win->settings.winW / 2)/tan(FOV/2);
 
-	while(c<win->settings.num_of_sprite && win->sprite[c]->distance > 0)
-	{
+//	while(c<win->settings.num_of_sprite && win->sprite[c]->distance > 0)
+//	{
 		h = 1 / win->sprite[c]->distance * distprojplane;
 		//h = 64 / ;
 		walltopy=win->settings.winH/2-h/2;
@@ -84,47 +84,41 @@ int		sprite(t_window *win)
 		//int u = 0;					//ORIGINALE
 		//while (64/h*u++ < 64-1)		//ORIGINALE
 	int u = 0;
-	int p = 0;
 	double left = win->sprite[c]->i - h/2;
 	double right = left + h;
-
-		int a = left;
-		while (a++ < (int)right)
-		///**(64/h)*/ < h)//u)
-	//	while ((win->sprite[c]->sprX- (int)win->sprite[c]->sprX )*64*++u < 64-1)
-		////////////////////////////////////
-
+	int y = walltopy;
+		int x = left;
+		int p = 0;
+		while (x++ < (int)right)
 		{
-		//	int offsetX = (x - left)*(64/h);
-			int y = walltopy;
-			int k = 0;
-			p++;
-			//z++;
 
-			while ((y) < wallbottomy-1)
+			int offsetX = (x - left)*64/h;
+		//	printf("offsetX : %d \n",offsetX);
+		//	printf("X : %d \n",x);
+			 y = walltopy;
+			while ((y) < wallbottomy)
 			{
-			//	if (win->sprite[c]->i + p < win->settings.winW) //FIX DEL LIMITE DELLA SPR_TEXT VERSO DX ->
-				//{
-					color = *(win->texture[4].addr + ((int)(64/h*(k++))*64 +
-		///////////////////SOSTITUZIONE
-			//	(int)((win->sprite[c]->sprX- (int)win->sprite[c]->sprX )*64)));
-			//(int)(((64/h)*u)+u)));
-					(int)(((64/h)))));  ///ORIGINALE
-		////////////////////////////
-				//	printf("colorF: %u\n",0xFFFFFFFF);
-					//printf("color(u): %u\n",color);
-				//	printf("color: %x\n",color);
+		//RIMETTERE	//if(x > 0 && x < win->settings.winW && y > 0 && y < win->settings.winH)
+			//{
+				if (win->sprite[c]->i + p < win->settings.winW) //FIX DEL LIMITE DELLA SPR_TEXT VERSO DX ->
+				{
+					int offsetY = (int)((y + (h / 2) - (win->settings.winH / 2))*64/h);
+					color = *(win->texture[4].addr + ((int)(offsetY*64 +
+
+					(int)(((offsetX))))));
+
 					dst = win->view.addr + (int)(y) * win->view.line_length +
 					(int)(win->sprite[c]->i+p) * (win->view.bits_per_pixel / 8);
 
-					if (win->sprite[c]->distance < win->ray.distance[win->sprite[c]->i+p])
+			if (win->sprite[c]->distance < win->ray.distance[win->sprite[c]->i])
 						if (color >= 4278190080 || color == 0)
-							dst = 255;
+						dst = (char *)255;
 						else
 							*(unsigned int*)dst = color;
-			//	}
+			}
 				y++;
 			}
+			p++;
 		//	u++;
 		}
 		//win->sprite[c]->distance = 0;
@@ -133,7 +127,7 @@ int		sprite(t_window *win)
 		win->sprite[c]->distance = 0;
 		c++;
 
-	}
+	//}
 	return (1);
 }
 
