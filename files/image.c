@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 09:47:30 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:53:40 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		build_view(t_window *win)
 {
 
-	//mlx_clear_window(win->mlx,win->win);
+	mlx_clear_window(win->mlx,win->win);
 	new_image(win, &win->world);
 	new_image(win, &win->view);
 	if(!build_world(&win->world, win->settings.map, &win->player))
@@ -41,6 +41,151 @@ mlx_destroy_image(win->mlx, win->world.img);
 	return (1);
 }
 
+
+int		sprite(t_window *win)
+{
+    t_sprite visibleSprites[win->settings.num_of_sprite];
+    int numVisibleSprites = 0;
+	unsigned int color;
+	char *dst;
+
+
+
+
+    // Find sprites that are visible (inside the FOV)
+    for (int i = 0; i < win->settings.num_of_sprite; i++)
+	{
+        float angleSpritePlayer = win->player.angle - atan2(win->sprite[i]->sprY - win->player.posY,
+			win->sprite[i]->sprX - win->player.posX);
+
+        // Make sure the angle is always between 0 and 180 degrees
+        if (angleSpritePlayer > M_PI)
+            angleSpritePlayer -= M_PI * 2;
+        if (angleSpritePlayer < -M_PI)
+            angleSpritePlayer += M_PI * 2;
+        angleSpritePlayer = fabs(angleSpritePlayer);
+
+        // If sprite angle is less than half the FOV plus a small margin
+        const float EPSILON = 0.2;
+		if (angleSpritePlayer < (FOV / 2) + EPSILON)
+		{
+            win->sprite[i]->visible = 1;
+            win->sprite[i]->angle = angleSpritePlayer;
+            win->sprite[i]->distance = hypot(fabs(win->sprite[i]->sprX - win->player.posX), //////////////////controlla ordine
+										fabs(win->sprite[i]->sprY - win->player.posY));
+			visibleSprites[numVisibleSprites] = *win->sprite[i]; //////////////[0][i] oppure *
+			numVisibleSprites++;
+        }
+		else
+		{
+            win->sprite[i]->visible = 0;
+        }
+    }
+
+	// Sort sprites by distance using a naive bubble-sort algorithm
+    for (int i = 0; i < numVisibleSprites - 1; i++)
+	{
+        for (int j = i + 1; j < numVisibleSprites; j++)
+		{
+            if (visibleSprites[i].distance < visibleSprites[j].distance)
+			{
+                t_sprite temp = visibleSprites[i];
+                visibleSprites[i] = visibleSprites[j];
+                visibleSprites[j] = temp;
+            }
+        }
+    }
+
+	double distprojplane = (win->settings.winW / 2)/tan(FOV/2);
+
+    // Rendering all the visible sprites
+    for (int i = 0; i < numVisibleSprites; i++)
+	{
+        t_sprite sprite = visibleSprites[i];
+
+        // Calculate the perpendicular distance of the sprite to prevent fish-eye effect
+        float perpDistance = sprite.distance * cos(sprite.angle);
+
+        // Calculate the sprite projected height and width (the same, as sprites are squared)
+        float spriteHeight = (1 / perpDistance) * distprojplane;
+        float spriteWidth = spriteHeight;
+
+        // Sprite top Y
+        float spriteTopY = (win->settings.winH / 2) - (spriteHeight / 2);
+        spriteTopY = (spriteTopY < 0) ? 0 : spriteTopY;
+
+        // Sprite bottom Y
+        float spriteBottomY = (win->settings.winH / 2) + (spriteHeight / 2);
+        spriteBottomY = (spriteBottomY > win->settings.winH) ? win->settings.winH : spriteBottomY;
+
+        // Calculate the sprite X position in the projection plane
+        float spriteAngle = atan2(sprite.sprY - win->player.posY, sprite.sprX - win->player.posX) - win->player.angle;
+        float spriteScreenPosX = tan(spriteAngle) * distprojplane;
+
+        // SpriteLeftX
+        float spriteLeftX = (win->settings.winW / 2) + spriteScreenPosX - (spriteWidth / 2);
+
+        // SpriteRightX
+        float spriteRightX = spriteLeftX + spriteWidth;
+
+        // Query the width and height of the texture
+       // int H_TEX = upng_get_width(textures[sprite.texture]);
+       // int 64 = upng_get_height(textures[sprite.texture]);
+
+        // Loop all the x values
+        for (int x = spriteLeftX; x < spriteRightX; x++)
+		{
+            float texelWidth = (W_TEX / spriteWidth);
+            int textureOffsetX = (x - spriteLeftX) * texelWidth;
+
+		//	int offsetX = (x - left)*H_TEX/h;
+
+            // Loop all the y values
+            for (int y = spriteTopY; y < spriteBottomY; y++)
+			{
+                if (x > 0 && x < win->settings.winW && y > 0 && y < win->settings.winH)
+				{
+                    int distanceFromTop = y + (spriteHeight / 2) - (win->settings.winH / 2);
+                    int textureOffsetY = distanceFromTop * (H_TEX / spriteHeight);
+
+
+					//int offsetY = (int)((y + (h / 2) - (win->settings.winH / 2))*H_TEX/h);
+					color = *(win->texture[2].addr + ((int)(textureOffsetY*H_TEX +
+
+					(int)(((textureOffsetX))))));
+
+					dst = win->view.addr + (int)(y) * win->view.line_length +
+					(int)(x) * (win->view.bits_per_pixel / 8);
+
+					//	if (win->sprite[c]->distance < win->ray.distance[win->sprite[c]->i])
+					//	{
+					//				if (color >= 4278190080 || color == 0)
+					//				dst = (char *)255;
+					//				else
+										*(unsigned int*)dst = color;
+					//	}
+
+                  //  color_t* spriteTextureBuffer = (color_t*) upng_get_buffer(textures[sprite.texture]);
+                    //color_t texelColor = spriteTextureBuffer[(H_TEX * textureOffsetY) + textureOffsetX];
+
+                  //  if (sprite.distance < rays[x].distance && texelColor != 0xFFFF00FF)
+				//	{
+                     //   drawPixel(x, y, texelColor);
+                  //  }
+                }
+            }
+        }
+    }
+	return (1);
+}
+
+
+
+
+
+
+
+/*
 int		sprite(t_window *win)
 {
 	double max;
@@ -48,33 +193,103 @@ int		sprite(t_window *win)
 	t_sprite *temp;
 	max = 0;
 	c = 0;
+	double angle;
 
-	while(c<win->settings.num_of_sprite && win->sprite[c]->distance > 0)
+	//angle = remainder(win->win->player.angle, 2*M_PI);
+	angle = remainder(win->player.angle,M_PI);
+	if (angle < 0)
+		angle = 2*M_PI + angle;
+
+
+	t_sprite visibleSprites[win->settings.num_of_sprite];
+    int numVisibleSprites = 0;
+
+	for (int i = 0; i < win->settings.num_of_sprite; i++)
 	{
-//		printf("co\n\n");
-		//c = 0;
-		if (win->sprite[c]->distance < win->sprite[c + 1]->distance)
+		float angleSpritePlayer = angle - atan2(win->sprite[i]->sprY - win->player.posY,
+			win->sprite[i]->sprX - win->player.posX);
+
+		// Make sure the angle is always between 0 and 180 degrees
+		if (angleSpritePlayer > M_PI)
+			angleSpritePlayer -= M_PI*2;
+		if (angleSpritePlayer < -M_PI)
+			angleSpritePlayer += M_PI*2;
+		angleSpritePlayer = fabs(angleSpritePlayer);
+
+		// If sprite angle is less than half the FOV plus a small margin
+		const float EPSILON = 0.2;
+		if (angleSpritePlayer < (FOV / 2) + EPSILON)
 		{
-//			printf("ciao\n\n");
-			temp = 	win->sprite[c + 1];
-			win->sprite[c + 1] = win->sprite[c];
-			win->sprite[c] = temp;
-			c = -1;
+			win->sprite[i]->visible = 1;
+			win->sprite[i]->angle = angleSpritePlayer;
+			win->sprite[i]->distance = hypot(win->sprite[i]->sprY - win->player.posY,
+				win->sprite[i]->sprX - win->player.posX);
+			visibleSprites[numVisibleSprites] = *win->sprite[i];
+			numVisibleSprites++;
 		}
-		c++;
+		else
+		{
+			win->sprite[i]->visible = 0;
+		}
 	}
-	c = 0;
-	double h;
-	char *dst;
-	unsigned int color;
-	double distprojplane;
-	double walltopy = 0, wallbottomy = 0;
-	distprojplane = (win->settings.winW / 2)/tan(FOV/2);
+
+
+
+	// Sort sprites by distance using a naive bubble-sort algorithm
+	for (int i = 0; i < numVisibleSprites - 1; i++) {
+		for (int j = i + 1; j < numVisibleSprites; j++) {
+			if (visibleSprites[i].distance < visibleSprites[j].distance) {
+				sprite_t temp = visibleSprites[i];
+				visibleSprites[i] = visibleSprites[j];
+				visibleSprites[j] = temp;
+			}
+		}
+	}
+
+
+
+while(c<numVisibleSprites)// && win->sprite[c]->distance > 0)
+{
+//		printf("co\n\n");
+	//c = 0;
+	if (visibleSprites[c].distance < visibleSprites[c + 1].distance)
+	{
+//			printf("ciao\n\n");
+		temp = 	&visibleSprites[c + 1];
+		visibleSprites[c + 1] = visibleSprites[c];
+		visibleSprites[c] = *temp;
+		c = -1;
+	}
+	c++;
+}
+
+c = 0;
+double h;
+char *dst;
+unsigned int color;
+double distprojplane;
+double walltopy = 0, wallbottomy = 0;
+
+distprojplane = (win->settings.winW / 2)/tan(FOV/2);
+
+	// Rendering all the visible sprites
+	for (int i = 0; i < numVisibleSprites; i++)
+	{
+		t_sprite sprite = visibleSprites[i];
+
+		// Calculate the perpendicular distance of the sprite to prevent fish-eye effect
+		float perpDistance = sprite.distance * cos(sprite.angle);
+
+		// Calculate the sprite projected height and width (the same, as sprites are squared)
+		float h = (1 / perpDistance) * distprojplane;
+
+
+
+
 
 //	while(c<win->settings.num_of_sprite && win->sprite[c]->distance > 0)
 //	{
-		h = 1 / win->sprite[c]->distance * distprojplane;
-		//h = 64 / ;
+		//h = H_TEX / ;
 		walltopy=win->settings.winH/2-h/2;
 		walltopy = walltopy < 0 ? 0 : walltopy;
 		wallbottomy = win->settings.winH / 2 + h  /2;
@@ -82,9 +297,14 @@ int		sprite(t_window *win)
 		//char *dst;
 		//////////////////////////SOSTITUZIONE
 		//int u = 0;					//ORIGINALE
-		//while (64/h*u++ < 64-1)		//ORIGINALE
+		//while (H_TEX/h*u++ < H_TEX-1)		//ORIGINALE
+
+
+
+		float spriteAngle = atan2(sprite.sprY - win->player.posY, sprite.sprX - win->player.posX) - (angle);
+		float spriteScreenPosX = tan(spriteAngle) * distprojplane;
 	int u = 0;
-	double left = win->sprite[c]->i - h/2;
+	double left = (win->settings.winH / 2) + spriteScreenPosX - h/2;
 	double right = left + h;
 	int y = walltopy;
 		int x = left;
@@ -92,7 +312,7 @@ int		sprite(t_window *win)
 		while (x++ < (int)right)
 		{
 
-			int offsetX = (x - left)*64/h;
+			int offsetX = (x - left)*H_TEX/h;
 		//	printf("offsetX : %d \n",offsetX);
 		//	printf("X : %d \n",x);
 			 y = walltopy;
@@ -100,38 +320,38 @@ int		sprite(t_window *win)
 			{
 		//RIMETTERE	//if(x > 0 && x < win->settings.winW && y > 0 && y < win->settings.winH)
 			//{
-				if (win->sprite[c]->i + p < win->settings.winW) //FIX DEL LIMITE DELLA SPR_TEXT VERSO DX ->
-				{
-					int offsetY = (int)((y + (h / 2) - (win->settings.winH / 2))*64/h);
-					color = *(win->texture[4].addr + ((int)(offsetY*64 +
+			//	if (win->sprite[c]->i + p < win->settings.winW) //FIX DEL LIMITE DELLA SPR_TEXT VERSO DX ->
+			//	{
+					int offsetY = (int)((y + (h / 2) - (win->settings.winH / 2))*H_TEX/h);
+					color = *(win->texture[4].addr + ((int)(offsetY*H_TEX +
 
 					(int)(((offsetX))))));
 
 					dst = win->view.addr + (int)(y) * win->view.line_length +
-					(int)(win->sprite[c]->i+p) * (win->view.bits_per_pixel / 8);
+					(int)(spriteScreenPosX+p) * (win->view.bits_per_pixel / 8);
 
-			if (win->sprite[c]->distance < win->ray.distance[win->sprite[c]->i])
-			{
-						if (color >= 4278190080 || color == 0)
-						dst = (char *)255;
-						else
+		//	if (win->sprite[c]->distance < win->ray.distance[win->sprite[c]->i])
+		//	{
+		//				if (color >= 4278190080 || color == 0)
+		//				dst = (char *)255;
+		//				else
 							*(unsigned int*)dst = color;
-			}
-			}
+		//	}
+			//}
 				y++;
 			}
 			p++;
 		//	u++;
 		}
 		//win->sprite[c]->distance = 0;
-		win->sprite[c]->sprX = 0;
-		win->sprite[c]->sprY = 0;
-		win->sprite[c]->distance = 0;
+	//	win->sprite[c]->sprX = 0;
+	//	win->sprite[c]->sprY = 0;
+	//	win->sprite[c]->distance = 0;
 		c++;
 
-	//}
+	}
 	return (1);
-}
+}*/
 
 int		image(t_window *win)
 {
@@ -217,7 +437,7 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 		if (settings->map[(int)floor(hory)][(int)floor(horx)] == '2')
 		{
 			my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, GREEN);
-			sprite_intersections(win, win->sprite, horx, hory,i);
+		//	sprite_intersections(win, win->sprite, horx, hory,i);
 		}
 		//my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
 		hory -= ray->value_y;
@@ -259,7 +479,7 @@ void	check_ver_intersection(t_window *win,t_settings *settings, t_player player,
 			}
 			if (settings->map[(int)floor(very)][(int)floor(verx)] == '2')
 			{
-				sprite_intersections(win, win->sprite, verx, very,i);
+			//	sprite_intersections(win, win->sprite, verx, very,i);
 				my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, BLUE);
 			}
 			verx -= ray->value_x ;

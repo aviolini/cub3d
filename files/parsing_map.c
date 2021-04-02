@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 10:22:24 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 11:22:11 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void print_sprite(t_window *win)
 		printf("sprite %d : x:%d , y:%d\n\n", i,win->sprite[i]->sprX,win->sprite[i]->sprY);
 		i++;
 	}
+	printf("num_of_sprite: %d\n",win->settings.num_of_sprite);
 }
 
 t_sprite **init_sprite(t_window *win,int x, int y)

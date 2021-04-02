@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 10:22:02 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:37:39 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 #define SCALE 16
 #define SPEED 10
 #define FACTOR 0.3
+#define H_TEX 64
+#define W_TEX 64
 #define ROTATION M_PI/12
 #define W_IMG 1200
 #define H_IMG 600
@@ -51,8 +53,10 @@ typedef struct s_texture_data
 
 typedef struct s_sprite_data
 {
-	int		sprX;
-	int		sprY;
+	int			sprX;
+	int			sprY;
+	int 		visible;
+	double 		angle;
 	double		distance;
 	int			i;
 	int			is_horiz;
