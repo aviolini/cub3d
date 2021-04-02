@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/30 12:41:04 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 10:22:24 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,45 @@ char	**build_map(char *line, char **map, int *mapx, int *mapy)
 	return (m);
 }
 
+void print_sprite(t_window *win)
+{
+	int i;
+	i = 0;
+
+	while(i <win->settings.num_of_sprite )
+	{
+		printf("sprite %d : x:%d , y:%d\n\n", i,win->sprite[i]->sprX,win->sprite[i]->sprY);
+		i++;
+	}
+}
+
+t_sprite **init_sprite(t_window *win,int x, int y)
+{
+	int i;
+	t_sprite **temp;
+
+	if(!(temp = (t_sprite **)malloc(sizeof(t_sprite *) * (win->settings.num_of_sprite))))
+		return (0);
+		i = 0;
+		while(i < win->settings.num_of_sprite)
+		{
+			if (!(temp[i] = (t_sprite *)malloc(sizeof(t_sprite))))
+				return (0);
+			if(i < win->settings.num_of_sprite-1)
+				temp[i] = win->sprite[i];
+			else
+			{
+				temp[i]->sprX = x;
+				temp[i]->sprY = y;
+			}
+			i++;
+
+			//win->sprite[i++] = NULL;
+		}
+	return (temp);
+
+}
+
 int		check_map(t_window *win, char **map, int mapy, int mapx)
 {
 	int y;
@@ -81,13 +120,20 @@ int		check_map(t_window *win, char **map, int mapy, int mapx)
 					init_player(&win->player, map[y][x], x, y);
 				}
 				if (map[y][x] == '2')
+				{
 					win->settings.num_of_sprite++;
+					win->sprite = init_sprite(win,x,y);
+				}
 			}
-	if (!init_sprite(win))
-		return (0);
+//	if (!init_sprite(win))
+	//	return (0);
+	print_sprite(win);
+
 	return (1);
 }
 
+
+/*
 int 	init_sprite(t_window *win)
 {
 	int			i;
@@ -107,7 +153,7 @@ int 	init_sprite(t_window *win)
 	win->sprite[i] = NULL;
 	return (1);
 }
-
+*/
 void	init_player(t_player *player, char c,int x, int y)
 {
 	player->def = 1;

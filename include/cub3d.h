@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 00:28:38 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 10:22:02 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,8 @@ typedef struct s_texture_data
 
 typedef struct s_sprite_data
 {
-	void		*sprite;
-	double		sprX;
-	double		sprY;
+	int		sprX;
+	int		sprY;
 	double		distance;
 	int			i;
 	int			is_horiz;
@@ -183,7 +182,6 @@ int	set_distance_and_wall_orientation(t_player player, t_ray *ray,int i);
 int		parsing_map(char *line, t_settings *settings);
 char	**build_map(char *line, char **map, int *x, int *y);
 int		check_map(t_window *win, char **map, int mapy, int mapx);
-int 	init_sprite(t_window *win);
 void	init_player(t_player *player, char c,int x, int y);
 /*PARSING MAP_TOOLS*/
 int		ft_strlen(char *s);
