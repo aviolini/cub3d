@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 13:52:45 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 14:43:24 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,12 @@ int		sprite(t_window *win)
         float spriteScreenPosX = tan(spriteAngle) * distprojplane;
 
         // SpriteLeftX
-        float spriteLeftX = (win->settings.winW / 2) + spriteScreenPosX - (spriteWidth / 2);
+	//	double var;
+		float spriteLeftX;
+	//	if (win->player.diry )
+        	spriteLeftX = (win->settings.winW / 2) + spriteScreenPosX- (spriteWidth / 2);
+	//	else
+		//	spriteLeftX = (win->settings.winW / 2) + spriteScreenPosX + 1;// (spriteWidth / 2);
 
         // SpriteRightX
         float spriteRightX = spriteLeftX + spriteWidth;
@@ -138,7 +143,7 @@ int		sprite(t_window *win)
        // int 64 = upng_get_height(textures[sprite.texture]);
 
         // Loop all the x values
-        for (int x = spriteLeftX; x < spriteRightX; x++)
+        for (double x = spriteLeftX; x < spriteRightX; x++)
 		{
             float texelWidth = (W_TEX / spriteWidth);
             int textureOffsetX = (x - spriteLeftX) * texelWidth;
@@ -155,20 +160,20 @@ int		sprite(t_window *win)
 
 
 					//int offsetY = (int)((y + (h / 2) - (win->settings.winH / 2))*H_TEX/h);
-					color = *(win->texture[2].addr + ((int)(textureOffsetY*H_TEX +
+					color = *(win->texture[4].addr + ((int)(textureOffsetY*H_TEX +
 
 					(int)(((textureOffsetX))))));
 
 					dst = win->view.addr + (int)(y) * win->view.line_length +
 					(int)(x) * (win->view.bits_per_pixel / 8);
 
-					//	if (win->sprite[c]->distance < win->ray.distance[win->sprite[c]->i])
-					//	{
-					//				if (color >= 4278190080 || color == 0)
-					//				dst = (char *)255;
-					//				else
+						if (perpDistance < win->ray.distance[(int)x])
+						{
+									if (color >= 4278190080 || color == 0)
+									dst = (char *)255;
+									else
 										*(unsigned int*)dst = color;
-					//	}
+						}
 
                   //  color_t* spriteTextureBuffer = (color_t*) upng_get_buffer(textures[sprite.texture]);
                     //color_t texelColor = spriteTextureBuffer[(H_TEX * textureOffsetY) + textureOffsetX];

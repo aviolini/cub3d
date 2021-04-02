@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 11:22:11 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 14:40:11 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ t_sprite **init_sprite(t_window *win,int x, int y)
 				temp[i] = win->sprite[i];
 			else
 			{
-				temp[i]->sprX = x;
-				temp[i]->sprY = y;
+				temp[i]->sprX = x+0.5;
+				temp[i]->sprY = y+0.5;
 			}
 			i++;
 
