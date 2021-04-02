@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 12:58:04 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 13:52:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ mlx_destroy_image(win->mlx, win->world.img);
 	return (1);
 }
 
+float distanceBetweenPoints(float x1, float y1, float x2, float y2) {
+    return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+}
+
 
 int		sprite(t_window *win)
 {
@@ -55,24 +59,25 @@ int		sprite(t_window *win)
     // Find sprites that are visible (inside the FOV)
     for (int i = 0; i < win->settings.num_of_sprite; i++)
 	{
-        float angleSpritePlayer = win->player.angle - atan2(win->sprite[i]->sprY - win->player.posY,
+        float angleSpritePlayer = win->player.angle + atan2(win->sprite[i]->sprY - win->player.posY,
 			win->sprite[i]->sprX - win->player.posX);
 
         // Make sure the angle is always between 0 and 180 degrees
         if (angleSpritePlayer > M_PI)
             angleSpritePlayer -= M_PI * 2;
-        if (angleSpritePlayer < -M_PI)
-            angleSpritePlayer += M_PI * 2;
-        angleSpritePlayer = fabs(angleSpritePlayer);
+      //  if (angleSpritePlayer < -M_PI)
+        //    angleSpritePlayer += M_PI * 2;
+       // angleSpritePlayer = fabs(angleSpritePlayer);
 
         // If sprite angle is less than half the FOV plus a small margin
         const float EPSILON = 0.2;
-		if (angleSpritePlayer < (FOV / 2) + EPSILON)
+		if (angleSpritePlayer < (FOV/2) + EPSILON)
 		{
             win->sprite[i]->visible = 1;
             win->sprite[i]->angle = angleSpritePlayer;
-            win->sprite[i]->distance = hypot(fabs(win->sprite[i]->sprX - win->player.posX), //////////////////controlla ordine
-										fabs(win->sprite[i]->sprY - win->player.posY));
+			 win->sprite[i]->distance = distanceBetweenPoints(win->sprite[i]->sprX, win->sprite[i]->sprY, win->player.posX, win->player.posY);
+          //  win->sprite[i]->distance = hypot(fabs(win->sprite[i]->sprX - win->player.posX), //////////////////controlla ordine
+			//							fabs(win->sprite[i]->sprY - win->player.posY));
 			visibleSprites[numVisibleSprites] = *win->sprite[i]; //////////////[0][i] oppure *
 			numVisibleSprites++;
         }
@@ -119,7 +124,7 @@ int		sprite(t_window *win)
         spriteBottomY = (spriteBottomY > win->settings.winH) ? win->settings.winH : spriteBottomY;
 
         // Calculate the sprite X position in the projection plane
-        float spriteAngle = atan2(sprite.sprY - win->player.posY, sprite.sprX - win->player.posX) - win->player.angle;
+        float spriteAngle = atan2(sprite.sprY - win->player.posY, sprite.sprX - win->player.posX) + win->player.angle;
         float spriteScreenPosX = tan(spriteAngle) * distprojplane;
 
         // SpriteLeftX
