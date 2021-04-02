@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 03:02:54 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 09:47:30 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,12 @@ int		sprite(t_window *win)
 					(int)(win->sprite[c]->i+p) * (win->view.bits_per_pixel / 8);
 
 			if (win->sprite[c]->distance < win->ray.distance[win->sprite[c]->i])
+			{
 						if (color >= 4278190080 || color == 0)
 						dst = (char *)255;
 						else
 							*(unsigned int*)dst = color;
+			}
 			}
 				y++;
 			}

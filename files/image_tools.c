@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 01:13:35 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/02 09:48:23 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	{
 
 	//int offsetY = (int)(64/h*k++);
-	int offsetY = (int)abs((i + (h / 2) - (win->settings.winH / 2))*64/h);
+	int offsetY = (int)fabs((i + (h / 2) - (win->settings.winH / 2))*64/h);
 	color = *(win->texture[orientation].addr + ((int)(offsetY)*64 +
 	(int)((win->ray.indexTex-(int)win->ray.indexTex)*64)));
 
