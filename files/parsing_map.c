@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 14:40:11 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/06 00:16:34 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,31 +71,30 @@ void print_sprite(t_window *win)
 	printf("num_of_sprite: %d\n",win->settings.num_of_sprite);
 }
 
-t_sprite **init_sprite(t_window *win,int x, int y)
+int	init_sprite(t_window *win,int x, int y)
 {
 	int i;
 	t_sprite **temp;
-
+	win->settings.num_of_sprite++;
 	if(!(temp = (t_sprite **)malloc(sizeof(t_sprite *) * (win->settings.num_of_sprite))))
 		return (0);
-		i = 0;
-		while(i < win->settings.num_of_sprite)
-		{
-			if (!(temp[i] = (t_sprite *)malloc(sizeof(t_sprite))))
-				return (0);
-			if(i < win->settings.num_of_sprite-1)
-				temp[i] = win->sprite[i];
-			else
-			{
-				temp[i]->sprX = x+0.5;
-				temp[i]->sprY = y+0.5;
-			}
-			i++;
-
-			//win->sprite[i++] = NULL;
-		}
-	return (temp);
-
+	i = 0;
+	while(i < win->settings.num_of_sprite - 1)
+	{
+		if (!(temp[i] = (t_sprite *)malloc(sizeof(t_sprite))))
+			return (0);
+		*temp[i] = *win->sprite[i];
+		free(win->sprite[i]);
+		i++;
+	}
+	if (!(temp[i] = (t_sprite *)malloc(sizeof(t_sprite))))
+		return (0);
+	temp[i]->sprX = x + 0.5;
+	temp[i]->sprY = y + 0.5;
+	if (win->sprite)
+		free(win->sprite);
+	win->sprite = temp;
+return (1);
 }
 
 int		check_map(t_window *win, char **map, int mapy, int mapx)
@@ -103,6 +102,7 @@ int		check_map(t_window *win, char **map, int mapy, int mapx)
 	int y;
 	int x;
 
+	win->sprite = NULL;
 	y = -1;
 	while (++y < mapy && -2 < (x = -1))
 		while (++x < mapx)
@@ -112,7 +112,9 @@ int		check_map(t_window *win, char **map, int mapy, int mapx)
 				|| (y == 0 || y == mapy - 1)
 				|| (x == 0 || x == mapx - 1)
 				|| (map[y - 1][x] == ' ' || map[y + 1][x] == ' ')
-				|| (map[y][x - 1] == ' ' || map[y][x + 1] == ' '))
+				|| (map[y][x - 1] == ' ' || map[y][x + 1] == ' ')
+				|| (map[y - 1][x - 1] == ' ' || map[y + 1][x + 1] == ' ')
+				|| (map[y - 1][x + 1] == ' ' || map[y - 1][x + 1] == ' '))
 					return (0);
 				if (is_player(map[y][x]))
 				{
@@ -121,13 +123,9 @@ int		check_map(t_window *win, char **map, int mapy, int mapx)
 					init_player(&win->player, map[y][x], x, y);
 				}
 				if (map[y][x] == '2')
-				{
-					win->settings.num_of_sprite++;
-					win->sprite = init_sprite(win,x,y);
-				}
+					init_sprite(win,x,y);
 			}
-//	if (!init_sprite(win))
-	//	return (0);
+
 	print_sprite(win);
 
 	return (1);

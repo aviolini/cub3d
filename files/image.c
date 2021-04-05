@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 14:43:24 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/05 22:15:50 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		build_view(t_window *win)
 {
 
-	mlx_clear_window(win->mlx,win->win);
+//	mlx_clear_window(win->mlx,win->win);
 	new_image(win, &win->world);
 	new_image(win, &win->view);
 	if(!build_world(&win->world, win->settings.map, &win->player))
@@ -32,6 +32,7 @@ int		build_view(t_window *win)
 	image(win);
 	miniray(win);
 	sprite(win);
+	free(win->ray.distance);
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 05, 20);
 	mlx_put_image_to_window(win->mlx, win->win, win->view.img, 700, 0);
 
