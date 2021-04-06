@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/06 12:12:49 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/06 17:23:17 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,56 @@ float distanceBetweenPoints(float x1, float y1, float x2, float y2) {
     return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 }
 
+int		visible_sprites(t_window *win, t_sprite *visibleSprites,int *numVisibleSprites)
+{
+	for (int i = 0; i < win->settings.num_of_sprite; i++)
+	{
+        float angleSpritePlayer = win->player.angle - atan2(win->player.posY - win->sprite[i]->sprY,
+			win->sprite[i]->sprX - win->player.posX);
+        if (angleSpritePlayer > M_PI)
+            angleSpritePlayer -= M_PI * 2;
+        if (angleSpritePlayer < -M_PI)
+            angleSpritePlayer += M_PI * 2;
+        angleSpritePlayer = fabs(angleSpritePlayer);
+
+        // If sprite angle is less than half the FOV plus a small margin
+        const float EPSILON = 0.1;
+
+//		printf("angleSpritePlayer: %f\n",angleSpritePlayer);
+		if (angleSpritePlayer < (FOV/2) + EPSILON)
+		{
+            win->sprite[i]->visible = 1;
+            win->sprite[i]->angle = angleSpritePlayer;
+			 win->sprite[i]->distance = hypot(win->sprite[i]->sprX - win->player.posX, win->sprite[i]->sprY - win->player.posY);
+          //  win->sprite[i]->distance = hypot(fabs(win->sprite[i]->sprX - win->player.posX), //////////////////controlla ordine
+			//							fabs(win->sprite[i]->sprY - win->player.posY));
+			visibleSprites[*numVisibleSprites] = *win->sprite[i]; //////////////[0][i] oppure *
+			(*numVisibleSprites)++;
+        }
+		else
+		{
+            win->sprite[i]->visible = 0;
+        }
+    }
+	printf("*numVisibleSprites : %d\n\n\n\n",*numVisibleSprites);
+	return (1);
+}
+
+void 	sort_sprite(t_window *win, t_sprite *visibleSprites,int numVisibleSprites )
+{
+	for (int i = 0; i < numVisibleSprites - 1; i++)
+ {
+		for (int j = i + 1; j < numVisibleSprites; j++)
+	 {
+			if (visibleSprites[i].distance < visibleSprites[j].distance)
+		 {
+				t_sprite temp = visibleSprites[i];
+				visibleSprites[i] = visibleSprites[j];
+				visibleSprites[j] = temp;
+			}
+		}
+	}
+}
 
 int		sprite(t_window *win)
 {
@@ -54,7 +104,9 @@ int		sprite(t_window *win)
 	unsigned int color;
 	char *dst;
 
-
+	visible_sprites(win,&visibleSprites,&numVisibleSprites);
+	sort_sprite(win,&visibleSprites,numVisibleSprites);
+/*
 
 
     // Find sprites that are visible (inside the FOV)
@@ -87,9 +139,9 @@ int		sprite(t_window *win)
             win->sprite[i]->visible = 0;
         }
     }
-
+*/
 	// Sort sprites by distance using a naive bubble-sort algorithm
-    for (int i = 0; i < numVisibleSprites - 1; i++)
+ /*   for (int i = 0; i < numVisibleSprites - 1; i++)
 	{
         for (int j = i + 1; j < numVisibleSprites; j++)
 		{
@@ -101,7 +153,7 @@ int		sprite(t_window *win)
             }
         }
     }
-
+*/
 	double distprojplane = (win->settings.winW / 2)/tan(FOV/2);
 
     // Rendering all the visible sprites

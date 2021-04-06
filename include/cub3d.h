@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/06 12:05:25 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/06 16:10:43 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,18 @@ typedef struct s_sprite_data
 	int 		visible;
 	double 		angle;
 	double		distance;
+	double 		perpDistance;
+	double		spriteWidth;
+	double		spriteHeight;
+	double		spriteTopY;
+	double		spriteBottomY;
+	double		spriteAngle;
+	double		spriteScreenPosX;
+	double		spriteLeftX;
+	double		spriteRightX;
+
+
+
 	int			i;
 	int			is_horiz;
 
