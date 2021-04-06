@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/05 22:15:50 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/06 12:12:49 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		sprite(t_window *win)
 		{
             win->sprite[i]->visible = 1;
             win->sprite[i]->angle = angleSpritePlayer;
-			 win->sprite[i]->distance = distanceBetweenPoints(win->sprite[i]->sprX, win->sprite[i]->sprY, win->player.posX, win->player.posY);
+			 win->sprite[i]->distance = hypot(win->sprite[i]->sprX - win->player.posX, win->sprite[i]->sprY - win->player.posY);
           //  win->sprite[i]->distance = hypot(fabs(win->sprite[i]->sprX - win->player.posX), //////////////////controlla ordine
 			//							fabs(win->sprite[i]->sprY - win->player.posY));
 			visibleSprites[numVisibleSprites] = *win->sprite[i]; //////////////[0][i] oppure *
