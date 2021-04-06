@@ -6,11 +6,85 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/06 00:21:31 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/06 12:04:27 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+////PER UN MOVIMENTO PIU FLUIDO(FINO AL PROSSIMO COMMENTO)
+
+int		init_key(t_key *key)
+{
+	key->e = 0;
+	key->w = 0;
+	key->a = 0;
+	key->s = 0;
+	key->d = 0;
+	key->l = 0;
+	key->r = 0;
+	return (1);
+}
+
+int		release_key(int keycode, t_window *win)
+{
+	if (keycode == 53 || keycode == 65307)
+		win->key.e = 0;
+	if(keycode == 126 || keycode == 65362 || keycode == 119)//W
+		win->key.w = 0;
+	if(keycode == 125 || keycode == 65364 || keycode == 115)//S
+		win->key.s = 0;
+	if(keycode == 2 || keycode == 100)//D
+		win->key.d = 0;
+	if (keycode == 0 || keycode == 97)//A
+		win->key.a = 0;
+	if(keycode == 124 || keycode == 65363) //RIGHT
+		win->key.r = 0;
+	if(keycode == 123 || keycode == 65361) //LEFT
+		win->key.l = 0;
+	//build_view(win);
+}
+
+int		press_key(int keycode, t_window *win)
+{
+	if (keycode == 53 || keycode == 65307)
+		win->key.e = 1;
+	if(keycode == 126 || keycode == 65362 || keycode == 119)//W
+		win->key.w = 1;
+	if(keycode == 125 || keycode == 65364 || keycode == 115)//S
+		win->key.s = 1;
+	if(keycode == 2 || keycode == 100)//D
+		win->key.d = 1;
+	if (keycode == 0 || keycode == 97)//A
+		win->key.a = 1;
+	if(keycode == 124 || keycode == 65363) //RIGHT
+		win->key.r = 1;
+	if(keycode == 123 || keycode == 65361) //LEFT
+		win->key.l = 1;
+	//build_view(win);
+}
+
+int		key(t_window *win)
+{
+	if (win->key.e)
+		ft_exit(win);
+	if(win->key.w)//W
+		move(win->settings.map, &win->player,'w');
+	if(win->key.s)//S
+		move(win->settings.map, &win->player,'s');
+	if(win->key.d)//D
+		slide(win->settings.map, &win->player,'d');
+	if (win->key.a)//A
+		slide(win->settings.map, &win->player,'a');
+	if(win->key.r) //RIGHT
+		rotate(&win->player,'r');
+	if(win->key.l) //LEFT
+		rotate(&win->player,'l');
+	build_view(win);
+	return 0;
+}
+
+//////////////
 
 int		key_hook(int keycode,t_window *win)
 {
@@ -31,6 +105,7 @@ int		key_hook(int keycode,t_window *win)
 	build_view(win);
 	return 0;
 }
+
 
 void	move(char **map, t_player *player, char var)
 {

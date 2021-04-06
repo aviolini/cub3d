@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/05 23:27:17 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/06 12:05:25 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,17 @@
 #define BLACK 0x00000000
 #define WHITE 0x00FFFFFF
 #define MY_MAX_LIMIT 1000000000
+
+typedef struct s_key
+{
+	int			e;
+	int			w;
+	int			a;
+	int			s;
+	int			d;
+	int			l;
+	int			r;
+}				t_key;
 
 typedef struct s_texture_data
 {
@@ -139,6 +150,7 @@ typedef struct	s_window_data
 	t_ray		ray;
 	t_texture	texture[5];
 	t_sprite	**sprite;
+	t_key		key;
 }				t_window;
 
 /*TO_TRASH*/
@@ -158,7 +170,11 @@ int		main_parsing(char *av, t_window *win);
 int		main_window(t_window *win);
 void	init_settings(t_settings *settings);
 /*KEY*/
-int		key_hook(int keycode, t_window *win);
+int		key(t_window *win);
+int		init_key(t_key *key);
+int		release_key(int keycode, t_window *win);
+int		press_key(int keycode, t_window *win);
+int		key_hook(int keycode ,t_window *win);
 void	move(char **map, t_player *player, char var);
 void	slide(char **map, t_player *player, char var);
 void	rotate(t_player *player, char var);
