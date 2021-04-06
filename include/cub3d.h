@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/06 16:10:43 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/06 17:49:11 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ typedef struct s_texture_data
 
 typedef struct s_sprite_data
 {
-	double			sprX;
-	double			sprY;
+	double		sprX;
+	double		sprY;
 	int 		visible;
 	double 		angle;
 	double		distance;
