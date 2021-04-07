@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/06 12:11:08 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 10:22:35 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,18 @@ int		main_window(t_window *win)
 	print_settings(win->settings);
 	print_player(win->player);
 
-/* ////PER UN MOVIMENTO PIU FLUIDO
+ ////PER UN MOVIMENTO PIU FLUIDO
 	mlx_hook(win->win, 2, 0, press_key, win);
 	mlx_hook(win->win, 3, 0, release_key, win);
 	mlx_hook(win->win, 17, 0, ft_exit, win);
 	mlx_loop_hook(win->mlx, key, win);
 	mlx_loop(win->mlx);
-*/ /////////////////////////////
-
+/////////////////////////////
+/*
 	mlx_hook(win->win, 2, 1L<<0, key_hook, win);
 	mlx_hook(win->win, 17, 0, ft_exit, win);
 	mlx_loop(win->mlx);
-	return (1);
+*/	return (1);
 }
 
 void	init_settings(t_settings *settings)
