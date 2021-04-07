@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/02 09:48:23 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 09:28:03 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	wallbottomy = wallbottomy > win->settings.winH ? win->settings.winH : wallbottomy;
 	//char *dst;
 	int i = walltopy;
-	int k = 0;
+	//int k = 0;
 
 
 		while ((i) < wallbottomy-1)

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/06 17:49:11 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 09:28:51 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,15 @@ void	my_mlx_pixel_grid(t_image *img, int x, int y, int color);
 int		main_parsing(char *av, t_window *win);
 int		main_window(t_window *win);
 void	init_settings(t_settings *settings);
+
+/*SPRITES>c*/
+
+int		visible_sprites(t_window *win, t_sprite *visibleSprites,int *numVisibleSprites);
+void 	sort_sprite(t_sprite *visibleSprites,int numVisibleSprites );
+void	settings_sprite(t_window *win, t_sprite *visibleSprites, int i);
+void	show_sprite(t_window *win,t_sprite *visibleSprites,int i);
+int		sprite(t_window *win);
+
 /*KEY*/
 int		key(t_window *win);
 int		init_key(t_key *key);
@@ -195,8 +204,8 @@ int		ft_exit(t_window *win);
 int		sprite(t_window *win);
 int		build_view(t_window *win);
 int		image(t_window *win);
-void	check_hor_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray,int i);
-void	check_ver_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray,int i);
+void	check_hor_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray);
+void	check_ver_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray);
 /*IMAGE_TOOLS*/
 int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,int i);
 void	new_image(t_window *win, t_image *img);
