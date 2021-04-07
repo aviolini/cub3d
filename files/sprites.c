@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 14:26:56 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 18:02:39 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		visible_sprites(t_window *win, t_sprite *visibleSprites,int *numVisibleSpri
         angleSpritePlayer = fabs(angleSpritePlayer);
 
         // If sprite angle is less than half the FOV plus a small margin
-        const float EPSILON = 0.1;
+        const float EPSILON = 0.2;
 
 //		printf("angleSpritePlayer: %f\n",angleSpritePlayer);
 		if (angleSpritePlayer < (FOV/2) + EPSILON)
@@ -114,7 +114,7 @@ void	show_sprite(t_window *win,t_sprite *visibleSprites,int i)
 	x = (visibleSprites[i].spriteLeftX);
 	while (x < visibleSprites[i].spriteRightX)
 	{
-		float texelWidth = (W_TEX / visibleSprites[i].spriteWidth);
+		float texelWidth = (win->texture[4].texW / visibleSprites[i].spriteWidth);
 		int textureOffsetX = (x - visibleSprites[i].spriteLeftX) * texelWidth;
 		y = visibleSprites[i].spriteTopY;
 		while(y < visibleSprites[i].spriteBottomY)
@@ -122,11 +122,11 @@ void	show_sprite(t_window *win,t_sprite *visibleSprites,int i)
 			if (x > 0 && x < win->settings.winW && y > 0 && y < win->settings.winH)
 			{
 				int distanceFromTop = y + (visibleSprites[i].spriteHeight / 2) - (win->settings.winH / 2);
-				int textureOffsetY = distanceFromTop * (H_TEX / visibleSprites[i].spriteHeight);
+				int textureOffsetY = distanceFromTop * (win->texture[4].texH / visibleSprites[i].spriteHeight);
 
 
 				//int offsetY = (int)((y + (h / 2) - (win->settings.winH / 2))*H_TEX/h);
-				color = *(win->texture[4].addr + ((int)(textureOffsetY*H_TEX +
+				color = *(win->texture[4].addr + ((int)(textureOffsetY * win->texture[4].texH +
 
 				(int)(((textureOffsetX))))));
 

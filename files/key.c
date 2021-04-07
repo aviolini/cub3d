@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 15:07:28 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 17:56:53 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int		key_hook(int keycode,t_window *win)
 	return 0;
 }
 
-
 void	move(char **map, t_player *player, char var)
 {
 	int		value;
@@ -160,6 +159,7 @@ void	rotate(t_player *player, char var)
 		player->angle += (value) * ROTATION;
 	player->dirX = cos(player->angle);
 	player->dirY = -sin(player->angle);
+	printf("player_angle : %lf\n",player->angle*180/M_PI);
 }
 
 int		ft_exit(t_window *win)

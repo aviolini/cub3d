@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 09:27:21 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 18:11:21 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		check_map(t_window *win, char **map, int mapy, int mapx)
 	int y;
 	int x;
 
-	win->sprite = NULL;
+	//win->sprite = NULL;
 	y = -1;
 	while (++y < mapy && -2 < (x = -1))
 		while (++x < mapx)
@@ -125,34 +125,10 @@ int		check_map(t_window *win, char **map, int mapy, int mapx)
 				if (map[y][x] == '2')
 					init_sprite(win,x,y);
 			}
-
-	print_sprite(win);
-
+//	print_sprite(win);
 	return (1);
 }
 
-
-/*
-int 	init_sprite(t_window *win)
-{
-	int			i;
-
-	if(!(win->sprite = (t_sprite **)malloc(sizeof(t_sprite *) * (win->settings.num_of_sprite + 1))))
-		return (0);
-	i = 0;
-	while(i < win->settings.num_of_sprite)
-	{
-		if (!(win->sprite[i] = (t_sprite *)malloc(sizeof(t_sprite))))
-			return (0);
-		win->sprite[i]->sprX = 0;
-		win->sprite[i]->sprY = 0;
-		i++;
-		//win->sprite[i++] = NULL;
-	}
-	win->sprite[i] = NULL;
-	return (1);
-}
-*/
 void	init_player(t_player *player, char c,int x, int y)
 {
 	player->def = 1;

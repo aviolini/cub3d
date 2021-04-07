@@ -6,11 +6,50 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/30 19:14:05 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 18:05:34 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
+{
+    char    *dst;
+	(void) color;
+//	double	i = 0;
+	double distprojplane;
+	double perpdist;
+	double h;
+	double walltopy = 0, wallbottomy = 0;
+
+	distprojplane = (win->settings.winW / 2)/tan(FOV/2);
+	perpdist = SCALE / win->ray.distance[x] * (cos(win->ray.angle -win->player.angle));
+	h = 1 / (perpdist) * distprojplane;
+	h = (int)h;
+/////////////////////////////////////////////////////////////
+	walltopy=win->settings.winH/2-h/2;
+	walltopy = walltopy < 0 ? 0 : walltopy;
+	wallbottomy = win->settings.winH / 2 + h  /2;
+	wallbottomy = wallbottomy > win->settings.winH ? win->settings.winH : wallbottomy;
+	//char *dst;
+	int i = walltopy;
+	//int z = 0;
+
+//	unsigned int pixel;
+	//double val = wallbottomy / 64;
+
+	while ((i) < wallbottomy-1)
+	{
+
+		//	pixel = (unsigned int)win->texture[z].addr + ((int)(i) *  win->texture[z].line_length +
+		//	(int)(x) * ( win->texture[z].bits_per_pixel / 8));
+
+    		dst = img->addr + ((int)(i++) * img->line_length +
+			(int)(x) * (img->bits_per_pixel / 8));
+    		*(unsigned int*)dst = color;
+	}
+}
+
 
 int 	set_wall_color(int o)
 {
@@ -195,6 +234,7 @@ void	print_tex(t_texture texture)
 void	print_player(t_player player)
 {
 	printf("-----player------------------------\n");
+	printf("player_angle : %lf\n",player.angle*180/M_PI);
 	printf("posX: %lf\n",player.posX);
 	printf("posY: %lf\n",player.posY);
 	printf("posX_map: %lf\n",player.posX/SCALE);

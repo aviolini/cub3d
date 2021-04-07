@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 09:28:03 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 18:07:13 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	unsigned int color;
 	double walltopy = 0, wallbottomy = 0;
 
-	distprojplane = (win->settings.winW / 2)/tan(FOV/2);
+	distprojplane = (win->settings.winW / 2) / tan(FOV / 2);
 
 	perpdist =  win->ray.distance[x] * (cos(win->ray.angle -win->player.angle));
-	h = 1/ perpdist * distprojplane;
+	h = 1 / perpdist * distprojplane;
 //	h = win->settings.winH/perpdist;
 
 
-	walltopy=win->settings.winH/2-h/2;
+	walltopy = win->settings.winH / 2 - h / 2;
 	walltopy = walltopy < 0 ? 0 : walltopy;
 	wallbottomy = win->settings.winH / 2 + h  /2;
 	wallbottomy = wallbottomy > win->settings.winH ? win->settings.winH : wallbottomy;
@@ -77,13 +77,13 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	//int k = 0;
 
 
-		while ((i) < wallbottomy-1)
+		while ((i) < wallbottomy - 1)
 	{
 
 	//int offsetY = (int)(64/h*k++);
-	int offsetY = (int)fabs((i + (h / 2) - (win->settings.winH / 2))*64/h);
-	color = *(win->texture[orientation].addr + ((int)(offsetY)*64 +
-	(int)((win->ray.indexTex-(int)win->ray.indexTex)*64)));
+	int offsetY = (int)fabs((i + (h / 2) - (win->settings.winH / 2))*win->texture[orientation].texH/h);
+	color = *(win->texture[orientation].addr + ((int)(offsetY)*win->texture[orientation].texH +
+	(int)((win->ray.indexTex-(int)win->ray.indexTex)*win->texture[orientation].texW)));
 
     		dst = img->addr + ((int)(i++) * img->line_length +
 			(int)(x) * (img->bits_per_pixel / 8));
@@ -94,60 +94,21 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	}
 }
 
-void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
-{
-    char    *dst;
-	(void) color;
-//	double	i = 0;
-	double distprojplane;
-	double perpdist;
-	double h;
-	double walltopy = 0, wallbottomy = 0;
-
-	distprojplane = (win->settings.winW / 2)/tan(FOV/2);
-	perpdist = SCALE / win->ray.distance[x] * (cos(win->ray.angle -win->player.angle));
-	h = 1 / (perpdist) * distprojplane;
-	h = (int)h;
-/////////////////////////////////////////////////////////////
-	walltopy=win->settings.winH/2-h/2;
-	walltopy = walltopy < 0 ? 0 : walltopy;
-	wallbottomy = win->settings.winH / 2 + h  /2;
-	wallbottomy = wallbottomy > win->settings.winH ? win->settings.winH : wallbottomy;
-	//char *dst;
-	int i = walltopy;
-	//int z = 0;
-
-//	unsigned int pixel;
-	//double val = wallbottomy / 64;
-
-	while ((i) < wallbottomy-1)
-	{
-
-		//	pixel = (unsigned int)win->texture[z].addr + ((int)(i) *  win->texture[z].line_length +
-		//	(int)(x) * ( win->texture[z].bits_per_pixel / 8));
-
-    		dst = img->addr + ((int)(i++) * img->line_length +
-			(int)(x) * (img->bits_per_pixel / 8));
-    		*(unsigned int*)dst = color;
-	}
-}
 
 int		init_textures(t_window *win)
 {
+	int i;
+	int x;
 	int useless_but_necessary_box[3];
 
-
+	i = -1;
+	x = 0;
 	if ((!(win->texture[0].tex = mlx_xpm_file_to_image(win->mlx,win->settings.east_texture,&win->texture[0].texW,&win->texture[0].texH)))
 	|| (!(win->texture[1].tex = mlx_xpm_file_to_image(win->mlx,win->settings.north_texture,&win->texture[1].texW,&win->texture[1].texH)))
 	|| (!(win->texture[2].tex = mlx_xpm_file_to_image(win->mlx,win->settings.west_texture,&win->texture[2].texW,&win->texture[2].texH)))
 	|| (!(win->texture[3].tex = mlx_xpm_file_to_image(win->mlx,win->settings.south_texture,&win->texture[3].texW,&win->texture[3].texH)))
 	|| (!(win->texture[4].tex = mlx_xpm_file_to_image(win->mlx,win->settings.sprite_texture,&win->texture[4].texW,&win->texture[4].texH))))
 			return (0);
-
-	int i;
-	int x;
-	i = -1;
-	x = 0;
 	while (++i < 5)
 		{
 			//win->texture[i].addr = malloc
@@ -157,8 +118,8 @@ int		init_textures(t_window *win)
 		*/	if(!(win->texture[i].addr =(int *)mlx_get_data_addr(win->texture[i].tex, &useless_but_necessary_box[0],
 				&useless_but_necessary_box[1], &useless_but_necessary_box[2])))
 					return (0);
-			mlx_put_image_to_window(win->mlx, win->win, win->texture[i].tex, 20 + x, 20);
-			x += 65;
+		//	mlx_put_image_to_window(win->mlx, win->win, win->texture[i].tex, 20 + x, 20);
+		//	x += 65;
 			print_tex(win->texture[i]);
 		}
 	return (1);
@@ -166,10 +127,10 @@ int		init_textures(t_window *win)
 
 void	view_background(t_image *view, t_settings *settings)
 {
-	int x;
-	int y;
-	int z;
-	unsigned int color;
+	int				x;
+	int				y;
+	int				z;
+	unsigned int	color;
 
 	color = settings->ceiling_color;
 	y = -1;
