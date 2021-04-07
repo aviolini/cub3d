@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 15:13:58 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:19:19 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 #define BUFFER_SIZE 1024
 #define SCALE 16
 #define SPEED 10
-#define FACTOR 0.1
+#define FACTOR 0.09
 #define H_TEX 64
 #define W_TEX 64
 #define ROTATION M_PI/84
