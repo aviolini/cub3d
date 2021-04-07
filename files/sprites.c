@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 09:32:19 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 09:52:20 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,20 @@ int		visible_sprites(t_window *win, t_sprite *visibleSprites,int *numVisibleSpri
 	return (1);
 }
 
-void 	sort_sprite(t_sprite *visibleSprites,int numVisibleSprites )
+void 	sort_sprite(t_sprite *visibleSprites,int numVisibleSprites)
 {
-	for (int i = 0; i < numVisibleSprites - 1; i++)
- {
-		for (int j = i + 1; j < numVisibleSprites; j++)
-	 {
-			if (visibleSprites[i].distance < visibleSprites[j].distance)
-		 {
-				t_sprite temp = visibleSprites[i];
-				visibleSprites[i] = visibleSprites[j];
-				visibleSprites[j] = temp;
-			}
+	int			i;
+	t_sprite	temp;
+
+	i = -1;
+	while(++i < numVisibleSprites)
+		if (visibleSprites[i].distance < visibleSprites[i + 1].distance)
+		{
+			temp = visibleSprites[i + 1];
+			visibleSprites[i + 1] = visibleSprites[i];
+			visibleSprites[i] = temp;
+			i = -1;
 		}
-	}
 }
 
 void	settings_sprite(t_window *win, t_sprite *visibleSprites, int i)
