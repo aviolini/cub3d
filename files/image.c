@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 09:27:46 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:12:15 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 int		build_view(t_window *win)
 {
-
+	//int a;
 //	mlx_clear_window(win->mlx,win->win);
-	new_image(win, &win->world);
-	new_image(win, &win->view);
+//	new_image(win, &win->world);
+//	new_image(win, &win->view);
 	if(!build_world(&win->world, win->settings.map, &win->player))
 		return (0);
+	mlx_sync(MLX_SYNC_IMAGE_WRITABLE,win->view.img);
 	view_background(&win->view, &win->settings);
 
 	//int c = 0;
@@ -33,11 +34,13 @@ int		build_view(t_window *win)
 	miniray(win);
 	sprite(win);
 	free(win->ray.distance);
+
+
 	mlx_put_image_to_window(win->mlx, win->win, win->world.img, 05, 20);
 	mlx_put_image_to_window(win->mlx, win->win, win->view.img, 700, 0);
-
-mlx_destroy_image(win->mlx, win->world.img);
-	mlx_destroy_image(win->mlx, win->view.img);
+	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD,win->win);
+//	mlx_destroy_image(win->mlx, win->world.img);
+//	mlx_destroy_image(win->mlx, win->view.img);
 
 	return (1);
 }
@@ -45,7 +48,6 @@ mlx_destroy_image(win->mlx, win->world.img);
 float distanceBetweenPoints(float x1, float y1, float x2, float y2) {
     return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 }
-
 
 
 
@@ -293,7 +295,8 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 	hory = floor(player.posY) + roundy;
 	horx = player.posX + (fabs((player.posY) -(hory))
 				/ (ray->value_y * tan(ray->angle)));
-	while (floor(horx) >= 0 && floor(horx) < settings->mapW)
+	while (floor(horx) >= 0 && floor(horx) < settings->mapW-1 &&
+			(settings->map[(int)floor(hory)][(int)floor(horx)] != ' '))
 	{
 
 		if (settings->map[(int)floor((hory) + (roundy - 1))][(int)floor(horx)] == '1')
@@ -309,6 +312,8 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 		//	sprite_intersections(win, win->sprite, horx, hory,i);
 		}
 		//my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
+	//	if (settings->map[(int)floor((hory) + (roundy - 1))][(int)floor(horx)] == ' ')
+	//		break;
 		hory -= ray->value_y;
 		horx += ray->value_y/tan(ray->angle);
 	}
@@ -336,7 +341,8 @@ void	check_ver_intersection(t_window *win,t_settings *settings, t_player player,
 		verx = floor(player.posX / 1) * 1 + roundx;
 		very = player.posY + (fabs(player.posX - verx))
 		* (ray->value_x * tan(ray->angle));
-		while((floor(very) > 0 && floor(very) < settings->mapH))
+		while((floor(very) >= 0 && floor(very) < settings->mapH-1) &&
+				(settings->map[(int)floor(very)][(int)floor(verx)] != ' '))
 		{
 
 			if (settings->map[(int)floor(very)][(int)floor(verx + (roundx - 1) )] == '1')
@@ -351,6 +357,8 @@ void	check_ver_intersection(t_window *win,t_settings *settings, t_player player,
 			//	sprite_intersections(win, win->sprite, verx, very,i);
 				my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, BLUE);
 			}
+	//		if (settings->map[(int)floor(very)][(int)floor(verx + (roundx - 1) )] == ' ')
+	//			break;
 			verx -= ray->value_x ;
 			very += ray->value_x *tan(ray->angle);
 		 }

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 10:22:35 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:21:57 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ int		main_parsing(char *av, t_window *win)
 
 int		main_window(t_window *win)
 {
+
+//	int a,b;
+
 	win->mlx = mlx_init();
 	win->settings.win_def = 1;
 	init_key(&win->key);
@@ -78,12 +81,45 @@ int		main_window(t_window *win)
 //	set_right_resolution(win);
 	win->win = mlx_new_window(win->mlx,win->settings.winW*2-400,////////////////////////////
 		win->settings.winH, "Welcome");
+
+
+	new_image(win, &win->world);
+	new_image(win, &win->view);
+
+//	a = mlx_sync(MLX_SYNC_IMAGE_WRITABLE,win->view.img);
+//	printf("\n\n\nmlx_sync : %d \n\n\n\n",a);
+
+//	b = mlx_sync(MLX_SYNC_IMAGE_WRITABLE,win->world.img);
+//	printf("\n\n\nmlx_sync : %d \n\n\n\n",b);
+
+	//	a = mlx_sync(MLX_SYNC_WIN_FLUSH_CMD,win->view.img);
+	//	printf("\n\n\nmlx_sync : %d \n\n\n\n",a);
 	if (!init_textures(win))
 		return (0);
 	if (!build_view(win))
 		return (0);
+
 	print_settings(win->settings);
 	print_player(win->player);
+
+
+//	#define MLX_SYNC_IMAGE_WRITABLE    1
+//	#define MLX_SYNC_WIN_FLUSH_CMD     2
+//	#define MLX_SYNC_WIN_CMD_COMPLETED 3
+
+//int	mlx_sync(int cmd, void *ptr);
+
+//a = mlx_sync(MLX_SYNC_IMAGE_WRITABLE,win->view.img);
+//printf("\n\n\nmlx_sync : %d \n\n\n\n",a);
+
+
+
+//	a = mlx_sync(MLX_SYNC_WIN_FLUSH_CMD,win->view.img);
+//	printf("\n\n\nmlx_sync : %d \n\n\n\n",a);
+
+//	a = mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED,win->view.img);
+//	printf("\n\n\nmlx_sync : %d \n\n\n\n",a);
+
 
  ////PER UN MOVIMENTO PIU FLUIDO
 	mlx_hook(win->win, 2, 0, press_key, win);

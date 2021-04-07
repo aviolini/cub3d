@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 09:52:20 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 14:26:56 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void 	sort_sprite(t_sprite *visibleSprites,int numVisibleSprites)
 	t_sprite	temp;
 
 	i = -1;
-	while(++i < numVisibleSprites)
+	while(++i < numVisibleSprites-1)
 		if (visibleSprites[i].distance < visibleSprites[i + 1].distance)
 		{
 			temp = visibleSprites[i + 1];

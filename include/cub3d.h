@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 10:25:15 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:13:58 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <errno.h>
 #include <string.h>
 
+#define MLX_SYNC_IMAGE_WRITABLE    1
+#define MLX_SYNC_WIN_FLUSH_CMD     2
+#define MLX_SYNC_WIN_CMD_COMPLETED 3
 
 #define BUFFER_SIZE 1024
 #define SCALE 16
@@ -29,7 +32,7 @@
 #define FACTOR 0.1
 #define H_TEX 64
 #define W_TEX 64
-#define ROTATION M_PI/36
+#define ROTATION M_PI/84
 #define W_IMG 1200
 #define H_IMG 600
 #define FOV M_PI/3
