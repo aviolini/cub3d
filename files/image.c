@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/08 16:23:14 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/08 17:29:20 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ int		build_view(t_window *win)
 	sprite(win);
 	free(win->ray.distance);
 
-//	if (win->settings.save == 0)
-//	{
+	if (win->settings.save == 0)
+	{
 		mlx_put_image_to_window(win->mlx, win->win, win->world.img, 05, 20);
 		mlx_put_image_to_window(win->mlx, win->win, win->view.img, 700, 0);
 		mlx_sync(MLX_SYNC_WIN_FLUSH_CMD,win->win);
 		mlx_destroy_image(win->mlx, win->world.img);
-//	}
-//	else
-//		ft_bitmap(win);
+	}
+	else
+		ft_bitmap(win);
 	//mlx_destroy_image(win->mlx, win->view.img);
 
 	return (1);
