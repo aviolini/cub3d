@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 17:25:12 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/08 17:28:11 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/08 17:33:10 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ int ft_bitmap(t_window *win)
     bmp_header_2(win, fd);
     bmp_print(win, fd);
     close(fd);
+	ft_exit(win);
     return (1);
 }
