@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 15:21:29 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/08 16:24:29 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@
 #define SCALE 16
 #define SPEED 10
 #define FACTOR 0.09
-#define H_TEX 64
-#define W_TEX 64
+
 #define ROTATION M_PI/96
 #define W_IMG 1200
 #define H_IMG 600
@@ -112,6 +111,7 @@ typedef	struct	s_settings_data
 {
 	char		**map;
 	int			win_def;
+	int			img_def;
 	int			winW;
 	int			winH;
 	char		*north_texture;
@@ -119,14 +119,15 @@ typedef	struct	s_settings_data
 	char		*east_texture;
 	char		*south_texture;
 	char		*sprite_texture;
-	int			floor_color;
-	int			ceiling_color;
+ 	unsigned int			floor_color;
+ 	unsigned int			ceiling_color;
 	int			eof;
 	int			winMyW;
 	int			winMyH;
 	int			mapW;
 	int			mapH;
 	int			num_of_sprite;
+	int			save;
 }				t_settings;
 
 typedef struct s_rays_data
@@ -167,6 +168,10 @@ typedef struct	s_window_data
 	t_sprite	**sprite;
 	t_key		key;
 }				t_window;
+
+/*BITMAP.C*/
+
+int		ft_bitmap(t_window *win);
 
 /*TO_TRASH*/
 void	print_tex(t_texture texture);
@@ -236,7 +241,7 @@ int		is_valid_char(char c);
 int		parsing_params(char *line, t_settings *settings);
 int		set_resolution(char *line, t_settings *settings, int i);
 int		path_texture(char *line, char **texture, int i);
-int		set_color(char *line, int *color, int i);
+int		set_color(char *line, unsigned int *color, int i);
 /*CHECK MAIN ARGS TOOLS*/
 int		check_argv2(char *av);
 int		check_argv1(char *av);

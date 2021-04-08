@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 14:21:57 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/08 16:21:10 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int		main(int ac, char **av)
 	i = 0;
 	if (!(i = check_args(ac,av)))
 		return (0);
-	else if (i == 2)
-		printf("ok args\nsalvare l'immagine bmp non stampare\n"); //CONTINUA IL PROGRAMMA
 	init_settings(&win.settings);
+	 if (i == 2)
+		win.settings.save = 1;
 	if (!main_parsing(av[1], &win))
 	{
 		printf("Error: \n%s\n(argument of map)\n", strerror(EINVAL));
@@ -78,7 +78,7 @@ int		main_window(t_window *win)
 	win->settings.win_def = 1;
 	init_key(&win->key);
 
-//	set_right_resolution(win);
+	set_right_resolution(win);
 	win->win = mlx_new_window(win->mlx,win->settings.winW*2-400,////////////////////////////
 		win->settings.winH, "Welcome");
 
@@ -102,25 +102,6 @@ int		main_window(t_window *win)
 	print_settings(win->settings);
 	print_player(win->player);
 
-
-//	#define MLX_SYNC_IMAGE_WRITABLE    1
-//	#define MLX_SYNC_WIN_FLUSH_CMD     2
-//	#define MLX_SYNC_WIN_CMD_COMPLETED 3
-
-//int	mlx_sync(int cmd, void *ptr);
-
-//a = mlx_sync(MLX_SYNC_IMAGE_WRITABLE,win->view.img);
-//printf("\n\n\nmlx_sync : %d \n\n\n\n",a);
-
-
-
-//	a = mlx_sync(MLX_SYNC_WIN_FLUSH_CMD,win->view.img);
-//	printf("\n\n\nmlx_sync : %d \n\n\n\n",a);
-
-//	a = mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED,win->view.img);
-//	printf("\n\n\nmlx_sync : %d \n\n\n\n",a);
-
-
  ////PER UN MOVIMENTO PIU FLUIDO
 	mlx_hook(win->win, 2, 0, press_key, win);
 	mlx_hook(win->win, 3, 0, release_key, win);
@@ -138,6 +119,7 @@ int		main_window(t_window *win)
 void	init_settings(t_settings *settings)
 {
 	settings->win_def = 0;
+	settings->img_def = 0;
 	settings->map = NULL;
 	settings->winW = 0;
 	settings->winH = 0;
@@ -152,4 +134,5 @@ void	init_settings(t_settings *settings)
 	settings->mapW = 0;
 	settings->mapH = 0;
 	settings->num_of_sprite = 0;
+	settings->save = 0;
 }

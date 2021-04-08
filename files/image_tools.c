@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 18:07:13 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/08 16:02:09 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	new_image(t_window *win, t_image *image)
 	image->img = mlx_new_image(win->mlx, win->settings.winW, win->settings.winH);
 	image->addr = mlx_get_data_addr(image->img, &image->bits_per_pixel,
 		&image->line_length, &image->endian);
+	win->settings.img_def = 1;
 }
 
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
@@ -149,15 +150,15 @@ void	view_background(t_image *view, t_settings *settings)
 void	set_right_resolution(t_window *win)
 {
 	(void)win;
-	/*
+
 	int myresx;
 	int myresy;
-//	mlx_get_screen_size(win->mlx, &myresx, &myresy);
-	if(win->settings.win_resx > myresx)
-		win->settings.win_resx = myresx;
-	if(win->settings.win_resy > myresy)
-		win->settings.win_resy = myresy;
-*/}
+	mlx_get_screen_size(win->mlx, &myresx, &myresy);
+	if(win->settings.winW > myresx)
+		win->settings.winW = myresx;
+	if(win->settings.winH > myresy)
+		win->settings.winH = myresy;
+}
 
 int	set_distance_and_wall_orientation(t_player player, t_ray *ray,int i)
 {

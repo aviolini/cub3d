@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 17:56:53 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/08 14:07:07 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ void	rotate(t_player *player, char var)
 		player->angle += (value) * ROTATION;
 	player->dirX = cos(player->angle);
 	player->dirY = -sin(player->angle);
-	printf("player_angle : %lf\n",player->angle*180/M_PI);
 }
 
 int		ft_exit(t_window *win)
@@ -178,6 +177,8 @@ int		ft_exit(t_window *win)
 	while (y < win->settings.num_of_sprite)
 		free(win->sprite[y++]);
 	free(win->sprite);
+	if (win->settings.img_def == 1)
+		mlx_destroy_image(win->mlx, win->view.img);
 	if (win->settings.win_def == 1)
 		mlx_destroy_window(win->mlx, win->win);
 	exit(0);
