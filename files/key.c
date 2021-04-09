@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/08 14:07:07 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 10:58:11 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		init_key(t_key *key)
 	key->d = 0;
 	key->l = 0;
 	key->r = 0;
+	key->m = 0;
 	return (1);
 }
 
@@ -30,9 +31,9 @@ int		release_key(int keycode, t_window *win)
 {
 	if (keycode == 53 || keycode == 65307)
 		win->key.e = 0;
-	if(keycode == 126 || keycode == 65362 || keycode == 119)//W
+	if(keycode == 126 || keycode == 13 || keycode == 65362 || keycode == 119)//W
 		win->key.w = 0;
-	if(keycode == 125 || keycode == 65364 || keycode == 115)//S
+	if(keycode == 125 || keycode == 1 || keycode == 65364 || keycode == 115)//S
 		win->key.s = 0;
 	if(keycode == 2 || keycode == 100)//D
 		win->key.d = 0;
@@ -42,6 +43,8 @@ int		release_key(int keycode, t_window *win)
 		win->key.r = 0;
 	if(keycode == 123 || keycode == 65361) //LEFT
 		win->key.l = 0;
+	if(keycode == 46) //M
+		win->key.m = 0;
 	//build_view(win);
 	return (1);
 }
@@ -50,9 +53,9 @@ int		press_key(int keycode, t_window *win)
 {
 	if (keycode == 53 || keycode == 65307)
 		win->key.e = 1;
-	if(keycode == 126 || keycode == 65362 || keycode == 119)//W
+	if(keycode == 126 || keycode == 13 || keycode == 65362 || keycode == 119)//W
 		win->key.w = 1;
-	if(keycode == 125 || keycode == 65364 || keycode == 115)//S
+	if(keycode == 125 || keycode == 1 || keycode == 65364 || keycode == 115)//S
 		win->key.s = 1;
 	if(keycode == 2 || keycode == 100)//D
 		win->key.d = 1;
@@ -62,6 +65,8 @@ int		press_key(int keycode, t_window *win)
 		win->key.r = 1;
 	if(keycode == 123 || keycode == 65361) //LEFT
 		win->key.l = 1;
+	if(keycode == 46) //M
+		win->key.m = 1;
 	//build_view(win);
 	return (1);
 }
@@ -82,6 +87,10 @@ int		key(t_window *win)
 		rotate(&win->player,'r');
 	if(win->key.l) //LEFT
 		rotate(&win->player,'l');
+	if (win->key.m)
+		win->settings.minimap_def = 1;
+	if (!win->key.m)
+		win->settings.minimap_def = 0;
 	build_view(win);
 	return 0;
 }

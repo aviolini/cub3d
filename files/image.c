@@ -6,21 +6,25 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/08 17:29:20 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 10:20:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+
+
 int		build_view(t_window *win)
 {
 	//int a;
 //	mlx_clear_window(win->mlx,win->win);
-	new_image(win, &win->world);
+//if(win->settings.minimap_def)
+	new_minimap_image(win, &win->world);
 //	new_image(win, &win->view);
+if(win->settings.minimap_def)
 	if(!build_world(&win->world, win->settings.map, &win->player))
 		return (0);
-	mlx_sync(MLX_SYNC_IMAGE_WRITABLE,win->view.img);
+	//mlx_sync(MLX_SYNC_IMAGE_WRITABLE,win->view.img);
 	view_background(&win->view, &win->settings);
 
 	//int c = 0;
@@ -31,21 +35,27 @@ int		build_view(t_window *win)
 	//	}
 
 	image(win);
+	if(win->settings.minimap_def)
 	miniray(win);
 	sprite(win);
 	free(win->ray.distance);
 
 	if (win->settings.save == 0)
 	{
-		mlx_put_image_to_window(win->mlx, win->win, win->world.img, 05, 20);
-		mlx_put_image_to_window(win->mlx, win->win, win->view.img, 700, 0);
-		mlx_sync(MLX_SYNC_WIN_FLUSH_CMD,win->win);
-		mlx_destroy_image(win->mlx, win->world.img);
+				mlx_put_image_to_window(win->mlx, win->win, win->view.img, 05, 0);
+if(win->settings.minimap_def)
+
+
+			mlx_put_image_to_window(win->mlx, win->win, win->world.img, 05, 20);
+	//	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD,win->win);
+		mlx_do_sync(win->mlx);
+//if(win->settings.minimap_def)
+		//mlx_destroy_image(win->mlx, win->world.img);
 	}
 	else
 		ft_bitmap(win);
 	//mlx_destroy_image(win->mlx, win->view.img);
-
+	mlx_destroy_image(win->mlx, win->world.img);
 	return (1);
 }
 
@@ -104,6 +114,7 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 	int		roundy;
 	double	horx;
 	double	hory;
+	(void)win;
 
 	if(ray->dirY < 0)
 	{
@@ -125,14 +136,14 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 	{
 
 		if (settings->map[(int)floor((hory) + (roundy - 1))][(int)floor(horx)] == '1')
-		{
+		{if(win->settings.minimap_def)
 			my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
 			ray->horx = horx;
 			ray->hory = hory;
 			return ;
 		}
 		if (settings->map[(int)floor(hory)][(int)floor(horx)] == '2')
-		{
+		{if(win->settings.minimap_def)
 			my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, GREEN);
 		//	sprite_intersections(win, win->sprite, horx, hory,i);
 		}
@@ -148,6 +159,7 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 
 void	check_ver_intersection(t_window *win,t_settings *settings, t_player player, t_ray *ray)
 {
+	(void)win;
 	int		roundx;
 	double	verx;
 	double	very;
@@ -171,15 +183,15 @@ void	check_ver_intersection(t_window *win,t_settings *settings, t_player player,
 		{
 
 			if (settings->map[(int)floor(very)][(int)floor(verx + (roundx - 1) )] == '1')
-			{
+			{if(win->settings.minimap_def)
 				my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, YELLOW);
 				ray->verx = verx;
 				ray->very = very;
 				return ;
 			}
 			if (settings->map[(int)floor(very)][(int)floor(verx)] == '2')
-			{
-			//	sprite_intersections(win, win->sprite, verx, very,i);
+			{if(win->settings.minimap_def)
+				//sprite_intersections(win, win->sprite, verx, very,i);
 				my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, BLUE);
 			}
 		//	if (settings->map[(int)floor(very)][(int)floor(verx + (roundx - 1) )] == ' ')

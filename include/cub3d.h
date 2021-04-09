@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/08 16:24:29 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 10:57:40 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #define MLX_SYNC_WIN_CMD_COMPLETED 3
 
 #define BUFFER_SIZE 1024
-#define SCALE 16
+#define SCALE 8
 #define SPEED 10
 #define FACTOR 0.09
 
@@ -54,6 +54,7 @@ typedef struct s_key
 	int			d;
 	int			l;
 	int			r;
+	int			m;
 }				t_key;
 
 typedef struct s_texture_data
@@ -112,6 +113,7 @@ typedef	struct	s_settings_data
 	char		**map;
 	int			win_def;
 	int			img_def;
+	int			minimap_def;
 	int			winW;
 	int			winH;
 	char		*north_texture;
@@ -215,7 +217,13 @@ int		image(t_window *win);
 void	check_hor_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray);
 void	check_ver_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray);
 /*IMAGE_TOOLS*/
+int		key_up_map(int keycode, t_window *win);
+int		key_down_map(int keycode, t_window *win);
+int		lock_map(t_window *win);
+int		unlock_map(t_window *win);
+int		lock_unlock_map(t_window *win);
 int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,int i);
+void	new_minimap_image(t_window *win, t_image *image);
 void	new_image(t_window *win, t_image *img);
 void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void	view_background(t_image *view, t_settings *settings);

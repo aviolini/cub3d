@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/08 16:21:10 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 10:34:23 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		main_window(t_window *win)
 		win->settings.winH, "Welcome");
 
 
-	new_image(win, &win->world);
+	//new_image(win, &win->world);
 	new_image(win, &win->view);
 
 //	a = mlx_sync(MLX_SYNC_IMAGE_WRITABLE,win->view.img);
@@ -120,6 +120,7 @@ void	init_settings(t_settings *settings)
 {
 	settings->win_def = 0;
 	settings->img_def = 0;
+	settings->minimap_def = 0;
 	settings->map = NULL;
 	settings->winW = 0;
 	settings->winH = 0;
