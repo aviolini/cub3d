@@ -40,30 +40,7 @@ gcc -Wall -Wextra -Werror files/*.c -L../minilib-mlx-linux-gcamerli ../minilib-m
 INTALLAZIONE PACCHETTI linux:
 libxext, xorg-server, zlib
 
-
-
-
-
-
- HOOK PER linux
-
- ////PER UN MOVIMENTO PIU FLUIDO
-   mlx_hook(win->win, 2, 0, press_key, win);
-   mlx_hook(win->win, 3, 0, release_key, win);
-   mlx_hook(win->win, 17, 0, ft_exit, win);
-   mlx_loop_hook(win->mlx, key, win);
-   mlx_loop(win->mlx);
-/////////////////////////////
-/*
-   mlx_hook(win->win, 2, 1L<<0, key_hook, win);
-   mlx_hook(win->win, 17, 0, ft_exit, win);
-   mlx_loop(win->mlx);
-*/
-
-
-
-
-
+ mlx_loop_hook per far muovere il nemico?
 
 ORIENTAMENTO texture
 0 = EST
@@ -104,4 +81,4 @@ il raggio entra nei muri di 1 pixel
 ------------------------------------------
 
 DA FARE:
-MALLOC DELLE TEXTURES E METTERE AL POSTO DEI "64" LA SIZE DELLA TEXTURE
+MALLOC DELLE TEXTURES E METTERE AL POSTO DEI "64" LA SIZE DELLA TEXTURE 
