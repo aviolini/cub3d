@@ -6,20 +6,21 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/09 16:11:20 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 16:17:16 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int		main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_window win;
-	int i;
-	i = 0;
-	if (!(i = check_args(ac,av)))
+	t_window	win;
+	int			i;
+
+	i = check_args(ac, av);
+	if (!i)
 		return (0);
-	init_settings(&win.settings);
+	init_env(&win);
 	 if (i == 2)
 		win.settings.save = 1;
 	if (!main_parsing(av[1], &win))
@@ -27,7 +28,7 @@ int		main(int ac, char **av)
 		printf("Error: \n%s\n(argument of map)\n", strerror(EINVAL));
 		ft_exit(&win);
 	}
-	if(!main_window(&win))
+	if (!main_window(&win))
 	{
 		printf("Error: \n%s\n(graphic server)\n", strerror(EAGAIN));
 		ft_exit(&win);
@@ -35,106 +36,79 @@ int		main(int ac, char **av)
 	return (0);
 }
 
-int		main_parsing(char *av, t_window *win)
+int	main_parsing(char *av, t_window *win)
 {
-	int fd;
-	int r;
-	char *line;
+	int		fd;
+	int		r;
+	char	*line;
 
 	r = 1;
 	fd = open(av, O_RDONLY);
 	while (r > 0)
 	{
-		r = get_next_line(fd,&line);
+		r = get_next_line(fd, &line);
 		if (!all_params(&win->settings))
 		{
-			if (!parsing_params(line,&win->settings))
-			{
-							free(line);
-				return (0);
-
-			}
-		}
-		else
- 			if (!parsing_map(line,&win->settings))
+			if (!parsing_params(line, &win->settings))
 			{
 				free(line);
-					return (0);
+				return (0);
 			}
+		}
+		else if (!parsing_map(line, &win->settings))
+		{
+			free(line);
+			return (0);
+		}
 		free(line);
 	}
 	close(fd);
-	if (r == -1 || !check_map(win, win->settings.map, win->settings.mapH, win->settings.mapW))
-		return(0);
+	if (r == -1 || !check_map(win, win->settings.map))
+		return (0);
 	return (1);
 }
 
-int		main_window(t_window *win)
+int	main_window(t_window *win)
 {
-
-//	int a,b;
-
 	win->mlx = mlx_init();
 	win->settings.win_def = 1;
 	init_key(&win->key);
-
 	set_right_resolution(win);
-	win->win = mlx_new_window(win->mlx,win->settings.winW,////////////////////////////
+	win->win = mlx_new_window(win->mlx, win->settings.winW, \
 		win->settings.winH, "Welcome");
-
-
-	//new_image(win, &win->world);
-//	new_minimap_image(win, &win->world);
 	new_image(win, &win->view);
-
-//	a = mlx_sync(MLX_SYNC_IMAGE_WRITABLE,win->view.img);
-//	printf("\n\n\nmlx_sync : %d \n\n\n\n",a);
-
-//	b = mlx_sync(MLX_SYNC_IMAGE_WRITABLE,win->world.img);
-//	printf("\n\n\nmlx_sync : %d \n\n\n\n",b);
-
-	//	a = mlx_sync(MLX_SYNC_WIN_FLUSH_CMD,win->view.img);
-	//	printf("\n\n\nmlx_sync : %d \n\n\n\n",a);
 	if (!init_textures(win))
 		return (0);
 	if (!build_view(win))
 		return (0);
-
-	print_settings(win->settings);
-	print_player(win->player);
-
- ////PER UN MOVIMENTO PIU FLUIDO
 	mlx_hook(win->win, 2, 0, press_key, win);
 	mlx_hook(win->win, 3, 0, release_key, win);
 	mlx_hook(win->win, 17, 0, ft_exit, win);
+	mlx_do_key_autorepeatoff(win->mlx);
 	mlx_loop_hook(win->mlx, key, win);
 	mlx_loop(win->mlx);
-/////////////////////////////
-/*
-	mlx_hook(win->win, 2, 1L<<0, key_hook, win);
-	mlx_hook(win->win, 17, 0, ft_exit, win);
-	mlx_loop(win->mlx);
-*/	return (1);
+	return (1);
 }
 
-void	init_settings(t_settings *settings)
+void	init_env(t_window *win)
 {
-	settings->win_def = 0;
-	settings->img_def = 0;
-	settings->minimap_def = 0;
-	settings->map = NULL;
-	settings->winW = 0;
-	settings->winH = 0;
-	settings->north_texture = NULL;
-	settings->west_texture = NULL;
-	settings->east_texture = NULL;
-	settings->south_texture = NULL;
-	settings->sprite_texture = NULL;
-	settings->floor_color = 0;
-	settings->ceiling_color = 0;
-	settings->eof = 0;
-	settings->mapW = 0;
-	settings->mapH = 0;
-	settings->num_of_sprite = 0;
-	settings->save = 0;
+	win->settings.win_def = 0;
+	win->settings.img_def = 0;
+	win->settings.minimap_def = 0;
+	win->settings.map = NULL;
+	win->settings.winW = 0;
+	win->settings.winH = 0;
+	win->settings.north_texture = NULL;
+	win->settings.west_texture = NULL;
+	win->settings.east_texture = NULL;
+	win->settings.south_texture = NULL;
+	win->settings.sprite_texture = NULL;
+	win->settings.floor_color = 0;
+	win->settings.ceiling_color = 0;
+	win->settings.eof = 0;
+	win->settings.mapW = 0;
+	win->settings.mapH = 0;
+	win->settings.num_of_sprite = 0;
+	win->settings.save = 0;
+	win->sprite = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/09 16:11:19 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 16:15:36 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int		key(t_window *win)
 		win->settings.minimap_def = 1;
 	if (!win->key.m)
 		win->settings.minimap_def = 0;
+
 	build_view(win);
 	return 0;
 }
