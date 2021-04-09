@@ -6,12 +6,62 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/09 11:35:39 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 14:24:22 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+int		lock_map(t_window *win)
+{
+	if (!win->settings.minimap_def)
+		win->settings.minimap_def = 1;
+	else if(win->settings.minimap_def)
+	{
+
+		win->settings.minimap_def = 0;
+	}
+	return (1);
+}
+
+int		unlock_map(t_window *win)
+{
+	(void)win;
+		win->settings.minimap_def = 0;
+	return (1);
+}
+int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,int i)
+{
+	int z;
+
+	z = 0;
+	while(z < win->settings.num_of_sprite &&
+		(sprite[z]->sprX != 0 && sprite[z]->sprY != 0))
+		{
+			if ((int)sprite[z]->sprX == (int)x && (int)sprite[z]->sprY == (int)y)
+				return (0);
+			z++;
+		}
+	sprite[z]->i = i;
+	sprite[z]->sprX = x;
+	sprite[z]->sprY = y;
+	sprite[z]->distance = hypot(fabs(win->player.posX-sprite[z]->sprX),
+							fabs(win->player.posY-sprite[z]->sprY));
+	return (1);
+}
+
+void print_sprite(t_window *win)
+{
+	int i;
+	i = 0;
+
+	while(i <win->settings.num_of_sprite )
+	{
+		printf("sprite %d : x:%f , y:%f\n\n", i,win->sprite[i]->sprX,win->sprite[i]->sprY);
+		i++;
+	}
+	printf("num_of_sprite: %d\n",win->settings.num_of_sprite);
+}
 void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
 {
     char    *dst;

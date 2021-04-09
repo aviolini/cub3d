@@ -6,19 +6,20 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/08 16:23:45 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 13:47:53 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int		parsing_params(char *line, t_settings *settings)
+int	parsing_params(char *line, t_settings *settings)
 {
-	int i;
-	int r;
+	int	i;
+	int	r;
 
 	r = 0;
-	if((i = if_empty_line_and_slide_spaces(line)) == -1)
+	i = if_empty_line_and_slide_spaces(line);
+	if (i == -1)
 		return (1);
 	if (line[i] == 'R')
 		r = set_resolution(line, settings, i + 1);
@@ -39,19 +40,19 @@ int		parsing_params(char *line, t_settings *settings)
 	return (r);
 }
 
-int		set_resolution(char *line, t_settings *settings, int i)
+int	set_resolution(char *line, t_settings *settings, int i)
 {
 	if (settings->winW || settings->winH)
 		return (0);
-	while(!is_digit(line[i]))
+	while (!is_digit(line[i]))
 		if (line[i++] != ' ' || !line[i])
 			return (0);
-	while(is_digit(line[i]))
+	while (is_digit(line[i]))
 		settings->winW = settings->winW * 10 + (line[i++] - 48);
-	while(!is_digit(line[i]))
+	while (!is_digit(line[i]))
 		if (line[i++] != ' ' || !line[i])
 			return (0);
-	while(is_digit(line[i]))
+	while (is_digit(line[i]))
 		settings->winH = settings->winH * 10 + (line[i++] - 48);
 	while (line[i])
 		if (line[i++] != ' ')
@@ -59,10 +60,10 @@ int		set_resolution(char *line, t_settings *settings, int i)
 	return (1);
 }
 
-int		path_texture(char *line, char **texture, int i)
+int	path_texture(char *line, char **texture, int i)
 {
-	int z;
-	int c;
+	int	z;
+	int	c;
 
 	z = 0;
 	c = 0;
@@ -74,49 +75,54 @@ int		path_texture(char *line, char **texture, int i)
 	while (line[i])
 	{
 		if (line[i] == ' ' && line[i - 1] != '\\')
-			break;
+			break ;
 		i++;
 	}
 	c = i;
-	while (line[c])				/* CONTROLLO 'solo spazi'  */
-		if (line[c++] != ' ')	/* NEL RESTO DELLA STRINGA */
+	while (line[c])
+		if (line[c++] != ' ')
 			return (0);
 	c = i - z;
-	if (!(*texture = (char *)malloc(sizeof(char) * (c + 1))))
+	*texture = (char *)malloc(sizeof(char) * (c + 1));
+	if (!*texture)
 		return (0);
 	i = 0;
 	while (i < c)
-			texture[0][i++] = line[z++];
+		texture[0][i++] = line[z++];
 	texture[0][i] = '\0';
 	return (1);
 }
 
-int		set_color(char *line, unsigned int *color, int i)
+int	set_color(char *line, unsigned int *color, int i)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	if (*color)
 		return (0);
-	while(!is_digit(line[i]))
+	while (!is_digit(line[i]))
 		if (line[i++] != ' ' || !line[i])
 			return (0);
 	r = find_color(line, i);
-	if ((i = slide_char(line,i)) == -1 || r == -1)
+	i = slide_char(line, i);
+	if (i == -1 || r == -1)
 		return (0);
 	g = find_color(line, i);
-	if ((i = slide_char(line,i)) == -1 || g == -1)
+	i = slide_char(line, i);
+	if (i == -1 || g == -1)
 		return (0);
 	b = find_color(line, i);
 	if (b == -1)
 		return (0);
 	while (is_digit(line[i]))
 		i++;
-	while(line[i])
+	while (line[i])
 		if (line[i++] != ' ')
 			return (0);
-	*color = r + g + b == 0 ? 1 :
-   		(r << 16 | g << 8 | b);
+	if (r + g + b == 0)
+		*color = 1;
+	else
+		*color = (r << 16 | g << 8 | b);
 	return (1);
 }

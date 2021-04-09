@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:35:54 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/08 14:27:08 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 13:50:26 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int 	is_digit(char c)
 	return (0);
 }
 
-int		if_empty_line_and_slide_spaces(char *line)
+int	if_empty_line_and_slide_spaces(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (line[i] == '\0')
@@ -32,7 +32,7 @@ int		if_empty_line_and_slide_spaces(char *line)
 	return (i);
 }
 
-int		slide_char(char *line, int i)
+int	slide_char(char *line, int i)
 {
 	while (line[i] != ',')
 	{
@@ -45,9 +45,9 @@ int		slide_char(char *line, int i)
 	return (i + 1);
 }
 
-int		find_color(char *line, int i)
+int	find_color(char *line, int i)
 {
-	unsigned int color;
+	unsigned int	color;
 
 	color = 0;
 	while (is_digit(line[i]))
@@ -57,7 +57,7 @@ int		find_color(char *line, int i)
 	return (color);
 }
 
-int		all_params(t_settings *settings)
+int	all_params(t_settings *settings)
 {
 	if (!settings->winW)
 		return (0);
@@ -77,5 +77,5 @@ int		all_params(t_settings *settings)
 		return (0);
 	if (!settings->ceiling_color)
 		return (0);
-	return(1);
+	return (1);
 }
