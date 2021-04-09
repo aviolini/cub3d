@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/09 12:01:34 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 12:09:05 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int		main_window(t_window *win)
 
 
 	//new_image(win, &win->world);
+//	new_minimap_image(win, &win->world);
 	new_image(win, &win->view);
 
 //	a = mlx_sync(MLX_SYNC_IMAGE_WRITABLE,win->view.img);

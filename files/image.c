@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/09 11:52:07 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 12:11:05 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		build_view(t_window *win)
 {
 	//int a;
 //	mlx_clear_window(win->mlx,win->win);
+//if(win->settings.minimap_def)
 //if(win->settings.minimap_def)
 	new_minimap_image(win, &win->world);
 //	new_image(win, &win->view);
@@ -46,16 +47,17 @@ if(win->settings.minimap_def)
 if(win->settings.minimap_def)
 
 
-			mlx_put_image_to_window(win->mlx, win->win, win->world.img, 05, 20);
+			mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
 	//	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD,win->win);
 		mlx_do_sync(win->mlx);
 //if(win->settings.minimap_def)
-		//mlx_destroy_image(win->mlx, win->world.img);
+//if(win->settings.minimap_def)
+		mlx_destroy_image(win->mlx, win->world.img);
 	}
 	else
 		ft_bitmap(win);
 	//mlx_destroy_image(win->mlx, win->view.img);
-	mlx_destroy_image(win->mlx, win->world.img);
+//	mlx_destroy_image(win->mlx, win->world.img);
 	return (1);
 }
 
