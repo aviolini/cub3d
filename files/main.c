@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/09 10:34:23 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 12:01:34 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		main_window(t_window *win)
 	init_key(&win->key);
 
 	set_right_resolution(win);
-	win->win = mlx_new_window(win->mlx,win->settings.winW*2-400,////////////////////////////
+	win->win = mlx_new_window(win->mlx,win->settings.winW,////////////////////////////
 		win->settings.winH, "Welcome");
 
 

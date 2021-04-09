@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/09 10:49:47 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 11:51:16 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ void	set_right_resolution(t_window *win)
 		win->settings.winH = myresy;
 }
 
-int	set_distance_and_wall_orientation(t_player player, t_ray *ray,int i)
+int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray,int i)
 {
 	double	verh;
 	double	horh;
@@ -225,6 +225,8 @@ int	set_distance_and_wall_orientation(t_player player, t_ray *ray,int i)
 ///	printf("horh : %lf\n",horh);
 	if (horh <= verh)
 	{
+		if(win->settings.minimap_def)
+			my_mlx_pixel_put(&win->world, ray->horx*SCALE, ray->hory*SCALE, RED);
 		ray->distance[i] = horh;
 		ray->indexTex = ray->horx;
 		if (ray->dirY < 0)
@@ -234,6 +236,8 @@ int	set_distance_and_wall_orientation(t_player player, t_ray *ray,int i)
 	}
 	else
 	{
+		if(win->settings.minimap_def)
+			my_mlx_pixel_put(&win->world, ray->verx*SCALE, ray->very*SCALE, RED);
 		ray->indexTex = ray->very;
 		ray->distance[i] = verh;
 		if(ray->dirX < 0)

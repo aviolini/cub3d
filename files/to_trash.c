@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 18:05:34 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 11:35:39 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int		build_world(t_image *world, char **map, t_player *player)
 	{
 		while(map[y][++x])
 		{
-			if (map[y][x] == '1')
-				my_mlx_pixel_wall(world, x * SCALE, y * SCALE,0x000000ff);
+			if (map[y][x] == '1' || map[y][x] == 'N'|| map[y][x] == 'S'|| map[y][x] == 'E'|| map[y][x] == 'W')
+				my_mlx_pixel_wall(world, x * SCALE, y * SCALE,GRAY);
 			else if(map[y][x] == '2'){
 				my_mlx_pixel_put(world, x * SCALE + SCALE/2-1, y * SCALE+SCALE/2-1,0x00FFFF00);
 				my_mlx_pixel_put(world, x * SCALE + SCALE/2, y * SCALE+SCALE/2,0x00FFFF00);
@@ -86,7 +86,7 @@ int		build_world(t_image *world, char **map, t_player *player)
 
 			}
 			else if(map[y][x] == '0')
-				my_mlx_pixel_grid(world, x * SCALE, y * SCALE,0x00ff0000);
+				my_mlx_pixel_grid(world, x * SCALE, y * SCALE,GRAY,WHITE);
 		//	else if(map[y][x] != ' ' && map[y][x] != '0')
 		//	{
 			//	if (player->def != 1)
@@ -97,6 +97,7 @@ int		build_world(t_image *world, char **map, t_player *player)
 			//	player->def = 1;
 			//}
 		//	}
+
 		}
 	}
 	my_mlx_pixel_put(world, player->posX*SCALE, player->posY*SCALE,0x00ffffff);
@@ -250,11 +251,14 @@ void	miniray(t_window *win)
 	my_mlx_pixel_put(&win->world, win->player.posX*SCALE, win->player.posY*SCALE,0x00ffffff);
 	int i = 0;
 	double rayy = win->player.posY*SCALE, rayx = win->player.posX*SCALE;
-	while (i++< 5){
+
+	while (i++< 6)
+	{
 		rayy += win->player.dirY;
 		rayx += win->player.dirX;
-		my_mlx_pixel_put(&win->world, rayx, rayy,0x00ffffff);
+		my_mlx_pixel_put(&win->world, rayx, rayy,BLACK);
 	}
+
 }
 
 void	my_mlx_pixel_wall(t_image *img, int x, int y, int color)
@@ -275,7 +279,7 @@ void	my_mlx_pixel_wall(t_image *img, int x, int y, int color)
 	}
 }
 
-void	my_mlx_pixel_grid(t_image *img, int x, int y, int color)
+void	my_mlx_pixel_grid(t_image *img, int x, int y, int grid_color, int internal_color)
 {
     char    *dst;
 	int		i = -1, z = -1;
@@ -287,15 +291,22 @@ void	my_mlx_pixel_grid(t_image *img, int x, int y, int color)
 			{
     			dst = img->addr + ((i + y) * img->line_length +
 				(x + z) * (img->bits_per_pixel / 8));
-    			*(unsigned int*)dst = color;
+    			*(unsigned int*)dst = grid_color;
 			}
 		}
 		else
-			while (++z <= SCALE)
+			while (++z <= SCALE){
 				if(z == 0 || z == SCALE)
 				{
     				dst = img->addr + ((i + y) * img->line_length +
 					(x + z) * (img->bits_per_pixel / 8));
-    				*(unsigned int*)dst = color;
+    				*(unsigned int*)dst = grid_color;
 				}
+				else
+				{
+					dst = img->addr + ((i + y) * img->line_length +
+					(x + z) * (img->bits_per_pixel / 8));
+    				*(unsigned int*)dst = internal_color;
+				}
+			}
 }

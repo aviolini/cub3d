@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/09 10:57:40 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 12:05:42 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@
 #define MLX_SYNC_WIN_CMD_COMPLETED 3
 
 #define BUFFER_SIZE 1024
-#define SCALE 8
-#define SPEED 10
-#define FACTOR 0.09
+#define SCALE 10
+#define FACTOR 0.35
 
-#define ROTATION M_PI/96
+#define ROTATION M_PI/48
 #define W_IMG 1200
 #define H_IMG 600
 #define FOV M_PI/3
@@ -40,9 +39,11 @@
 #define BLUE 0x000000FF
 #define	CYAN 0x0000FFFF
 #define PINK 0x00FF00FF
-#define YELLOW 0x00FFFF
+#define YELLOW 0xFFFF00
 #define BLACK 0x00000000
+#define GRAY 0x888888
 #define WHITE 0x00FFFFFF
+#define	TRANSP 0xFFFFFFFF
 #define MY_MAX_LIMIT 1000000000
 
 typedef struct s_key
@@ -186,7 +187,7 @@ void	print_player(t_player player);
 void	print_ray(t_ray ray);
 void	miniray(t_window *win);
 void	my_mlx_pixel_wall(t_image *img, int x, int y, int color);
-void	my_mlx_pixel_grid(t_image *img, int x, int y, int color);
+void	my_mlx_pixel_grid(t_image *img, int x, int y, int grid_color, int internal_color);
 /*CUB3D.C*/
 int		main_parsing(char *av, t_window *win);
 int		main_window(t_window *win);
@@ -232,7 +233,7 @@ void	set_right_resolution(t_window *win);
 int		init_textures(t_window *win);
 void	column(t_window *win, t_image *img,int x,int orientation);
 //oid	set_ray(t_player player, t_ray *ray);
-int	set_distance_and_wall_orientation(t_player player, t_ray *ray,int i);
+int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray,int i);
 
 
 /*PARSING MAP */

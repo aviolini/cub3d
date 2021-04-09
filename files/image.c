@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/09 10:20:45 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/09 11:52:07 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		image(t_window *win)
 
 
 
-		orientation = set_distance_and_wall_orientation(win->player,&win->ray,i);
+		orientation = set_distance_and_wall_orientation(win,win->player,&win->ray,i);
 	//	color = set_wall_color(orientation);
 	//	my_mlx_put_wall(win, &win->view, x, color);
 		column(win, &win->view,i,orientation);
@@ -136,15 +136,16 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 	{
 
 		if (settings->map[(int)floor((hory) + (roundy - 1))][(int)floor(horx)] == '1')
-		{if(win->settings.minimap_def)
-			my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
+		{
+	//	if(win->settings.minimap_def)
+	//		my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, RED);
 			ray->horx = horx;
 			ray->hory = hory;
 			return ;
 		}
 		if (settings->map[(int)floor(hory)][(int)floor(horx)] == '2')
-		{if(win->settings.minimap_def)
-			my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, GREEN);
+		{//if(win->settings.minimap_def)
+		//	my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, RED);
 		//	sprite_intersections(win, win->sprite, horx, hory,i);
 		}
 		//my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
@@ -183,16 +184,17 @@ void	check_ver_intersection(t_window *win,t_settings *settings, t_player player,
 		{
 
 			if (settings->map[(int)floor(very)][(int)floor(verx + (roundx - 1) )] == '1')
-			{if(win->settings.minimap_def)
-				my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, YELLOW);
+			{
+			//if(win->settings.minimap_def)
+			//	my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, RED);
 				ray->verx = verx;
 				ray->very = very;
 				return ;
 			}
 			if (settings->map[(int)floor(very)][(int)floor(verx)] == '2')
-			{if(win->settings.minimap_def)
+			{//if(win->settings.minimap_def)
 				//sprite_intersections(win, win->sprite, verx, very,i);
-				my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, BLUE);
+				//my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, RED);
 			}
 		//	if (settings->map[(int)floor(very)][(int)floor(verx + (roundx - 1) )] == ' ')
 		///		break;
