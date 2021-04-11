@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 15:57:30 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 16:12:44 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,23 +127,27 @@ int		set_color(char *line, unsigned int *color, int i)
 		if (line[i++] != ' ' || !line[i])
 			return (0);
 	i = find_color(&rgb[0],line, i);
+	if (i == -1)
+		return (0);
 
-	if ((i = slide_char(line,i)) == -1)
+	i = slide_char(line,i);
+	if (i == -1)
 		return (0);
 	i = find_color(&rgb[1], line, i);
-	if ((i = slide_char(line,i)) == -1)
+	if (i == -1)
+		return (0);
+
+	i = slide_char(line,i);
+	if (i == -1)
 		return (0);
 	i = find_color(&rgb[2],line, i);
-	//if (b == -1)
-	//	return (0);
-	while (is_digit(line[i]))
-		i++;
+	if (i == -1)
+		return (0);
+
 	while(line[i])
 		if (line[i++] != ' ')
 			return (0);
 	*color = rgb[0] + rgb[1] + rgb[2] == 0 ? 1 :
    		(rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
-
-			printf ("------------- \n");
 	return (1);
 }
