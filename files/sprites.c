@@ -6,15 +6,15 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 22:32:29 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 22:39:13 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int		visible_sprites(t_window *win, t_sprite *visibleSprites,int *numVisibleSprites)
+int		visible_sprites(t_window *win, t_sprite *vis_sprites,int *num_vis_sprites)
 {
-	for (int i = 0; i < win->settings.num_of_sprite; i++)
+	for (int i = 0; i < win->settings.num_sprites; i++)
 	{
         float angleSpritePlayer = win->player.angle - atan2(win->player.posY - win->sprite[i]->sprY,
 			win->sprite[i]->sprX - win->player.posX);
@@ -35,75 +35,75 @@ int		visible_sprites(t_window *win, t_sprite *visibleSprites,int *numVisibleSpri
 			 win->sprite[i]->distance = hypot(win->sprite[i]->sprX - win->player.posX, win->sprite[i]->sprY - win->player.posY);
           //  win->sprite[i]->distance = hypot(fabs(win->sprite[i]->sprX - win->player.posX), //////////////////controlla ordine
 			//							fabs(win->sprite[i]->sprY - win->player.posY));
-			visibleSprites[*numVisibleSprites] = *win->sprite[i]; //////////////[0][i] oppure *
-			(*numVisibleSprites)++;
+			vis_sprites[*num_vis_sprites] = *win->sprite[i]; //////////////[0][i] oppure *
+			(*num_vis_sprites)++;
         }
 	//	else
 	//	{
       //    win->sprite[i]->visible = 0;
        // }
     }
-//	printf("*numVisibleSprites : %d\n\n\n\n",*numVisibleSprites);
+//	printf("*num_vis_sprites : %d\n\n\n\n",*num_vis_sprites);
 	return (1);
 }
 
-void 	sort_sprite(t_sprite *visibleSprites,int numVisibleSprites)
+void 	sort_sprite(t_sprite *vis_sprites,int num_vis_sprites)
 {
 	int			i;
 	t_sprite	temp;
 
 	i = -1;
-	while(++i < numVisibleSprites-1)
-		if (visibleSprites[i].distance < visibleSprites[i + 1].distance)
+	while(++i < num_vis_sprites-1)
+		if (vis_sprites[i].distance < vis_sprites[i + 1].distance)
 		{
-			temp = visibleSprites[i + 1];
-			visibleSprites[i + 1] = visibleSprites[i];
-			visibleSprites[i] = temp;
+			temp = vis_sprites[i + 1];
+			vis_sprites[i + 1] = vis_sprites[i];
+			vis_sprites[i] = temp;
 			i = -1;
 		}
 }
 
-void	settings_sprite(t_window *win, t_sprite *visibleSprites, int i)
+void	settings_sprite(t_window *win, t_sprite *vis_sprites, int i)
 {
 
         //	double distprojplane = (win->settings.winW / 2)/tan(FOV/2);
         // Calculate the perpendicular distance of the sprite to prevent fish-eye effect
-        visibleSprites[i].perpDistance = visibleSprites[i].distance * cos(visibleSprites[i].angle);
+        vis_sprites[i].perpDistance = vis_sprites[i].distance * cos(vis_sprites[i].angle);
 
         // Calculate the sprite projected height and width (the same, as sprites are squared)
-        visibleSprites[i].spriteHeight = (1 / visibleSprites[i].perpDistance) * win->draw.dist_proj_plane;
-        visibleSprites[i].spriteWidth = visibleSprites[i].spriteHeight;
+        vis_sprites[i].spriteHeight = (1 / vis_sprites[i].perpDistance) * win->draw.dist_proj_plane;
+        vis_sprites[i].spriteWidth = vis_sprites[i].spriteHeight;
 
         // Sprite top Y
-        visibleSprites[i].spriteTopY = (win->settings.winH / 2) - (visibleSprites[i].spriteHeight / 2);
-    //    visibleSprites[i].spriteTopY = (visibleSprites[i].spriteTopY < 0) ? 0 : visibleSprites[i].spriteTopY;
+        vis_sprites[i].spriteTopY = (win->settings.winH / 2) - (vis_sprites[i].spriteHeight / 2);
+    //    vis_sprites[i].spriteTopY = (vis_sprites[i].spriteTopY < 0) ? 0 : vis_sprites[i].spriteTopY;
 
         // Sprite bottom Y
-        visibleSprites[i].spriteBottomY = (win->settings.winH / 2) + (visibleSprites[i].spriteHeight / 2);
-      //  visibleSprites[i].spriteBottomY = (visibleSprites[i].spriteBottomY > win->settings.winH) ? win->settings.winH : visibleSprites[i].spriteBottomY;
+        vis_sprites[i].spriteBottomY = (win->settings.winH / 2) + (vis_sprites[i].spriteHeight / 2);
+      //  vis_sprites[i].spriteBottomY = (vis_sprites[i].spriteBottomY > win->settings.winH) ? win->settings.winH : vis_sprites[i].spriteBottomY;
 
         // Calculate the sprite X position in the projection plane
-        visibleSprites[i].angle = atan2(visibleSprites[i].sprY - win->player.posY, visibleSprites[i].sprX - win->player.posX) + win->player.angle;
-        visibleSprites[i].spriteScreenPosX = tan(visibleSprites[i].angle) * win->draw.dist_proj_plane;
+        vis_sprites[i].angle = atan2(vis_sprites[i].sprY - win->player.posY, vis_sprites[i].sprX - win->player.posX) + win->player.angle;
+        vis_sprites[i].spriteScreenPosX = tan(vis_sprites[i].angle) * win->draw.dist_proj_plane;
 
         // SpriteLeftX
 	//	double var;
-	//	visibleSprites[i].spriteLeftX;
+	//	vis_sprites[i].spriteLeftX;
 	//	if (win->player.diry )
-        	visibleSprites[i].spriteLeftX = (win->settings.winW / 2) + visibleSprites[i].spriteScreenPosX- (visibleSprites[i].spriteWidth / 2);
+        	vis_sprites[i].spriteLeftX = (win->settings.winW / 2) + vis_sprites[i].spriteScreenPosX- (vis_sprites[i].spriteWidth / 2);
 	//	else
 		//	spriteLeftX = (win->settings.winW / 2) + spriteScreenPosX + 1;// (spriteWidth / 2);
 
         // SpriteRightX
-        visibleSprites[i].spriteRightX = visibleSprites[i].spriteLeftX + visibleSprites[i].spriteWidth;
+        vis_sprites[i].spriteRightX = vis_sprites[i].spriteLeftX + vis_sprites[i].spriteWidth;
 
         // Query the width and height of the texture
-       // int H_TEX = upng_get_width(textures[visibleSprites[i].texture]);
+       // int H_TEX = upng_get_width(textures[vis_sprites[i].texture]);
        // int 64 = upng_get_height(textures[sprite.texture]);
 
 }
 
-void	show_sprite(t_window *win,t_sprite *visibleSprites,int i)
+void	show_sprite(t_window *win,t_sprite *vis_sprites,int i)
 {
 	double x;
 	int y;
@@ -111,18 +111,18 @@ void	show_sprite(t_window *win,t_sprite *visibleSprites,int i)
 
 		char *dst;
 
-	x = (visibleSprites[i].spriteLeftX);
-	while (x < visibleSprites[i].spriteRightX)
+	x = (vis_sprites[i].spriteLeftX);
+	while (x < vis_sprites[i].spriteRightX)
 	{
-		float texelWidth = (win->texture[4].texW / visibleSprites[i].spriteWidth);
-		int textureOffsetX = (x - visibleSprites[i].spriteLeftX) * texelWidth;
-		y = visibleSprites[i].spriteTopY;
-		while(y < visibleSprites[i].spriteBottomY)
+		float texelWidth = (win->texture[4].texW / vis_sprites[i].spriteWidth);
+		int textureOffsetX = (x - vis_sprites[i].spriteLeftX) * texelWidth;
+		y = vis_sprites[i].spriteTopY;
+		while(y < vis_sprites[i].spriteBottomY)
 		{
 			if (x > 0 && x < win->settings.winW && y > 0 && y < win->settings.winH)
 			{
-				int distanceFromTop = y + (visibleSprites[i].spriteHeight / 2) - (win->settings.winH / 2);
-				int textureOffsetY = distanceFromTop * (win->texture[4].texH / visibleSprites[i].spriteHeight);
+				int distanceFromTop = y + (vis_sprites[i].spriteHeight / 2) - (win->settings.winH / 2);
+				int textureOffsetY = distanceFromTop * (win->texture[4].texH / vis_sprites[i].spriteHeight);
 
 
 				//int offsetY = (int)((y + (h / 2) - (win->settings.winH / 2))*H_TEX/h);
@@ -133,7 +133,7 @@ void	show_sprite(t_window *win,t_sprite *visibleSprites,int i)
 				dst = win->view.addr + (int)(y) * win->view.line_length +
 				(int)(x) * (win->view.bits_per_pixel / 8);
 
-					if (visibleSprites[i].perpDistance < win->ray.distance[(int)x])
+					if (vis_sprites[i].perpDistance < win->ray.distance[(int)x])
 					{
 								if (color >= 4278190080 || color == 0)
 								dst = (char *)255;
@@ -149,29 +149,29 @@ void	show_sprite(t_window *win,t_sprite *visibleSprites,int i)
 
 int		sprite(t_window *win)
 {
-    t_sprite visibleSprites[win->settings.num_of_sprite];
-    int numVisibleSprites = 0;
+    t_sprite vis_sprites[win->settings.num_sprites];
+    int num_vis_sprites = 0;
 
 
 
-	visible_sprites(win,visibleSprites,&numVisibleSprites);
-	sort_sprite(visibleSprites,numVisibleSprites);
+	visible_sprites(win,vis_sprites,&num_vis_sprites);
+	sort_sprite(vis_sprites,num_vis_sprites);
 
 	int i = -1;
 
 
-	while ( ++i < numVisibleSprites)
+	while ( ++i < num_vis_sprites)
 	{
-		settings_sprite(win,visibleSprites,i);
-		show_sprite(win,visibleSprites,i);
+		settings_sprite(win,vis_sprites,i);
+		show_sprite(win,vis_sprites,i);
 	}
 
 
 
     // Rendering all the visible sprites
-/*    for (int i = 0; i < numVisibleSprites; i++)
+/*    for (int i = 0; i < num_vis_sprites; i++)
 	{
-        t_sprite sprite = visibleSprites[i];
+        t_sprite sprite = vis_sprites[i];
 
         // Calculate the perpendicular distance of the sprite to prevent fish-eye effect
         float perpDistance = sprite.distance * cos(sprite.angle);

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 22:30:55 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 22:39:33 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ typedef	struct		s_settings_data
 	int				winMyH;
 	int				mapW;
 	int				mapH;
-	int				num_of_sprite;
+	int				num_sprites;
 	int				save;
 }					t_settings;
 

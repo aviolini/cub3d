@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/09 11:56:12 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 22:40:40 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		key(t_window *win)
 	if(win->key.r) //RIGHT
 		rotate(&win->player,'r');
 	if(win->key.l) //LEFT
-		rotate(&win->player,'l');  
+		rotate(&win->player,'l');
 	if (win->key.m)
 		win->settings.minimap_def = 1;
 	if (!win->key.m)
@@ -183,7 +183,7 @@ int		ft_exit(t_window *win)
 	free(win->settings.south_texture);
 	free(win->settings.sprite_texture);
 	y = 0;
-	while (y < win->settings.num_of_sprite)
+	while (y < win->settings.num_sprites)
 		free(win->sprite[y++]);
 	free(win->sprite);
 	if (win->settings.img_def == 1)

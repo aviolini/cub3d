@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 22:28:30 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 22:41:56 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,i
 	int z;
 
 	z = 0;
-	while(z < win->settings.num_of_sprite &&
+	while(z < win->settings.num_sprites &&
 		(sprite[z]->sprX != 0 && sprite[z]->sprY != 0))
 		{
 			if ((int)sprite[z]->sprX == (int)x && (int)sprite[z]->sprY == (int)y)
@@ -87,12 +87,12 @@ void print_sprite(t_window *win)
 	int i;
 	i = 0;
 
-	while(i <win->settings.num_of_sprite )
+	while(i <win->settings.num_sprites )
 	{
 		printf("sprite %d : x:%f , y:%f\n\n", i,win->sprite[i]->sprX,win->sprite[i]->sprY);
 		i++;
 	}
-	printf("num_of_sprite: %d\n",win->settings.num_of_sprite);
+	printf("num_of_sprite: %d\n",win->settings.num_sprites);
 }
 void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
 {
@@ -269,7 +269,7 @@ void	print_settings(t_settings settings)
 	printf("mapW: %i\n",settings.mapW);
 	printf("mapH: %i\n",settings.mapH);
 	printf("eof: %i\n",settings.eof);
-	printf("num_of_sprite: %i \n",settings.num_of_sprite);
+	printf("num_of_sprite: %i \n",settings.num_sprites);
 	//while ((settings->map)[i])
 	//	printf("mapp: %s\n",(settings->map)[i++]);
 	while (*(settings.map))
