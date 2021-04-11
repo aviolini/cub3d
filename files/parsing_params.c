@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 16:57:39 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 18:06:07 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,18 +116,27 @@ int		path_texture(char *line, char **texture, int i)
 int		set_color(char *line, unsigned int *color, int i)
 {
 	int rgb[3];
+	int x;
 
 	if (*color != INIT_COLOR)
 		return (0);
-
+	x = 0;
 //	while(!is_digit(line[i]))
 //		if (line[i++] != ' ' || !line[i])
 //			return (0);
 	i = find_color(&rgb[0],line, i);
 	if (i == -1)
 		return (0);
-
-	i = slide_char(line,i);
+	while (++x <= 2)
+	{
+		i = slide_char(line,i);
+		if (i == -1)
+			return (0);
+		i = find_color(&rgb[x], line, i);
+		if (i == -1)
+			return (0);
+	}
+/*	i = slide_char(line,i);
 	if (i == -1)
 		return (0);
 	i = find_color(&rgb[1], line, i);
@@ -140,10 +149,12 @@ int		set_color(char *line, unsigned int *color, int i)
 	i = find_color(&rgb[2],line, i);
 	if (i == -1)
 		return (0);
-
+*/
 	while(line[i])
 		if (line[i++] != ' ')
 			return (0);
+
+		//	printf(" rgb : %d \t %d \t %d \n",rgb[0],rgb[1],rgb[2]);
 
    	*color =(rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 	return (1);
