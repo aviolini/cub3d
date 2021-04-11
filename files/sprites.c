@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/08 12:44:02 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 18:49:07 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ void 	sort_sprite(t_sprite *visibleSprites,int numVisibleSprites)
 void	settings_sprite(t_window *win, t_sprite *visibleSprites, int i)
 {
 
-        	double distprojplane = (win->settings.winW / 2)/tan(FOV/2);
+        //	double distprojplane = (win->settings.winW / 2)/tan(FOV/2);
         // Calculate the perpendicular distance of the sprite to prevent fish-eye effect
         visibleSprites[i].perpDistance = visibleSprites[i].distance * cos(visibleSprites[i].angle);
 
         // Calculate the sprite projected height and width (the same, as sprites are squared)
-        visibleSprites[i].spriteHeight = (1 / visibleSprites[i].perpDistance) * distprojplane;
+        visibleSprites[i].spriteHeight = (1 / visibleSprites[i].perpDistance) * win->settings.dist_proj_plane;
         visibleSprites[i].spriteWidth = visibleSprites[i].spriteHeight;
 
         // Sprite top Y
@@ -84,7 +84,7 @@ void	settings_sprite(t_window *win, t_sprite *visibleSprites, int i)
 
         // Calculate the sprite X position in the projection plane
         visibleSprites[i].angle = atan2(visibleSprites[i].sprY - win->player.posY, visibleSprites[i].sprX - win->player.posX) + win->player.angle;
-        visibleSprites[i].spriteScreenPosX = tan(visibleSprites[i].angle) * distprojplane;
+        visibleSprites[i].spriteScreenPosX = tan(visibleSprites[i].angle) * win->settings.dist_proj_plane;
 
         // SpriteLeftX
 	//	double var;

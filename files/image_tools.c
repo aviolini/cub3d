@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 18:40:47 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 18:56:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,16 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 
 void	column(t_window *win, t_image *img,int x,int orientation)
 {
-	double distprojplane;
 	double perpdist;
 	double h;
 	char *dst;
 	unsigned int color;
 	double walltopy = 0, wallbottomy = 0;
 
-	distprojplane = (win->settings.winW / 2) / tan(FOV / 2);
+//	distprojplane = (win->settings.winW / 2) / tan(FOV / 2);
 
 	perpdist =  win->ray.distance[x] * (cos(win->ray.angle -win->player.angle));
-	h = 1 / perpdist * distprojplane;
+	h = 1 / perpdist * win->settings.dist_proj_plane;
 //	h = win->settings.winH/perpdist;
 
 
@@ -156,6 +155,7 @@ void	set_right_resolution(t_window *win)
 		win->settings.winW = myresx;
 	if(win->settings.winH > myresy)
 		win->settings.winH = myresy;
+	win->settings.dist_proj_plane = (win->settings.winW / 2) / tan(FOV / 2);
 }
 
 int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray,int i)

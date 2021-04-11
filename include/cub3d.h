@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 18:21:50 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 18:45:48 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,30 +110,31 @@ typedef struct	s_player_data
 	double		angle;
 }				t_player;
 
-typedef	struct	s_settings_data
+typedef	struct		s_settings_data
 {
-	char		**map;
-	int			win_def;
-	int			img_def;
-	int			player_def;
-	int			minimap_def;
-	unsigned int			winW;
-	unsigned int			winH;
-	char		*north_texture;
-	char		*west_texture;
-	char		*east_texture;
-	char		*south_texture;
-	char		*sprite_texture;
- 	unsigned int			floor_color;
- 	unsigned int			ceiling_color;
-	int			eof;
-	int			winMyW;
-	int			winMyH;
-	int			mapW;
-	int			mapH;
-	int			num_of_sprite;
-	int			save;
-}				t_settings;
+	char			**map;
+	int				win_def;
+	int				img_def;
+	int				player_def;
+	int				minimap_def;
+	unsigned int	winW;
+	unsigned int	winH;
+	int				dist_proj_plane;
+	char			*north_texture;
+	char			*west_texture;
+	char			*east_texture;
+	char			*south_texture;
+	char			*sprite_texture;
+ 	unsigned int	floor_color;
+ 	unsigned int	ceiling_color;
+	int				eof;
+	int				winMyW;
+	int				winMyH;
+	int				mapW;
+	int				mapH;
+	int				num_of_sprite;
+	int				save;
+}					t_settings;
 
 typedef struct s_rays_data
 {
