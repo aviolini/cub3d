@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 22:39:33 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 23:18:53 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_draw_utils
 	double		distance_from_top;
 	int			offsetX;
 	int			offsetY;
+	double		texel_width;
 }				t_draw_utils;
 
 typedef struct s_key
@@ -83,18 +84,18 @@ typedef struct s_sprite_data
 {
 	double		sprX;
 	double		sprY;
-	int 		visible;
+//	int 		visible;
 	double 		angle;
 	double		distance;
-	double 		perpDistance;
-	double		spriteWidth;
-	double		spriteHeight;
-	double		spriteTopY;
-	double		spriteBottomY;
+	double 		perp_distance;
+	double		sprite_width;
+	double		sprite_height;
+	double		sprite_topY;
+	double		sprite_bottomY;
 	//double		spriteAngle;
-	double		spriteScreenPosX;
-	double		spriteLeftX;
-	double		spriteRightX;
+	double		sprite_screen_posX;
+	double		sprite_leftX;
+	double		sprite_rightX;
 }				t_sprite;
 
 typedef struct	s_image_data

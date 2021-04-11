@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 22:39:13 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 23:16:46 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,34 +68,34 @@ void	settings_sprite(t_window *win, t_sprite *vis_sprites, int i)
 
         //	double distprojplane = (win->settings.winW / 2)/tan(FOV/2);
         // Calculate the perpendicular distance of the sprite to prevent fish-eye effect
-        vis_sprites[i].perpDistance = vis_sprites[i].distance * cos(vis_sprites[i].angle);
+        vis_sprites[i].perp_distance = vis_sprites[i].distance * cos(vis_sprites[i].angle);
 
         // Calculate the sprite projected height and width (the same, as sprites are squared)
-        vis_sprites[i].spriteHeight = (1 / vis_sprites[i].perpDistance) * win->draw.dist_proj_plane;
-        vis_sprites[i].spriteWidth = vis_sprites[i].spriteHeight;
+        vis_sprites[i].sprite_height = (1 / vis_sprites[i].perp_distance) * win->draw.dist_proj_plane;
+        vis_sprites[i].sprite_width = vis_sprites[i].sprite_height;
 
         // Sprite top Y
-        vis_sprites[i].spriteTopY = (win->settings.winH / 2) - (vis_sprites[i].spriteHeight / 2);
-    //    vis_sprites[i].spriteTopY = (vis_sprites[i].spriteTopY < 0) ? 0 : vis_sprites[i].spriteTopY;
+        vis_sprites[i].sprite_topY = (win->settings.winH / 2) - (vis_sprites[i].sprite_height / 2);
+    //    vis_sprites[i].sprite_topY = (vis_sprites[i].sprite_topY < 0) ? 0 : vis_sprites[i].sprite_topY;
 
         // Sprite bottom Y
-        vis_sprites[i].spriteBottomY = (win->settings.winH / 2) + (vis_sprites[i].spriteHeight / 2);
-      //  vis_sprites[i].spriteBottomY = (vis_sprites[i].spriteBottomY > win->settings.winH) ? win->settings.winH : vis_sprites[i].spriteBottomY;
+        vis_sprites[i].sprite_bottomY = (win->settings.winH / 2) + (vis_sprites[i].sprite_height / 2);
+      //  vis_sprites[i].sprite_bottomY = (vis_sprites[i].sprite_bottomY > win->settings.winH) ? win->settings.winH : vis_sprites[i].sprite_bottomY;
 
         // Calculate the sprite X position in the projection plane
         vis_sprites[i].angle = atan2(vis_sprites[i].sprY - win->player.posY, vis_sprites[i].sprX - win->player.posX) + win->player.angle;
-        vis_sprites[i].spriteScreenPosX = tan(vis_sprites[i].angle) * win->draw.dist_proj_plane;
+        vis_sprites[i].sprite_screen_posX = tan(vis_sprites[i].angle) * win->draw.dist_proj_plane;
 
-        // SpriteLeftX
+        // Sprite_leftX
 	//	double var;
-	//	vis_sprites[i].spriteLeftX;
+	//	vis_sprites[i].sprite_leftX;
 	//	if (win->player.diry )
-        	vis_sprites[i].spriteLeftX = (win->settings.winW / 2) + vis_sprites[i].spriteScreenPosX- (vis_sprites[i].spriteWidth / 2);
+        	vis_sprites[i].sprite_leftX = (win->settings.winW / 2) + vis_sprites[i].sprite_screen_posX- (vis_sprites[i].sprite_width / 2);
 	//	else
-		//	spriteLeftX = (win->settings.winW / 2) + spriteScreenPosX + 1;// (spriteWidth / 2);
+		//	sprite_leftX = (win->settings.winW / 2) + sprite_screen_posX + 1;// (sprite_width / 2);
 
-        // SpriteRightX
-        vis_sprites[i].spriteRightX = vis_sprites[i].spriteLeftX + vis_sprites[i].spriteWidth;
+        // Sprite_rightX
+        vis_sprites[i].sprite_rightX = vis_sprites[i].sprite_leftX + vis_sprites[i].sprite_width;
 
         // Query the width and height of the texture
        // int H_TEX = upng_get_width(textures[vis_sprites[i].texture]);
@@ -103,43 +103,43 @@ void	settings_sprite(t_window *win, t_sprite *vis_sprites, int i)
 
 }
 
+void	draw_sprite_pixel(t_window *win, t_sprite vis_sprites, int x, int y)
+{
+	unsigned int color;
+	char *dst;
+
+	color = *(win->texture[4].addr + ((int)(win->draw.offsetY * win->texture[4].texH +
+			(int)(((win->draw.offsetX))))));
+	dst = win->view.addr + (int)(y) * win->view.line_length +
+	(int)(x) * (win->view.bits_per_pixel / 8);
+	if (vis_sprites.perp_distance < win->ray.distance[(int)x])
+	{
+				if (color >= 4278190080 || color == 0)
+				dst = (char *)255;
+				else
+					*(unsigned int*)dst = color;
+	}
+}
+
 void	show_sprite(t_window *win,t_sprite *vis_sprites,int i)
 {
 	double x;
 	int y;
-	unsigned int color;
 
-		char *dst;
 
-	x = (vis_sprites[i].spriteLeftX);
-	while (x < vis_sprites[i].spriteRightX)
+	x = (vis_sprites[i].sprite_leftX);
+	while (x < vis_sprites[i].sprite_rightX)
 	{
-		float texelWidth = (win->texture[4].texW / vis_sprites[i].spriteWidth);
-		int textureOffsetX = (x - vis_sprites[i].spriteLeftX) * texelWidth;
-		y = vis_sprites[i].spriteTopY;
-		while(y < vis_sprites[i].spriteBottomY)
+		win->draw.texel_width = (win->texture[4].texW / vis_sprites[i].sprite_width);
+		win->draw.offsetX = (x - vis_sprites[i].sprite_leftX) * win->draw.texel_width;
+		y = vis_sprites[i].sprite_topY;
+		while(y < vis_sprites[i].sprite_bottomY)
 		{
 			if (x > 0 && x < win->settings.winW && y > 0 && y < win->settings.winH)
 			{
-				int distanceFromTop = y + (vis_sprites[i].spriteHeight / 2) - (win->settings.winH / 2);
-				int textureOffsetY = distanceFromTop * (win->texture[4].texH / vis_sprites[i].spriteHeight);
-
-
-				//int offsetY = (int)((y + (h / 2) - (win->settings.winH / 2))*H_TEX/h);
-				color = *(win->texture[4].addr + ((int)(textureOffsetY * win->texture[4].texH +
-
-				(int)(((textureOffsetX))))));
-
-				dst = win->view.addr + (int)(y) * win->view.line_length +
-				(int)(x) * (win->view.bits_per_pixel / 8);
-
-					if (vis_sprites[i].perpDistance < win->ray.distance[(int)x])
-					{
-								if (color >= 4278190080 || color == 0)
-								dst = (char *)255;
-								else
-									*(unsigned int*)dst = color;
-					}
+				win->draw.distance_from_top = y + (vis_sprites[i].sprite_height / 2) - (win->settings.winH / 2);
+				win->draw.offsetY = win->draw.distance_from_top * (win->texture[4].texH / vis_sprites[i].sprite_height);
+				draw_sprite_pixel(win,vis_sprites[i],x,y);
 			}
 			y++;
 		}
@@ -149,17 +149,14 @@ void	show_sprite(t_window *win,t_sprite *vis_sprites,int i)
 
 int		sprite(t_window *win)
 {
-    t_sprite vis_sprites[win->settings.num_sprites];
-    int num_vis_sprites = 0;
+    t_sprite	vis_sprites[win->settings.num_sprites];
+    int			num_vis_sprites;
+	int			i;
 
-
-
+	i = -1;
+	num_vis_sprites = 0;
 	visible_sprites(win,vis_sprites,&num_vis_sprites);
 	sort_sprite(vis_sprites,num_vis_sprites);
-
-	int i = -1;
-
-
 	while ( ++i < num_vis_sprites)
 	{
 		settings_sprite(win,vis_sprites,i);
@@ -174,54 +171,54 @@ int		sprite(t_window *win)
         t_sprite sprite = vis_sprites[i];
 
         // Calculate the perpendicular distance of the sprite to prevent fish-eye effect
-        float perpDistance = sprite.distance * cos(sprite.angle);
+        float perp_distance = sprite.distance * cos(sprite.angle);
 
         // Calculate the sprite projected height and width (the same, as sprites are squared)
-        float spriteHeight = (1 / perpDistance) * distprojplane;
-        float spriteWidth = spriteHeight;
+        float sprite_height = (1 / perp_distance) * distprojplane;
+        float sprite_width = sprite_height;
 
         // Sprite top Y
-        float spriteTopY = (win->settings.winH / 2) - (spriteHeight / 2);
-        spriteTopY = (spriteTopY < 0) ? 0 : spriteTopY;
+        float sprite_topY = (win->settings.winH / 2) - (sprite_height / 2);
+        sprite_topY = (sprite_topY < 0) ? 0 : sprite_topY;
 
         // Sprite bottom Y
-        float spriteBottomY = (win->settings.winH / 2) + (spriteHeight / 2);
-        spriteBottomY = (spriteBottomY > win->settings.winH) ? win->settings.winH : spriteBottomY;
+        float sprite_bottomY = (win->settings.winH / 2) + (sprite_height / 2);
+        sprite_bottomY = (sprite_bottomY > win->settings.winH) ? win->settings.winH : sprite_bottomY;
 
         // Calculate the sprite X position in the projection plane
         float spriteAngle = atan2(sprite.sprY - win->player.posY, sprite.sprX - win->player.posX) + win->player.angle;
-        float spriteScreenPosX = tan(spriteAngle) * distprojplane;
+        float sprite_screen_posX = tan(spriteAngle) * distprojplane;
 
-        // SpriteLeftX
+        // Sprite_leftX
 	//	double var;
-		float spriteLeftX;
+		float sprite_leftX;
 	//	if (win->player.diry )
-        	spriteLeftX = (win->settings.winW / 2) + spriteScreenPosX- (spriteWidth / 2);
+        	sprite_leftX = (win->settings.winW / 2) + sprite_screen_posX- (sprite_width / 2);
 	//	else
-		//	spriteLeftX = (win->settings.winW / 2) + spriteScreenPosX + 1;// (spriteWidth / 2);
+		//	sprite_leftX = (win->settings.winW / 2) + sprite_screen_posX + 1;// (sprite_width / 2);
 
-        // SpriteRightX
-        float spriteRightX = spriteLeftX + spriteWidth;
+        // Sprite_rightX
+        float sprite_rightX = sprite_leftX + sprite_width;
 
         // Query the width and height of the texture
        // int H_TEX = upng_get_width(textures[sprite.texture]);
        // int 64 = upng_get_height(textures[sprite.texture]);
 
         // Loop all the x values
-        for (double x = spriteLeftX; x < spriteRightX; x++)
+        for (double x = sprite_leftX; x < sprite_rightX; x++)
 		{
-            float texelWidth = (W_TEX / spriteWidth);
-            int textureOffsetX = (x - spriteLeftX) * texelWidth;
+            float texel_width = (W_TEX / sprite_width);
+            int textureOffsetX = (x - sprite_leftX) * texel_width;
 
 		//	int offsetX = (x - left)*H_TEX/h;
 
             // Loop all the y values
-            for (int y = spriteTopY; y < spriteBottomY; y++)
+            for (int y = sprite_topY; y < sprite_bottomY; y++)
 			{
                 if (x > 0 && x < win->settings.winW && y > 0 && y < win->settings.winH)
 				{
-                    int distanceFromTop = y + (spriteHeight / 2) - (win->settings.winH / 2);
-                    int textureOffsetY = distanceFromTop * (H_TEX / spriteHeight);
+                    int distanceFrom_top = y + (sprite_height / 2) - (win->settings.winH / 2);
+                    int textureOffsetY = distanceFrom_top * (H_TEX / sprite_height);
 
 
 					//int offsetY = (int)((y + (h / 2) - (win->settings.winH / 2))*H_TEX/h);
@@ -232,7 +229,7 @@ int		sprite(t_window *win)
 					dst = win->view.addr + (int)(y) * win->view.line_length +
 					(int)(x) * (win->view.bits_per_pixel / 8);
 
-						if (perpDistance < win->ray.distance[(int)x])
+						if (perp_distance < win->ray.distance[(int)x])
 						{
 									if (color >= 4278190080 || color == 0)
 									dst = (char *)255;
