@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 18:37:12 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 18:40:47 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,81 +14,12 @@
 #include "../include/cub3d.h"
 
 
-
-int		lock_map(t_window *win)
-{
-//	if (!win->settings.minimap_def)
-		win->settings.minimap_def = 1;
-	//else if (win->settings.minimap_def == 1)
-	//	win->settings.minimap_def = 2;
-//	else	if (win->settings.minimap_def == 2)
-  // 		win->settings.minimap_def = 0;
-//	if(win->key.m && win->settings.minimap_def == 1)
-//		win->settings.minimap_def = 2;
-//	else if(win->key.m && win->settings.minimap_def)
-//	{
-//
-//		win->settings.minimap_def = 0;
-//	}
-//	if (!win->key.m && win->settings.minimap_def == 1)
-//		win->settings.minimap_def = 2;
-//	if (win->key.m && win->settings.minimap_def == 2)
-//	{
-//		printf("ciao\n\n");
-//		win->settings.minimap_def = 0;
-//	}
-	return (1);
-}
-
-int		unlock_map(t_window *win)
-{
-	(void)win;
-	//if(win->key.m && win->settings.minimap_def)
-//	{
-
-		win->settings.minimap_def = 0;
-//	}
-//	if (win->key.m && !win->settings.minimap_def)
-//		win->settings.minimap_def = 1;
-//	if (!win->key.m && win->settings.minimap_def == 1)
-//		win->settings.minimap_def = 2;
-//	if (win->settings.minimap_def == 2)
-//	{
-//		printf("ciao\n\n");
-//		win->settings.minimap_def = 0;
-//	}
-	return (1);
-}
-
-int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,int i)
-{
-	int z;
-
-	z = 0;
-	while(z < win->settings.num_of_sprite &&
-		(sprite[z]->sprX != 0 && sprite[z]->sprY != 0))
-		{
-			if ((int)sprite[z]->sprX == (int)x && (int)sprite[z]->sprY == (int)y)
-					//	&& sprite[z]->distance > 0)
-				return (0);
-			z++;
-		}
-	sprite[z]->i = i;
-	sprite[z]->sprX = x;
-	sprite[z]->sprY = y;
-	sprite[z]->distance = hypot(fabs(win->player.posX-sprite[z]->sprX),
-							fabs(win->player.posY-sprite[z]->sprY));
-
-
-	return (1);
-}
-
 void	new_minimap_image(t_window *win, t_image *image)
 {
 	image->img = mlx_new_image(win->mlx, win->settings.mapW * SCALE, win->settings.mapH * SCALE);
 	image->addr = mlx_get_data_addr(image->img, &image->bits_per_pixel,
 		&image->line_length, &image->endian);
-	win->settings.img_def = 1;
+//	win->settings.minimap_def = 1;
 }
 
 void	new_image(t_window *win, t_image *image)
