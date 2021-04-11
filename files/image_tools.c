@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 23:31:07 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 23:36:24 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	{
 
 	//int offsetY = (int)(64/h*k++);
-	win->draw.offsetY = (int)fabs((i + (win->draw.h_object / 2) - (win->settings.winH / 2))*win->texture[orientation].texH/win->draw.h_object);
-	color = *(win->texture[orientation].addr + ((int)(win->draw.offsetY)*win->texture[orientation].texH +
-	(int)((win->ray.indexTex-(int)win->ray.indexTex)*win->texture[orientation].texW)));
+	win->draw.offsetY = (int)fabs((i + (win->draw.h_object / 2) - (win->settings.winH / 2))*win->textures[orientation].texH/win->draw.h_object);
+	color = *(win->textures[orientation].addr + ((int)(win->draw.offsetY)*win->textures[orientation].texH +
+	(int)((win->ray.indexTex-(int)win->ray.indexTex)*win->textures[orientation].texW)));
 
     		dst = img->addr + ((int)(i++) * img->line_length +
 			(int)(x) * (img->bits_per_pixel / 8));
@@ -82,8 +82,8 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 
 int open_texture(t_window *win, int i, char *path)
 {
-	win->texture[i].tex = mlx_xpm_file_to_image(win->mlx,path,&win->texture[i].texW,&win->texture[i].texH);
-	if (!win->texture[i].tex)
+	win->textures[i].tex = mlx_xpm_file_to_image(win->mlx,path,&win->textures[i].texW,&win->textures[i].texH);
+	if (!win->textures[i].tex)
 		return (0);
 	return (1);
 }
@@ -110,16 +110,16 @@ int		init_textures(t_window *win)
 	i = -1;
 	while (++i < 5)
 		{
-			//win->texture[i].addr = malloc
-		/*	if(!(win->texture[i].addr =(int *)mlx_get_data_addr(win->texture[i].tex, &win->texture[i].bits_per_pixel,
-				&win->texture[i].line_length, &win->texture[i].endian)))
+			//win->textures[i].addr = malloc
+		/*	if(!(win->textures[i].addr =(int *)mlx_get_data_addr(win->textures[i].tex, &win->textures[i].bits_per_pixel,
+				&win->textures[i].line_length, &win->textures[i].endian)))
 					return (0);
-		*/	if(!(win->texture[i].addr =(int *)mlx_get_data_addr(win->texture[i].tex, &useless_but_necessary_box[0],
+		*/	if(!(win->textures[i].addr =(int *)mlx_get_data_addr(win->textures[i].tex, &useless_but_necessary_box[0],
 				&useless_but_necessary_box[1], &useless_but_necessary_box[2])))
 					return (0);
-		//	mlx_put_image_to_window(win->mlx, win->win, win->texture[i].tex, 20 + x, 20);
+		//	mlx_put_image_to_window(win->mlx, win->win, win->textures[i].tex, 20 + x, 20);
 		//	x += 65;
-		//	print_tex(win->texture[i]);
+		//	print_tex(win->textures[i]);
 		}
 	return (1);
 }

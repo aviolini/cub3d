@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 23:16:46 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 23:37:46 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int		visible_sprites(t_window *win, t_sprite *vis_sprites,int *num_vis_sprites)
 {
 	for (int i = 0; i < win->settings.num_sprites; i++)
 	{
-        float angleSpritePlayer = win->player.angle - atan2(win->player.posY - win->sprite[i]->sprY,
-			win->sprite[i]->sprX - win->player.posX);
+        float angleSpritePlayer = win->player.angle - atan2(win->player.posY - win->sprites[i]->sprY,
+			win->sprites[i]->sprX - win->player.posX);
         if (angleSpritePlayer > M_PI)
             angleSpritePlayer -= M_PI * 2;
         if (angleSpritePlayer < -M_PI)
@@ -30,17 +30,17 @@ int		visible_sprites(t_window *win, t_sprite *vis_sprites,int *num_vis_sprites)
 //		printf("angleSpritePlayer: %f\n",angleSpritePlayer);
 		if (angleSpritePlayer < (FOV/2) + EPSILON)
 		{
-    //        win->sprite[i]->visible = 1;
-            win->sprite[i]->angle = angleSpritePlayer;
-			 win->sprite[i]->distance = hypot(win->sprite[i]->sprX - win->player.posX, win->sprite[i]->sprY - win->player.posY);
-          //  win->sprite[i]->distance = hypot(fabs(win->sprite[i]->sprX - win->player.posX), //////////////////controlla ordine
-			//							fabs(win->sprite[i]->sprY - win->player.posY));
-			vis_sprites[*num_vis_sprites] = *win->sprite[i]; //////////////[0][i] oppure *
+    //        win->sprites[i]->visible = 1;
+            win->sprites[i]->angle = angleSpritePlayer;
+			 win->sprites[i]->distance = hypot(win->sprites[i]->sprX - win->player.posX, win->sprites[i]->sprY - win->player.posY);
+          //  win->sprites[i]->distance = hypot(fabs(win->sprites[i]->sprX - win->player.posX), //////////////////controlla ordine
+			//							fabs(win->sprites[i]->sprY - win->player.posY));
+			vis_sprites[*num_vis_sprites] = *win->sprites[i]; //////////////[0][i] oppure *
 			(*num_vis_sprites)++;
         }
 	//	else
 	//	{
-      //    win->sprite[i]->visible = 0;
+      //    win->sprites[i]->visible = 0;
        // }
     }
 //	printf("*num_vis_sprites : %d\n\n\n\n",*num_vis_sprites);
@@ -108,7 +108,7 @@ void	draw_sprite_pixel(t_window *win, t_sprite vis_sprites, int x, int y)
 	unsigned int color;
 	char *dst;
 
-	color = *(win->texture[4].addr + ((int)(win->draw.offsetY * win->texture[4].texH +
+	color = *(win->textures[4].addr + ((int)(win->draw.offsetY * win->textures[4].texH +
 			(int)(((win->draw.offsetX))))));
 	dst = win->view.addr + (int)(y) * win->view.line_length +
 	(int)(x) * (win->view.bits_per_pixel / 8);
@@ -130,7 +130,7 @@ void	show_sprite(t_window *win,t_sprite *vis_sprites,int i)
 	x = (vis_sprites[i].sprite_leftX);
 	while (x < vis_sprites[i].sprite_rightX)
 	{
-		win->draw.texel_width = (win->texture[4].texW / vis_sprites[i].sprite_width);
+		win->draw.texel_width = (win->textures[4].texW / vis_sprites[i].sprite_width);
 		win->draw.offsetX = (x - vis_sprites[i].sprite_leftX) * win->draw.texel_width;
 		y = vis_sprites[i].sprite_topY;
 		while(y < vis_sprites[i].sprite_bottomY)
@@ -138,7 +138,7 @@ void	show_sprite(t_window *win,t_sprite *vis_sprites,int i)
 			if (x > 0 && x < win->settings.winW && y > 0 && y < win->settings.winH)
 			{
 				win->draw.distance_from_top = y + (vis_sprites[i].sprite_height / 2) - (win->settings.winH / 2);
-				win->draw.offsetY = win->draw.distance_from_top * (win->texture[4].texH / vis_sprites[i].sprite_height);
+				win->draw.offsetY = win->draw.distance_from_top * (win->textures[4].texH / vis_sprites[i].sprite_height);
 				draw_sprite_pixel(win,vis_sprites[i],x,y);
 			}
 			y++;
@@ -222,7 +222,7 @@ int		sprite(t_window *win)
 
 
 					//int offsetY = (int)((y + (h / 2) - (win->settings.winH / 2))*H_TEX/h);
-					color = *(win->texture[4].addr + ((int)(textureOffsetY*H_TEX +
+					color = *(win->textures[4].addr + ((int)(textureOffsetY*H_TEX +
 
 					(int)(((textureOffsetX))))));
 

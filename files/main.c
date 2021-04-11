@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 22:40:58 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 23:35:29 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,5 @@ void	init_env(t_window *win)
 	win->settings.num_sprites = 0;
 	win->settings.save = 0;
 	win->draw.dist_proj_plane = 0;
-	win->sprite = NULL;
+	win->sprites = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 23:27:30 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 23:32:14 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,8 @@ typedef struct	s_window_data
 	t_player	player;
 	t_settings	settings;
 	t_ray		ray;
-	t_texture	texture[5];
-	t_sprite	**sprite;
+	t_texture	textures[5];
+	t_sprite	**sprites;
 	t_key		key;
 	t_draw_utils draw;
 }				t_window;

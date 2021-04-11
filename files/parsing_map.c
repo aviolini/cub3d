@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 22:39:56 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 23:37:10 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,16 +119,16 @@ int	init_sprite(t_window *win,int x, int y)
 	{
 		if (!(temp[i] = (t_sprite *)malloc(sizeof(t_sprite))))
 			return (0);
-		*temp[i] = *win->sprite[i];
-		free(win->sprite[i]);
+		*temp[i] = *win->sprites[i];
+		free(win->sprites[i]);
 		i++;
 	}
 	if (!(temp[i] = (t_sprite *)malloc(sizeof(t_sprite))))
 		return (0);
 	temp[i]->sprX = x + 0.5;
 	temp[i]->sprY = y + 0.5;
-	if (win->sprite)
-		free(win->sprite);
-	win->sprite = temp;
+	if (win->sprites)
+		free(win->sprites);
+	win->sprites = temp;
 return (1);
 }
