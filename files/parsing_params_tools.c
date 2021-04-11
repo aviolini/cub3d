@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:35:54 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 16:45:35 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 16:58:54 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ int		slide_char(char *line, int i)
 		i++;
 	}
 	i++;
-//	while(!is_digit(line[i]))
-//		if (line[i++] != ' ' || !line[i])
-//			return (-1);
 	return (i);
 }
 

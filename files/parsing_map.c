@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 12:55:30 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:11:29 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,18 @@ int	init_sprite(t_window *win,int x, int y)
 return (1);
 }
 
+int		is_valid_zero()
+{
+	
+}
+
 int		check_map(t_window *win, char **map, int mapy, int mapx)
 {
 	int y;
 	int x;
 
 	win->sprite = NULL;
+	win->settings.player_def = 0;
 	y = -1;
 	while (++y < mapy && -2 < (x = -1))
 		while (++x < mapx)
@@ -118,30 +124,32 @@ int		check_map(t_window *win, char **map, int mapy, int mapx)
 					return (0);
 				if (is_player(map[y][x]))
 				{
-					if (win->player.def == 1)
+					if (win->settings.player_def == 1)
 						return (0);
-					init_player(&win->player, map[y][x], x, y);
+					init_player(win, map[y][x], x, y);
 				}
 				if (map[y][x] == '2')
 					init_sprite(win,x,y);
 			}
+	if (win->settings.player_def == 0)
+		return (0);
 //	print_sprite(win);
 	return (1);
 }
 
-void	init_player(t_player *player, char c,int x, int y)
+void	init_player(t_window *win, char c,int x, int y)
 {
-	player->def = 1;
-	player->posX = x;// * SCALE;// + SCALE / 2;
-	player->posY = y;// * SCALE;// + SCALE / 2;
+	win->settings.player_def = 1;
+	win->player.posX = x;// * SCALE;// + SCALE / 2;
+	win->player.posY = y;// * SCALE;// + SCALE / 2;
 	if (c == 'N')
-		player->angle = M_PI_2;
+		win->player.angle = M_PI_2;
 	else if (c == 'S')
-		player->angle = 3*M_PI_2;
+		win->player.angle = 3*M_PI_2;
 	else if (c == 'E')
-		player->angle = 0;
+		win->player.angle = 0;
 	else if (c == 'W')
-		player->angle = M_PI;
-	player->dirX = cos(player->angle);
-	player->dirY = -sin(player->angle);
+		win->player.angle = M_PI;
+	win->player.dirX = cos(win->player.angle);
+	win->player.dirY = -sin(win->player.angle);
 }
