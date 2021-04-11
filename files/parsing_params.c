@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 16:29:32 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 16:46:18 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,19 +118,14 @@ int		path_texture(char *line, char **texture, int i)
 
 int		set_color(char *line, unsigned int *color, int i)
 {
-	int r;
-	int g;
-	int b;
-
 	int rgb[3];
 
-printf (" color : %u\n\n", *color);
 	if (*color != INIT_COLOR)
 		return (0);
 
-	while(!is_digit(line[i]))
-		if (line[i++] != ' ' || !line[i])
-			return (0);
+//	while(!is_digit(line[i]))
+//		if (line[i++] != ' ' || !line[i])
+//			return (0);
 	i = find_color(&rgb[0],line, i);
 	if (i == -1)
 		return (0);
@@ -152,7 +147,7 @@ printf (" color : %u\n\n", *color);
 	while(line[i])
 		if (line[i++] != ' ')
 			return (0);
-	//*color = rgb[0] + rgb[1] + rgb[2] == 0 ? 1 :
+
    	*color =(rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 	return (1);
 }
