@@ -6,12 +6,23 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/09 11:35:39 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:26:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+void print_sprite(t_window *win)
+{
+	int i;
+	i = 0;
 
+	while(i <win->settings.num_of_sprite )
+	{
+		printf("sprite %d : x:%f , y:%f\n\n", i,win->sprite[i]->sprX,win->sprite[i]->sprY);
+		i++;
+	}
+	printf("num_of_sprite: %d\n",win->settings.num_of_sprite);
+}
 void	my_mlx_put_wall(t_window *win, t_image *img, int x, int color)
 {
     char    *dst;

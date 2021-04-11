@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 13:07:07 by aviolini          #+#    #+#             */
-/*   Updated: 2021/03/27 09:27:57 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:30:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,21 @@ int		is_player(char c)
 	return (0);
 }
 
-int		is_valid_char(char c)
+int		is_a_valid_char(char c)
 {
 	if (c == '0' || c == '2' || is_player(c))
 		return (1);
 	return (0);
+}
+
+int		is_a_protected_zero(t_window *win, char **map, int x, int y)
+{
+	if ((y == 0 || y == win->settings.mapH - 1)
+	|| (x == 0 || x == win->settings.mapW - 1)
+	|| (map[y - 1][x] == ' ' || map[y + 1][x] == ' ')
+	|| (map[y][x - 1] == ' ' || map[y][x + 1] == ' ')
+	|| (map[y - 1][x - 1] == ' ' || map[y + 1][x + 1] == ' ')
+	|| (map[y - 1][x + 1] == ' ' || map[y - 1][x + 1] == ' '))
+		return (0);
+	return (1);
 }

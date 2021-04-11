@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 17:25:43 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:32:40 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,16 +239,18 @@ int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray
 
 
 /*PARSING MAP */
-int		is_protected_zero(t_window *win, char **map, int x, int y);
+
 int		parsing_map(char *line, t_settings *settings);
 char	**build_map(char *line, char **map, int *x, int *y);
 int		check_map(t_window *win, char **map);
 void	init_player(t_window *win, char c,int x, int y);
+int		init_sprite(t_window *win,int x, int y);
 /*PARSING MAP_TOOLS*/
 int		ft_strlen(char *s);
 char	*copy_line(char *line, int mapx);
 int		is_player(char c);
-int		is_valid_char(char c);
+int		is_a_valid_char(char c);
+int		is_a_protected_zero(t_window *win, char **map, int x, int y);
 /*PARSING_PARAMS*/
 int		parsing_params(char *line, t_settings *settings);
 int		set_resolution(char *line, t_settings *settings, int i);
