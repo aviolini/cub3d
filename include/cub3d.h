@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/09 12:05:42 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 15:38:38 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,7 +259,7 @@ int		check_args(int ac, char **av);
 int 	is_digit(char c);
 int		if_empty_line_and_slide_spaces(char *line);
 int		slide_char(char *line, int i);
-int		find_color(char *line, int i);
+int		find_color(int *rgb, char *line, int i);
 int		all_params(t_settings *settings);
 /* GNL FUNCTIONS */
 int		get_next_line(int fd, char **line);

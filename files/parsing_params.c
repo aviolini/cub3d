@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 13:32:00 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 15:41:33 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,18 +119,20 @@ int		set_color(char *line, unsigned int *color, int i)
 	int g;
 	int b;
 
+	int rgb[3];
+
 	if (*color)
 		return (0);
 	while(!is_digit(line[i]))
 		if (line[i++] != ' ' || !line[i])
 			return (0);
-	r = find_color(line, i);
+	r = find_color(&rgb[0],line, i);
 	if ((i = slide_char(line,i)) == -1 || r == -1)
 		return (0);
-	g = find_color(line, i);
+	g = find_color(&rgb[1], line, i);
 	if ((i = slide_char(line,i)) == -1 || g == -1)
 		return (0);
-	b = find_color(line, i);
+	b = find_color(&rgb[2],line, i);
 	if (b == -1)
 		return (0);
 	while (is_digit(line[i]))
@@ -138,7 +140,7 @@ int		set_color(char *line, unsigned int *color, int i)
 	while(line[i])
 		if (line[i++] != ' ')
 			return (0);
-	*color = r + g + b == 0 ? 1 :
-   		(r << 16 | g << 8 | b);
+	*color = rgb[0] + rgb[1] + rgb[2] == 0 ? 1 :
+   		(rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 	return (1);
 }
