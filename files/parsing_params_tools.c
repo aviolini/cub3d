@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:35:54 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 15:54:38 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 15:59:49 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		slide_char(char *line, int i)
 
 int		find_color(int *rgb, char *line, int i)
 {
-	unsigned int color;
+	int color;
 
 	color = 0;
 	while (is_digit(line[i]))
@@ -57,7 +57,7 @@ int		find_color(int *rgb, char *line, int i)
 	if (color > 255 || color < 0)
 		return (-1);
 	*rgb = color;
-	printf(" rgb : %d \n",*rgb);
+	//printf(" rgb : %d \n",*rgb);
 	return (i);
 }
 
