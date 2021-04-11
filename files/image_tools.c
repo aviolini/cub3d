@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 18:56:45 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 19:15:29 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	new_minimap_image(t_window *win, t_image *image)
 	image->img = mlx_new_image(win->mlx, win->settings.mapW * SCALE, win->settings.mapH * SCALE);
 	image->addr = mlx_get_data_addr(image->img, &image->bits_per_pixel,
 		&image->line_length, &image->endian);
-//	win->settings.minimap_def = 1;
+	win->settings.minimap_def = 1;
 }
 
 void	new_image(t_window *win, t_image *image)
@@ -157,37 +157,42 @@ void	set_right_resolution(t_window *win)
 		win->settings.winH = myresy;
 	win->settings.dist_proj_plane = (win->settings.winW / 2) / tan(FOV / 2);
 }
-
+void	print_intersection(t_window *win, double intersectionX, double intersectionY)
+{
+	if(win->settings.minimap_def)
+		my_mlx_pixel_put(&win->world,intersectionX*SCALE, intersectionY*SCALE, RED);
+}
 int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray,int i)
 {
-	double	verh;
-	double	horh;
+	double	ver_int;
+	double	hor_int;
 
-	verh = hypot(fabs(player.posX - ray->verx), fabs(player.posY - ray->very));
-	horh = hypot(fabs(player.posX - ray->horx), fabs(player.posY - ray->hory));
-	//printf("verh : %lf\n",verh);
-///	printf("horh : %lf\n",horh);
-	if (horh <= verh)
+	ver_int = hypot(fabs(player.posX - ray->verx), fabs(player.posY - ray->very));
+	hor_int = hypot(fabs(player.posX - ray->horx), fabs(player.posY - ray->hory));
+	if (hor_int <= ver_int)
 	{
-		if(win->settings.minimap_def)
-			my_mlx_pixel_put(&win->world, ray->horx*SCALE, ray->hory*SCALE, RED);
-		ray->distance[i] = horh;
+//		if(win->settings.minimap_def)
+//			my_mlx_pixel_put(&win->world, ray->horx*SCALE, ray->hory*SCALE, RED);
+		ray->distance[i] = hor_int;
 		ray->indexTex = ray->horx;
-		if (ray->dirY < 0)
-			return (1);
-		else
+		print_intersection(win,win->ray.horx,win->ray.hory);
+//		if (ray->dirY < 0)
+	//		return (1);
+	//	else
+	if (ray->dirY > 0)
 			return (3);
 	}
 	else
 	{
-		if(win->settings.minimap_def)
-			my_mlx_pixel_put(&win->world, ray->verx*SCALE, ray->very*SCALE, RED);
+//		if(win->settings.minimap_def)
+//			my_mlx_pixel_put(&win->world, ray->verx*SCALE, ray->very*SCALE, RED);
 		ray->indexTex = ray->very;
-		ray->distance[i] = verh;
+		ray->distance[i] = ver_int;
+		print_intersection(win,win->ray.verx,win->ray.very);
 		if(ray->dirX < 0)
 			return (2) ;
 		else
 			return (0);
 	}
-	return (-1);
+	return (1);
 }
