@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 17:36:27 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:48:03 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,8 @@ int	check_map(t_window *win, char **map)
 					(!is_a_protected_zero(win,map,x,y)))
 						return (0);
 				if (is_player(map[y][x]))
-				{
-					if (win->settings.player_def == 1)
+					if (!init_player(win, map[y][x], x, y))
 						return (0);
-					init_player(win, map[y][x], x, y);
-				}
 				if (map[y][x] == '2')
 					init_sprite(win,x,y);
 			}
@@ -88,9 +85,12 @@ int	check_map(t_window *win, char **map)
 	return (1);
 }
 
-void	init_player(t_window *win, char c,int x, int y)
+int	init_player(t_window *win, char c,int x, int y)
 {
-	win->settings.player_def = 1;
+	if (win->settings.player_def == 0)
+		win->settings.player_def = 1;
+	else
+		return (0);
 	win->player.posX = x;// * SCALE;// + SCALE / 2;
 	win->player.posY = y;// * SCALE;// + SCALE / 2;
 	if (c == 'N')
@@ -103,6 +103,7 @@ void	init_player(t_window *win, char c,int x, int y)
 		win->player.angle = M_PI;
 	win->player.dirX = cos(win->player.angle);
 	win->player.dirY = -sin(win->player.angle);
+	return (1);
 }
 
 int	init_sprite(t_window *win,int x, int y)
