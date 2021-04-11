@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:35:54 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 15:39:23 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 15:54:38 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ int		slide_char(char *line, int i)
 {
 	while (line[i] != ',')
 	{
-		if ((!is_digit(line[i]) && line[i] != ' ') || !line[i + 1])
+		if (line[i] != ' ' || !line[i + 1])
 			return (-1);
 		i++;
 	}
-	while (is_digit(line[i]))
-		i++;
-	return (i + 1);
+	i++;
+	while(!is_digit(line[i]))
+		if (line[i++] != ' ' || !line[i])
+			return (0);
+	return (i);
 }
 
 int		find_color(int *rgb, char *line, int i)
