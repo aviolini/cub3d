@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 16:46:18 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 16:57:39 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,9 @@ int		parsing_params(char *line, t_settings *settings)
 	else if (line[i] == 'S')
 		r = path_texture(line, &settings->sprite_texture, i + 1);
 	else if (line[i] == 'F')
-	//	printf(" ciao\n");
 		r = set_color(line, &settings->floor_color, i + 1);
 	else if (line[i] == 'C')
-	//	printf(" ciao2\n");
 		r = set_color(line, &settings->ceiling_color, i + 1);
-	printf(" ciclo : \t r : %d\n",r);
 	return (r);
 }
 
