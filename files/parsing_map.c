@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 17:20:10 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:25:55 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	init_sprite(t_window *win,int x, int y)
 return (1);
 }
 
-int		is_valid_zero(t_window *win, char **map, int x, int y )
+int		is_protected_zero(t_window *win, char **map, int x, int y)
 {
 	if ((y == 0 || y == win->settings.mapH - 1)
 	|| (x == 0 || x == win->settings.mapW - 1)
@@ -114,15 +114,13 @@ int		check_map(t_window *win, char **map)
 	int y;
 	int x;
 
-	win->sprite = NULL;
-	win->settings.player_def = 0;
 	y = -1;
 	while (++y < win->settings.mapH && -2 < (x = -1))
 		while (++x < win->settings.mapW)
 			if ((map[y][x]) != '1' && map[y][x] != ' ')
 			{
 				if (!is_valid_char(map[y][x]) ||
-					(!is_valid_zero(win,map,x,y)))
+					(!is_protected_zero(win,map,x,y)))
 						return (0);
 				if (is_player(map[y][x]))
 				{
@@ -135,7 +133,6 @@ int		check_map(t_window *win, char **map)
 			}
 	if (win->settings.player_def == 0)
 		return (0);
-//	print_sprite(win);
 	return (1);
 }
 

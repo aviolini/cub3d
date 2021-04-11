@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 17:13:19 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:22:55 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		main(int ac, char **av)
 	i = 0;
 	if (!(i = check_args(ac,av)))
 		return (0);
-	init_settings(&win.settings);
+	init_env(&win);
 	 if (i == 2)
 		win.settings.save = 1;
 	if (!main_parsing(av[1], &win))
@@ -117,24 +117,26 @@ int		main_window(t_window *win)
 	return (1);
 }
 
-void	init_settings(t_settings *settings)
+void	init_env(t_window *win)
 {
-	settings->win_def = 0;
-	settings->img_def = 0;
-	settings->minimap_def = 0;
-	settings->map = NULL;
-	settings->winW = 0;
-	settings->winH = 0;
-	settings->north_texture = NULL;
-	settings->west_texture = NULL;
-	settings->east_texture = NULL;
-	settings->south_texture = NULL;
-	settings->sprite_texture = NULL;
-	settings->floor_color = INIT_COLOR;
-	settings->ceiling_color = INIT_COLOR;
-	settings->eof = 0;
-	settings->mapW = 0;
-	settings->mapH = 0;
-	settings->num_of_sprite = 0;
-	settings->save = 0;
+	win->settings.win_def = 0;
+	win->settings.img_def = 0;
+	win->settings.player_def = 0;
+	win->settings.minimap_def = 0;
+	win->settings.map = NULL;
+	win->settings.winW = 0;
+	win->settings.winH = 0;
+	win->settings.north_texture = NULL;
+	win->settings.west_texture = NULL;
+	win->settings.east_texture = NULL;
+	win->settings.south_texture = NULL;
+	win->settings.sprite_texture = NULL;
+	win->settings.floor_color = INIT_COLOR;
+	win->settings.ceiling_color = INIT_COLOR;
+	win->settings.eof = 0;
+	win->settings.mapW = 0;
+	win->settings.mapH = 0;
+	win->settings.num_of_sprite = 0;
+	win->settings.save = 0;
+	win->sprite = NULL;
 }

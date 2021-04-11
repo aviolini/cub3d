@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 17:13:54 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:25:43 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ void	my_mlx_pixel_grid(t_image *img, int x, int y, int grid_color, int internal_
 /*CUB3D.C*/
 int		main_parsing(char *av, t_window *win);
 int		main_window(t_window *win);
-void	init_settings(t_settings *settings);
+void	init_env(t_window *win);
 
 /*SPRITES>c*/
 
@@ -239,6 +239,7 @@ int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray
 
 
 /*PARSING MAP */
+int		is_protected_zero(t_window *win, char **map, int x, int y);
 int		parsing_map(char *line, t_settings *settings);
 char	**build_map(char *line, char **map, int *x, int *y);
 int		check_map(t_window *win, char **map);
