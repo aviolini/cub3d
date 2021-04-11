@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 16:16:28 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:13:19 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		main_parsing(char *av, t_window *win)
 		free(line);
 	}
 	close(fd);
-	if (r == -1 || !check_map(win, win->settings.map, win->settings.mapH, win->settings.mapW))
+	if (r == -1 || !check_map(win, win->settings.map))
 		return(0);
 	return (1);
 }
