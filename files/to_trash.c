@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 18:39:05 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 22:28:30 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,i
 				return (0);
 			z++;
 		}
-	sprite[z]->i = i;
+//	sprite[z]->i = i;
 	sprite[z]->sprX = x;
 	sprite[z]->sprY = y;
 	sprite[z]->distance = hypot(fabs(win->player.posX-sprite[z]->sprX),

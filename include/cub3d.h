@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 22:21:48 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 22:30:55 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,10 @@ typedef struct s_sprite_data
 	double		spriteHeight;
 	double		spriteTopY;
 	double		spriteBottomY;
-	double		spriteAngle;
+	//double		spriteAngle;
 	double		spriteScreenPosX;
 	double		spriteLeftX;
 	double		spriteRightX;
-
-
-
-	int			i;
-	int			is_horiz;
-
 }				t_sprite;
 
 typedef struct	s_image_data
@@ -153,23 +147,23 @@ typedef struct s_rays_data
 	double 		angle;
 	double		dirX;
 	double		dirY;
-	double		hitX;
-	double		hitY;
+	//double		hitX;
+	//double		hitY;
 	double		*distance;
-	int			verticalHit;
+	//int			verticalHit;
 
 	double		indexTex;
 
 
-	double		value_x;
-	double		value_y;
+	double		value;
+//	double		value_y;
 	double		horx;
 	double		hory;
 	double		verx;
 	double		very;
 //	double		rayx;
 //	double		rayy;
-	int			hashity;
+	//int			hashity;
 
 }				t_ray;
 

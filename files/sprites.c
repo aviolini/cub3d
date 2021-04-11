@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 22:15:16 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 22:32:29 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		visible_sprites(t_window *win, t_sprite *visibleSprites,int *numVisibleSpri
 //		printf("angleSpritePlayer: %f\n",angleSpritePlayer);
 		if (angleSpritePlayer < (FOV/2) + EPSILON)
 		{
-            win->sprite[i]->visible = 1;
+    //        win->sprite[i]->visible = 1;
             win->sprite[i]->angle = angleSpritePlayer;
 			 win->sprite[i]->distance = hypot(win->sprite[i]->sprX - win->player.posX, win->sprite[i]->sprY - win->player.posY);
           //  win->sprite[i]->distance = hypot(fabs(win->sprite[i]->sprX - win->player.posX), //////////////////controlla ordine
@@ -38,10 +38,10 @@ int		visible_sprites(t_window *win, t_sprite *visibleSprites,int *numVisibleSpri
 			visibleSprites[*numVisibleSprites] = *win->sprite[i]; //////////////[0][i] oppure *
 			(*numVisibleSprites)++;
         }
-		else
-		{
-            win->sprite[i]->visible = 0;
-        }
+	//	else
+	//	{
+      //    win->sprite[i]->visible = 0;
+       // }
     }
 //	printf("*numVisibleSprites : %d\n\n\n\n",*numVisibleSprites);
 	return (1);
@@ -76,11 +76,11 @@ void	settings_sprite(t_window *win, t_sprite *visibleSprites, int i)
 
         // Sprite top Y
         visibleSprites[i].spriteTopY = (win->settings.winH / 2) - (visibleSprites[i].spriteHeight / 2);
-        visibleSprites[i].spriteTopY = (visibleSprites[i].spriteTopY < 0) ? 0 : visibleSprites[i].spriteTopY;
+    //    visibleSprites[i].spriteTopY = (visibleSprites[i].spriteTopY < 0) ? 0 : visibleSprites[i].spriteTopY;
 
         // Sprite bottom Y
         visibleSprites[i].spriteBottomY = (win->settings.winH / 2) + (visibleSprites[i].spriteHeight / 2);
-        visibleSprites[i].spriteBottomY = (visibleSprites[i].spriteBottomY > win->settings.winH) ? win->settings.winH : visibleSprites[i].spriteBottomY;
+      //  visibleSprites[i].spriteBottomY = (visibleSprites[i].spriteBottomY > win->settings.winH) ? win->settings.winH : visibleSprites[i].spriteBottomY;
 
         // Calculate the sprite X position in the projection plane
         visibleSprites[i].angle = atan2(visibleSprites[i].sprY - win->player.posY, visibleSprites[i].sprX - win->player.posX) + win->player.angle;
