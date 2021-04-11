@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 16:12:44 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 16:29:32 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,12 @@ int		parsing_params(char *line, t_settings *settings)
 	else if (line[i] == 'S')
 		r = path_texture(line, &settings->sprite_texture, i + 1);
 	else if (line[i] == 'F')
+	//	printf(" ciao\n");
 		r = set_color(line, &settings->floor_color, i + 1);
 	else if (line[i] == 'C')
+	//	printf(" ciao2\n");
 		r = set_color(line, &settings->ceiling_color, i + 1);
+	printf(" ciclo : \t r : %d\n",r);
 	return (r);
 }
 
@@ -121,8 +124,10 @@ int		set_color(char *line, unsigned int *color, int i)
 
 	int rgb[3];
 
-	if (*color)
+printf (" color : %u\n\n", *color);
+	if (*color != INIT_COLOR)
 		return (0);
+
 	while(!is_digit(line[i]))
 		if (line[i++] != ' ' || !line[i])
 			return (0);
@@ -147,7 +152,7 @@ int		set_color(char *line, unsigned int *color, int i)
 	while(line[i])
 		if (line[i++] != ' ')
 			return (0);
-	*color = rgb[0] + rgb[1] + rgb[2] == 0 ? 1 :
-   		(rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+	//*color = rgb[0] + rgb[1] + rgb[2] == 0 ? 1 :
+   	*color =(rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
 	return (1);
 }

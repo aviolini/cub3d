@@ -5,14 +5,14 @@ S textures/barrel.xpm
 NO textures/brick.xpm
 SO textures/grey.xpm
 WE textures/bl ue.xpm
+
+
+
+F     255    , 255   ,  255
+
+C 0,0,0
+
 EA textures/wood.xpm
-
-
-F     255    , 255   ,  255  
-
-C 0,0,255
-
-
 
 
 111111111111111111111111111111111111111

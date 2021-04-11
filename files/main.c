@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 12:55:50 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 16:16:28 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ void	init_settings(t_settings *settings)
 	settings->east_texture = NULL;
 	settings->south_texture = NULL;
 	settings->sprite_texture = NULL;
-	settings->floor_color = 0;
-	settings->ceiling_color = 0;
+	settings->floor_color = INIT_COLOR;
+	settings->ceiling_color = INIT_COLOR;
 	settings->eof = 0;
 	settings->mapW = 0;
 	settings->mapH = 0;

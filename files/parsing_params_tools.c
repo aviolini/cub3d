@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:35:54 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 16:06:25 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 16:28:35 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int		all_params(t_settings *settings)
 		return (0);
 	if (!settings->sprite_texture)
 		return (0);
-	if (!settings->floor_color)
+	if (settings->floor_color == INIT_COLOR)
 		return (0);
-	if (!settings->ceiling_color)
+	if (settings->ceiling_color == INIT_COLOR)
 		return (0);
 	return(1);
 }
