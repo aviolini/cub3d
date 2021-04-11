@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 22:30:37 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 23:29:38 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 {
 	//TOGLIERE WIN DATA WIN , TOGLIERE MY_MLX_PIXEL_PUT
 	int		roundy;
-	double	horx;
-	double	hory;
+	double	horX;
+	double	horY;
 	(void)win;
 
 	if(ray->dirY < 0)
@@ -130,42 +130,42 @@ void	check_hor_intersection(t_window *win, t_settings *settings, t_player player
 		ray->value = -1;
 	}
 
-	hory = floor(player.posY) + roundy;
-	horx = player.posX + (fabs((player.posY) -(hory))
+	horY = floor(player.posY) + roundy;
+	horX = player.posX + (fabs((player.posY) -(horY))
 				/ (ray->value * tan(ray->angle)));
-	while (floor(horx) >= 0 && floor(horx) < settings->mapW &&
-			(settings->map[(int)floor(hory)][(int)floor(horx)] != ' '))
+	while (floor(horX) >= 0 && floor(horX) < settings->mapW &&
+			(settings->map[(int)floor(horY)][(int)floor(horX)] != ' '))
 	{
 
-		if (settings->map[(int)floor((hory) + (roundy - 1))][(int)floor(horx)] == '1')
+		if (settings->map[(int)floor((horY) + (roundy - 1))][(int)floor(horX)] == '1')
 		{
 	//	if(win->settings.minimap_def)
-	//		my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, RED);
-			ray->horx = horx;
-			ray->hory = hory;
+	//		my_mlx_pixel_put(&win->world, horX*SCALE, horY*SCALE, RED);
+			ray->horX = horX;
+			ray->horY = horY;
 			return ;
 		}
-		if (settings->map[(int)floor(hory)][(int)floor(horx)] == '2')
+		if (settings->map[(int)floor(horY)][(int)floor(horX)] == '2')
 		{//if(win->settings.minimap_def)
-		//	my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, RED);
-		//	sprite_intersections(win, win->sprite, horx, hory,i);
+		//	my_mlx_pixel_put(&win->world, horX*SCALE, horY*SCALE, RED);
+		//	sprite_intersections(win, win->sprite, horX, horY,i);
 		}
-		//my_mlx_pixel_put(&win->world, horx*SCALE, hory*SCALE, WHITE);
-	//	if (settings->map[(int)floor((hory) + (roundy - 1))][(int)floor(horx)] == ' ')
+		//my_mlx_pixel_put(&win->world, horX*SCALE, horY*SCALE, WHITE);
+	//	if (settings->map[(int)floor((horY) + (roundy - 1))][(int)floor(horX)] == ' ')
 		//	break;
-		hory -= ray->value;
-		horx += ray->value/tan(ray->angle);
+		horY -= ray->value;
+		horX += ray->value/tan(ray->angle);
 	}
-	ray->horx = MY_MAX_LIMIT;
-	ray->hory = MY_MAX_LIMIT;
+	ray->horX = MY_MAX_LIMIT;
+	ray->horY = MY_MAX_LIMIT;
 }
 
 void	check_ver_intersection(t_window *win,t_settings *settings, t_player player, t_ray *ray)
 {
 	(void)win;
 	int		roundx;
-	double	verx;
-	double	very;
+	double	verX;
+	double	verY;
 
 	if(ray->dirX < 0)
 	{
@@ -178,31 +178,31 @@ void	check_ver_intersection(t_window *win,t_settings *settings, t_player player,
 		roundx = 1;
 		ray->value = -1;
 	}
-		verx = floor(player.posX / 1) * 1 + roundx;
-		very = player.posY + (fabs(player.posX - verx))
+		verX = floor(player.posX / 1) * 1 + roundx;
+		verY = player.posY + (fabs(player.posX - verX))
 		* (ray->value * tan(ray->angle));
-		while((floor(very) >= 0 && floor(very) < settings->mapH) &&
-				(settings->map[(int)floor(very)][(int)floor(verx)] != ' '))
+		while((floor(verY) >= 0 && floor(verY) < settings->mapH) &&
+				(settings->map[(int)floor(verY)][(int)floor(verX)] != ' '))
 		{
 
-			if (settings->map[(int)floor(very)][(int)floor(verx + (roundx - 1) )] == '1')
+			if (settings->map[(int)floor(verY)][(int)floor(verX + (roundx - 1) )] == '1')
 			{
 			//if(win->settings.minimap_def)
-			//	my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, RED);
-				ray->verx = verx;
-				ray->very = very;
+			//	my_mlx_pixel_put(&win->world, verX*SCALE, verY*SCALE, RED);
+				ray->verX = verX;
+				ray->verY = verY;
 				return ;
 			}
-			if (settings->map[(int)floor(very)][(int)floor(verx)] == '2')
+			if (settings->map[(int)floor(verY)][(int)floor(verX)] == '2')
 			{//if(win->settings.minimap_def)
-				//sprite_intersections(win, win->sprite, verx, very,i);
-				//my_mlx_pixel_put(&win->world, verx*SCALE, very*SCALE, RED);
+				//sprite_intersections(win, win->sprite, verX, verY,i);
+				//my_mlx_pixel_put(&win->world, verX*SCALE, verY*SCALE, RED);
 			}
-		//	if (settings->map[(int)floor(very)][(int)floor(verx + (roundx - 1) )] == ' ')
+		//	if (settings->map[(int)floor(verY)][(int)floor(verX + (roundx - 1) )] == ' ')
 		///		break;
-			verx -= ray->value ;
-			very += ray->value *tan(ray->angle);
+			verX -= ray->value ;
+			verY += ray->value *tan(ray->angle);
 		 }
-	ray->verx = MY_MAX_LIMIT;
-	ray->very = MY_MAX_LIMIT;
+	ray->verX = MY_MAX_LIMIT;
+	ray->verY = MY_MAX_LIMIT;
 }

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 23:18:53 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 23:27:30 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,10 @@ typedef struct s_rays_data
 
 	double		value;
 //	double		value_y;
-	double		horx;
-	double		hory;
-	double		verx;
-	double		very;
+	double		horX;
+	double		horY;
+	double		verX;
+	double		verY;
 //	double		rayx;
 //	double		rayy;
 	//int			hashity;

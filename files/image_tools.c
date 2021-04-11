@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 22:23:03 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 23:31:07 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,15 +168,15 @@ int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray
 	double	ver_int;
 	double	hor_int;
 
-	ver_int = hypot(fabs(player.posX - ray->verx), fabs(player.posY - ray->very));
-	hor_int = hypot(fabs(player.posX - ray->horx), fabs(player.posY - ray->hory));
+	ver_int = hypot(fabs(player.posX - ray->verX), fabs(player.posY - ray->verY));
+	hor_int = hypot(fabs(player.posX - ray->horX), fabs(player.posY - ray->horY));
 	if (hor_int <= ver_int)
 	{
 //		if(win->settings.minimap_def)
-//			my_mlx_pixel_put(&win->world, ray->horx*SCALE, ray->hory*SCALE, RED);
+//			my_mlx_pixel_put(&win->world, ray->horX*SCALE, ray->horY*SCALE, RED);
 		ray->distance[i] = hor_int;
-		ray->indexTex = ray->horx;
-		print_intersection(win,win->ray.horx,win->ray.hory);
+		ray->indexTex = ray->horX;
+		print_intersection(win,win->ray.horX,win->ray.horY);
 //		if (ray->dirY < 0)
 	//		return (1);
 	//	else
@@ -186,10 +186,10 @@ int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray
 	else
 	{
 //		if(win->settings.minimap_def)
-//			my_mlx_pixel_put(&win->world, ray->verx*SCALE, ray->very*SCALE, RED);
-		ray->indexTex = ray->very;
+//			my_mlx_pixel_put(&win->world, ray->verX*SCALE, ray->verY*SCALE, RED);
+		ray->indexTex = ray->verY;
 		ray->distance[i] = ver_int;
-		print_intersection(win,win->ray.verx,win->ray.very);
+		print_intersection(win,win->ray.verX,win->ray.verY);
 		if(ray->dirX < 0)
 			return (2) ;
 		else

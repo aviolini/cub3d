@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 22:41:56 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 23:31:31 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,15 +284,15 @@ void	print_ray(t_ray ray)
 {
 	printf("-----------------------------------\n");
 	printf("-----ray------------------------\n");
-	//printf("rayx: %lf\n",ray.horx);
-	//printf("rayy: %lf\n",ray.hory);
-	//printf("rayx_map: %lf\n",ray.horx/SCALE);
-	//printf("rayy_map: %lf\n",ray.hory/SCALE);
-	printf("horx: %lf\n",floor(ray.horx));
-	printf("hory: %lf\n",floor(ray.hory));
+	//printf("rayx: %lf\n",ray.horX);
+	//printf("rayy: %lf\n",ray.horY);
+	//printf("rayx_map: %lf\n",ray.horX/SCALE);
+	//printf("rayy_map: %lf\n",ray.horY/SCALE);
+	printf("horX: %lf\n",floor(ray.horX));
+	printf("horY: %lf\n",floor(ray.horY));
 	printf("-----------------------------------\n");
-	printf("verx: %lf\n",floor(ray.verx));
-	printf("very: %lf\n",floor(ray.very));
+	printf("verX: %lf\n",floor(ray.verX));
+	printf("verY: %lf\n",floor(ray.verY));
 	printf("-----------------------------------\n");
 	//printf("rayx: %lf\n",floor(ray.rayx));
 	//printf("rayy: %lf\n",floor(ray.rayy));
