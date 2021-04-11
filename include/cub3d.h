@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 17:43:36 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 18:21:50 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ typedef	struct	s_settings_data
 	int			img_def;
 	int			player_def;
 	int			minimap_def;
-	int			winW;
-	int			winH;
+	unsigned int			winW;
+	unsigned int			winH;
 	char		*north_texture;
 	char		*west_texture;
 	char		*east_texture;
