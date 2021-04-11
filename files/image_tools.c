@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 18:09:04 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 18:37:12 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,21 +149,34 @@ void	column(t_window *win, t_image *img,int x,int orientation)
 	}
 }
 
+int open_texture(t_window *win, int i, char *path)
+{
+	win->texture[i].tex = mlx_xpm_file_to_image(win->mlx,path,&win->texture[i].texW,&win->texture[i].texH);
+	if (!win->texture[i].tex)
+		return (0);
+	return (1);
+}
 
 int		init_textures(t_window *win)
 {
 	int i;
-	int x;
 	int useless_but_necessary_box[3];
 
 	i = -1;
-	x = 0;
-	if ((!(win->texture[0].tex = mlx_xpm_file_to_image(win->mlx,win->settings.east_texture,&win->texture[0].texW,&win->texture[0].texH)))
-	|| (!(win->texture[1].tex = mlx_xpm_file_to_image(win->mlx,win->settings.north_texture,&win->texture[1].texW,&win->texture[1].texH)))
-	|| (!(win->texture[2].tex = mlx_xpm_file_to_image(win->mlx,win->settings.west_texture,&win->texture[2].texW,&win->texture[2].texH)))
-	|| (!(win->texture[3].tex = mlx_xpm_file_to_image(win->mlx,win->settings.south_texture,&win->texture[3].texW,&win->texture[3].texH)))
-	|| (!(win->texture[4].tex = mlx_xpm_file_to_image(win->mlx,win->settings.sprite_texture,&win->texture[4].texW,&win->texture[4].texH))))
-			return (0);
+	if ((!open_texture(win, ++i, win->settings.east_texture)) ||
+			(!open_texture(win, ++i, win->settings.north_texture)) ||
+			(!open_texture(win, ++i, win->settings.west_texture)) ||
+			(!open_texture(win, ++i, win->settings.south_texture)) ||
+			(!open_texture(win, ++i, win->settings.sprite_texture)))
+		return (0);
+
+	//if ((!(win->texture[0].tex = mlx_xpm_file_to_image(win->mlx,win->settings.east_texture,&win->texture[0].texW,&win->texture[0].texH)))
+	//|| (!(win->texture[1].tex = mlx_xpm_file_to_image(win->mlx,win->settings.north_texture,&win->texture[1].texW,&win->texture[1].texH)))
+	//|| (!(win->texture[2].tex = mlx_xpm_file_to_image(win->mlx,win->settings.west_texture,&win->texture[2].texW,&win->texture[2].texH)))
+	//|| (!(win->texture[3].tex = mlx_xpm_file_to_image(win->mlx,win->settings.south_texture,&win->texture[3].texW,&win->texture[3].texH)))
+	//|| (!(win->texture[4].tex = mlx_xpm_file_to_image(win->mlx,win->settings.sprite_texture,&win->texture[4].texW,&win->texture[4].texH))))
+	//		return (0);
+	i = -1;
 	while (++i < 5)
 		{
 			//win->texture[i].addr = malloc
@@ -175,7 +188,7 @@ int		init_textures(t_window *win)
 					return (0);
 		//	mlx_put_image_to_window(win->mlx, win->win, win->texture[i].tex, 20 + x, 20);
 		//	x += 65;
-			print_tex(win->texture[i]);
+		//	print_tex(win->texture[i]);
 		}
 	return (1);
 }
@@ -205,7 +218,7 @@ void	set_right_resolution(t_window *win)
 {
 	int myresx;
 	int myresy;
-	
+
 	mlx_get_screen_size(win->mlx, &myresx, &myresy);
 	printf (" my res ; %d \t %d\n ",myresx, myresy);
 	if(win->settings.winW > myresx)
