@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 18:45:48 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 22:21:48 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,18 @@
 #define WHITE 0x00FFFFFF
 #define	TRANSP 0xFFFFFFFF
 #define MY_MAX_LIMIT 1000000000
+
+typedef struct s_draw_utils
+{
+	double		dist_proj_plane;
+	double		start_topY;
+	double		end_bottomY;
+	double		perp_distance;
+	double		h_object;
+	double		distance_from_top;
+	int			offsetX;
+	int			offsetY;
+}				t_draw_utils;
 
 typedef struct s_key
 {
@@ -173,6 +185,7 @@ typedef struct	s_window_data
 	t_texture	texture[5];
 	t_sprite	**sprite;
 	t_key		key;
+	t_draw_utils draw;
 }				t_window;
 
 /*BITMAP.C*/

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 18:45:55 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 22:13:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ void	init_env(t_window *win)
 	win->settings.map = NULL;
 	win->settings.winW = 0;
 	win->settings.winH = 0;
-	win->settings.dist_proj_plane = 0;
 	win->settings.north_texture = NULL;
 	win->settings.west_texture = NULL;
 	win->settings.east_texture = NULL;
@@ -143,5 +142,6 @@ void	init_env(t_window *win)
 	win->settings.mapH = 0;
 	win->settings.num_of_sprite = 0;
 	win->settings.save = 0;
+	win->draw.dist_proj_plane = 0;
 	win->sprite = NULL;
 }

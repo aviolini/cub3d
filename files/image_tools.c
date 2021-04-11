@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 19:15:29 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 22:23:03 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,34 +40,35 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 
 void	column(t_window *win, t_image *img,int x,int orientation)
 {
-	double perpdist;
-	double h;
+	//double perpdist;
+	//double h;
 	char *dst;
+	int i;
 	unsigned int color;
-	double walltopy = 0, wallbottomy = 0;
+	//double walltopy = 0, wallbottomy = 0;
 
 //	distprojplane = (win->settings.winW / 2) / tan(FOV / 2);
 
-	perpdist =  win->ray.distance[x] * (cos(win->ray.angle -win->player.angle));
-	h = 1 / perpdist * win->settings.dist_proj_plane;
+	win->draw.perp_distance =  win->ray.distance[x] * (cos(win->ray.angle - win->player.angle));
+	win->draw.h_object = 1 / win->draw.perp_distance * win->draw.dist_proj_plane;
 //	h = win->settings.winH/perpdist;
 
 
-	walltopy = win->settings.winH / 2 - h / 2;
-	walltopy = walltopy < 0 ? 0 : walltopy;
-	wallbottomy = win->settings.winH / 2 + h  /2;
-	wallbottomy = wallbottomy > win->settings.winH ? win->settings.winH : wallbottomy;
+	win->draw.start_topY = win->settings.winH / 2 - win->draw.h_object / 2;
+	win->draw.start_topY = win->draw.start_topY < 0 ? 0 : win->draw.start_topY;
+	win->draw.end_bottomY = win->settings.winH / 2 + win->draw.h_object / 2;
+	win->draw.end_bottomY = win->draw.end_bottomY > win->settings.winH ? win->settings.winH : win->draw.end_bottomY;
 	//char *dst;
-	int i = walltopy;
+	i = win->draw.start_topY;
 	//int k = 0;
 
 
-		while ((i) < wallbottomy - 1)
+	while ((i) < win->draw.end_bottomY - 1)
 	{
 
 	//int offsetY = (int)(64/h*k++);
-	int offsetY = (int)fabs((i + (h / 2) - (win->settings.winH / 2))*win->texture[orientation].texH/h);
-	color = *(win->texture[orientation].addr + ((int)(offsetY)*win->texture[orientation].texH +
+	win->draw.offsetY = (int)fabs((i + (win->draw.h_object / 2) - (win->settings.winH / 2))*win->texture[orientation].texH/win->draw.h_object);
+	color = *(win->texture[orientation].addr + ((int)(win->draw.offsetY)*win->texture[orientation].texH +
 	(int)((win->ray.indexTex-(int)win->ray.indexTex)*win->texture[orientation].texW)));
 
     		dst = img->addr + ((int)(i++) * img->line_length +
@@ -155,7 +156,7 @@ void	set_right_resolution(t_window *win)
 		win->settings.winW = myresx;
 	if(win->settings.winH > myresy)
 		win->settings.winH = myresy;
-	win->settings.dist_proj_plane = (win->settings.winW / 2) / tan(FOV / 2);
+	win->draw.dist_proj_plane = (win->settings.winW / 2) / tan(FOV / 2);
 }
 void	print_intersection(t_window *win, double intersectionX, double intersectionY)
 {
