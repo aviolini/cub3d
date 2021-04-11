@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 17:22:55 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 18:00:43 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		main_parsing(char *av, t_window *win)
 	int fd;
 	int r;
 	char *line;
+	int x;
 
 	r = 1;
 	fd = open(av, O_RDONLY);
@@ -47,21 +48,24 @@ int		main_parsing(char *av, t_window *win)
 	{
 		r = get_next_line(fd,&line);
 		if (!all_params(&win->settings))
-		{
-			if (!parsing_params(line,&win->settings))
-			{
-							free(line);
-				return (0);
-
-			}
-		}
+	//	{
+			x = parsing_params(line,&win->settings);
+		//	if (!parsing_params(line,&win->settings))
+		//	{
+		//					free(line);
+		//		return (0);
+		//	}
+	//	}
 		else
- 			if (!parsing_map(line,&win->settings))
-			{
-				free(line);
-					return (0);
-			}
+			x = parsing_map(line,&win->settings);
+	//		if (!parsing_map(line,&win->settings))
+	//		{
+	//			free(line);
+	//				return (0);
+	//		}
 		free(line);
+		if (!x)
+			return (0);
 	}
 	close(fd);
 	if (r == -1 || !check_map(win, win->settings.map))
