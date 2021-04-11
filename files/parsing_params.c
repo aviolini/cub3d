@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/08 16:23:45 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 13:32:00 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,35 +59,57 @@ int		set_resolution(char *line, t_settings *settings, int i)
 	return (1);
 }
 
+int init_path_texture(char path)
+{
+
+	return (1);
+}
+
+int control_path(char *path)
+{
+	int fd;
+
+	fd = open(path, O_RDONLY);
+	close(fd);
+	if (fd < 0)
+		return (0);
+	return (1);
+}
+
 int		path_texture(char *line, char **texture, int i)
 {
 	int z;
 	int c;
 
-	z = 0;
-	c = 0;
+	//z = 0;
+	//c = 0;
 	if (*texture)
 		return (0);
 	while (line [i] && line[i] == ' ')
 		i++;
 	z = i;
 	while (line[i])
-	{
-		if (line[i] == ' ' && line[i - 1] != '\\')
-			break;
+//	{
+	//	if (line[i] == ' ' && line[i - 1] != '\\')
+	//		break;
 		i++;
-	}
+//	}
 	c = i;
 	while (line[c])				/* CONTROLLO 'solo spazi'  */
 		if (line[c++] != ' ')	/* NEL RESTO DELLA STRINGA */
 			return (0);
 	c = i - z;
-	if (!(*texture = (char *)malloc(sizeof(char) * (c + 1))))
+	*texture = (char *)malloc(sizeof(char) * (c + 1));
+	if (!*texture)
+	//if (!(*texture = (char *)malloc(sizeof(char) * (c + 1))))
 		return (0);
 	i = 0;
 	while (i < c)
 			texture[0][i++] = line[z++];
 	texture[0][i] = '\0';
+//	printf(" texture : %s \n\n",texture[0]);
+	if (!control_path(texture[0]))
+		return (0);
 	return (1);
 }
 

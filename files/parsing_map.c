@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/07 18:11:21 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/11 12:55:30 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		check_map(t_window *win, char **map, int mapy, int mapx)
 	int y;
 	int x;
 
-	//win->sprite = NULL;
+	win->sprite = NULL;
 	y = -1;
 	while (++y < mapy && -2 < (x = -1))
 		while (++x < mapx)
