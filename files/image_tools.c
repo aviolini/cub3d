@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/12 09:57:23 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/12 10:12:13 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,11 @@ void	set_right_resolution(t_window *win)
 		win->settings.winW = myresx;
 	if((int)win->settings.winH > myresy)
 		win->settings.winH = myresy;
+	if ((int)win->settings.winW < MIN_RES_W || (int)win->settings.winH < MIN_RES_H)
+	{
+		win->settings.winW = MIN_RES_W;
+		win->settings.winH = MIN_RES_H;
+	}
 	win->draw.dist_proj_plane = (win->settings.winW / 2) / tan(FOV / 2);
 }
 void	print_intersection(t_window *win, double intersectionX, double intersectionY)

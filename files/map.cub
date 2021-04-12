@@ -1,6 +1,6 @@
 
 
-R      100000 10000000
+R      2 1000
 S textures/barrel.xpm
 NO textures/brick.xpm
 SO textures/grey.xpm

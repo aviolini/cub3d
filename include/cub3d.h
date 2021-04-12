@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/12 09:31:26 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/12 10:09:55 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 #define FACTOR 0.35
 
 #define ROTATION M_PI/48
+
+#define MIN_RES_W 854
+#define MIN_RES_H 480
 #define W_IMG 1200
 #define H_IMG 600
 #define FOV M_PI/3
