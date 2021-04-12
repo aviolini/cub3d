@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:35:54 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 16:58:54 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/12 10:29:56 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int 	is_digit(char c)
 	return (0);
 }
 
-int		if_empty_line_and_slide_spaces(char *line)
+int	if_empty_line_and_slide_spaces(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (line[i] == '\0')
@@ -32,7 +32,7 @@ int		if_empty_line_and_slide_spaces(char *line)
 	return (i);
 }
 
-int		slide_char(char *line, int i)
+int	slide_char(char *line, int i)
 {
 	while (line[i] != ',')
 	{
@@ -44,12 +44,12 @@ int		slide_char(char *line, int i)
 	return (i);
 }
 
-int		find_color(int *rgb, char *line, int i)
+int	find_color(int *rgb, char *line, int i)
 {
-	int color;
+	int	color;
 
 	color = 0;
-	while(!is_digit(line[i]))
+	while (!is_digit(line[i]))
 		if (line[i++] != ' ' || !line[i])
 			return (-1);
 	while (is_digit(line[i]))
@@ -57,11 +57,10 @@ int		find_color(int *rgb, char *line, int i)
 	if (color > 255 || color < 0)
 		return (-1);
 	*rgb = color;
-	//printf(" rgb : %d \n",*rgb);
 	return (i);
 }
 
-int		all_params(t_settings *settings)
+int	all_params(t_settings *settings)
 {
 	if (!settings->winW)
 		return (0);
@@ -81,5 +80,5 @@ int		all_params(t_settings *settings)
 		return (0);
 	if (settings->ceiling_color == INIT_COLOR)
 		return (0);
-	return(1);
+	return (1);
 }
