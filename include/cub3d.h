@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/12 10:09:55 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/12 18:04:46 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,8 +229,8 @@ int		ft_exit(t_window *win);
 int		sprite(t_window *win);
 int		build_view(t_window *win);
 int		image(t_window *win);
-void	check_hor_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray);
-void	check_ver_intersection(t_window *win, t_settings *settings, t_player player, t_ray *ray);
+void	check_hor_inters(t_settings *settings, t_player player, t_ray *ray);
+void	check_ver_inters(t_settings *settings, t_player player, t_ray *ray);
 /*IMAGE_TOOLS*/
 int		key_up_map(int keycode, t_window *win);
 int		key_down_map(int keycode, t_window *win);
