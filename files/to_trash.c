@@ -6,13 +6,35 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/12 10:00:17 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/12 12:42:25 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
 
+int	key_hook(int keycode,t_window *win)
+{
+	if (keycode == 53 || keycode == 65307)
+		ft_exit(win);
+	if(keycode == 126 || keycode == 65362 || keycode == 119)//W
+		move(win->settings.map, &win->player,'w');
+	if(keycode == 125 || keycode == 65364 || keycode == 115)//S
+		move(win->settings.map, &win->player,'s');
+	if(keycode == 2 || keycode == 100)//D
+		slide(win->settings.map, &win->player,'d');
+	if (keycode == 0 || keycode == 97)//A
+		slide(win->settings.map, &win->player,'a');
+	if(keycode == 124 || keycode == 65363) //RIGHT
+		rotate(&win->player,'r');
+	if(keycode == 123 || keycode == 65361) //LEFT
+		rotate(&win->player,'l');
+	build_view(win);
+	return 0;
+}
+
+
+//////////////
 int		lock_map(t_window *win)
 {
 //	if (!win->settings.minimap_def)
