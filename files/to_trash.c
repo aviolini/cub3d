@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 19:59:18 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 23:38:11 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/12 10:00:17 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		unlock_map(t_window *win)
 int		sprite_intersections(t_window *win, t_sprite **sprite, double x, double y,int i)
 {
 	int z;
+	(void)i;
 
 	z = 0;
 	while(z < win->settings.num_sprites &&
@@ -160,14 +161,14 @@ int		build_world(t_image *world, char **map, t_player *player)
 		{
 			if (map[y][x] == '1' || map[y][x] == 'N'|| map[y][x] == 'S'|| map[y][x] == 'E'|| map[y][x] == 'W')
 				my_mlx_pixel_wall(world, x * SCALE, y * SCALE,GRAY);
-			else if(map[y][x] == '2'){
+			if(map[y][x] == '2'){
 				my_mlx_pixel_put(world, x * SCALE + SCALE/2-1, y * SCALE+SCALE/2-1,0x00FFFF00);
 				my_mlx_pixel_put(world, x * SCALE + SCALE/2, y * SCALE+SCALE/2,0x00FFFF00);
 				my_mlx_pixel_put(world, x * SCALE + SCALE/2, y * SCALE+SCALE/2-1,0x00FFFF00);
 				my_mlx_pixel_put(world, x * SCALE + SCALE/2-1, y * SCALE+SCALE/2,0x00FFFF00);
 
 			}
-			else if(map[y][x] == '0')
+			if(map[y][x] == '0'|| map[y][x] == 'N'|| map[y][x] == 'S'|| map[y][x] == 'E'|| map[y][x] == 'W')
 				my_mlx_pixel_grid(world, x * SCALE, y * SCALE,GRAY,WHITE);
 		//	else if(map[y][x] != ' ' && map[y][x] != '0')
 		//	{

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 23:37:46 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/12 09:33:04 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	show_sprite(t_window *win,t_sprite *vis_sprites,int i)
 		y = vis_sprites[i].sprite_topY;
 		while(y < vis_sprites[i].sprite_bottomY)
 		{
-			if (x > 0 && x < win->settings.winW && y > 0 && y < win->settings.winH)
+			if (x > 0 && (int)x < (int)win->settings.winW && y > 0 && y < (int)win->settings.winH)
 			{
 				win->draw.distance_from_top = y + (vis_sprites[i].sprite_height / 2) - (win->settings.winH / 2);
 				win->draw.offsetY = win->draw.distance_from_top * (win->textures[4].texH / vis_sprites[i].sprite_height);

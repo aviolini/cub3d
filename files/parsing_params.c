@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 18:25:13 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/12 09:32:21 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,6 @@ int		set_resolution(char *line, t_settings *settings, int i)
 	while (line[i])
 		if (line[i++] != ' ')
 			return (0);
-	return (1);
-}
-
-int init_path_texture(char path)
-{
-
 	return (1);
 }
 

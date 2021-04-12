@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 23:36:24 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/12 09:57:23 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	new_minimap_image(t_window *win, t_image *image)
 	image->img = mlx_new_image(win->mlx, win->settings.mapW * SCALE, win->settings.mapH * SCALE);
 	image->addr = mlx_get_data_addr(image->img, &image->bits_per_pixel,
 		&image->line_length, &image->endian);
-	win->settings.minimap_def = 1;
+	//win->settings.minimap_def = 1;
 }
 
 void	new_image(t_window *win, t_image *image)
@@ -126,20 +126,29 @@ int		init_textures(t_window *win)
 
 void	view_background(t_image *view, t_settings *settings)
 {
-	int				x;
-	int				y;
+	unsigned int				x;
+	unsigned int				y;
 	int				z;
 	unsigned int	color;
 
 	color = settings->ceiling_color;
-	y = -1;
+	y = 0;
 	z = 3;
 
 	while(--z > 0)
 	{
-		while(++y < (settings->winH/z) && -2 < (x = -1))
-			while(++x < settings->winW)
+		while(y < (settings->winH/z))
+		{
+			x = 0;
+			while(x < settings->winW)
+			{
 				my_mlx_pixel_put(view,x,y,color);
+				x++;
+			}
+			y++;
+
+		}
+
 		color = settings->floor_color;
 		y--;
 	}
@@ -152,9 +161,9 @@ void	set_right_resolution(t_window *win)
 
 	mlx_get_screen_size(win->mlx, &myresx, &myresy);
 	printf (" my res ; %d \t %d\n ",myresx, myresy);
-	if(win->settings.winW > myresx)
+	if((int)win->settings.winW > myresx)
 		win->settings.winW = myresx;
-	if(win->settings.winH > myresy)
+	if((int)win->settings.winH > myresy)
 		win->settings.winH = myresy;
 	win->draw.dist_proj_plane = (win->settings.winW / 2) / tan(FOV / 2);
 }

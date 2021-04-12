@@ -1,13 +1,13 @@
 
 
-R      4294   147483647
+R      100000 10000000
 S textures/barrel.xpm
 NO textures/brick.xpm
 SO textures/grey.xpm
 WE textures/bl ue.xpm
 EA textures/wood.xpm
 
-F     255    , 255   ,  255
+F     255    , 255   ,  0
 
 C 0   , 0              ,  255
 

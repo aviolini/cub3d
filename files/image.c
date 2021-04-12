@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/11 23:29:38 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/12 09:27:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ if(win->settings.minimap_def)
 int		image(t_window *win)
 {
 	win->ray.angle = win->player.angle + FOV/2;
-	int i = -1;
+	unsigned int i = 0;
 
 	//int color;
 	int orientation;
 
 
 	win->ray.distance = (double *)malloc(sizeof(double) * win->settings.winW);
-	while (++i < win->settings.winW)
+	while (i < win->settings.winW)
 	{
 
 		win->ray.dirX = cos(win->ray.angle);
@@ -89,6 +89,7 @@ int		image(t_window *win)
 
 	//	sprite
 win->ray.angle -= FOV/win->settings.winW;
+	i++;
 	}
 /*	int z = 0;
 	while (win->sprite[z])
