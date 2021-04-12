@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/12 09:33:04 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/12 12:37:08 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,18 +107,19 @@ void	draw_sprite_pixel(t_window *win, t_sprite vis_sprites, int x, int y)
 {
 	unsigned int color;
 	char *dst;
+	(void)vis_sprites;
 
 	color = *(win->textures[4].addr + ((int)(win->draw.offsetY * win->textures[4].texH +
 			(int)(((win->draw.offsetX))))));
 	dst = win->view.addr + (int)(y) * win->view.line_length +
 	(int)(x) * (win->view.bits_per_pixel / 8);
-	if (vis_sprites.perp_distance < win->ray.distance[(int)x])
-	{
+//	if (vis_sprites.perp_distance < win->ray.distance[(int)x])
+//	{
 				if (color >= 4278190080 || color == 0)
 				dst = (char *)255;
 				else
 					*(unsigned int*)dst = color;
-	}
+//	}
 }
 
 void	show_sprite(t_window *win,t_sprite *vis_sprites,int i)
@@ -135,7 +136,7 @@ void	show_sprite(t_window *win,t_sprite *vis_sprites,int i)
 		y = vis_sprites[i].sprite_topY;
 		while(y < vis_sprites[i].sprite_bottomY)
 		{
-			if (x > 0 && (int)x < (int)win->settings.winW && y > 0 && y < (int)win->settings.winH)
+			if (x > 0 && (int)x < (int)win->settings.winW && y > 0 && y < (int)win->settings.winH && (vis_sprites[i].perp_distance < win->ray.distance[(int)x]))
 			{
 				win->draw.distance_from_top = y + (vis_sprites[i].sprite_height / 2) - (win->settings.winH / 2);
 				win->draw.offsetY = win->draw.distance_from_top * (win->textures[4].texH / vis_sprites[i].sprite_height);
