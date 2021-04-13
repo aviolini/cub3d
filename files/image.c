@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 10:53:49 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 11:24:41 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	build_view(t_window *win)
 	image(win);
 	if (win->settings.minimap_def)
 		miniray(win);
-	sprite(win);
+	if (!sprite(win))
+		return (0);
 	free(win->ray.distance);
 	if (win->settings.save == 0)
 	{
