@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 10:27:55 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 12:16:49 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:07:27 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ char	*ft_newline(char **line, char *ptr, int r)
 	return (newline);
 }
 
-int	ft_refresh_index(char **line, char *index)
+int		ft_refresh_index(char **line, char *index)
 {
-	int	x;
-	int	y;
+	int x;
+	int y;
 
 	x = ft_strchr(index);
 	y = ft_strlen(index);
@@ -63,7 +63,7 @@ int	ft_refresh_index(char **line, char *index)
 
 void	ft_clean(char *ptr)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (ptr[i])
