@@ -6,11 +6,37 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 14:25:11 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:27:41 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+int	build_view(t_window *win)
+{
+	new_minimap_image(win, &win->world);
+	if (win->settings.minimap_def)
+		if (!build_world(&win->world, win->settings.map))
+			return (0);
+	view_background(&win->view, &win->settings);
+	image(win);
+	if (win->settings.minimap_def)
+		miniray(win);
+	if (!sprite(win))
+		return (0);
+	free(win->ray.distance);
+	if (win->settings.save == 0)
+	{
+		mlx_put_image_to_window(win->mlx, win->win, win->view.img, 00, 0);
+		if (win->settings.minimap_def)
+			mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
+		mlx_do_sync(win->mlx);
+		mlx_destroy_image(win->mlx, win->world.img);
+	}
+	else
+		ft_bitmap(win);
+	return (1);
+}
 
 int	image(t_window *win)
 {
@@ -33,72 +59,6 @@ int	image(t_window *win)
 		i++;
 	}
 	return (1);
-}
-
-void	set_ray_round_and_ray_value(double dirXorY, t_ray *ray)
-{
-	if (dirXorY < 0)
-	{
-		ray->value = 1;
-		ray->round = 0;
-	}
-	else
-	{
-		ray->value = -1;
-		ray->round = 1;
-	}
-}
-
-void	check_hor_inters(t_settings *settings, t_player player, t_ray *ray)
-{
-	double	horX;
-	double	horY;
-
-	set_ray_round_and_ray_value(ray->dirY, ray);
-	horY = floor(player.posY) + ray->round;
-	horX = player.posX + (fabs((player.posY) -(horY)) / \
-			(ray->value * tan(ray->angle)));
-	while (floor(horX) >= 0 && floor(horX) < settings->mapW && \
-			(settings->map[(int)floor(horY)][(int)floor(horX)] != ' '))
-	{
-		if (settings->map[(int)floor((horY) + (ray->round - 1))] \
-							[(int)floor(horX)] == '1')
-		{
-			ray->horX = horX;
-			ray->horY = horY;
-			return ;
-		}
-		horY -= ray->value;
-		horX += ray->value / tan(ray->angle);
-	}
-	ray->horX = MY_MAX_LIMIT;
-	ray->horY = MY_MAX_LIMIT;
-}
-
-void	check_ver_inters(t_settings *settings, t_player player, t_ray *ray)
-{
-	double	verX;
-	double	verY;
-
-	set_ray_round_and_ray_value(ray->dirX, ray);
-	verX = floor(player.posX) + ray->round;
-	verY = player.posY + (fabs(player.posX - verX)) * \
-							(ray->value * tan(ray->angle));
-	while ((floor(verY) >= 0 && floor(verY) < settings->mapH) && \
-			(settings->map[(int)floor(verY)][(int)floor(verX)] != ' '))
-	{
-		if (settings->map[(int)floor(verY)] \
-							[(int)floor(verX + (ray->round - 1))] == '1')
-		{
-			ray->verX = verX;
-			ray->verY = verY;
-			return ;
-		}
-		verX -= ray->value ;
-		verY += ray->value * tan(ray->angle);
-	}
-	ray->verX = MY_MAX_LIMIT;
-	ray->verY = MY_MAX_LIMIT;
 }
 
 void	column(t_window *win, t_image *img, int x, int orientation)

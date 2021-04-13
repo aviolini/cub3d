@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 14:15:52 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:29:31 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ void	column(t_window *win, t_image *img,int x,int orientation);
 //oid	set_ray(t_player player, t_ray *ray);
 int	set_dist_and_wall_orient(t_window *win, t_player player, t_ray *ray,int i);
 
-
+void	set_ray_round_and_ray_value(double dirXorY, t_ray *ray);
 /*PARSING MAP */
 
 int		parsing_map(char *line, t_settings *settings);

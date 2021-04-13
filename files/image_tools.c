@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 12:31:57 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:28:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,34 +59,6 @@ int	init_textures(t_window *win)
 							&useless_but_necessary_box[1], \
 							&useless_but_necessary_box[2]);
 		if (!win->textures[i].addr)
-			return (0);
-	}
-	return (1);
-}
-
-int	set_dist_and_wall_orient(t_window *win, t_player player, t_ray *ray, int i)
-{
-	double	ver_int;
-	double	hor_int;
-
-	ver_int = hypot(player.posX - ray->verX, player.posY - ray->verY);
-	hor_int = hypot(player.posX - ray->horX, player.posY - ray->horY);
-	if (hor_int <= ver_int)
-	{
-		ray->distance[i] = hor_int;
-		ray->indexTex = ray->horX;
-		print_intersection(win, win->ray.horX, win->ray.horY);
-		if (ray->dirY > 0)
-			return (3);
-	}
-	else
-	{
-		ray->indexTex = ray->verY;
-		ray->distance[i] = ver_int;
-		print_intersection(win, win->ray.verX, win->ray.verY);
-		if (ray->dirX < 0)
-			return (2);
-		else
 			return (0);
 	}
 	return (1);
