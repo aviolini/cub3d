@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 11:21:32 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 13:51:00 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,27 +132,4 @@ void	show_sprites(t_window *win, t_sprite *vis_sprites, int i)
 		}
 		x++;
 	}
-}
-
-int	sprite(t_window *win)
-{
-	t_sprite	*vis_sprites;
-	int			num_vis_sprites;
-	int			i;
-
-	vis_sprites = (t_sprite *)malloc(sizeof(t_sprite) * \
-												win->settings.num_sprites);
-	if (!vis_sprites)
-		return (0);
-	i = -1;
-	num_vis_sprites = 0;
-	visible_sprites(win, vis_sprites, &num_vis_sprites);
-	sort_sprites(vis_sprites, num_vis_sprites);
-	while (++i < num_vis_sprites)
-	{
-		settings_sprite(win, vis_sprites, i);
-		show_sprites(win, vis_sprites, i);
-	}
-	free(vis_sprites);
-	return (1);
 }

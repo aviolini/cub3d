@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 13:45:38 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 13:50:51 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,32 @@ int	main_window(t_window *win)
 	mlx_hook(win->win, 17, 0, ft_exit, win);
 	mlx_loop_hook(win->mlx, key, win);
 	mlx_loop(win->mlx);
+	return (1);
+}
+
+int	build_view(t_window *win)
+{
+	new_minimap_image(win, &win->world);
+	if (win->settings.minimap_def)
+		if (!build_world(&win->world, win->settings.map))
+			return (0);
+	view_background(&win->view, &win->settings);
+	image(win);
+	if (win->settings.minimap_def)
+		miniray(win);
+	if (!sprite(win))
+		return (0);
+	free(win->ray.distance);
+	if (win->settings.save == 0)
+	{
+		mlx_put_image_to_window(win->mlx, win->win, win->view.img, 00, 0);
+		if (win->settings.minimap_def)
+			mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
+		mlx_do_sync(win->mlx);
+		mlx_destroy_image(win->mlx, win->world.img);
+	}
+	else
+		ft_bitmap(win);
 	return (1);
 }
 

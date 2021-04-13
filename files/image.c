@@ -6,37 +6,11 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 12:40:57 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 13:51:12 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
-
-int	build_view(t_window *win)
-{
-	new_minimap_image(win, &win->world);
-	if (win->settings.minimap_def)
-		if (!build_world(&win->world, win->settings.map))
-			return (0);
-	view_background(&win->view, &win->settings);
-	image(win);
-	if (win->settings.minimap_def)
-		miniray(win);
-	if (!sprite(win))
-		return (0);
-	free(win->ray.distance);
-	if (win->settings.save == 0)
-	{
-		mlx_put_image_to_window(win->mlx, win->win, win->view.img, 00, 0);
-		if (win->settings.minimap_def)
-			mlx_put_image_to_window(win->mlx, win->win, win->world.img, 20, 20);
-		mlx_do_sync(win->mlx);
-		mlx_destroy_image(win->mlx, win->world.img);
-	}
-	else
-		ft_bitmap(win);
-	return (1);
-}
 
 int	image(t_window *win)
 {
@@ -162,4 +136,27 @@ void	column(t_window *win, t_image *img, int x, int orientation)
 				(img->bits_per_pixel / 8) * (int)(x));
 		*(unsigned int *)dst = color;
 	}
+}
+
+int	sprite(t_window *win)
+{
+	t_sprite	*vis_sprites;
+	int			num_vis_sprites;
+	int			i;
+
+	vis_sprites = (t_sprite *)malloc(sizeof(t_sprite) * \
+												win->settings.num_sprites);
+	if (!vis_sprites)
+		return (0);
+	i = -1;
+	num_vis_sprites = 0;
+	visible_sprites(win, vis_sprites, &num_vis_sprites);
+	sort_sprites(vis_sprites, num_vis_sprites);
+	while (++i < num_vis_sprites)
+	{
+		settings_sprite(win, vis_sprites, i);
+		show_sprites(win, vis_sprites, i);
+	}
+	free(vis_sprites);
+	return (1);
 }
