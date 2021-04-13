@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 10:13:18 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 11:00:26 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,10 @@ void	settings_sprite(t_window *win, t_sprite *vis_sprites, int i)
 	vis_sprites[i].sprite_height = (1 / vis_sprites[i].perp_distance) * win->draw.dist_proj_plane;
 	vis_sprites[i].sprite_width = vis_sprites[i].sprite_height;
 	vis_sprites[i].sprite_topY = (win->settings.winH / 2) - (vis_sprites[i].sprite_height / 2);
-    //    vis_sprites[i].sprite_topY = (vis_sprites[i].sprite_topY < 0) ? 0 : vis_sprites[i].sprite_topY;
+	vis_sprites[i].sprite_topY = draw_protect_min(&vis_sprites[i].sprite_topY);
 	vis_sprites[i].sprite_bottomY = (win->settings.winH / 2) + (vis_sprites[i].sprite_height / 2);
-      //  vis_sprites[i].sprite_bottomY = (vis_sprites[i].sprite_bottomY > win->settings.winH) ? win->settings.winH : vis_sprites[i].sprite_bottomY;
+	vis_sprites[i].sprite_bottomY = draw_protect_max(&vis_sprites[i].sprite_bottomY, \
+									&win->settings.winH);
 	vis_sprites[i].angle = atan2(vis_sprites[i].sprY - win->player.posY, vis_sprites[i].sprX - win->player.posX) + win->player.angle;
 	vis_sprites[i].sprite_screen_posX = tan(vis_sprites[i].angle) * win->draw.dist_proj_plane;
 	vis_sprites[i].sprite_leftX = (win->settings.winW / 2) + vis_sprites[i].sprite_screen_posX - (vis_sprites[i].sprite_width / 2);

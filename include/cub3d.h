@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/12 18:04:46 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 10:59:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,8 @@ int		image(t_window *win);
 void	check_hor_inters(t_settings *settings, t_player player, t_ray *ray);
 void	check_ver_inters(t_settings *settings, t_player player, t_ray *ray);
 /*IMAGE_TOOLS*/
+double	draw_protect_max(double *value, unsigned int *max);
+double	draw_protect_min(double *value);
 int		key_up_map(int keycode, t_window *win);
 int		key_down_map(int keycode, t_window *win);
 int		lock_map(t_window *win);
@@ -247,7 +249,7 @@ void	set_right_resolution(t_window *win);
 int		init_textures(t_window *win);
 void	column(t_window *win, t_image *img,int x,int orientation);
 //oid	set_ray(t_player player, t_ray *ray);
-int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray,int i);
+int	set_dist_and_wall_orient(t_window *win, t_player player, t_ray *ray,int i);
 
 
 /*PARSING MAP */

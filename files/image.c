@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/12 18:11:28 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 10:53:49 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	image(t_window *win)
 		win->ray.dirY = -sin(win->ray.angle);
 		check_hor_inters(&win->settings, win->player, &win->ray);
 		check_ver_inters(&win->settings, win->player, &win->ray);
-		orientation = set_distance_and_wall_orientation(win, win->player, \
+		orientation = set_dist_and_wall_orient(win, win->player, \
 			 											&win->ray, i);
 		column(win, &win->view, i, orientation);
 		win->ray.angle -= FOV / win->settings.winW;

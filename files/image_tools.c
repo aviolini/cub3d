@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 10:50:09 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 10:53:23 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-double draw_protect_max(double *value, unsigned int *max)
+double	draw_protect_max(double *value, unsigned int *max)
 {
 	if (*value > *max)
-	 	*value = *max;
+		*value = *max;
 	else
 		*value = *value;
 	return (*value);
@@ -173,13 +173,13 @@ void	print_intersection(t_window *win, double intersX, double intersY)
 		my_mlx_pixel_put(&win->world, intersX * SCALE, intersY * SCALE, RED);
 }
 
-int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray, int i)
+int	set_dist_and_wall_orient(t_window *win, t_player player, t_ray *ray, int i)
 {
 	double	ver_int;
 	double	hor_int;
 
-	ver_int = hypot(fabs(player.posX - ray->verX), fabs(player.posY - ray->verY));
-	hor_int = hypot(fabs(player.posX - ray->horX), fabs(player.posY - ray->horY));
+	ver_int = hypot(player.posX - ray->verX, player.posY - ray->verY);
+	hor_int = hypot(player.posX - ray->horX, player.posY - ray->horY);
 	if (hor_int <= ver_int)
 	{
 		ray->distance[i] = hor_int;
