@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 17:25:12 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 10:20:44 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 11:31:41 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	ft_bitmap(t_window *win)
 {
 	int	fd;
 
+	win->settings.minimap_def = 2;
 	fd = open("screenshot.bmp", O_CREAT | O_WRONLY, 00755);
 	bmp_header(win, fd);
 	bmp_header_2(win, fd);

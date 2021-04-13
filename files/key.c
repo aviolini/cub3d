@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/12 14:35:33 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 11:31:25 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,8 @@ int	ft_exit(t_window *win)
 	while (y < win->settings.num_sprites)
 		free(win->sprites[y++]);
 	free(win->sprites);
+	if (win->settings.minimap_def == 2)
+		mlx_destroy_image(win->mlx, win->world.img);
 	if (win->settings.img_def == 1)
 		mlx_destroy_image(win->mlx, win->view.img);
 	if (win->settings.win_def == 1)
