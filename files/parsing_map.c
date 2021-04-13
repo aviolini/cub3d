@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 21:38:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/12 11:10:26 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 11:36:41 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ char	**build_map(char *line, char **map, int *mapx, int *mapy)
 	char	**m;
 
 	m = (char **)malloc(sizeof(char *) * (*mapy + 2));
-	if (!m)
-		return (NULL);
 	i = ft_strlen(line);
 	if (i > *mapx)
 		*mapx = i;
@@ -51,14 +49,10 @@ char	**build_map(char *line, char **map, int *mapx, int *mapy)
 		while (map[y])
 		{
 			m[y] = copy_line(map[y], *mapx);
-			if (!m[y])
-				return (NULL);
 			free(map[y++]);
 		}
 	}
 	m[y] = copy_line(line, *mapx);
-	if (!m[y])
-		return (NULL);
 	m[++y] = NULL;
 	free(map);
 	*mapy = y;
@@ -123,21 +117,15 @@ int	init_sprite(t_window *win, int x, int y)
 	win->settings.num_sprites++;
 	temp = (t_sprite **)malloc(sizeof(t_sprite *) * \
 			(win->settings.num_sprites));
-	if (!temp)
-		return (0);
 	i = 0;
 	while (i < win->settings.num_sprites - 1)
 	{
 		temp[i] = (t_sprite *)malloc(sizeof(t_sprite));
-		if (!temp[i])
-			return (0);
 		*temp[i] = *win->sprites[i];
 		free(win->sprites[i]);
 		i++;
 	}
 	temp[i] = (t_sprite *)malloc(sizeof(t_sprite));
-	if (!temp[i])
-		return (0);
 	temp[i]->sprX = x + 0.5;
 	temp[i]->sprY = y + 0.5;
 	if (win->sprites)
