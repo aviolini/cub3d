@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 13:47:04 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:15:52 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ typedef struct s_rays_data
 
 
 	double		value;
+	int			round;
 //	double		value_y;
 	double		horX;
 	double		horY;
