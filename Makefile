@@ -6,7 +6,7 @@
 #    By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/13 15:58:46 by aviolini          #+#    #+#              #
-#    Updated: 2021/04/13 17:45:32 by aviolini         ###   ########.fr        #
+#    Updated: 2021/04/13 18:16:59 by aviolini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,6 @@ SRCS			=		./files/main.c \
 
 DIR_SRCS		=		./files/
 
-#OBJS			=		$(DIR_SRCS) $(SRCS:.c=.o)
-
 LIB_MLX			=		./minilibx_mms
 
 LFLAGS			=		 -lmlx -framework OpenGL -framework AppKit
@@ -47,14 +45,7 @@ CFLAGS			=		-Wall -Wextra -Werror
 
 RM				=		rm -f
 
-
-#.c.o			:
-#					$(CC) $(CFLAGS) -c -I$(LIB_MLX) $<
-
-#$(NAME)			:		$(OBJS)
-#						-C $(DIR_SRCS)$(CC) -o $(NAME) $(OBJS)
-
-$(NAME)			:		makelib $(OBJS) 
+$(NAME)			:		makelib $(OBJS)
 						$(CC) -L$(LIB_MLX) $(LFLAGS) -o $(NAME) $(OBJS)
 
 all				:		 $(NAME)
@@ -80,4 +71,4 @@ fclean			:		clean
 
 re				:		fclean all
 
-.PHONY			:		all clean fclean re
+.PHONY			:		all clean fclean re run makelib
