@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/12 18:36:02 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 09:25:23 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void	column(t_window *win, t_image *img, int x, int orientation)
 				(win->settings.winH / 2)) * \
 				win->textures[orientation].texH / win->draw.h_object);
 		color = *(win->textures[orientation].addr + \
-			((int)(win->draw.offsetY) * win->textures[orientation].texH + \
+			(win->textures[orientation].texH * (int)(win->draw.offsetY) + \
 			(int)((win->ray.indexTex - (int)win->ray.indexTex) * \
 				win->textures[orientation].texW)));
-		dst = img->addr + ((int)(i++) * img->line_length + \
-				(int)(x) * (img->bits_per_pixel / 8));
+		dst = img->addr + (img->line_length * (int)(i++) + \
+				(img->bits_per_pixel / 8) * (int)(x));
 		*(unsigned int *)dst = color;
 	}
 }
@@ -91,11 +91,12 @@ int	init_textures(t_window *win)
 	i = -1;
 	while (++i < 5)
 	{
-		if (!(win->textures[i].addr = \
+		win->textures[i].addr = \
 							(int *)mlx_get_data_addr(win->textures[i].tex, \
 							&useless_but_necessary_box[0], \
 							&useless_but_necessary_box[1], \
-							&useless_but_necessary_box[2])))
+							&useless_but_necessary_box[2]);
+		if (!win->textures[i].addr)
 			return (0);
 	}
 	return (1);
@@ -111,15 +112,14 @@ void	view_background(t_image *view, t_settings *settings)
 	color = settings->ceiling_color;
 	y = 0;
 	z = 3;
-
-	while(--z > 0)
+	while (--z > 0)
 	{
-		while(y < (settings->winH/z))
+		while (y < (settings->winH / z))
 		{
 			x = 0;
-			while(x < settings->winW)
+			while (x < settings->winW)
 			{
-				my_mlx_pixel_put(view,x,y,color);
+				my_mlx_pixel_put(view, x, y, color);
 				x++;
 			}
 			y++;
@@ -135,9 +135,9 @@ void	set_right_resolution(t_window *win)
 	int	myresy;
 
 	mlx_get_screen_size(win->mlx, &myresx, &myresy);
-	if((int)win->settings.winW > myresx)
+	if ((int)win->settings.winW > myresx)
 		win->settings.winW = myresx;
-	if((int)win->settings.winH > myresy)
+	if ((int)win->settings.winH > myresy)
 		win->settings.winH = myresy;
 	if ((int)win->settings.winW < MIN_RES_W || \
 								(int)win->settings.winH < MIN_RES_H)
@@ -150,10 +150,11 @@ void	set_right_resolution(t_window *win)
 
 void	print_intersection(t_window *win, double intersectionX, double intersectionY)
 {
-	if(win->settings.minimap_def)
-		my_mlx_pixel_put(&win->world,intersectionX*SCALE, intersectionY*SCALE, RED);
+	if (win->settings.minimap_def)
+		my_mlx_pixel_put(&win->world, intersectionX * SCALE, intersectionY * SCALE, RED);
 }
-int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray,int i)
+
+int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray, int i)
 {
 	double	ver_int;
 	double	hor_int;
@@ -162,26 +163,19 @@ int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray
 	hor_int = hypot(fabs(player.posX - ray->horX), fabs(player.posY - ray->horY));
 	if (hor_int <= ver_int)
 	{
-//		if(win->settings.minimap_def)
-//			my_mlx_pixel_put(&win->world, ray->horX*SCALE, ray->horY*SCALE, RED);
 		ray->distance[i] = hor_int;
 		ray->indexTex = ray->horX;
-		print_intersection(win,win->ray.horX,win->ray.horY);
-//		if (ray->dirY < 0)
-	//		return (1);
-	//	else
-	if (ray->dirY > 0)
+		print_intersection(win, win->ray.horX, win->ray.horY);
+		if (ray->dirY > 0)
 			return (3);
 	}
 	else
 	{
-//		if(win->settings.minimap_def)
-//			my_mlx_pixel_put(&win->world, ray->verX*SCALE, ray->verY*SCALE, RED);
 		ray->indexTex = ray->verY;
 		ray->distance[i] = ver_int;
-		print_intersection(win,win->ray.verX,win->ray.verY);
-		if(ray->dirX < 0)
-			return (2) ;
+		print_intersection(win, win->ray.verX, win->ray.verY);
+		if (ray->dirX < 0)
+			return (2);
 		else
 			return (0);
 	}
