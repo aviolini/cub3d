@@ -6,7 +6,7 @@
 #    By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/13 15:58:46 by aviolini          #+#    #+#              #
-#    Updated: 2021/04/13 16:48:24 by aviolini         ###   ########.fr        #
+#    Updated: 2021/04/13 17:45:32 by aviolini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,22 +47,36 @@ CFLAGS			=		-Wall -Wextra -Werror
 
 RM				=		rm -f
 
-.c.o			:
-					$(CC) $(CFLAGS) -c -I$(LIB_MLX) $<
+
+#.c.o			:
+#					$(CC) $(CFLAGS) -c -I$(LIB_MLX) $<
 
 #$(NAME)			:		$(OBJS)
 #						-C $(DIR_SRCS)$(CC) -o $(NAME) $(OBJS)
 
-$(NAME)			:		$(OBJS)
-						$(CC) -o $(NAME) $(OBJS)
+$(NAME)			:		makelib $(OBJS) 
+						$(CC) -L$(LIB_MLX) $(LFLAGS) -o $(NAME) $(OBJS)
 
 all				:		 $(NAME)
+
+run				:		$(NAME)
+						./$(NAME) $(DIR_SRCS)map.cub
+
+makelib			:
+						make -C $(LIB_MLX)
+						cp $(LIB_MLX)/libmlx.dylib ./
+
+
+%.o			:			%.c
+					$(CC) $(CFLAGS) -c -I$(LIB_MLX) $< -o $@
 
 clean			:
 						$(RM) $(OBJS)
 
 fclean			:		clean
 						$(RM) $(NAME)
+						$(RM) libmlx.dylib
+						make clean -C $(LIB_MLX)
 
 re				:		fclean all
 
