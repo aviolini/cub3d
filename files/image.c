@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:36:22 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 11:30:00 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 12:40:57 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	build_view(t_window *win)
 {
 	new_minimap_image(win, &win->world);
 	if (win->settings.minimap_def)
-		if (!build_world(&win->world, win->settings.map, &win->player))
+		if (!build_world(&win->world, win->settings.map))
 			return (0);
 	view_background(&win->view, &win->settings);
 	image(win);
@@ -131,4 +131,35 @@ void	check_ver_inters(t_settings *settings, t_player player, t_ray *ray)
 	}
 	ray->verX = MY_MAX_LIMIT;
 	ray->verY = MY_MAX_LIMIT;
+}
+
+void	column(t_window *win, t_image *img, int x, int orientation)
+{
+	char			*dst;
+	int				i;
+	unsigned int	color;
+
+	win->draw.perp_distance = win->ray.distance[x] * \
+								(cos(win->ray.angle - win->player.angle));
+	win->draw.h_object = 1 / win->draw.perp_distance * \
+								win->draw.dist_proj_plane;
+	win->draw.start_topY = win->settings.winH / 2 - win->draw.h_object / 2;
+	win->draw.start_topY = draw_protect_min(&win->draw.start_topY);
+	win->draw.end_bottomY = win->settings.winH / 2 + win->draw.h_object / 2;
+	win->draw.end_bottomY = draw_protect_max(&win->draw.end_bottomY, \
+								&win->settings.winH);
+	i = win->draw.start_topY;
+	while ((i) < win->draw.end_bottomY - 1)
+	{
+		win->draw.offsetY = (int)fabs((i + (win->draw.h_object / 2) - \
+				(win->settings.winH / 2)) * \
+				win->textures[orientation].texH / win->draw.h_object);
+		color = *(win->textures[orientation].addr + \
+			(win->textures[orientation].texH * (int)(win->draw.offsetY) + \
+			(int)((win->ray.indexTex - (int)win->ray.indexTex) * \
+				win->textures[orientation].texW)));
+		dst = img->addr + (img->line_length * (int)(i++) + \
+				(img->bits_per_pixel / 8) * (int)(x));
+		*(unsigned int *)dst = color;
+	}
 }

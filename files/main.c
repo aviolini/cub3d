@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 11:34:06 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 13:45:38 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ int	main_window(t_window *win)
 		return (0);
 	if (!build_view(win))
 		return (0);
-	print_settings(win->settings);
-	print_player(win->player);
 	mlx_hook(win->win, 2, 0, press_key, win);
 	mlx_hook(win->win, 3, 0, release_key, win);
 	mlx_hook(win->win, 17, 0, ft_exit, win);

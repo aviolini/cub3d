@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 11:05:45 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 13:47:04 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ int		ft_bitmap(t_window *win);
 /*TO_TRASH*/
 void	print_tex(t_texture texture);
 int 	set_wall_color(int o);
-int		build_world(t_image *world, char **map, t_player *player);
+int		build_world(t_image *world, char **map);
 void	ray(t_window *win);
 void	bundle_ray(t_window *win);
 void	print_settings(t_settings settings);
@@ -201,7 +201,7 @@ void	print_player(t_player player);
 void	print_ray(t_ray ray);
 void	miniray(t_window *win);
 void	my_mlx_pixel_wall(t_image *img, int x, int y, int color);
-void	my_mlx_pixel_grid(t_image *img, int x, int y, int grid_color, int internal_color);
+void	my_mlx_pixel_grid(t_image *img, int x, int y);
 /*CUB3D.C*/
 int		main_parsing(char *av, t_window *win);
 int		main_window(t_window *win);
@@ -214,6 +214,10 @@ void 	sort_sprites(t_sprite *visibleSprites,int numVisibleSprites );
 void	settings_sprite(t_window *win, t_sprite *visibleSprites, int i);
 void	show_sprites(t_window *win,t_sprite *visibleSprites,int i);
 int		sprite(t_window *win);
+
+void	print_intersection(t_window *win, double intersX, double intersY);
+
+void	draw_grid_pixel(t_image *img, int x, int y, int color);
 
 /*KEY*/
 int		key(t_window *win);
