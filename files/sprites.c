@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 09:24:43 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 11:00:26 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 11:05:30 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	visible_sprites(t_window *win, t_sprite *vis_sprites, int *num_vis_sprites)
 	return (1);
 }
 
-void 	sort_sprite(t_sprite *vis_sprites, int num_vis_sprites)
+void 	sort_sprites(t_sprite *vis_sprites, int num_vis_sprites)
 {
 	int			i;
 	t_sprite	temp;
@@ -61,18 +61,28 @@ void 	sort_sprite(t_sprite *vis_sprites, int num_vis_sprites)
 
 void	settings_sprite(t_window *win, t_sprite *vis_sprites, int i)
 {
-	vis_sprites[i].perp_distance = vis_sprites[i].distance * cos(vis_sprites[i].angle);
-	vis_sprites[i].sprite_height = (1 / vis_sprites[i].perp_distance) * win->draw.dist_proj_plane;
+	vis_sprites[i].perp_distance = vis_sprites[i].distance * \
+									cos(vis_sprites[i].angle);
+	vis_sprites[i].sprite_height = (1 / vis_sprites[i].perp_distance) * \
+									win->draw.dist_proj_plane;
 	vis_sprites[i].sprite_width = vis_sprites[i].sprite_height;
-	vis_sprites[i].sprite_topY = (win->settings.winH / 2) - (vis_sprites[i].sprite_height / 2);
+	vis_sprites[i].sprite_topY = (win->settings.winH / 2) - \
+									(vis_sprites[i].sprite_height / 2);
 	vis_sprites[i].sprite_topY = draw_protect_min(&vis_sprites[i].sprite_topY);
-	vis_sprites[i].sprite_bottomY = (win->settings.winH / 2) + (vis_sprites[i].sprite_height / 2);
-	vis_sprites[i].sprite_bottomY = draw_protect_max(&vis_sprites[i].sprite_bottomY, \
+	vis_sprites[i].sprite_bottomY = (win->settings.winH / 2) + \
+									(vis_sprites[i].sprite_height / 2);
+	vis_sprites[i].sprite_bottomY = draw_protect_max(\
+									&vis_sprites[i].sprite_bottomY, \
 									&win->settings.winH);
-	vis_sprites[i].angle = atan2(vis_sprites[i].sprY - win->player.posY, vis_sprites[i].sprX - win->player.posX) + win->player.angle;
-	vis_sprites[i].sprite_screen_posX = tan(vis_sprites[i].angle) * win->draw.dist_proj_plane;
-	vis_sprites[i].sprite_leftX = (win->settings.winW / 2) + vis_sprites[i].sprite_screen_posX - (vis_sprites[i].sprite_width / 2);
-	vis_sprites[i].sprite_rightX = vis_sprites[i].sprite_leftX + vis_sprites[i].sprite_width;
+	vis_sprites[i].angle = atan2(vis_sprites[i].sprY - win->player.posY, \
+				vis_sprites[i].sprX - win->player.posX) + win->player.angle;
+	vis_sprites[i].sprite_screen_posX = tan(vis_sprites[i].angle) * \
+									win->draw.dist_proj_plane;
+	vis_sprites[i].sprite_leftX = (win->settings.winW / 2) + \
+									vis_sprites[i].sprite_screen_posX - \
+									(vis_sprites[i].sprite_width / 2);
+	vis_sprites[i].sprite_rightX = vis_sprites[i].sprite_leftX + \
+									vis_sprites[i].sprite_width;
 }
 
 void	draw_sprite_pixel(t_window *win, int x, int y)
@@ -91,7 +101,7 @@ void	draw_sprite_pixel(t_window *win, int x, int y)
 		*(unsigned int *)dst = color;
 }
 
-void	show_sprite(t_window *win, t_sprite *vis_sprites, int i)
+void	show_sprites(t_window *win, t_sprite *vis_sprites, int i)
 {
 	double	x;
 	int		y;
@@ -99,8 +109,10 @@ void	show_sprite(t_window *win, t_sprite *vis_sprites, int i)
 	x = (vis_sprites[i].sprite_leftX);
 	while (x < vis_sprites[i].sprite_rightX)
 	{
-		win->draw.texel_width = (win->textures[4].texW / vis_sprites[i].sprite_width);
-		win->draw.offsetX = (x - vis_sprites[i].sprite_leftX) * win->draw.texel_width;
+		win->draw.texel_width = (win->textures[4].texW / \
+										vis_sprites[i].sprite_width);
+		win->draw.offsetX = (x - vis_sprites[i].sprite_leftX) * \
+										win->draw.texel_width;
 		y = vis_sprites[i].sprite_topY;
 		while (y < vis_sprites[i].sprite_bottomY)
 		{
@@ -108,8 +120,12 @@ void	show_sprite(t_window *win, t_sprite *vis_sprites, int i)
 				y > 0 && y < (int)win->settings.winH && \
 				(vis_sprites[i].perp_distance < win->ray.distance[(int)x]))
 			{
-				win->draw.distance_from_top = y + (vis_sprites[i].sprite_height / 2) - (win->settings.winH / 2);
-				win->draw.offsetY = win->draw.distance_from_top * (win->textures[4].texH / vis_sprites[i].sprite_height);
+				win->draw.distance_from_top = y + \
+								(vis_sprites[i].sprite_height / 2) - \
+								(win->settings.winH / 2);
+				win->draw.offsetY = win->draw.distance_from_top * \
+								(win->textures[4].texH / \
+								vis_sprites[i].sprite_height);
 				draw_sprite_pixel(win, x, y);
 			}
 			y++;
@@ -127,11 +143,11 @@ int	sprite(t_window *win)
 	i = -1;
 	num_vis_sprites = 0;
 	visible_sprites(win, vis_sprites, &num_vis_sprites);
-	sort_sprite(vis_sprites, num_vis_sprites);
+	sort_sprites(vis_sprites, num_vis_sprites);
 	while (++i < num_vis_sprites)
 	{
 		settings_sprite(win, vis_sprites, i);
-		show_sprite(win, vis_sprites, i);
+		show_sprites(win, vis_sprites, i);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:51 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 10:59:45 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 11:05:45 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,9 +210,9 @@ void	init_env(t_window *win);
 /*SPRITES>c*/
 
 int		visible_sprites(t_window *win, t_sprite *visibleSprites,int *numVisibleSprites);
-void 	sort_sprite(t_sprite *visibleSprites,int numVisibleSprites );
+void 	sort_sprites(t_sprite *visibleSprites,int numVisibleSprites );
 void	settings_sprite(t_window *win, t_sprite *visibleSprites, int i);
-void	show_sprite(t_window *win,t_sprite *visibleSprites,int i);
+void	show_sprites(t_window *win,t_sprite *visibleSprites,int i);
 int		sprite(t_window *win);
 
 /*KEY*/
