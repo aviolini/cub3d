@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 12:03:51 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:30:17 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ int	release_key(int keycode, t_window *win)
 		win->key.r = 0;
 	if (keycode == 123)
 		win->key.l = 0;
-	if (keycode == 46)
-		win->key.m = 0;
 	return (1);
 }
 
@@ -62,8 +60,10 @@ int	press_key(int keycode, t_window *win)
 		win->key.r = 1;
 	if (keycode == 123)
 		win->key.l = 1;
-	if (keycode == 46)
+	if (keycode == 46 && win->key.m == 0)
 		win->key.m = 1;
+	else if (keycode == 46 && win->key.m == 1)
+		win->key.m = 0;
 	return (1);
 }
 
