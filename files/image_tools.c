@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 14:37:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 09:25:23 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 10:50:09 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,24 @@ void	my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+double draw_protect_max(double *value, unsigned int *max)
+{
+	if (*value > *max)
+	 	*value = *max;
+	else
+		*value = *value;
+	return (*value);
+}
+
+double	draw_protect_min(double *value)
+{
+	if (*value < 0)
+		*value = 0;
+	else
+		*value = *value;
+	return (*value);
+}
+
 void	column(t_window *win, t_image *img, int x, int orientation)
 {
 	char			*dst;
@@ -48,9 +66,10 @@ void	column(t_window *win, t_image *img, int x, int orientation)
 	win->draw.h_object = 1 / win->draw.perp_distance * \
 								win->draw.dist_proj_plane;
 	win->draw.start_topY = win->settings.winH / 2 - win->draw.h_object / 2;
-	win->draw.start_topY = win->draw.start_topY < 0 ? 0 : win->draw.start_topY;
+	win->draw.start_topY = draw_protect_min(&win->draw.start_topY);
 	win->draw.end_bottomY = win->settings.winH / 2 + win->draw.h_object / 2;
-	win->draw.end_bottomY = win->draw.end_bottomY > win->settings.winH ? win->settings.winH : win->draw.end_bottomY;
+	win->draw.end_bottomY = draw_protect_max(&win->draw.end_bottomY, \
+								&win->settings.winH);
 	i = win->draw.start_topY;
 	while ((i) < win->draw.end_bottomY - 1)
 	{
@@ -148,10 +167,10 @@ void	set_right_resolution(t_window *win)
 	win->draw.dist_proj_plane = (win->settings.winW / 2) / tan(FOV / 2);
 }
 
-void	print_intersection(t_window *win, double intersectionX, double intersectionY)
+void	print_intersection(t_window *win, double intersX, double intersY)
 {
 	if (win->settings.minimap_def)
-		my_mlx_pixel_put(&win->world, intersectionX * SCALE, intersectionY * SCALE, RED);
+		my_mlx_pixel_put(&win->world, intersX * SCALE, intersY * SCALE, RED);
 }
 
 int	set_distance_and_wall_orientation(t_window *win, t_player player, t_ray *ray, int i)
