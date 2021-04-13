@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:34:31 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/12 10:27:08 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:51:47 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,6 @@ int	set_resolution(char *line, t_settings *settings, int i)
 	while (line[i])
 		if (line[i++] != ' ')
 			return (0);
-	return (1);
-}
-
-int	control_path(char *path)
-{
-	int	fd;
-
-	fd = open(path, O_RDONLY);
-	close(fd);
-	if (fd < 0)
-		return (0);
 	return (1);
 }
 
@@ -124,5 +113,16 @@ int	set_color(char *line, unsigned int *color, int i)
 		if (line[i++] != ' ')
 			return (0);
 	*color = (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+	return (1);
+}
+
+int	control_path(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	close(fd);
+	if (fd < 0)
+		return (0);
 	return (1);
 }
