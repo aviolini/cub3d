@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 12:20:09 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 12:27:33 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/14 09:06:18 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ void	set_right_resolution(t_window *win)
 	int	myresy;
 
 	mlx_get_screen_size(win->mlx, &myresx, &myresy);
-	if ((int)win->settings.winW > myresx)
-		win->settings.winW = myresx;
-	if ((int)win->settings.winH > myresy)
-		win->settings.winH = myresy;
 	if ((int)win->settings.winW < MIN_RES_W || \
 								(int)win->settings.winH < MIN_RES_H)
 	{
 		win->settings.winW = MIN_RES_W;
 		win->settings.winH = MIN_RES_H;
 	}
+	if ((int)win->settings.winW > myresx)
+		win->settings.winW = myresx;
+	if ((int)win->settings.winH > myresy)
+		win->settings.winH = myresy;
 	win->draw.dist_proj_plane = (win->settings.winW / 2) / tan(FOV / 2);
 }
 
