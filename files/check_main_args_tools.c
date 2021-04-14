@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 19:32:44 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 12:09:24 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/14 08:48:47 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,20 @@ int	check_argv1(char *av)
 int	check_args(int ac, char **av)
 {
 	if (ac < 2)
-	{
-		printf("Error\nNo map file \"*.cub\" passed by 1st argument\n");
 		return (0);
-	}
 	if (ac == 2 || ac == 3)
 	{
 		if (!check_argv1(av[1]))
-		{
-			printf("Error\nBad extension name of the map file\n");
-			printf("Only accept \"*.cub\"\n");
 			return (0);
-		}
 		if (ac == 3)
 		{
 			if (!check_argv2(av[2]))
-			{
-				printf("Error\nBad target arg2\nOnly accept \"--save\"\n");
 				return (0);
-			}
 			else
 				return (2);
 		}
 	}
+	else
+		return (0);
 	return (1);
 }

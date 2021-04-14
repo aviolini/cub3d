@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 11:45:17 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 14:27:48 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/14 09:01:20 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@ int	main(int ac, char **av)
 
 	i = check_args(ac, av);
 	if (!i)
+	{
+		printf("Error: \n%s\n(cub3D argument)\n", strerror(EINVAL));
+		printf("Type: ./cub3D <map_file.cub> <\"--save\">(optional)\n");
 		return (0);
+	}
 	init_env(&win);
 	if (i == 2)
 		win.settings.save = 1;
 	if (!main_parsing(av[1], &win))
 	{
-		printf("Error: \n%s\n(argument of map)\n", strerror(EINVAL));
+		printf("Error: \n%s\n(map argument)\n", strerror(EINVAL));
 		ft_exit(&win);
 	}
 	if (!main_window(&win))
