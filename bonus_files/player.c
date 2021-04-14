@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 12:03:02 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/14 12:30:43 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/13 12:03:46 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	move(char **map, t_player *player, char var)
 	player->posY += (value) * player->dirY * FACTOR;
 	player->posX += (value) * player->dirX * FACTOR;
 	while ((map[(int)floor(player->posY)][(int)floor(player->posX)] == '1') || \
+		(map[(int)floor(player->posY)][(int)floor(player->posX)] == '2') || \
 		(map[(int)floor(player->posY)][(int)floor(player->posX)] == ' '))
 	{
 		player->posY -= (value) * player->dirY * FACTOR;
@@ -41,6 +42,7 @@ void	slide(char **map, t_player *player, char var)
 	player->posY += (value) * player->dirX * FACTOR;
 	player->posX -= (value) * player->dirY * FACTOR;
 	while ((map[(int)floor(player->posY)][(int)floor(player->posX)] == '1') || \
+		(map[(int)floor(player->posY)][(int)floor(player->posX)] == '2') || \
 		(map[(int)floor(player->posY)][(int)floor(player->posX)] == ' '))
 	{
 		player->posY -= (value) * player->dirX * FACTOR;
