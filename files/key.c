@@ -6,7 +6,7 @@
 /*   By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:53:50 by aviolini          #+#    #+#             */
-/*   Updated: 2021/04/13 15:30:17 by aviolini         ###   ########.fr       */
+/*   Updated: 2021/04/14 09:32:47 by aviolini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	release_key(int keycode, t_window *win)
 {
 	if (keycode == 53)
 		win->key.e = 0;
-	if (keycode == 13)
+	if (keycode == 13 || keycode == 126)
 		win->key.w = 0;
-	if (keycode == 1)
+	if (keycode == 1 || keycode == 125)
 		win->key.s = 0;
 	if (keycode == 2)
 		win->key.d = 0;
@@ -48,9 +48,9 @@ int	press_key(int keycode, t_window *win)
 {
 	if (keycode == 53)
 		win->key.e = 1;
-	if (keycode == 13)
+	if (keycode == 13 || keycode == 126)
 		win->key.w = 1;
-	if (keycode == 1)
+	if (keycode == 1 || keycode == 125)
 		win->key.s = 1;
 	if (keycode == 2)
 		win->key.d = 1;
@@ -69,6 +69,7 @@ int	press_key(int keycode, t_window *win)
 
 int	key(t_window *win)
 {
+	mlx_clear_window(win->mlx, win->win);
 	if (win->key.e)
 		ft_exit(win);
 	if (win->key.w)
