@@ -6,7 +6,7 @@
 #    By: aviolini <aviolini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/13 15:58:46 by aviolini          #+#    #+#              #
-#    Updated: 2021/04/13 18:16:59 by aviolini         ###   ########.fr        #
+#    Updated: 2021/04/14 10:37:52 by aviolini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,6 @@ SRCS			=		./files/main.c \
 						./files/minimap_tools.c \
 						./files/bmp.c
 
-DIR_SRCS		=		./files/
-
 LIB_MLX			=		./minilibx_mms
 
 LFLAGS			=		 -lmlx -framework OpenGL -framework AppKit
@@ -51,12 +49,11 @@ $(NAME)			:		makelib $(OBJS)
 all				:		 $(NAME)
 
 run				:		$(NAME)
-						./$(NAME) $(DIR_SRCS)map.cub
+						./$(NAME) maps/map.cub
 
 makelib			:
 						make -C $(LIB_MLX)
 						cp $(LIB_MLX)/libmlx.dylib ./
-
 
 %.o			:			%.c
 					$(CC) $(CFLAGS) -c -I$(LIB_MLX) $< -o $@
@@ -67,6 +64,7 @@ clean			:
 fclean			:		clean
 						$(RM) $(NAME)
 						$(RM) libmlx.dylib
+						$(RM) screenshot.bmp
 						make clean -C $(LIB_MLX)
 
 re				:		fclean all
