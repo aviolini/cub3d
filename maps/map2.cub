@@ -4,8 +4,8 @@ R 1920 1080
 NO textures/brick.xpm
 SO textures/bl ue.xpm
 WE textures/wood.xpm
-S textures/PineTree.xpm
-EA textures/barrel.xpm
+S textures/pine_tree.xpm
+EA textures/grey.xpm
 
 F 255,255,0
 

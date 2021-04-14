@@ -3,7 +3,7 @@
 
 R     2880 1580
 
-S textures/tree1.xpm
+S textures/tree.xpm
 
 NO textures/brick.xpm
 SO textures/grey.xpm
