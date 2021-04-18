@@ -1,17 +1,25 @@
-//TEST ARGS MAIN
--	se la funz check args torna 2 bisogna salvare un immagine bmp
--	testare gli input degli argomenti passati al main con tutte le condizioni
-//GNL
--	error -1 di gnl
-//SET RESOLUTION
--	while(!is_digit(line[i])) AGGIUNGERE LA PROTEZIONE  "&& line[i]"
--	int mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey); PER OTTENERE LA RISO
-//PATH TEXTURE
--	non c'e il controllo se alla fine del path ce la fine della stringa oppure uno spazio
-	non ci puo essere nient'altro
--	ESCAPE '\' che prende eventuale spazio presente nel percorso
-//VARIE
--	prendere la risoluzione dello schermo in uso, todo in set_resolution
--	il set color non e' unsigned int e non c'e' la trasparenza
--	da settare linea vuota in line in parsing map
--	gli spazi possono essere anche tab?
+TODO:
+
+-modificare 0xF000000 al posto del num in column
+-togli ==0 ikn column nel colore
+-width delle texture in draw
+-in minimap: modificare con is player nella funz mymlxpixgrid
+-uns int i color?
+-is a prot zero conditio
+-in copy line togli strlen ?
+
+ORIENTAMENTO texture
+0 = EST
+1 = NORD
+2 = OVEST
+3 = SUD
+4 = SPRITE
+
+Modifiche da fare per linux:
+
+-keycode in key, si possono trovare nel branch cub3d_pma
+-mlx_loop_hook sembra che non funzioni
+-compilare con la libreria di 42 docs, link in info.txt
+-fare un makefile per linux
+-fare il diagramma
+-

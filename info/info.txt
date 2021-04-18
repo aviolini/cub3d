@@ -1,84 +1,35 @@
 
+LINKS:
+
 https://harm-smits.github.io/42docs/libs/minilibx
-
 https://qst0.github.io/ft_libgfx/man_mlx.html
-
 https://gontjarow.github.io/MiniLibX/mlx-tutorial-create-image.html
-
 https://www.youtube.com/watch?v=NbSee-XM7WA
-
 https://www.youtube.com/watch?v=gYRrGTC7GtA
-
 https://github.com/id-Software/wolf3d
+https://lodev.org/cgtutor/raycasting.html
+https://lodev.org/cgtutor/
+https://permadi.com/1996/05/ray-casting-tutorial-7/
+https://permadi.com/category/tutorials/
+
 
 COSTANTI DI MATH.H
 https://docs.microsoft.com/it-it/cpp/c-runtime-library/math-constants?view=msvc-160
 
-FLOOR
+FUNCT FLOOR
 https://www.tutorialspoint.com/c_standard_library/c_function_floor.htm
-
-UTILS:
-
-https://permadi.com/1996/05/ray-casting-tutorial-7/
 
 CUBE_DESTROYER
 https://github.com/Dustin42Codam/cub3d_destroyer
 
-mac:
+compile on mac:
 gcc -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit main.c && ./a.out
-
 gcc -Wall -Wextra -Werror -Iminilibx_mms_20200219 -Lminilibx_mms_20200219 -lmlx -framework OpenGL -framework AppKit *.c -fsanitize=address -g3 && ./a.out map.cub
-
 gcc -Wall -Wextra -Werror -I../minilibx_mms_20200219 -L../minilibx_mms_20200219 -lmlx -framework OpenGL -framework AppKit files/*.c -fsanitize=address -g3 && ./a.out files/map.cub
 
-linux:
+compile on linux:
 gcc main.c keycode.c utils.c -Wall -Wextra -Werror -lmlx -lXext -lX11 -lm && ./a.out
-
-
 gcc -Wall -Wextra -Werror files/*.c -L../minilib-mlx-linux-gcamerli ../minilib-mlx-linux-gcamerli/libmlx.a -lXext -lX11 -lm && ./a.out files/map.cub
 
 INTALLAZIONE PACCHETTI linux:
 libxext, xorg-server, zlib
-
- mlx_loop_hook per far muovere il nemico?
-
-ORIENTAMENTO texture
-0 = EST
-1 = NORD
-2 = OVEST
-3 = SUD
-4 = SPRITE
-
-DA FARE
-open dei path delle textures
-cambiare alla risoluzione ufficiale
-settare il size W_IMG e H_IMG come quello della finestra
-cambaire i nomi delle strutture
-
-
-==================
-VECCHIE FORMULE
-----------
-CAMBIO POSIZIONE
-win->map_s->posy-=pow(win->map_s->diry,2)* win->map_s->diry;
-win->map_s->posx+=pow(win->map_s->dirx,2)* win->map_s->dirx;
----------
-CAMBIO DIREZIONE
-int temp;
-temp = win->map_s->diry;
-win->map_s->diry = (win->map_s->diry - win->map_s->dirx) * pow(win->map_s->dirx,2) ;
-win->map_s->dirx =  temp;
-
-
-===================
-A e D funzionano solo in un verso se siamo in diagonale
-IL BUILD DELLA MAP UNA SOLA VOLTA CON UN ALTRA IMMAGINE?
-L'INIT DELLE COORDINATE DEL GIOCATORE e' 0,0 FORSE DA PROBLEMI.
-map.speed > 1 in keycode_up non si avvicina piu al muro;
-cambiare qualcosa nelle funz keycode_right e keycode_left
-standardizzare tutto con cos e sin
-il raggio entra nei muri di 1 pixel
-------------------------------------------
-
-DA FARE:
-MALLOC DELLE TEXTURES E METTERE AL POSTO DEI "64" LA SIZE DELLA TEXTURE 
