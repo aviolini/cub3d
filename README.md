@@ -1,6 +1,6 @@
 # cub3d
 
-Mandatory
+Mandatory:
 100/100
 
 Bonus:
