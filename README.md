@@ -1,3 +1,3 @@
 # cub3d
 
-FIRST BRANCH, abbandonato
+first branch, prima di pma
